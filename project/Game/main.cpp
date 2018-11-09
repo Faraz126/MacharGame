@@ -118,7 +118,7 @@ int main( int argc, char* args[] )
 	}
 	else
 	{
-        SDL_Delay(5000);
+        SDL_Delay(50000);
 
 	}
 
