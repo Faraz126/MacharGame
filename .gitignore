@@ -1,3 +1,4 @@
-**/Game/bin/
-**/Game/obj/
+**\Game\bin\
+**\Game\obj\
 .exe
+\OopProject\Game\bin
