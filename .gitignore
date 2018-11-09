@@ -2,3 +2,5 @@
 **\Game\obj\
 .exe
 \project\Game\bin
+project/Game/obj/**
+project/Game/bin/**
