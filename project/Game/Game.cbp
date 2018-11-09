@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Game" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Game" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="../SDL2_image-devel-2.0.3-mingw/SDL2_image-2.0.3/i686-w64-mingw32/include/SDL2" />
+					<Add directory="../SDL2-devel-2.0.8-mingw/SDL2-2.0.8/i686-w64-mingw32/include/SDL2" />
+				</Compiler>
+				<Linker>
+					<Add directory="../SDL2_image-devel-2.0.3-mingw/SDL2_image-2.0.3/i686-w64-mingw32/lib" />
+					<Add directory="../SDL2-devel-2.0.8-mingw/SDL2-2.0.8/i686-w64-mingw32/lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Game" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="../SDL2-devel-2.0.8-mingw/SDL2-2.0.8/i686-w64-mingw32/include/SDL2" />
+			<Add directory="../SDL2_image-devel-2.0.3-mingw/SDL2_image-2.0.3/i686-w64-mingw32/include/SDL2" />
+		</Compiler>
+		<Linker>
+			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_image" />
+			<Add directory="../SDL2_image-devel-2.0.3-mingw/SDL2_image-2.0.3/i686-w64-mingw32/lib" />
+			<Add directory="../SDL2-devel-2.0.8-mingw/SDL2-2.0.8/i686-w64-mingw32/lib" />
+		</Linker>
+		<Unit filename="AbstractFactory.h" />
+		<Unit filename="AedesMosquito.h" />
+		<Unit filename="BreedingGround.h" />
+		<Unit filename="Bucket.h" />
+		<Unit filename="BucketLid.h" />
+		<Unit filename="Button.h" />
+		<Unit filename="CleanWater.h" />
+		<Unit filename="Color.h" />
+		<Unit filename="DirtyWater.h" />
+		<Unit filename="Disease.h" />
+		<Unit filename="Door.h" />
+		<Unit filename="Entrance.h" />
+		<Unit filename="Hospital.h" />
+		<Unit filename="House.h" />
+		<Unit filename="Human.h" />
+		<Unit filename="HumanFactory.h" />
+		<Unit filename="Lids.h" />
+		<Unit filename="LoadGame.h" />
+		<Unit filename="LoadMenu.h" />
+		<Unit filename="MainMenu.h" />
+		<Unit filename="MalariaMosquito.h" />
+		<Unit filename="Manhole.h" />
+		<Unit filename="ManholeLid.h" />
+		<Unit filename="Menu.h" />
+		<Unit filename="Mosquito.h" />
+		<Unit filename="MosquitoFactory.h" />
+		<Unit filename="Node.h" />
+		<Unit filename="NormalMosquito.h" />
+		<Unit filename="Outdoor.h" />
+		<Unit filename="Point.h" />
+		<Unit filename="Queue.h" />
+		<Unit filename="Screens.h" />
+		<Unit filename="Screens_Node.h" />
+		<Unit filename="Settings.h" />
+		<Unit filename="Slider.h" />
+		<Unit filename="Soil.h" />
+		<Unit filename="Trash.h" />
+		<Unit filename="TrashCan.h" />
+		<Unit filename="TrashCanLid.h" />
+		<Unit filename="Tub.h" />
+		<Unit filename="TubLid.h" />
+		<Unit filename="Window.h" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
