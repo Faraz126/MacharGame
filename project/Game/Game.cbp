@@ -50,6 +50,7 @@
 		<Unit filename="Bucket.h" />
 		<Unit filename="BucketLid.h" />
 		<Unit filename="Button.h" />
+		<Unit filename="Character.h" />
 		<Unit filename="CleanWater.h" />
 		<Unit filename="Color.h" />
 		<Unit filename="DirtyWater.h" />
