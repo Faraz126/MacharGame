@@ -1,14 +1,17 @@
 #pragma once
+#include "Entrance.h"
+#include <SDL.h>
+#include <SDL_image.h>
 
 class Window :public Entrance
 {
 private:
-    time TimeCovered;
+//    time TimeCovered;
 protected:
 
 public:
-    Window();
-    void Show(SDL_Render*);
-    time SetTime();
+    Window(int,int);
+    void Show(SDL_Renderer*);
+    //time SetTime();
     ~Window();
 };

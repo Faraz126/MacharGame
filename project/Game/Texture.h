@@ -16,6 +16,7 @@ private:
 public :
     Texture (SDL_Renderer*);
     static Texture* GetInstance(SDL_Renderer*); // Initializes variables
+    static Texture* GetInstance();
     void Free ();
     ~Texture (); // Deallocates memory
     void Render ( int serial, SDL_Renderer * gRenderer , SDL_Rect * clip = NULL ); // Renders the sprite at given serial no, where clip is located.

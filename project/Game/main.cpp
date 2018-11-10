@@ -9,6 +9,10 @@
 #include "MainMenu.h"
 #include "Screens_Node.h"
 #include "Texture.h"
+#include "House.h"
+#include "time.h"
+#include <random>
+
 using namespace std;
 
 const int SCREEN_WIDTH = 1024;
@@ -111,7 +115,7 @@ int main( int argc, char* args[] )
 {
 	//Start up SDL and create window
 
-
+    srand(time(nullptr));
 
 	if( !init() )
 	{
@@ -123,7 +127,7 @@ int main( int argc, char* args[] )
         Texture* sheet = Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
         SDL_Event e;
         Screens_Node screen;
-        screen.cur_screen = new MainMenu; //starting with main menu
+        screen.cur_screen = new House; //starting with main menu
         int i = 0;
 
         while (!quit)

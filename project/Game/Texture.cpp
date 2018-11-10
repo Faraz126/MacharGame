@@ -18,6 +18,15 @@ Texture* Texture::GetInstance(SDL_Renderer* renderer)
     return instance;
 }
 
+Texture* Texture::GetInstance()
+{
+    if (instance != nullptr)
+    {
+        return instance;
+    }
+    return nullptr;
+}
+
 void Texture::Free()
 {
     if (this->texture != nullptr)
@@ -134,7 +143,45 @@ void Texture::SetRect(int n)
         clipFromTexture.h = 340;
         clipFromTexture.w = 435;
         break;
+    case 9:
+        clipFromTexture.x = 1024;
+        clipFromTexture.y = 505;
+        clipFromTexture.w = 1025;
+        clipFromTexture.h = 786;
+        break;
+    case 10:
+        clipFromTexture.x = 2049;
+        clipFromTexture.y = 504;
+        clipFromTexture.w = 229;
+        clipFromTexture.h = 298;
+        break;
+    case 11:
+        clipFromTexture.x = 2278;
+        clipFromTexture.y = 504;
+        clipFromTexture.w = 229;
+        clipFromTexture.h = 298;
+        break;
+    case 12:
+        clipFromTexture.x = 2507;
+        clipFromTexture.y = 504;
+        clipFromTexture.w = 229;
+        clipFromTexture.h = 298;
+        break;
+    case 13:
+        clipFromTexture.x = 2048;
+        clipFromTexture.y = 1181;
+        clipFromTexture.w = 200;
+        clipFromTexture.h = 110;
+        break;
+    case 14:
+        clipFromTexture.x = 2247;
+        clipFromTexture.y = 1117;
+        clipFromTexture.w = 153;
+        clipFromTexture.h = 174;
+        break;
     }
+
+
 }
 
 void Texture::SetRect(char c)

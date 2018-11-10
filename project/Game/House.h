@@ -1,15 +1,27 @@
 #pragma once
+#include <SDL.h>
+#include <SDL_image.h>
+#include "Screens.h"
+#include "Door.h"
+#include "Window.h"
+#include "Entrance.h"
+#include "Texture.h"
+#include "Bed.h"
 
-class House
+class House: public Screens
+
 {
 private:
-    Money money;
+    //Money money;
     bool hasRepellent;
     int noOfHumans;
-    Bed bed*;
-    SDL_Img* house;
-    Outdoor* outdoor;
-    Door* door;
+    int noOfEntrance;
+    Entrance** entrance;
+    Bed* bed;
+    SDL_Rect pos;
+    Texture* texture;
+    //Outdoor* outdoor;
+    //Door* door;
 protected:
 
 public:
@@ -19,7 +31,7 @@ public:
     void AddHuman();
     void LeaveHuman();
     void click();
-    void Show();
+    void Show(SDL_Renderer*);
     void getWindowState();
     void getEntranceState();
 };

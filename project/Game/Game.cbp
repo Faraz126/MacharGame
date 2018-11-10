@@ -46,6 +46,8 @@
 		</Linker>
 		<Unit filename="AbstractFactory.h" />
 		<Unit filename="AedesMosquito.h" />
+		<Unit filename="Bed.cpp" />
+		<Unit filename="Bed.h" />
 		<Unit filename="BreedingGround.h" />
 		<Unit filename="Bucket.h" />
 		<Unit filename="BucketLid.h" />
@@ -57,9 +59,12 @@
 		<Unit filename="Color.h" />
 		<Unit filename="DirtyWater.h" />
 		<Unit filename="Disease.h" />
+		<Unit filename="Door.cpp" />
 		<Unit filename="Door.h" />
+		<Unit filename="Entrance.cpp" />
 		<Unit filename="Entrance.h" />
 		<Unit filename="Hospital.h" />
+		<Unit filename="House.cpp" />
 		<Unit filename="House.h" />
 		<Unit filename="Human.h" />
 		<Unit filename="HumanFactory.h" />
@@ -93,6 +98,7 @@
 		<Unit filename="TrashCanLid.h" />
 		<Unit filename="Tub.h" />
 		<Unit filename="TubLid.h" />
+		<Unit filename="Window.cpp" />
 		<Unit filename="Window.h" />
 		<Unit filename="Word.cpp" />
 		<Unit filename="Word.h" />
