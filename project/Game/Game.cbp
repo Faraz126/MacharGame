@@ -49,7 +49,9 @@
 		<Unit filename="BreedingGround.h" />
 		<Unit filename="Bucket.h" />
 		<Unit filename="BucketLid.h" />
+		<Unit filename="Button.cpp" />
 		<Unit filename="Button.h" />
+		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
 		<Unit filename="CleanWater.h" />
 		<Unit filename="Color.h" />
