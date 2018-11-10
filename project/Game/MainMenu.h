@@ -1,14 +1,16 @@
 #pragma once
+#include "SDL.h"
+#include "SDL_image.h"
+#include "Menu.h"
+
 
 class MainMenu: public Menu
 {
-private:
-    SDL_Img* menu;
 protected:
 
 public:
     MainMenu();
-    virtual void Click(SDL_Render*);
-    virtual void Show(SDL_Img*);
+    void Click(SDL_Renderer*);
+    void Show(SDL_Renderer*);
     ~MainMenu();
 };

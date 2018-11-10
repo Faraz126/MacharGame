@@ -5,8 +5,9 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-
-
+#include "Screens.h"
+#include "MainMenu.h"
+#include "Screens_Node.h"
 
 using namespace std;
 
@@ -118,7 +119,19 @@ int main( int argc, char* args[] )
 	}
 	else
 	{
-        SDL_Delay(50000);
+        bool quit = false;
+        Screens_Node screen;
+        screen.cur_screen = new MainMenu();
+
+        while (!quit)
+        {
+            SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+            SDL_RenderClear( gRenderer );
+            screen.cur_screen->Show(gRenderer);
+            SDL_RenderPresent( gRenderer );
+        }
+
+
 
 	}
 
