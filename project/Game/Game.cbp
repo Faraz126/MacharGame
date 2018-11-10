@@ -66,10 +66,12 @@
 		<Unit filename="Lids.h" />
 		<Unit filename="LoadGame.h" />
 		<Unit filename="LoadMenu.h" />
+		<Unit filename="MainMenu.cpp" />
 		<Unit filename="MainMenu.h" />
 		<Unit filename="MalariaMosquito.h" />
 		<Unit filename="Manhole.h" />
 		<Unit filename="ManholeLid.h" />
+		<Unit filename="Menu.cpp" />
 		<Unit filename="Menu.h" />
 		<Unit filename="Mosquito.h" />
 		<Unit filename="MosquitoFactory.h" />
@@ -78,17 +80,22 @@
 		<Unit filename="Outdoor.h" />
 		<Unit filename="Point.h" />
 		<Unit filename="Queue.h" />
+		<Unit filename="Screens.cpp" />
 		<Unit filename="Screens.h" />
 		<Unit filename="Screens_Node.h" />
 		<Unit filename="Settings.h" />
 		<Unit filename="Slider.h" />
 		<Unit filename="Soil.h" />
+		<Unit filename="Texture.cpp" />
+		<Unit filename="Texture.h" />
 		<Unit filename="Trash.h" />
 		<Unit filename="TrashCan.h" />
 		<Unit filename="TrashCanLid.h" />
 		<Unit filename="Tub.h" />
 		<Unit filename="TubLid.h" />
 		<Unit filename="Window.h" />
+		<Unit filename="Word.cpp" />
+		<Unit filename="Word.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
