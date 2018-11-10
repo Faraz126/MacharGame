@@ -8,11 +8,11 @@
 #include "Screens.h"
 #include "MainMenu.h"
 #include "Screens_Node.h"
-
+#include "Texture.h"
 using namespace std;
 
-const int SCREEN_WIDTH = 680;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 1024;
+const int SCREEN_HEIGHT = 786;
 
 //Starts up SDL and creates window
 //bool init();
@@ -119,21 +119,54 @@ int main( int argc, char* args[] )
 	}
 	else
 	{
-	    //SDL_event e;
         bool quit = false;
+        Texture* sheet = Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
+        SDL_Event e;
         Screens_Node screen;
-        screen.cur_screen = new MainMenu;
+        screen.cur_screen = new MainMenu; //starting with main menu
+        int i = 0;
 
         while (!quit)
         {
-            //while (SDL_PollEvent(&e))
+            while (SDL_PollEvent(&e))
             {
-
+                if( e.type == SDL_QUIT ) quit = true;
             }
+
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
-            screen.cur_screen->Show(gRenderer);
+            screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
+
+
+
+            /*
+            SDL_Rect rect; //will hold background
+            rect.x = rect.y = 0;
+            rect.w = SCREEN_WIDTH;
+            rect.h = SCREEN_HEIGHT;
+
+            SDL_Rect rect2; //will hold the mosquito
+            rect2.x = 284;
+            rect2.y = 15;
+            rect2.w = 435;
+            rect2.h = 330;
+
+            sheet->Render(3, gRenderer, &rect);
+            sheet->Render(4+(i%5), gRenderer, &rect2);
+            i++;
+
+            SDL_Rect rect3; //will hold the button
+            rect3.x = 354;
+            rect3.y = 506;
+            rect3.w = 314;
+            rect3.h = 64;
+            sheet->Render((i%2), gRenderer, &rect3);
+            */
+
             SDL_RenderPresent( gRenderer );
+
+
+
         }
 
 
