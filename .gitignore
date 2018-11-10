@@ -9,3 +9,9 @@ project/Game/bin/
 **/project/Game/obj/**
 **/project/Game/bin/**
 .ai
+project/Game/*.layout
+
+project/Game/*.depend
+
+bin/
+obj/
