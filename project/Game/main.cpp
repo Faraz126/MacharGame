@@ -119,12 +119,17 @@ int main( int argc, char* args[] )
 	}
 	else
 	{
+	    //SDL_event e;
         bool quit = false;
         Screens_Node screen;
-        screen.cur_screen = new MainMenu();
+        screen.cur_screen = new MainMenu;
 
         while (!quit)
         {
+            //while (SDL_PollEvent(&e))
+            {
+
+            }
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
             screen.cur_screen->Show(gRenderer);

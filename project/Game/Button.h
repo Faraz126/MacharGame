@@ -1,12 +1,14 @@
 #pragma once
-
+#include <stdio.h>
+#include <string>
+#include <iostream>
 
 class Button
 {
-    Button ( LTexture * Texture , string str , int x, int y);
+    Button ( Texture * Texture , std::string str , int x, int y);
     void render ( SDL_Renderer * gRenderer );
     void setPosition ( int x, int y);
-    void setText ( string str );
+    void setText ( std::string str );
     void Click();
     Word * word ;
     void Hover();
@@ -17,7 +19,8 @@ class Button
     int x, y;
     int endx,endy;
     SDL_Rect BtnRect [3];
-    LTexture * btnTexture ;
+    Texture * btnTexture ;
+
 };
 
 

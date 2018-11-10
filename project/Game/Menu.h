@@ -1,4 +1,5 @@
 #pragma once
+#include "Screens.h"
 
 class Menu: public Screens
 {

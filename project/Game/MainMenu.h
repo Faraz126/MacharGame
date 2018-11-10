@@ -6,7 +6,6 @@
 
 class MainMenu: public Menu
 {
-protected:
 
 public:
     MainMenu();
