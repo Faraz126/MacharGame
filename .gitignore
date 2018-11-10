@@ -8,3 +8,4 @@ project/Game/obj/
 project/Game/bin/
 **/project/Game/obj/**
 **/project/Game/bin/**
+.ai
