@@ -9,8 +9,8 @@
 class Button
 {
     Button ( Texture * texture , std::string str , int x, int y);
-    void render ( SDL_Renderer * gRenderer );
-    void setPosition ( int x, int y);
+
+
     void setText ( std::string str );
     void Click();
     Word * word ;
@@ -24,6 +24,8 @@ class Button
 
     public:
     Button();
+    void render ( SDL_Renderer * gRenderer );
+    void setPosition ( int x, int y);
 
 };
 

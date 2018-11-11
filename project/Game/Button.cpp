@@ -7,7 +7,6 @@ Button::Button()
     pos.y = 506;
     pos.w = 314;
     pos.h = 64;
-    texture = 0;
 }
 Button::Button( Texture * texture , std::string str , int x, int y)
 {
@@ -18,17 +17,15 @@ Button::Button( Texture * texture , std::string str , int x, int y)
 
 void Button::render ( SDL_Renderer * gRenderer )
 {
-    pos.x = 1;
-    pos.y =2;
-    pos.w= 200;
-    pos.h = 200;
     texture = Texture::GetInstance(gRenderer); //singelton here, static method
-    texture->Render(0,gRenderer,&pos);   //should render first image from sprite at the given pos
+    texture->Render(0, gRenderer, &pos);
+
 }
 
 void Button::setPosition ( int x, int y)
 {
-
+    pos.x = x;
+    pos.y = y;
 }
 void Button::setText ( std::string str )
 {
