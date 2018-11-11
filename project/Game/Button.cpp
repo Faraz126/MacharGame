@@ -8,6 +8,7 @@ Button::Button()
     pos.y = 506;
     pos.w = 314;
     pos.h = 64;
+
 }
 Button::Button( Texture * texture , std::string str , int x, int y)
 {
@@ -36,6 +37,10 @@ void Button::setText ( std::string str )
 void Button::Click()
 {
 
+}
+void Button::Hover(SDL_Renderer * gRenderer)
+{
+    texture->Render(1, gRenderer, &pos);
 }
 
 

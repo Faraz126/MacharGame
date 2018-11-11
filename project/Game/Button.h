@@ -14,16 +14,19 @@ class Button
     void setText ( std::string str );
     void Click();
     Word * word ;
-    void Hover();
+
     void Draw(SDL_Renderer*);
     void Click(SDL_Rect*);
 
-    SDL_Rect pos;
+
     SDL_Rect BtnRect [3];
     Texture * texture ;
+    SDL_Event e;
 
     public:
+    SDL_Rect pos;
     Button();
+    void Hover(SDL_Renderer *);
     void render ( SDL_Renderer * gRenderer );
     void setPosition ( int x, int y);
 

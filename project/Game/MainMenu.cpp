@@ -1,10 +1,10 @@
 #include "MainMenu.h"
 
 
-MainMenu::MainMenu():Menu(3,pos0.x,pos0.y)
+MainMenu::MainMenu():Menu(3,354,506)
 {
-    pos0.x= 100;
-    pos0.y = 100;
+    pos0.x= 0;
+    pos0.y = 0;
     pos0.w = 1024;
     pos0.h = 786;   // for background
 
@@ -28,6 +28,11 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
     texture->Render(3,gRenderer,&pos0);
     texture->Render(4, gRenderer, &pos1);
     Menu::Show(gRenderer);
+}
+
+void MainMenu::Hover(SDL_Renderer* gRenderer)
+{
+    Menu::Hover(gRenderer);
 }
 
 MainMenu::~MainMenu()

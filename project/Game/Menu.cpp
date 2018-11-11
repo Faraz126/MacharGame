@@ -39,4 +39,17 @@ void Menu::Show(SDL_Renderer* gRenderer)
 }
 
 
-//make a show function which displays all the buttons
+void Menu::Hover(SDL_Renderer* gRenderer)
+{
+    SDL_Event e;
+    int hoverX = e.button.x;
+    int hoverY = e.button.y;
+    if(e.type == SDL_MOUSEMOTION)
+    {
+        if( ( hoverX > btn->pos.x ) && ( hoverX < (btn->pos.x+btn->pos.w) ) && ( hoverY > btn->pos.y ) && (hoverY< (btn->pos.y+btn->pos.h) ) )
+        {
+            //SDL_SetTextureColorMod(texture,250,153,255);
+            btn->Hover(gRenderer);
+        }
+    }
+}
