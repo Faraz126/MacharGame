@@ -6,7 +6,7 @@
 
 class MainMenu: public Menu
 {
-    SDL_Rect pos;
+    SDL_Rect pos0;
     SDL_Rect pos1;
     SDL_Renderer* gRenderer;
     Texture* texture;

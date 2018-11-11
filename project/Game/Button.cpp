@@ -1,4 +1,5 @@
 #include "Button.h"
+#include <iostream>
 
 
 Button::Button()
@@ -12,13 +13,14 @@ Button::Button( Texture * texture , std::string str , int x, int y)
 {
     texture = 0;
     str = " ";
-    x = y = 0;
+    x=y=0;
 }
 
 void Button::render ( SDL_Renderer * gRenderer )
 {
     texture = Texture::GetInstance(gRenderer); //singelton here, static method
     texture->Render(0, gRenderer, &pos);
+
 
 }
 

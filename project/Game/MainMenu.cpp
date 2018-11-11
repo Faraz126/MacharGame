@@ -1,12 +1,12 @@
 #include "MainMenu.h"
 
 
-MainMenu::MainMenu():Menu(3,pos.x,pos.y)
+MainMenu::MainMenu():Menu(3,pos0.x,pos0.y)
 {
-    pos.x= 0;
-    pos.y = 0;
-    pos.w = 1024;
-    pos.h = 786;   // for background
+    pos0.x= 100;
+    pos0.y = 100;
+    pos0.w = 1024;
+    pos0.h = 786;   // for background
 
     pos1.x = 284;
     pos1.y = 15;
@@ -25,9 +25,9 @@ void MainMenu::Click(SDL_Renderer*)
 void MainMenu::Show(SDL_Renderer* gRenderer)
 {
     texture = Texture::GetInstance(gRenderer);
-    texture->Render(3,gRenderer,&pos);
-    texture->Render(0, gRenderer, &pos1);
-    Menu::Show();
+    texture->Render(3,gRenderer,&pos0);
+    texture->Render(4, gRenderer, &pos1);
+    Menu::Show(gRenderer);
 }
 
 MainMenu::~MainMenu()
