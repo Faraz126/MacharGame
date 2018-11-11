@@ -16,5 +16,6 @@ public:
     void Click(SDL_Renderer*);
     void Show(SDL_Renderer*);
     void Hover(SDL_Renderer*);
+    void MouseEvent(SDL_Event*);
     ~MainMenu();
 };
