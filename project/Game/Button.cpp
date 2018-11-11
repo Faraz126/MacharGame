@@ -1,5 +1,5 @@
 #include "Button.h"
-#include <iostream>
+
 
 
 Button::Button()
@@ -8,6 +8,7 @@ Button::Button()
     pos.y = 506;
     pos.w = 314;
     pos.h = 64;
+    intHover = 0;
 
 }
 Button::Button( Texture * texture , std::string str , int x, int y)
@@ -20,7 +21,8 @@ Button::Button( Texture * texture , std::string str , int x, int y)
 void Button::render ( SDL_Renderer * gRenderer )
 {
     texture = Texture::GetInstance(gRenderer); //singelton here, static method
-    texture->Render(0, gRenderer, &pos);
+    texture->Render(intHover, gRenderer, &pos);
+    intHover = 0;
 
 
 }
@@ -34,14 +36,15 @@ void Button::setText ( std::string str )
 {
 
 }
+
+void Button::Hover()
+{
+    intHover=1;
+}
+
 void Button::Click()
 {
-
+    intHover=2;
 }
-void Button::Hover(SDL_Renderer * gRenderer)
-{
-    texture->Render(1, gRenderer, &pos);
-}
-
 
 

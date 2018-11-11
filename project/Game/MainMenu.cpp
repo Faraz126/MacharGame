@@ -31,9 +31,9 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
 }
 
 
-void MainMenu::MouseEvent(SDL_Event* e,SDL_Renderer* gRenderer)
+void MainMenu::MouseEvent(SDL_Event* e)
 {
-    Menu::Hover(e,gRenderer);
+    Menu::Hover(e);
 }
 
 MainMenu::~MainMenu()

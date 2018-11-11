@@ -24,9 +24,10 @@ class Button
     SDL_Event e;
 
     public:
+    int intHover;
     SDL_Rect pos;
     Button();
-    void Hover(SDL_Renderer *);
+    void Hover();
     void render ( SDL_Renderer * gRenderer );
     void setPosition ( int x, int y);
 

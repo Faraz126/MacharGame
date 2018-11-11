@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include <iostream>
 
 Menu::Menu()
 {
@@ -39,19 +40,23 @@ void Menu::Show(SDL_Renderer* gRenderer)
 }
 
 
-void Menu::Hover(SDL_Event* e,SDL_Renderer* gRenderer)
+void Menu::Hover(SDL_Event* e)
 {
-    int hoverX = e.button.x;
-    int hoverY = e.button.y;
-    if(e.type == SDL_MOUSEMOTION)
+    int hoverX = e->button.x;
+    int hoverY = e->button.y;
+    if(e->type == SDL_MOUSEMOTION)
     {
         for(int i=0; i<noOfButton; i++)
         {
-             if( ( hoverX > btn[i]->pos.x ) && ( hoverX < (btn[i]->pos.x+btn[i]->pos.w) ) && ( hoverY > btn[i]->pos.y ) && (hoverY< (btn[i]->pos.y+btn[i]->pos.h) ) )
+             if( ( hoverX > btn[i].pos.x ) && ( hoverX < (btn[i].pos.x+btn[i].pos.w) ) && ( hoverY > btn[i].pos.y ) && (hoverY< (btn[i].pos.y+btn[i].pos.h) ) )
             {
-                btn[i]->Hover(gRenderer);
+                btn[i].Hover();
             }
         }
-
     }
+}
+
+void Menu::Click(SDL_Event* e)
+{
+
 }

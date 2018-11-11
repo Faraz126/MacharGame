@@ -18,11 +18,13 @@ protected:
 
 
 public:
+    int state=0;
     Menu();
     Menu(int noOfButton, int x, int y);
     ~Menu();
     void Show(SDL_Renderer*);
-    void Hover(SDL_Event*,SDL_Renderer*);
+    void Hover(SDL_Event*);
+    void Click(SDL_Event*);
     void SetNoOfButton(int);
     int GetNoOfButton();
 
