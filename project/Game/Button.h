@@ -18,12 +18,12 @@ class Button
     void Draw(SDL_Renderer*);
     void Click(SDL_Rect*);
 
-    private:
     SDL_Rect pos;
-    int x, y;
-    int w,h;
     SDL_Rect BtnRect [3];
     Texture * texture ;
+
+    public:
+    Button();
 
 };
 

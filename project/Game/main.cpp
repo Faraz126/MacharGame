@@ -139,7 +139,7 @@ int main( int argc, char* args[] )
 
 
 
-            /*
+
             SDL_Rect rect; //will hold background
             rect.x = rect.y = 0;
             rect.w = SCREEN_WIDTH;
@@ -161,7 +161,7 @@ int main( int argc, char* args[] )
             rect3.w = 314;
             rect3.h = 64;
             sheet->Render((i%2), gRenderer, &rect3);
-            */
+
 
             SDL_RenderPresent( gRenderer );
 

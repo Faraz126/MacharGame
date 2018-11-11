@@ -22,14 +22,10 @@ Menu::~Menu()
 
 }
 
-void Menu::SetNoOfButton(int buttonNumber)
+Menu::Show()
 {
-    noOfButton=buttonNumber;
+
 }
 
-int Menu::GetNoOfButton()
-{
-    return noOfButton;
-}
 
 //make a show function which displays all the buttons

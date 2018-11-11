@@ -1,10 +1,19 @@
 #include "Button.h"
 
 
-
-Button::Button( Texture * Texture , std::string str , int x, int y)
+Button::Button()
 {
-
+    pos.x = 354;
+    pos.y = 506;
+    pos.w = 314;
+    pos.h = 64;
+    texture = 0;
+}
+Button::Button( Texture * texture , std::string str , int x, int y)
+{
+    texture = 0;
+    str = " ";
+    x = y = 0;
 }
 
 void Button::render ( SDL_Renderer * gRenderer )
@@ -13,7 +22,8 @@ void Button::render ( SDL_Renderer * gRenderer )
     pos.y =2;
     pos.w= 200;
     pos.h = 200;
-    texture->Render(0,gRenderer,pos);   //should render first image from sprite at the given pos
+    texture = Texture::GetInstance(gRenderer); //singelton here, static method
+    texture->Render(0,gRenderer,&pos);   //should render first image from sprite at the given pos
 }
 
 void Button::setPosition ( int x, int y)
