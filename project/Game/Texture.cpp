@@ -179,6 +179,61 @@ void Texture::SetRect(int n)
         clipFromTexture.w = 153;
         clipFromTexture.h = 174;
         break;
+
+    case 15:
+        clipFromTexture.x = 49;
+        clipFromTexture.y = 1316;
+        clipFromTexture.w = 178;
+        clipFromTexture.h = 412;
+        break;
+    case 16:
+        clipFromTexture.x = 281;
+        clipFromTexture.y = 1318;
+        clipFromTexture.w = 114;
+        clipFromTexture.h = 410;
+        break;
+    case 17:
+        clipFromTexture.x = 486;
+        clipFromTexture.y = 1316;
+        clipFromTexture.w = 104;
+        clipFromTexture.h = 410;
+        break;
+    case 18:
+        clipFromTexture.x = 666;
+        clipFromTexture.y = 1315;
+        clipFromTexture.w = 143;
+        clipFromTexture.h = 413;
+        break;
+    case 19:
+        clipFromTexture.x = 848;
+        clipFromTexture.y = 1316;
+        clipFromTexture.w = 178;
+        clipFromTexture.h = 412;
+        break;
+    case 20:
+        clipFromTexture.x = 1080;
+        clipFromTexture.y = 1318;
+        clipFromTexture.w = 114;
+        clipFromTexture.h = 410;
+        break;
+    case 21:
+        clipFromTexture.x = 1285;
+        clipFromTexture.y = 1316;
+        clipFromTexture.w = 104;
+        clipFromTexture.h = 410;
+        break;
+    case 22:
+        clipFromTexture.x = 1466;
+        clipFromTexture.y = 1315;
+        clipFromTexture.w = 142;
+        clipFromTexture.h = 413;
+        break;
+    case 23:
+        clipFromTexture.x = 1695;
+        clipFromTexture.y = 1307;
+        clipFromTexture.w = 83;
+        clipFromTexture.h = 417;
+        break;
     }
 
 
