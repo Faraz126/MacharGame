@@ -30,14 +30,10 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
     Menu::Show(gRenderer);
 }
 
-void MainMenu::Hover(SDL_Renderer* gRenderer)
-{
-    Menu::Hover(gRenderer);
-}
 
-void MainMenu::MouseEvent(SDL_Event* e)
+void MainMenu::MouseEvent(SDL_Event* e,SDL_Renderer* gRenderer)
 {
-    //write code for move event handling here
+    Menu::Hover(e,gRenderer);
 }
 
 MainMenu::~MainMenu()

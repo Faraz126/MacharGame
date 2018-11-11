@@ -39,17 +39,19 @@ void Menu::Show(SDL_Renderer* gRenderer)
 }
 
 
-void Menu::Hover(SDL_Renderer* gRenderer)
+void Menu::Hover(SDL_Event* e,SDL_Renderer* gRenderer)
 {
-    SDL_Event e;
     int hoverX = e.button.x;
     int hoverY = e.button.y;
     if(e.type == SDL_MOUSEMOTION)
     {
-        if( ( hoverX > btn->pos.x ) && ( hoverX < (btn->pos.x+btn->pos.w) ) && ( hoverY > btn->pos.y ) && (hoverY< (btn->pos.y+btn->pos.h) ) )
+        for(int i=0; i<noOfButton; i++)
         {
-            //SDL_SetTextureColorMod(texture,250,153,255);
-            btn->Hover(gRenderer);
+             if( ( hoverX > btn[i]->pos.x ) && ( hoverX < (btn[i]->pos.x+btn[i]->pos.w) ) && ( hoverY > btn[i]->pos.y ) && (hoverY< (btn[i]->pos.y+btn[i]->pos.h) ) )
+            {
+                btn[i]->Hover(gRenderer);
+            }
         }
+
     }
 }

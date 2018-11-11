@@ -22,7 +22,7 @@ public:
     Menu(int noOfButton, int x, int y);
     ~Menu();
     void Show(SDL_Renderer*);
-    void Hover(SDL_Renderer* gRenderer);
+    void Hover(SDL_Event*,SDL_Renderer*);
     void SetNoOfButton(int);
     int GetNoOfButton();
 
