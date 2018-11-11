@@ -10,6 +10,7 @@ class MainMenu: public Menu
     SDL_Rect pos1;
     SDL_Renderer* gRenderer;
     Texture* texture;
+    double mosquitoIterator;
 
 public:
     MainMenu();

@@ -66,7 +66,7 @@ void Menu::Click(SDL_Event* e)
 {
     int hoverX = e->button.x;
     int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN ||e->type == SDL_MOUSEBUTTONDOWN )
+    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN ||e->type == SDL_MOUSEMOTION )
     {
         if(e->button.button ==  SDL_BUTTON_LEFT)
         {
@@ -85,5 +85,5 @@ void Menu::Click(SDL_Event* e)
             }
         }
     }
-    btn->intHover=0;
+
 }
