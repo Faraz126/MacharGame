@@ -28,7 +28,7 @@ House::House()
     {
         if (!entrance[0]->WithinEntrance(x,400))
         {
-            bed[i++].SetPos(x, 400);
+            bed[i++].SetPos(x, 375);
             x += 145;
         }
         else
