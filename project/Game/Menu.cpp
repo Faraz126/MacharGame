@@ -6,6 +6,7 @@ Menu::Menu()
     w = h = x = y = noOfButton =0;
     menu =0;
     btn = 0;
+    mouseClicked = false;
 
 }
 
@@ -44,7 +45,7 @@ void Menu::Hover(SDL_Event* e)
 {
     int hoverX = e->button.x;
     int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEMOTION)
+    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN ||e->type == SDL_MOUSEMOTION)
     {
         for(int i=0; i<noOfButton; i++)
         {
@@ -52,11 +53,37 @@ void Menu::Hover(SDL_Event* e)
             {
                 btn[i].Hover();
             }
+            else
+            {
+                btn[i].intHover=0;
+            }
         }
     }
+
 }
 
 void Menu::Click(SDL_Event* e)
 {
-
+    int hoverX = e->button.x;
+    int hoverY = e->button.y;
+    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN ||e->type == SDL_MOUSEBUTTONDOWN )
+    {
+        if(e->button.button ==  SDL_BUTTON_LEFT)
+        {
+            mouseClicked = true;
+            for(int i=0; i<noOfButton; i++)
+            {
+                 if( ( hoverX > btn[i].pos.x ) && ( hoverX < (btn[i].pos.x+btn[i].pos.w) ) && ( hoverY > btn[i].pos.y ) && (hoverY< (btn[i].pos.y+btn[i].pos.h) ) )
+                {
+                    btn[i].Click();
+                    std::cout<<"click";
+                }
+                else
+                {
+                    btn[i].intHover=0;
+                }
+            }
+        }
+    }
+    btn->intHover=0;
 }

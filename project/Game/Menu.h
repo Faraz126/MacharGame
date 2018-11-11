@@ -14,6 +14,7 @@ private:
     Button* btn;
     int noOfButton;
     Texture* texture;
+    bool mouseClicked;
 protected:
 
 

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "Texture.h"
 #include "Word.h"
-#include <stdio.h>
+#include "SDL.h"
 #include <string>
 #include <iostream>
 
@@ -12,7 +12,7 @@ class Button
 
 
     void setText ( std::string str );
-    void Click();
+
     Word * word ;
 
     void Draw(SDL_Renderer*);
@@ -28,6 +28,7 @@ class Button
     SDL_Rect pos;
     Button();
     void Hover();
+    void Click();
     void render ( SDL_Renderer * gRenderer );
     void setPosition ( int x, int y);
 

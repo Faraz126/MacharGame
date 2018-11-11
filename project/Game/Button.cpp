@@ -22,7 +22,6 @@ void Button::render ( SDL_Renderer * gRenderer )
 {
     texture = Texture::GetInstance(gRenderer); //singelton here, static method
     texture->Render(intHover, gRenderer, &pos);
-    intHover = 0;
 
 
 }
