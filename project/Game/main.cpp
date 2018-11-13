@@ -120,13 +120,20 @@ int main( int argc, char* args[] )
 	else
 	{
         bool quit = false;
-
+        SDL_Event e;
         Screens_Node screen;
         screen.cur_screen = new MainMenu; //starting with main menu
 
         while (!quit)
         {
-
+            while (SDL_PollEvent(&e))
+            {
+                if( e.type == SDL_QUIT ) quit = true;
+                 if (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN)
+                {
+                    screen.cur_screen->MouseEvent(&e);
+                }
+             }
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
             screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window

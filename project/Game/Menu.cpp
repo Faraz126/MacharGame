@@ -1,5 +1,4 @@
 #include "Menu.h"
-#include <iostream>
 
 Menu::Menu()
 {
@@ -76,7 +75,6 @@ void Menu::Click(SDL_Event* e)
                  if( ( hoverX > btn[i].pos.x ) && ( hoverX < (btn[i].pos.x+btn[i].pos.w) ) && ( hoverY > btn[i].pos.y ) && (hoverY< (btn[i].pos.y+btn[i].pos.h) ) )
                 {
                     btn[i].Click();
-                    std::cout<<"click";
                 }
                 else
                 {
