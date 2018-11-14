@@ -8,7 +8,8 @@ class Screens
 
 public:
     Screens();
-    virtual void Click(SDL_Renderer*);
-    virtual void Show(SDL_Renderer*);
+    virtual void Click(SDL_Renderer*)=0;
+    virtual void MouseEvent(SDL_Event*) = 0;
+    virtual void Show(SDL_Renderer*)=0;
     ~Screens();
 };

@@ -1,17 +1,19 @@
 #include "Texture.h"
 
 
-Texture* Texture::instance = nullptr;  //Highlight  //sinleton design pattern
+
+Texture* Texture::instance = 0;
+
 
 Texture::Texture(SDL_Renderer* renderer)
 {
-    this->texture = nullptr;
+    this->texture = 0;
     LoadMedia(renderer);
 }
 
 Texture* Texture::GetInstance(SDL_Renderer* renderer) //static method.
 {
-    if (Texture::instance == nullptr)
+    if (Texture::instance == 0)
     {
         Texture::instance = new Texture(renderer);
     }
@@ -29,10 +31,10 @@ Texture* Texture::GetInstance()
 
 void Texture::Free()
 {
-    if (this->texture != nullptr)
+    if (this->texture != 0)
     {
         SDL_DestroyTexture(this->texture);
-        this->texture = nullptr;
+        this->texture = 0;
     }
 }
 
