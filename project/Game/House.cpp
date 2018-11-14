@@ -42,7 +42,7 @@ House::House()
 
 void House::Show(SDL_Renderer* renderer)
 {
-    Texture::GetInstance()->Render(9, renderer, &pos);
+    Texture::GetInstance()->Render(9, renderer, &pos); //Highlight
     for(int i=0; i < noOfEntrance; i++)
     {
         entrance[i]->Show(renderer);
