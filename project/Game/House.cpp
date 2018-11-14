@@ -9,7 +9,7 @@ House::House()
     pos.h = 786;
 
 
-    noOfEntrance = (rand()%2) + 2;
+    noOfEntrance = rand()%2 + 2;
     noOfHumans = (rand()%3) + 3;
     bed = new Bed[noOfHumans];
     entrance = new Entrance*[noOfEntrance];
@@ -21,7 +21,7 @@ House::House()
     }
     else
     {
-        x = 25;
+        x = 10;
         entrance[0] = new Door(750, 300);
     }
 
@@ -36,11 +36,16 @@ House::House()
 
     if (noOfEntrance == 3)
     {
+        showpieces = new Showpiece[1];
+        showpieces[0].SetPos(450, 150);
         entrance[1] = new Window(200,125);
         entrance[2] = new Window(600,125);
     }
     else
     {
+        showpieces = new Showpiece[2];
+        showpieces[0].SetPos(100, 150);
+        showpieces[1].SetPos(700, 150);
         entrance[1] = new Window(412,125);
     }
 
@@ -58,4 +63,14 @@ void House::Show(SDL_Renderer* renderer)
     {
         bed[i].Draw(renderer);
     }
+    if (noOfEntrance == 3)
+    {
+        showpieces[0].Show(renderer);
+    }
+    else
+    {
+        showpieces[0].Show(renderer);
+        showpieces[1].Show(renderer);
+    }
+
 }
