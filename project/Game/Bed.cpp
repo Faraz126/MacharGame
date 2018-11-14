@@ -10,8 +10,8 @@ Bed::Bed(int x, int y)
 {
     pos.x = x;
     pos.y = y;
-    pos.w = 153;
-    pos.h = 174;
+    pos.w = 153*0.8;
+    pos.h = 174*0.8;
     occupied = false;
 }
 

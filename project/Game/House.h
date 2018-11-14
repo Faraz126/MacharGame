@@ -7,6 +7,7 @@
 #include "Entrance.h"
 #include "Texture.h"
 #include "Bed.h"
+#include "Showpiece.h"
 
 class House: public Screens
 
@@ -20,6 +21,7 @@ private:
     Bed* bed;
     SDL_Rect pos;
     Texture* texture;
+    Showpiece* showpieces;
     //Outdoor* outdoor;
     //Door* door;
 protected:
@@ -34,4 +36,6 @@ public:
     void Show(SDL_Renderer*);
     void getWindowState();
     void getEntranceState();
+    void MouseEvent(SDL_Event*);
+
 };

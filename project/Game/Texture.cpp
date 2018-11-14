@@ -8,6 +8,7 @@ Texture* Texture::instance = 0;
 Texture::Texture(SDL_Renderer* renderer)
 {
     this->texture = 0;
+    clipFromTexture = SDL_Rect();
     LoadMedia(renderer);
 }
 
@@ -176,7 +177,7 @@ void Texture::SetRect(int n)
         clipFromTexture.h = 110;
         break;
     case 14:
-        clipFromTexture.x = 2247;
+        clipFromTexture.x = 2248;
         clipFromTexture.y = 1117;
         clipFromTexture.w = 153;
         clipFromTexture.h = 174;
@@ -236,8 +237,92 @@ void Texture::SetRect(int n)
         clipFromTexture.w = 83;
         clipFromTexture.h = 417;
         break;
-    }
+    case 24:
+        clipFromTexture.x = 2426;
+        clipFromTexture.y = 1091;
+        clipFromTexture.w = 225;
+        clipFromTexture.h = 92;
+        break;
+    case 25:
+        clipFromTexture.x = 2415;
+        clipFromTexture.y = 1212;
+        clipFromTexture.w = 262;
+        clipFromTexture.h = 104;
+        break;
+    case 26:
+        clipFromTexture.x = 2696;
+        clipFromTexture.y = 1130;
+        clipFromTexture.w = 91;
+        clipFromTexture.h = 145;
+        break;
+    case 27:
+        clipFromTexture.x = 1844;
+        clipFromTexture.y = 1340;
+        clipFromTexture.w = 102;
+        clipFromTexture.h = 192;
+        break;
+    case 28:
+        clipFromTexture.x = 1946;
+        clipFromTexture.y = 1340;
+        clipFromTexture.w = 102;
+        clipFromTexture.h = 192;
+        break;
+    case 29:
+        clipFromTexture.x = 2048;
+        clipFromTexture.y = 1340;
+        clipFromTexture.w = 102;
+        clipFromTexture.h = 192;
+        break;
+    case 30:
+        clipFromTexture.x = 2150;
+        clipFromTexture.y = 1340;
+        clipFromTexture.w = 102;
+        clipFromTexture.h = 192;
+        break;
+    case 31:
+        clipFromTexture.x = 1844;
+        clipFromTexture.y = 1582;
+        clipFromTexture.w = 102;
+        clipFromTexture.h = 192;
+        break;
+    case 32:
+        clipFromTexture.x = 1946;
+        clipFromTexture.y = 1582;
+        clipFromTexture.w = 102;
+        clipFromTexture.h = 192;
+        break;
+    case 33:
+        clipFromTexture.x = 2048;
+        clipFromTexture.y = 1582;
+        clipFromTexture.w = 102;
+        clipFromTexture.h = 192;
+        break;
+    case 34:
+        clipFromTexture.x = 2150;
+        clipFromTexture.y = 1582;
+        clipFromTexture.w = 102;
+        clipFromTexture.h = 192;
+        break;
+    case 35:
+        clipFromTexture.x = 0;
+        clipFromTexture.y = 1805;
+        clipFromTexture.w = 1024;
+        clipFromTexture.h = 786;
+        break;
+    case 36:
+        clipFromTexture.x = 1025;
+        clipFromTexture.y = 1805;
+        clipFromTexture.w = 1024;
+        clipFromTexture.h = 786;
+        break;
+    case 37:
+        clipFromTexture.x = 1536;
+        clipFromTexture.y = 1805;
+        clipFromTexture.w = 1024;
+        clipFromTexture.h = 786;
+        break;
 
+    }
 
 }
 

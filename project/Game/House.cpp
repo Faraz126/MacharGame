@@ -9,34 +9,46 @@ House::House()
     pos.h = 786;
 
 
-    noOfEntrance = (rand()%2) + 3;
-    entrance = new Entrance*[noOfEntrance];
-    int x = (rand() % 850)+30; //random x co-ordinate for the door
-    entrance[0] = new Door(x, 300);
-    int seperation = 200 + (rand() % 100); // random distance of seperation of windows
-    x = 100; //random starting position of windows
-
-    for(int i = 1; i < noOfEntrance; i++)
-    {
-        entrance[i] = new Window(x +(seperation*(i-1)),125);
-    }
-
-    noOfHumans = (rand()%4) + 3;
+    noOfEntrance = rand()%2 + 2;
+    noOfHumans = (rand()%3) + 3;
     bed = new Bed[noOfHumans];
-    x = 25;
-    for(int i = 0; i <noOfHumans;)
+    entrance = new Entrance*[noOfEntrance];
+    int x;
+    if (rand() % 2) //random x co-ordinate for the door
     {
-        if (!entrance[0]->WithinEntrance(x,400))
-        {
-            bed[i++].SetPos(x, 375);
-            x += 145;
-        }
-        else
-        {
-            x += 130;
-        }
-
+        x = 265;
+        entrance[0] = new Door(100, 300);
     }
+    else
+    {
+        x = 10;
+        entrance[0] = new Door(750, 300);
+    }
+
+    for (int i = 0; i<noOfHumans; i++)
+    {
+        bed[i].SetPos(x, 365);
+        x += 150;
+    }
+
+
+
+
+    if (noOfEntrance == 3)
+    {
+        showpieces = new Showpiece[1];
+        showpieces[0].SetPos(450, 150);
+        entrance[1] = new Window(200,125);
+        entrance[2] = new Window(600,125);
+    }
+    else
+    {
+        showpieces = new Showpiece[2];
+        showpieces[0].SetPos(100, 150);
+        showpieces[1].SetPos(700, 150);
+        entrance[1] = new Window(412,125);
+    }
+
 
 }
 
@@ -51,4 +63,19 @@ void House::Show(SDL_Renderer* renderer)
     {
         bed[i].Draw(renderer);
     }
+    if (noOfEntrance == 3)
+    {
+        showpieces[0].Show(renderer);
+    }
+    else
+    {
+        showpieces[0].Show(renderer);
+        showpieces[1].Show(renderer);
+    }
+
+}
+
+void House::MouseEvent(SDL_Event* e)
+{
+
 }

@@ -124,11 +124,12 @@ int main( int argc, char* args[] )
 	else
 	{
         bool quit = false;
+        Texture::GetInstance(gRenderer);
         SDL_Event e;
         Screens_Node screen;
-        //starting with main menu
-        int i = 0;
-        screen.cur_screen = new MainMenu; //starting with main menu
+
+        screen.cur_screen = new House; //starting with main menu
+
 
 
         while (!quit)
@@ -136,7 +137,7 @@ int main( int argc, char* args[] )
             while (SDL_PollEvent(&e))
             {
                 if( e.type == SDL_QUIT ) quit = true;
-                 if (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN)
+                if (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN)
                 {
                     screen.cur_screen->MouseEvent(&e);
                 }
@@ -144,9 +145,6 @@ int main( int argc, char* args[] )
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
             screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
-
-
-
             SDL_RenderPresent( gRenderer );
 
 

@@ -7,10 +7,6 @@ Screens::Screens()
 
 }
 
-void Screens::Click(SDL_Renderer* renderer)
-{
-
-}
 
 void Screens::Show(SDL_Renderer* renderer)
 {

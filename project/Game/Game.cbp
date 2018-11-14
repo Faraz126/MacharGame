@@ -90,6 +90,8 @@
 		<Unit filename="Screens.h" />
 		<Unit filename="Screens_Node.h" />
 		<Unit filename="Settings.h" />
+		<Unit filename="Showpiece.cpp" />
+		<Unit filename="Showpiece.h" />
 		<Unit filename="Slider.h" />
 		<Unit filename="Soil.h" />
 		<Unit filename="Texture.cpp" />
