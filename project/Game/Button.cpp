@@ -7,21 +7,22 @@ Button::Button()
     pos.w = 314;
     pos.h = 64;
     intHover = 0;
+    word = 0;
 
 }
-Button::Button( Texture * texture , std::string str , int x, int y)
+Button::Button( std::string str , int x, int y) : Button()  //after overloaded call that constructor too
 {
-    texture = 0;
-    str = " ";
     x = y = 0;
+    word = new Word(str,x+15,y+15);
+
 }
 
 void Button::render ( SDL_Renderer * gRenderer )
 {
     texture = Texture::GetInstance(gRenderer); //singelton here, static method
     texture->Render(intHover, gRenderer, &pos);
-    if (intHover==2)
-        intHover=0;
+    word->Show(gRenderer);
+
 
 
 }
@@ -33,6 +34,16 @@ void Button::setPosition ( int x, int y)
 }
 void Button::setText ( std::string str )
 {
+    std::cout << str;
+    std::cout << str.length();
+    if (word == 0)
+    {
+        word = new Word(str, pos.x +(pos.w-(25*str.length()))/2, pos.y+15);
+    }
+    else
+    {
+        word->SetText(str);
+    }
 
 }
 

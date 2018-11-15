@@ -146,7 +146,7 @@ void Texture::SetRect(char c)
     int col = 0;
     if (ascii == 32)
     {
-
+        ascii = 27;
     }
     else if (ascii >= 97)
     {

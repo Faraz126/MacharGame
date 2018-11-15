@@ -14,8 +14,11 @@ MainMenu::MainMenu():Menu(3,354,506)
     pos1.h = 330; //for mosquito
 
     mosquitoIterator=4;
+    buttonText[0]= "NEW GAME";
+    buttonText[1] = "LOAD GAME";
+    buttonText[2] = "SETTINGS";
 
-
+    Menu::SetText(buttonText);
 
 }
 
@@ -41,7 +44,8 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
 void MainMenu::MouseEvent(SDL_Event* e)
 {
     Menu::Hover(e);
-    Menu::Click(e);
+    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN)
+        Menu::Click(e);
 }
 
 MainMenu::~MainMenu()

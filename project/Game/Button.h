@@ -8,18 +8,16 @@
 
 class Button
 {
-    Button ( Texture * texture , std::string str , int x, int y);
-    void setText ( std::string str );
     Word * word ;
     void Click(SDL_Rect*);
-    SDL_Rect BtnRect [3];
     Texture * texture ;
-
     SDL_Event e;
 
     public:
     int intHover;
     SDL_Rect pos;
+    Button (std::string str , int x, int y);
+    void setText ( std::string str );
     Button();
     void Hover();
     void Click();

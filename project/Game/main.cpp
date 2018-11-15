@@ -121,6 +121,7 @@ int main( int argc, char* args[] )
 	{
         bool quit = false;
         SDL_Event e;
+        Texture::GetInstance(gRenderer);
         Screens_Node screen;
         screen.cur_screen = new MainMenu; //starting with main menu
 
