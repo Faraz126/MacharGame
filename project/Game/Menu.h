@@ -31,6 +31,8 @@ public:
     void Click(SDL_Event*);
     void SetNoOfButton(int);
     int GetNoOfButton();
+    void SetMouseClicked(bool);
+    bool GetMouseClicked();
     void SetText(std::string*);
 
 };

@@ -7,7 +7,7 @@ Screens::Screens()
 
 }
 
-void Screens::Click(SDL_Renderer* renderer)
+void Screens::Click(SDL_Event* e)
 {
 
 }
