@@ -49,6 +49,8 @@ House::House()
         entrance[1] = new Window(412,125);
     }
 
+    breedingplaces = new Plant(500,500);
+
 
 }
 
@@ -72,5 +74,6 @@ void House::Show(SDL_Renderer* renderer)
         showpieces[0].Show(renderer);
         showpieces[1].Show(renderer);
     }
+    breedingplaces->Show(renderer);
 
 }

@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <string>
 #include "string.h"
@@ -12,6 +11,7 @@
 #include "House.h"
 #include "time.h"
 #include <random>
+
 
 using namespace std;
 
@@ -144,9 +144,6 @@ int main( int argc, char* args[] )
             SDL_RenderClear( gRenderer );
             screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
             SDL_RenderPresent( gRenderer );
-
-
-
         }
 
 

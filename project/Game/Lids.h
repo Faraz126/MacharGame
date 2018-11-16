@@ -1,17 +1,20 @@
 #pragma once
+#include <SDL.h>
+#include <SDL_image.h>
+
 
 class Lids
 {
 private:
 
 protected:
-    SDL_img* lid;
+
 
 public:
     Lids();
-    void Drag(SDL_event);
-    void Drop(SDL_event);
-    void Show(SDL_renderer*);
+    void Drag(SDL_Event);
+    void Drop(SDL_Event);
+    void Show(SDL_Renderer*);
     void Uncover();
     ~Lids();
 };

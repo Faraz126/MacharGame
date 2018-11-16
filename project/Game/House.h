@@ -8,6 +8,7 @@
 #include "Texture.h"
 #include "Bed.h"
 #include "Showpiece.h"
+#include "Plant.h"
 
 class House: public Screens
 
@@ -22,6 +23,7 @@ private:
     SDL_Rect pos;
     Texture* texture;
     Showpiece* showpieces;
+    BreedingGround* breedingplaces;
     //Outdoor* outdoor;
     //Door* door;
 protected:

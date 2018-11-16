@@ -48,6 +48,7 @@
 		<Unit filename="AedesMosquito.h" />
 		<Unit filename="Bed.cpp" />
 		<Unit filename="Bed.h" />
+		<Unit filename="BreedingGround.cpp" />
 		<Unit filename="BreedingGround.h" />
 		<Unit filename="Bucket.h" />
 		<Unit filename="BucketLid.h" />
@@ -57,6 +58,8 @@
 		<Unit filename="Character.h" />
 		<Unit filename="CleanWater.h" />
 		<Unit filename="Color.h" />
+		<Unit filename="Container.cpp" />
+		<Unit filename="Container.h" />
 		<Unit filename="DirtyWater.h" />
 		<Unit filename="Disease.h" />
 		<Unit filename="Door.cpp" />
@@ -83,6 +86,8 @@
 		<Unit filename="Node.h" />
 		<Unit filename="NormalMosquito.h" />
 		<Unit filename="Outdoor.h" />
+		<Unit filename="Plant.cpp" />
+		<Unit filename="Plant.h" />
 		<Unit filename="Point.h" />
 		<Unit filename="Queue.h" />
 		<Unit filename="Screens.cpp" />
@@ -100,6 +105,8 @@
 		<Unit filename="TrashCanLid.h" />
 		<Unit filename="Tub.h" />
 		<Unit filename="TubLid.h" />
+		<Unit filename="Water.cpp" />
+		<Unit filename="Water.h" />
 		<Unit filename="Window.cpp" />
 		<Unit filename="Window.h" />
 		<Unit filename="Word.cpp" />

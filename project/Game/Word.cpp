@@ -5,7 +5,7 @@
 
 
 
-Word::Word(std::string str , Texture * gSpriteSheetTexture , int x, int y)
+Word::Word(std::string str, int x, int y)
 
 {
 

@@ -1,16 +1,17 @@
 #pragma once
+#include <SDL.h>
+#include <SDL_image.h>
+#include "Mosquito.h"
 
 class BreedingGround
 {
 private:
-
 protected:
-    SDL_Img* breedingground;
-    Point* point;
-
+    SDL_Rect pos;
 public:
-    BreedingGround();
-    virtual void Show(SDL_Render*);
-    void breed(int);
-    ~BreedingGround();
+    BreedingGround(int, int, int, int);
+    virtual void Show(SDL_Renderer*) = 0;
+    virtual Mosquito* Breed(int) = 0;
+    virtual ~BreedingGround();
+    void UpdatePos(int,int);
 };

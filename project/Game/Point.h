@@ -1,14 +1,12 @@
 #pragma once
 
-class Point
+struct Point
 {
-private:
+    int x, y;
+    Point()
+    {
+        x = 0;
+        y = 0;
+    }
 
-protected:
-
-public:
-    Point();
-    int x;
-    int y;
-    ~Point();
 };
