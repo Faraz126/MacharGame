@@ -83,6 +83,7 @@
 		<Unit filename="MosquitoFactory.h" />
 		<Unit filename="Node.h" />
 		<Unit filename="NormalMosquito.h" />
+		<Unit filename="Outdoor.cpp" />
 		<Unit filename="Outdoor.h" />
 		<Unit filename="Point.h" />
 		<Unit filename="Queue.h" />

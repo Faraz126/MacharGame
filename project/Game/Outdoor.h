@@ -1,14 +1,28 @@
 #pragma once
+#include <SDL.h>
+#include <SDL_image.h>
+#include "Screens.h"
+#include "Texture.h"
+#include <stdio.h>
 
-class Outdoor
+class Outdoor: public Screens
 {
 private:
-    Mosquito* mosquito;
-    House* house;
-    DirtyWater* dirtywater;
-    CleanWater* cleanwater;
-    Manhole* manhole;
-    Outdoor* outdoor;
+//    Mosquito* mosquito;
+//    House* house;
+//    DirtyWater* dirtywater;
+//    CleanWater* cleanwater;
+//    Manhole* manhole;
+    //Outdoor* outdoor;
+
+    SDL_Rect pos;
+    Texture* texture;
+    int countContainer;
+    int countPlants;
+    int countSoil;
+    int countTrashcan;
+    int countManhole;
+
 protected:
 
 public:
@@ -16,7 +30,8 @@ public:
     void AddHuman();
     void LeaveHuman();
     void Click();
-    void Show(SDL_Render*);
-    Entrance* getCurrentState();
+    void Show(SDL_Renderer*);
+    void MouseEvent(SDL_Event*);
+    //Entrance* getCurrentState();
     ~Outdoor();
 };

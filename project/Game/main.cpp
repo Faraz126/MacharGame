@@ -12,6 +12,7 @@
 #include "House.h"
 #include "time.h"
 #include <random>
+#include"Outdoor.h"
 
 using namespace std;
 
@@ -128,7 +129,7 @@ int main( int argc, char* args[] )
         SDL_Event e;
         Screens_Node screen;
 
-        screen.cur_screen = new House; //starting with main menu
+        screen.cur_screen = new Outdoor; //starting with main menu
 
 
 
