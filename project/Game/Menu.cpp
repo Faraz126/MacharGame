@@ -6,10 +6,11 @@ Menu::Menu()
     menu =0;
     btn = 0;
     mouseClicked = false;
+    horizontal = false;
 
 }
 
-Menu::Menu(int noOfButton, int x, int y)
+Menu::Menu(int noOfButton, int x, int y, bool horizontal)
 {
     this->noOfButton =noOfButton;
     btn = new Button[noOfButton];  //an array of buttons with given number of buttons to be made
@@ -18,7 +19,17 @@ Menu::Menu(int noOfButton, int x, int y)
     for (int i=0; i<noOfButton; i++)
     {
         btn[i].setPosition(x,y);
-        y +=100;
+        if (horizontal ==false)
+        {
+             y +=100;
+        }
+
+
+        if (horizontal == true)
+        {
+            x+=350;
+        }
+
     }
 
 

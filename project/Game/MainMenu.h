@@ -5,6 +5,8 @@
 #include "CancelButton.h"
 #include <iostream>
 #include "string"
+#include "Outdoor.h"
+#include "Settings.h"
 
 
 class MainMenu: public Menu
