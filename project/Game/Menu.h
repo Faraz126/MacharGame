@@ -14,17 +14,18 @@ private:
     int x;
     int y;
     SDL_Rect* menu;
-    Button* btn;
+
     int noOfButton;
     Texture* texture;
     bool mouseClicked;
+    bool horizontal;
 protected:
-
+    Button* btn;
 
 public:
     int state=0;
     Menu();
-    Menu(int noOfButton, int x, int y);
+    Menu(int,int,int,bool);
     ~Menu();
     void Show(SDL_Renderer*);
     void Hover(SDL_Event*);

@@ -150,7 +150,7 @@ int main( int argc, char* args[] )
                 screen.cur_screen->Update(&e,screen);
             }
 
-            if (!screen.prev_backable)
+            if (screen.prev_backable != 0 && !screen.prev_backable)
             {
                 delete screen.prev_screen;
             }

@@ -21,8 +21,9 @@ class Button
     Button();
     void Hover();
     void Click();
-    void Render ( SDL_Renderer * gRenderer );
-    void setPosition ( int x, int y);
+    void Render ( SDL_Renderer * );
+    void setPosition ( int , int );
+    bool WithinRegion (int, int);
 
 };
 
