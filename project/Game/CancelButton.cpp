@@ -2,11 +2,11 @@
 
 CancelButton::CancelButton()
 {
-    pos.x = 900;
-    pos.y = 50;
-    pos.w = 150;
-    pos.h = 50;
-    diffStateBtn= 0;
+    pos.x = 950;
+    pos.y = 10;
+    pos.w = 35;
+    pos.h = 35;
+    diffStateBtn= 4;
 
 }
 CancelButton::CancelButton(int x, int y) : CancelButton()  //after overloaded call that constructor too
@@ -18,7 +18,7 @@ CancelButton::CancelButton(int x, int y) : CancelButton()  //after overloaded ca
 void CancelButton::Render ( SDL_Renderer * gRenderer )
 {
     texture = Texture::GetInstance(gRenderer); //singelton here, static method
-    texture->Render(4, gRenderer, &pos);
+    texture->Render(diffStateBtn, gRenderer, &pos);
 
 
 
@@ -38,6 +38,7 @@ void CancelButton::Hover()
 void CancelButton::Click()
 {
     diffStateBtn=3;   // if clicked sprite changed
+    std::cout<<"btn clicked";
 }
 
 

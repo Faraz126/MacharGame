@@ -23,6 +23,8 @@ MainMenu::MainMenu():Menu(3,354,506)
     buttonText[1] = "LOAD GAME";
     buttonText[2] = "SETTINGS";
 
+    cancelBtn = new CancelButton();
+
     Menu::SetText(buttonText);
 
 }
@@ -38,7 +40,13 @@ void MainMenu::Click(SDL_Event* e)
             SetMouseClicked(true);
             if( ( hoverX > pos2.x ) && ( hoverX < (pos2.x+pos2.w) ) && ( hoverY > pos2.y ) && (hoverY< (pos2.y+pos2.h) ) )
             {
-                std::cout<<"click";
+                std::cout<<"before click";
+                cancelBtn->Click();
+
+            }
+            else
+            {
+                cancelBtn->diffStateBtn=4;
             }
         }
     }
@@ -54,6 +62,11 @@ void MainMenu::Hover(SDL_Event* e)
         if( ( hoverX > pos2.x ) && ( hoverX < (pos2.x+pos2.w) ) && ( hoverY > pos2.y ) && (hoverY< (pos2.y+pos2.h) ) )
         {
             std::cout<<"hover";
+            cancelBtn->Hover();
+        }
+        else
+        {
+            cancelBtn->diffStateBtn=4;
         }
 
     }
@@ -70,7 +83,7 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
     texture = Texture::GetInstance(gRenderer);
     texture->Render(3,gRenderer,&pos0);
     texture->Render(int(mosquitoIterator),gRenderer,&pos1);
-    texture->Render(4,gRenderer,&pos2);
+    cancelBtn->Render(gRenderer);
 
 
     Menu::Show(gRenderer);
