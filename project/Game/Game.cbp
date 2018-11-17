@@ -92,7 +92,6 @@
 		<Unit filename="Queue.h" />
 		<Unit filename="Screens.cpp" />
 		<Unit filename="Screens.h" />
-		<Unit filename="Screens_Node.h" />
 		<Unit filename="Settings.h" />
 		<Unit filename="Showpiece.cpp" />
 		<Unit filename="Showpiece.h" />
@@ -101,6 +100,7 @@
 		<Unit filename="Texture.cpp" />
 		<Unit filename="Texture.h" />
 		<Unit filename="Trash.h" />
+		<Unit filename="TrashCan.cpp" />
 		<Unit filename="TrashCan.h" />
 		<Unit filename="TrashCanLid.h" />
 		<Unit filename="Tub.h" />

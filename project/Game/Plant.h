@@ -1,3 +1,4 @@
+#pragma once
 #ifndef PLANT_H
 #define PLANT_H
 
@@ -6,7 +7,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <random>
-#include "Lids.h"
 #include "Mosquito.h"
 #include "Texture.h"
 

@@ -6,7 +6,6 @@
 #include <SDL_image.h>
 #include "Screens.h"
 #include "MainMenu.h"
-#include "Screens_Node.h"
 #include "Texture.h"
 #include "House.h"
 #include "time.h"
@@ -124,7 +123,7 @@ int main( int argc, char* args[] )
 	else
 	{
         bool quit = false;
-        Texture* sheet = Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
+        Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
         SDL_Event e;
         Screens_Node screen;
         screen.cur_screen = new House; //starting with main menu
@@ -142,16 +141,25 @@ int main( int argc, char* args[] )
 
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
+
+            if (!screen.prev_backable)
+            {
+                delete screen.prev_screen;
+            }
+            else if (screen.prev_backable != 0)
+            {
+                screen.prev_screen->Show(gRenderer);
+                if (screen.prev_updatable)
+                {
+                    screen.prev_screen->Update(&e, screen);
+                }
+            }
+            screen.cur_screen->Update(&e,screen);
             screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
             SDL_RenderPresent( gRenderer );
         }
-
-
-
 	}
 
-    //std::cout << "@@@hello";
-	//Free resources and close SDL
 	close();
 
 	return 0;

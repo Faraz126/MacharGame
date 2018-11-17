@@ -9,6 +9,7 @@
 #include "Bed.h"
 #include "Showpiece.h"
 #include "Plant.h"
+#include "TrashCan.h"
 
 class House: public Screens
 
@@ -24,6 +25,7 @@ private:
     Texture* texture;
     Showpiece* showpieces;
     BreedingGround* breedingplaces;
+    SDL_Rect wall;
     //Outdoor* outdoor;
     //Door* door;
 protected:
@@ -34,8 +36,9 @@ public:
     bool GetHasRepellent();
     void AddHuman();
     void LeaveHuman();
-    void click();
+    void Click();
     void Show(SDL_Renderer*);
     void getWindowState();
     void getEntranceState();
+    void Update(SDL_Event* e, Screens_Node&);
 };

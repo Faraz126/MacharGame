@@ -3,11 +3,11 @@
 
 House::House()
 {
-    pos.x = 0;
-    pos.y = 0;
-    pos.w = 1024;
+    pos.x = wall.x = 0;
+    pos.y = wall.y = 0;
+    pos.w = wall.w = 1024;
     pos.h = 786;
-
+    wall.h = 488;
 
     noOfEntrance = rand()%2 + 2;
     noOfHumans = (rand()%3) + 3;
@@ -18,11 +18,13 @@ House::House()
     {
         x = 265;
         entrance[0] = new Door(100, 300);
+        breedingplaces = new TrashCan(10,425);
     }
     else
     {
         x = 10;
         entrance[0] = new Door(750, 300);
+        breedingplaces = new TrashCan(925,425);
     }
 
     for (int i = 0; i<noOfHumans; i++)
@@ -49,7 +51,7 @@ House::House()
         entrance[1] = new Window(412,125);
     }
 
-    breedingplaces = new Plant(500,500);
+
 
 
 }
@@ -57,6 +59,9 @@ House::House()
 void House::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->Render(9, renderer, &pos);
+
+    //SDL_SetRenderDrawColor(renderer, 30,30,30,0); //wall feature
+    //SDL_RenderFillRect(renderer, &wall);
     for(int i=0; i < noOfEntrance; i++)
     {
         entrance[i]->Show(renderer);
@@ -77,3 +82,9 @@ void House::Show(SDL_Renderer* renderer)
     breedingplaces->Show(renderer);
 
 }
+
+void House::Update(SDL_Event* e, Screens_Node& node)
+{
+
+}
+
