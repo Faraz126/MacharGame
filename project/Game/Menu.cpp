@@ -35,8 +35,6 @@ Menu::Menu(int noOfButton, int x, int y, bool horizontal)
 
 }
 
-
-
 Menu::~Menu()
 {
 
@@ -55,7 +53,7 @@ void Menu::Hover(SDL_Event* e)
 {
     int hoverX = e->button.x;
     int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN ||e->type == SDL_MOUSEMOTION)
+    if(e->type == SDL_MOUSEMOTION)
     {
         for(int i=0; i<noOfButton; i++)
         {
@@ -76,7 +74,7 @@ void Menu::Click(SDL_Event* e)
 {
     int hoverX = e->button.x;
     int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN)
+    if(e->type == SDL_MOUSEBUTTONDOWN)
     {
 
         if(e->button.button ==  SDL_BUTTON_LEFT)

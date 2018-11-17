@@ -8,6 +8,12 @@ CancelButton::CancelButton()
     pos.h = 35;
     diffStateBtn= 4;
 
+    SettingscancelPos.x = 880;
+    SettingscancelPos.y = 400;
+    SettingscancelPos.w = 35;
+    SettingscancelPos.h = 35;
+
+
 }
 CancelButton::CancelButton(int x, int y) : CancelButton()  //after overloaded call that constructor too
 {
@@ -38,8 +44,15 @@ void CancelButton::Hover()
 void CancelButton::Click()
 {
     diffStateBtn=3;   // if clicked sprite changed
-    std::cout<<"btn clicked";
+
 }
 
-
+bool CancelButton::WithinCancelRegion(int mouseX, int mouseY)
+{
+    bool inRegion = false;
+    if( ( mouseX > pos.x ) && ( mouseX < (pos.x+pos.w) ) && ( mouseY > pos.y ) && (mouseY< (pos.y+pos.h) ) )
+        return true;
+    else
+        return false;
+}
 

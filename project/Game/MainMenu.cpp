@@ -31,16 +31,17 @@ MainMenu::MainMenu():Menu(3,354,506,false)
 
 void MainMenu::Click(SDL_Event* e)
 {
-    int hoverX = e->button.x;
+    int hoverX = e->button.x;  //for cancel button click
     int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN)
+    if(e->type == SDL_MOUSEBUTTONDOWN)
     {
         if(e->button.button ==  SDL_BUTTON_LEFT)
         {
             SetMouseClicked(true);
-            if( ( hoverX > pos2.x ) && ( hoverX < (pos2.x+pos2.w) ) && ( hoverY > pos2.y ) && (hoverY< (pos2.y+pos2.h) ) )
+            if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
             {
                 cancelBtn->Click();
+                SDL_Quit();
 
             }
             else
@@ -54,11 +55,11 @@ void MainMenu::Click(SDL_Event* e)
 
 void MainMenu::Hover(SDL_Event* e)
 {
-    int hoverX = e->button.x;
+    int hoverX = e->button.x;   // for cancel button hover
     int hoverY = e->button.y;
     if(e->type == SDL_MOUSEMOTION)
     {
-        if( ( hoverX > pos2.x ) && ( hoverX < (pos2.x+pos2.w) ) && ( hoverY > pos2.y ) && (hoverY< (pos2.y+pos2.h) ) )
+        if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
         {
             cancelBtn->Hover();
         }
@@ -82,8 +83,6 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
     texture->Render(3,gRenderer,&pos0);
     texture->Render(int(mosquitoIterator),gRenderer,&pos1);
     cancelBtn->Render(gRenderer);
-
-
     Menu::Show(gRenderer);
 }
 
@@ -95,7 +94,7 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
     Menu::Hover(e);
     Click(e);
     Hover(e);
-    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN)
+    if(e->type == SDL_MOUSEBUTTONDOWN)
     {
         Menu::Click(e);
         if(e->button.button ==  SDL_BUTTON_LEFT)

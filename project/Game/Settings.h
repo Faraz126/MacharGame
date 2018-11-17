@@ -14,10 +14,11 @@ class Setting : public Menu
 {
 private:
     SDL_Rect* settingPos;
-    SDL_Rect* cancelPos;
+    SDL_Rect SettingscancelPos;
     Texture* texture;
     CancelButton *cancelBtn;
     Word* word;
+
 protected:
 
 public:
