@@ -18,13 +18,13 @@ House::House()
     {
         x = 265;
         entrance[0] = new Door(100, 300);
-        breedingplaces = new TrashCan(10,425);
+        breedingplaces = new TrashCan(10,450);
     }
     else
     {
         x = 10;
         entrance[0] = new Door(750, 300);
-        breedingplaces = new TrashCan(925,425);
+        breedingplaces = new TrashCan(925,450);
     }
 
     for (int i = 0; i<noOfHumans; i++)

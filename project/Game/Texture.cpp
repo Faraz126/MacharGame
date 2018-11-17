@@ -1,17 +1,20 @@
 #include "Texture.h"
 
 
-Texture* Texture::instance = nullptr;
+
+Texture* Texture::instance = 0;
+
 
 Texture::Texture(SDL_Renderer* renderer)
 {
-    this->texture = nullptr;
+    this->texture = 0;
+    clipFromTexture = SDL_Rect();
     LoadMedia(renderer);
 }
 
-Texture* Texture::GetInstance(SDL_Renderer* renderer)
+Texture* Texture::GetInstance(SDL_Renderer* renderer) //static method.
 {
-    if (Texture::instance == nullptr)
+    if (Texture::instance == 0)
     {
         Texture::instance = new Texture(renderer);
     }
@@ -29,10 +32,10 @@ Texture* Texture::GetInstance()
 
 void Texture::Free()
 {
-    if (this->texture != nullptr)
+    if (this->texture != 0)
     {
         SDL_DestroyTexture(this->texture);
-        this->texture = nullptr;
+        this->texture = 0;
     }
 }
 
@@ -59,19 +62,19 @@ bool Texture::LoadMedia(SDL_Renderer* renderer)
     return texture != NULL;
 }
 
-void Texture::Render ( int serial, SDL_Renderer * gRenderer , SDL_Rect * clip)
+void Texture::Render ( int serial, SDL_Renderer * gRenderer , SDL_Rect * clip) //Highlight
 {
     /*
     serial no = No. of object to be drawn on sprite sheet
     gRenderer = screen to render to
     clip = the position to draw into
     */
-    SetRect(serial);
+    SetRect(serial); //region de rahe hain
     SDL_RenderCopy(gRenderer, this->texture,&clipFromTexture, clip);
 
 }
 
-void Texture::Render(char character, SDL_Renderer* gRenderer, SDL_Rect * clip)
+void Texture::Render(char character, SDL_Renderer* gRenderer, SDL_Rect * clip) //Highlight
 {
     /*
     character = character to be drawn on sprite sheet
@@ -361,17 +364,17 @@ void Texture::SetRect(char c)
     */
     int ascii = c;
     int col = 0;
-    if (ascii == 32)
+    if (ascii == 32) //for space
     {
 
     }
-    else if (ascii >= 97)
+    else if (ascii >= 97) //for small letters
     {
         col = 1;
         ascii -= 97;
 
     }
-    else if (ascii >= 65 && ascii <= 90)
+    else if (ascii >= 65 && ascii <= 90) //for capital letters
     {
         ascii -= 65;
     }

@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
-class Texture
+class Texture //agar nahi hoti toh store karte k har object kahan par hai
 {
 
 private:

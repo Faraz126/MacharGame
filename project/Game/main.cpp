@@ -10,6 +10,7 @@
 #include "House.h"
 #include "time.h"
 #include <random>
+#include"Outdoor.h"
 
 
 using namespace std;
@@ -123,22 +124,23 @@ int main( int argc, char* args[] )
 	else
 	{
         bool quit = false;
+
         Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
+
+
         SDL_Event e;
         Screens_Node screen;
+
         screen.cur_screen = new House; //starting with main menu
+
 
 
         while (!quit)
         {
             while (SDL_PollEvent(&e))
             {
-                if( e.type == SDL_QUIT )
-                {
-                    quit = true;
-                }
-            }
-
+                if( e.type == SDL_QUIT ) quit = true;
+             }
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 

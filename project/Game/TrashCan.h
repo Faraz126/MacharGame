@@ -9,8 +9,8 @@
 #include <SDL_image.h>
 #include "Mosquito.h"
 
-const int CAN_WIDTH = 121*0.65;
-const int CAN_HEIGHT = 117*0.65;
+const int CAN_WIDTH = 121*0.5;
+const int CAN_HEIGHT = 117*0.5;
 
 
 class TrashCan : public Container
