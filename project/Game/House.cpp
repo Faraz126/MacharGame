@@ -12,6 +12,7 @@ House::House()
     noOfEntrance = rand()%2 + 2;
     noOfHumans = (rand()%3) + 3;
     bed = new Bed[noOfHumans];
+    //humans = new Human(this);
     entrance = new Entrance*[noOfEntrance];
     int x;
     if (rand() % 2) //random x co-ordinate for the door
@@ -86,5 +87,30 @@ void House::Show(SDL_Renderer* renderer)
 void House::Update(SDL_Event* e, Screens_Node& node)
 {
 
+}
+
+Bed* House::GetClosestBed(int x) //pass on Human x co-ordinates here
+{
+    Bed* minimum = &bed[0];
+    int dist = bed[0].GetDistance(x);
+
+    for (int i = 1; i < noOfHumans; i++)
+    {
+        if (!bed[i].GetOccupied())
+        {
+            int temp = bed[i].GetDistance(x);
+            if (temp < dist)
+            {
+                minimum = &bed[i];
+                dist = temp;
+            }
+        }
+    }
+    return minimum;
+}
+
+Door* House::GetDoor()
+{
+    return static_cast<Door*>(entrance[0]);
 }
 

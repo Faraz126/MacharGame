@@ -1,8 +1,8 @@
 #pragma once
 #include "Screens.h"
-#include "Human.h"
 #include "Window.h"
 
+class Human;
 
 class Mosquito
 {

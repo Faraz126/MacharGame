@@ -29,3 +29,13 @@ bool Entrance::WithinEntrance(int x, int y)
 {
     return x >= pos.x && y >= pos.y && x <= pos.x + pos.w && y <= pos.h + pos.y;
 }
+
+int Entrance::GetX()
+{
+    return pos.x;
+}
+
+int Entrance::GetY()
+{
+    return pos.y;
+}

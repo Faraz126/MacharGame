@@ -19,6 +19,8 @@ public:
     void SetState();
     void MosquitoEnter();
     bool WithinEntrance(int, int); //returns true if the given x,y co-ordinate is within the entrance.
+    int GetX();
+    int GetY();
     ~Entrance();
 };
 
