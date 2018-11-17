@@ -9,7 +9,7 @@ protected:
 public:
     Manhole();
     Mosquito* breedType(int);
-    void Show(SDl_Render*);
+    void Show(SDL_Renderer*);
     ~Manhole();
 };
 

@@ -55,6 +55,8 @@
 		<Unit filename="BucketLid.h" />
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.h" />
+		<Unit filename="CancelButton.cpp" />
+		<Unit filename="CancelButton.h" />
 		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
 		<Unit filename="CleanWater.h" />
