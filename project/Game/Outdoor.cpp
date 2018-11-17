@@ -20,7 +20,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
     Texture::GetInstance()->Render(35, renderer, &pos); //Highlight
 }
 
-void Outdoor::MouseEvent(SDL_Event* e)
+void Outdoor::Update(SDL_Event* e, Screens_Node& node)
 {
 
 }

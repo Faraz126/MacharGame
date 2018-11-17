@@ -132,7 +132,7 @@ int main( int argc, char* args[] )
         Texture::GetInstance(gRenderer);
         Screens_Node screen;
 
-        screen.cur_screen = new MainMenu; //starting with main menu
+        screen.cur_screen = new MainMenu;//starting with main menu
 
 
 
@@ -141,6 +141,7 @@ int main( int argc, char* args[] )
             while (SDL_PollEvent(&e))
             {
                 if( e.type == SDL_QUIT ) quit = true;
+                screen.cur_screen->Update(&e,screen);
              }
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
@@ -157,7 +158,7 @@ int main( int argc, char* args[] )
                     screen.prev_screen->Update(&e, screen);
                 }
             }
-            screen.cur_screen->Update(&e,screen);
+
             screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
             SDL_RenderPresent( gRenderer );
         }

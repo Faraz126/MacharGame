@@ -31,7 +31,7 @@ public:
     void LeaveHuman();
     void Click();
     void Show(SDL_Renderer*);
-    void MouseEvent(SDL_Event*);
+    void Update(SDL_Event*, Screens_Node&);
     //Entrance* getCurrentState();
     ~Outdoor();
 };
