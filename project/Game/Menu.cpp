@@ -35,7 +35,7 @@ void Menu::Show(SDL_Renderer* gRenderer)
 {
     for(int i=0; i<noOfButton; i++)
     {
-         btn[i].render(gRenderer);
+         btn[i].Render(gRenderer);
     }
 }
 
@@ -86,4 +86,23 @@ void Menu::Click(SDL_Event* e)
         }
     }
 
+}
+
+void Menu::SetText(std::string* buttonText)
+{
+    for (int i=0; i < noOfButton; i++)
+    {
+
+        btn[i].setText(buttonText[i]);
+    }
+}
+
+void Menu::SetMouseClicked(bool clicked)
+{
+    this->mouseClicked = clicked;
+}
+
+bool Menu::GetMouseClicked()
+{
+    return mouseClicked;
 }

@@ -6,19 +6,17 @@
 #include <string>
 #include <iostream>
 
-class Button
+class CancelButton
 {
-    Word * word ;
     void Click(SDL_Rect*);
     Texture * texture ;
     SDL_Event e;
 
     public:
-    int intHover;
+    int diffStateBtn;
     SDL_Rect pos;
-    Button (std::string str , int x, int y);
-    void setText ( std::string str );
-    Button();
+    CancelButton (int x, int y);
+    CancelButton();
     void Hover();
     void Click();
     void Render ( SDL_Renderer * gRenderer );

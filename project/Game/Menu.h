@@ -2,6 +2,9 @@
 #include "Screens.h"
 #include "Button.h"
 #include "Texture.h"
+#include <iostream>
+#include <string>
+#include "string.h"
 
 class Menu: public Screens
 {
@@ -28,6 +31,8 @@ public:
     void Click(SDL_Event*);
     void SetNoOfButton(int);
     int GetNoOfButton();
-
+    void SetMouseClicked(bool);
+    bool GetMouseClicked();
+    void SetText(std::string*);
 
 };
