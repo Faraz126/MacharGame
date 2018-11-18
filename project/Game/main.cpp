@@ -132,7 +132,8 @@ int main( int argc, char* args[] )
         Texture::GetInstance(gRenderer);
         Screens_Node screen;
 
-        screen.cur_screen = new House; //starting with main menu
+
+        screen.cur_screen = new Outdoor; //starting with main menu
 
 
 

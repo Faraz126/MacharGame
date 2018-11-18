@@ -15,6 +15,7 @@ class Container : public BreedingGround
         bool GetCovered();
         virtual Mosquito* Breed(int);
         virtual void SetCovered(bool);
+        void SetX(int,int);
 
     private:
         bool isCovered;
