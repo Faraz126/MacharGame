@@ -87,6 +87,7 @@ void Setting::Click(SDL_Event* e)
     {
         if(e->button.button == SDL_BUTTON_LEFT)
         {
+
             SetMouseClicked(true);
             if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
             {
@@ -136,6 +137,7 @@ void Setting::Click(SDL_Event* e)
         slider[0].SetMouseClicked(false);
         slider[1].SetMouseClicked(false);
     }
+
 }
 
 void Setting::Hover(SDL_Event* e)
