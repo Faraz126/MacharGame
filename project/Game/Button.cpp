@@ -6,7 +6,7 @@ Button::Button()
     pos.y = 506;
     pos.w = 314;
     pos.h = 64;
-    intHover = 0;
+    intHover = 0;  //which
     word = 0;
 
 }

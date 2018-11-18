@@ -23,7 +23,7 @@ MainMenu::MainMenu():Menu(3,354,506,false)
     buttonText[1] = "LOAD GAME";
     buttonText[2] = "SETTINGS";
 
-    cancelBtn = new CancelButton();
+    cancelBtn = new CancelButton(pos2);
 
     Menu::SetText(buttonText);
 
@@ -82,7 +82,7 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
     texture = Texture::GetInstance(gRenderer);
     texture->Render(3,gRenderer,&pos0);
     texture->Render(int(mosquitoIterator),gRenderer,&pos1);
-    cancelBtn->Render(gRenderer);
+    cancelBtn->Show(gRenderer);
     Menu::Show(gRenderer);
 }
 

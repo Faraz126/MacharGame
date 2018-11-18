@@ -1,40 +1,29 @@
 #include "CancelButton.h"
 
-CancelButton::CancelButton()
+CancelButton::CancelButton(SDL_Rect rect)
 {
-    pos.x = 950;
-    pos.y = 10;
-    pos.w = 35;
-    pos.h = 35;
+    pos.x = rect.x ;
+    pos.y = rect.y;
+    pos.w = rect.w;
+    pos.h = rect.h;
     diffStateBtn= 4;
 
-    SettingscancelPos.x = 880;
-    SettingscancelPos.y = 400;
-    SettingscancelPos.w = 35;
-    SettingscancelPos.h = 35;
 
 
 }
-CancelButton::CancelButton(int x, int y) : CancelButton()  //after overloaded call that constructor too
+CancelButton::CancelButton(int x, int y)   //after overloaded call that constructor too
 {
     x = y = 0;
 
 }
 
-void CancelButton::Render ( SDL_Renderer * gRenderer )
+void CancelButton::Show( SDL_Renderer * gRenderer )
 {
     texture = Texture::GetInstance(gRenderer); //singelton here, static method
     texture->Render(diffStateBtn, gRenderer, &pos);
 
-
-
 }
 
-void CancelButton::setPosition ( int x, int y)
-{
-    pos.x = x;              //setting position of buttons on the screen
-    pos.y = y;
-}
 
 void CancelButton::Hover()
 {
