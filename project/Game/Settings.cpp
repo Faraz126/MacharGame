@@ -80,37 +80,47 @@ void Setting::Click(SDL_Event* e)
 {
     int hoverX = e->button.x;  //for cancel button click
     int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEBUTTONDOWN)
+    if(e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEMOTION)
     {
-        if(e->button.button ==  SDL_BUTTON_LEFT)
+        if(e->button.button == SDL_BUTTON_LEFT)
         {
-            SetMouseClicked(true);
-            if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
-            {
-                cancelBtn->Click();
-
-            }
-
-            if (slider->WithinSliderRegion(hoverX,hoverY)==true)
-            {
-                slider->Click();
-                slider->SetMouseClicked(true);
-            }
-
-            if (cancelBtn->WithinCancelRegion(hoverX,hoverY)==false)
-            {
-                cancelBtn->diffStateBtn=4;
-            }
-
-            if (slider->WithinSliderRegion(hoverX,hoverY)==false)
-            {
-                slider->diffStateBtn=0;
-            }
-
+                SetMouseClicked(true);
+                if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
+                {
+                    cancelBtn->Click();
+                }
+                if (slider->WithinSliderRegion(hoverX,hoverY)==true)
+                {
+                    slider->Click();
+                    if (!slider->GetMouseClicked())
+                    {
+                        slider->SetMouseClicked(true);
+                    }
+                }
+                if (cancelBtn->WithinCancelRegion(hoverX,hoverY)==false)
+                {
+                    cancelBtn->diffStateBtn=4;
+                }
+                if (slider->WithinSliderRegion(hoverX,hoverY)==false)
+                {
+                    slider->diffStateBtn=0;
+                }
+                if (slider->GetMouseClicked())
+                {
+                    slider->sliderPos.x = hoverX;
+                }
 
         }
 
     }
+
+    if (e->type == SDL_MOUSEBUTTONUP)
+    {
+        SetMouseClicked(false);
+        slider->SetMouseClicked(false);
+    }
+
+
 
 }
 

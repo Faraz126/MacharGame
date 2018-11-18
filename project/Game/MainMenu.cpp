@@ -111,7 +111,7 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
                 node.cur_screen = new Setting;
                 node.prev_screen = this;
                 node.prev_backable = true;
-                node.prev_updatable = true;
+                node.prev_updatable = false;
             }
 
             if( cancelBtn->WithinCancelRegion(mouseX,mouseY)==true)
@@ -119,7 +119,7 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
                 node.cur_screen = new ExitMenu;
                 node.prev_screen = this;
                 node.prev_backable = true;
-                node.prev_updatable = true;
+                node.prev_updatable = false;
 
             }
 
