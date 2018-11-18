@@ -145,11 +145,11 @@ int main( int argc, char* args[] )
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 
-            if (!screen.prev_backable)
-            {
-                delete screen.prev_screen;
-            }
-            else if (screen.prev_backable != 0)
+//            if (!screen.prev_backable)
+//            {
+//                delete screen.prev_screen;
+//            }
+            if (screen.prev_backable != 0)
             {
                 screen.prev_screen->Show(gRenderer);
                 if (screen.prev_updatable)

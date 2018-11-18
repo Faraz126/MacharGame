@@ -6,7 +6,7 @@ CancelButton::CancelButton(SDL_Rect rect)
     pos.y = rect.y;
     pos.w = rect.w;
     pos.h = rect.h;
-    diffStateBtn= 4;
+    diffStateBtn= 38;
 
 
 
@@ -27,12 +27,12 @@ void CancelButton::Show( SDL_Renderer * gRenderer )
 
 void CancelButton::Hover()
 {
-    diffStateBtn =0;    // if hovered sprite changed
+    diffStateBtn =4;    // if hovered sprite changed
 }
 
 void CancelButton::Click()
 {
-    diffStateBtn=3;   // if clicked sprite changed
+    diffStateBtn=39;   // if clicked sprite changed
 
 }
 

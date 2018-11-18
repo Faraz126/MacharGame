@@ -17,7 +17,7 @@ Setting::Setting():Menu(2,175,630,true)  //calling menus constructor that is con
     buttonText[0]= "SAVE";
     buttonText[1] = "RESET";
     cancelBtn = new CancelButton(settingscancelPos);  //making a cancel button
-    slider = new Slider();
+    slider = new Slider[2];
 
     Menu::SetText(buttonText);
     word = new Word[3];  // 3 because 3 words, settings, volume and brightness
@@ -31,14 +31,13 @@ Setting::Setting():Menu(2,175,630,true)  //calling menus constructor that is con
     word[2].SetText("BRIGHTNESS");
     word[2].SetPosition(settingPos->x+10,settingPos->y+150);
 
-
-
-
+    slider[0].setPosition(500,settingPos->y+75);
+    slider[1].setPosition(500,settingPos->y+150);
 }
 
 void Setting::Show(SDL_Renderer* gRenderer)
 {
-    SDL_SetRenderDrawColor( gRenderer, 255, 255, 255, 0);   //settings ka rectangle wala box
+    SDL_SetRenderDrawColor( gRenderer, 229, 255, 204, 0);   //settings ka rectangle wala box
     SDL_RenderFillRect(gRenderer,settingPos);
     Menu::Show(gRenderer);
     for(int i=0; i<3; i++)      //rendering all words i.e settings,volume,brightness
@@ -47,7 +46,11 @@ void Setting::Show(SDL_Renderer* gRenderer)
     }
 
     cancelBtn->Show(gRenderer);
-    slider->Show(gRenderer);
+
+    for(int i=0; i<2; i++)      //rendering all words i.e settings,volume,brightness
+    {
+         slider[i].Show(gRenderer);
+    }
 
 
 }
@@ -68,7 +71,7 @@ void Setting::Update(SDL_Event* e, Screens_Node& node)
             SetMouseClicked(true);
             if (cancelBtn->WithinCancelRegion(mouseX,mouseY)==true)
             {
-                node.cur_screen = new MainMenu;
+                node.cur_screen = node.prev_screen;
                 node.prev_screen = this;
                 node.prev_backable = false;  //cancel screen will close and main menu  screen will open
             }
@@ -80,38 +83,59 @@ void Setting::Click(SDL_Event* e)
 {
     int hoverX = e->button.x;  //for cancel button click
     int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEBUTTONDOWN)
+    if(e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEMOTION)
     {
-        if(e->button.button ==  SDL_BUTTON_LEFT)
+        if(e->button.button == SDL_BUTTON_LEFT)
         {
             SetMouseClicked(true);
             if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
             {
                 cancelBtn->Click();
-
             }
-
-            if (slider->WithinSliderRegion(hoverX,hoverY)==true)
-            {
-                slider->Click();
-                slider->SetMouseClicked(true);
-            }
-
             if (cancelBtn->WithinCancelRegion(hoverX,hoverY)==false)
             {
-                cancelBtn->diffStateBtn=4;
+                cancelBtn->diffStateBtn=39;
             }
 
-            if (slider->WithinSliderRegion(hoverX,hoverY)==false)
+            for(int i=0; i<2; i++)
             {
-                slider->diffStateBtn=0;
-            }
+               if (slider[i].WithinSliderRegion(hoverX,hoverY)==true)
+                {
+                    slider[i].Click();
+                    if (!slider[i].GetMouseClicked())
+                    {
+                        slider[i].SetMouseClicked(true);
+                    }
+                }
 
+                if (slider[i].WithinSliderRegion(hoverX,hoverY)==false)
+                {
+                    slider[i].diffStateBtn=0;
+                }
+                if (slider[i].GetMouseClicked())
+                {
+                    slider[i].sliderPos.x = hoverX;
+                    if (hoverX > 790)
+                    {
+                        slider[i].sliderPos.x= 790;
+                    }
+
+                    if (hoverX <500)
+                    {
+                        slider[i].sliderPos.x= 500;
+                    }
+                }
+
+            }
 
         }
-
     }
-
+    if (e->type == SDL_MOUSEBUTTONUP)
+    {
+        SetMouseClicked(false);
+        slider[0].SetMouseClicked(false);
+        slider[1].SetMouseClicked(false);
+    }
 }
 
 void Setting::Hover(SDL_Event* e)
@@ -124,30 +148,25 @@ void Setting::Hover(SDL_Event* e)
         {
             cancelBtn->Hover();
         }
-
-        else if( slider->WithinSliderRegion(hoverX,hoverY)==true)
-        {
-            slider->Hover();
-            if (slider->GetMouseClicked()==true)
-            {
-                std::cout<<"please";
-                sliderPos.x +=2;
-
-            }
-
-        }
-        else if (slider->WithinSliderRegion(hoverX,hoverY)==false)
-        {
-            slider->diffStateBtn=0;
-        }
-
         else if (cancelBtn->WithinCancelRegion(hoverX,hoverY)==false)
         {
-            cancelBtn->diffStateBtn=4;
+            cancelBtn->diffStateBtn=38;
         }
-
-
-
+        for(int i=0; i<2; i++)
+        {
+           if( slider[i].WithinSliderRegion(hoverX,hoverY)==true)
+            {
+                slider[i].Hover();
+                if (slider[i].GetMouseClicked()==true)
+                {
+                    slider[i].sliderPos.x +=2;
+                }
+            }
+            else if (slider[i].WithinSliderRegion(hoverX,hoverY)==false)
+            {
+                slider[i].diffStateBtn=0;
+            }
+        }
 
 
 

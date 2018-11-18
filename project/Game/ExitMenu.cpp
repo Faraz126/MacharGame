@@ -47,16 +47,15 @@ void ExitMenu::Update(SDL_Event* e, Screens_Node& node)
 
             if (btn[0].WithinRegion(mouseX,mouseY)==true)
             {
-                std::cout<<"what";
                 SDL_Quit();
-                std::cout<<"no";
             }
 
             if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
-                node.cur_screen = new MainMenu;
+                node.cur_screen = node.prev_screen;
                 node.prev_screen = this;
                 node.prev_backable = false;
+                node.prev_updatable = false;
             }
         }
     }

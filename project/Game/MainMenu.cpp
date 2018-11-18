@@ -18,7 +18,7 @@ MainMenu::MainMenu():Menu(3,354,506,false)
     pos2.w = 35;
     pos2.h = 35;    //for cancel button
 
-    mosquitoIterator=4;
+    mosquitoIterator=43;
     buttonText[0]= "NEW GAME";
     buttonText[1] = "LOAD GAME";
     buttonText[2] = "SETTINGS";
@@ -75,9 +75,9 @@ void MainMenu::Hover(SDL_Event* e)
 
 void MainMenu::Show(SDL_Renderer* gRenderer)
 {
-    mosquitoIterator +=0.03;
-     if (mosquitoIterator>=8)
-        mosquitoIterator=4;
+    mosquitoIterator +=0.02;
+     if (mosquitoIterator>=52)
+        mosquitoIterator=43;
     texture = Texture::GetInstance(gRenderer);
     texture->Render(3,gRenderer,&pos0);
     texture->Render(int(mosquitoIterator),gRenderer,&pos1);
@@ -104,6 +104,7 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
                 node.cur_screen = new Outdoor;
                 node.prev_screen = this;
                 node.prev_backable = false;  //outdoor screen will open
+
             }
 
             if (btn[2].WithinRegion(mouseX,mouseY)==true)
@@ -111,7 +112,7 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
                 node.cur_screen = new Setting;
                 node.prev_screen = this;
                 node.prev_backable = true;
-                node.prev_updatable = true;
+                node.prev_updatable = false;
             }
 
             if( cancelBtn->WithinCancelRegion(mouseX,mouseY)==true)
@@ -119,7 +120,7 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
                 node.cur_screen = new ExitMenu;
                 node.prev_screen = this;
                 node.prev_backable = true;
-                node.prev_updatable = true;
+                node.prev_updatable = false;
 
             }
 

@@ -55,6 +55,8 @@
 		<Unit filename="BucketLid.h" />
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.h" />
+		<Unit filename="CancelButton.cpp" />
+		<Unit filename="CancelButton.h" />
 		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
 		<Unit filename="CleanWater.h" />
@@ -67,6 +69,8 @@
 		<Unit filename="Door.h" />
 		<Unit filename="Entrance.cpp" />
 		<Unit filename="Entrance.h" />
+		<Unit filename="ExitMenu.cpp" />
+		<Unit filename="ExitMenu.h" />
 		<Unit filename="Hospital.h" />
 		<Unit filename="House.cpp" />
 		<Unit filename="House.h" />
@@ -94,9 +98,11 @@
 		<Unit filename="Queue.h" />
 		<Unit filename="Screens.cpp" />
 		<Unit filename="Screens.h" />
+		<Unit filename="Settings.cpp" />
 		<Unit filename="Settings.h" />
 		<Unit filename="Showpiece.cpp" />
 		<Unit filename="Showpiece.h" />
+		<Unit filename="Slider.cpp" />
 		<Unit filename="Slider.h" />
 		<Unit filename="Soil.h" />
 		<Unit filename="Texture.cpp" />

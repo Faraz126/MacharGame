@@ -2,8 +2,8 @@
 
 Slider::Slider()
 {
-    sliderPos.x= 500;
-    sliderPos.y= 475;
+    sliderPos.x= 0;
+    sliderPos.y= 0;
     sliderPos.w = 20;
     sliderPos.h = 20;
     diffStateBtn= 0;
@@ -18,12 +18,12 @@ void Slider::Show( SDL_Renderer * gRenderer )
 
 void Slider::Click()
 {
-    diffStateBtn = 26;
+    diffStateBtn = 39;
 }
 
 void Slider::Hover()
 {
-    diffStateBtn = 30;
+    diffStateBtn = 38;
 }
 
 
@@ -44,5 +44,15 @@ void Slider::SetMouseClicked(bool clicked)
 bool Slider::GetMouseClicked()
 {
     return mouseClicked;
+}
+void Slider::setPosition ( int x, int y)
+{
+    sliderPos.x = x;              //setting position of buttons on the screen
+    sliderPos.y = y;
+}
+
+Slider::~Slider()
+{
+
 }
 
