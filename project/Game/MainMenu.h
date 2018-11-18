@@ -18,6 +18,7 @@ class MainMenu: public Menu
     Texture* texture;
     CancelButton* cancelBtn;
     double mosquitoIterator;
+    bool iteratorr;
 
 public:
 

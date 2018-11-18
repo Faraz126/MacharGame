@@ -52,7 +52,9 @@ void Outdoor::Show(SDL_Renderer* renderer)
     container[5]->Show(renderer);
 }
 
+
 void Outdoor::Update(SDL_Event* e,Screens_Node& node)
+
 {
         //If a key was pressed
     if( e->type == SDL_KEYDOWN )

@@ -72,6 +72,7 @@
 		<Unit filename="Hospital.h" />
 		<Unit filename="House.cpp" />
 		<Unit filename="House.h" />
+		<Unit filename="Human.cpp" />
 		<Unit filename="Human.h" />
 		<Unit filename="HumanFactory.h" />
 		<Unit filename="Lids.h" />
