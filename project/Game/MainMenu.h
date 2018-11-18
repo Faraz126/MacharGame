@@ -7,6 +7,7 @@
 #include "string"
 #include "Outdoor.h"
 #include "Settings.h"
+#include "ExitMenu.h"
 
 
 class MainMenu: public Menu

@@ -41,7 +41,6 @@ void MainMenu::Click(SDL_Event* e)
             if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
             {
                 cancelBtn->Click();
-                SDL_Quit();
 
             }
             else
@@ -115,8 +114,17 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
                 node.prev_updatable = true;
             }
 
+            if( cancelBtn->WithinCancelRegion(mouseX,mouseY)==true)
+            {
+                node.cur_screen = new ExitMenu;
+                node.prev_screen = this;
+                node.prev_backable = true;
+                node.prev_updatable = true;
+
+            }
 
         }
+
     }
 }
 

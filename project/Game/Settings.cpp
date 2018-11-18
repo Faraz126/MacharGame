@@ -13,11 +13,6 @@ Setting::Setting():Menu(2,175,630,true)  //calling menus constructor that is con
     settingscancelPos.w = 35;
     settingscancelPos.h = 35;    //for cancel button
 
-//    sliderPos.x= 870;
-//    sliderPos.y= 475;
-//    sliderPos.w = 20;
-//    sliderPos.h = 20;
-
 
     buttonText[0]= "SAVE";
     buttonText[1] = "RESET";
@@ -99,7 +94,7 @@ void Setting::Click(SDL_Event* e)
             if (slider->WithinSliderRegion(hoverX,hoverY)==true)
             {
                 slider->Click();
-                slider->sliderPos.x= hoverX;
+                slider->SetMouseClicked(true);
             }
 
             if (cancelBtn->WithinCancelRegion(hoverX,hoverY)==false)
@@ -114,6 +109,7 @@ void Setting::Click(SDL_Event* e)
 
 
         }
+
     }
 
 }
@@ -129,12 +125,18 @@ void Setting::Hover(SDL_Event* e)
             cancelBtn->Hover();
         }
 
-        if( slider->WithinSliderRegion(hoverX,hoverY)==true)
+        else if( slider->WithinSliderRegion(hoverX,hoverY)==true)
         {
             slider->Hover();
+            if (slider->GetMouseClicked()==true)
+            {
+                std::cout<<"please";
+                sliderPos.x +=2;
+
+            }
 
         }
-        if (slider->WithinSliderRegion(hoverX,hoverY)==false)
+        else if (slider->WithinSliderRegion(hoverX,hoverY)==false)
         {
             slider->diffStateBtn=0;
         }
@@ -143,6 +145,13 @@ void Setting::Hover(SDL_Event* e)
         {
             cancelBtn->diffStateBtn=4;
         }
+
+
+
+
+
+
+
 
     }
 

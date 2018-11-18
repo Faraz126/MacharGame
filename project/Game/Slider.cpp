@@ -7,6 +7,7 @@ Slider::Slider()
     sliderPos.w = 20;
     sliderPos.h = 20;
     diffStateBtn= 0;
+    mouseClicked = false;
 }
 
 void Slider::Show( SDL_Renderer * gRenderer )
@@ -34,3 +35,14 @@ bool Slider::WithinSliderRegion(int mouseX, int mouseY)
     else
         return false;
 }
+
+void Slider::SetMouseClicked(bool clicked)
+{
+    this->mouseClicked = clicked;
+}
+
+bool Slider::GetMouseClicked()
+{
+    return mouseClicked;
+}
+

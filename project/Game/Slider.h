@@ -11,6 +11,8 @@ private:
     int value;
     Texture * texture ;
     SDL_Event e;
+    bool mouseClicked;
+
 protected:
 
 public:
@@ -22,6 +24,8 @@ public:
     void Click();
     void Hover();
     bool WithinSliderRegion(int, int);
+    void SetMouseClicked(bool);
+    bool GetMouseClicked();
     int diffStateBtn;
     SDL_Rect sliderPos;
 
