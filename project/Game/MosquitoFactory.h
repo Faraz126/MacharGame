@@ -1,11 +1,16 @@
 #pragma once
+#include "Mosquito.h"
 
-class MosquitoFactory: public AbstractFactory
+
+
+class MosquitoFactory //public Factory
 {
 private:
     Mosquito* mosquito;
 protected:
 
 public:
-    Mosquito* GetMosquito(int);
+    MosquitoFactory();
+    ~MosquitoFactory();
+    //Mosquito* GetMosquito(int);
 };

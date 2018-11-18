@@ -3,10 +3,12 @@
 #include <SDL_image.h>
 #include "Mosquito.h"
 
+
 class BreedingGround
 {
 private:
 protected:
+    //Factory* factory;
     SDL_Rect pos;
 public:
     BreedingGround(int, int, int, int);

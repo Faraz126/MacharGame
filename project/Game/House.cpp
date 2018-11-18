@@ -37,6 +37,7 @@ House::House()
 
 
 
+
     if (noOfEntrance == 3)
     {
         showpieces = new Showpiece();

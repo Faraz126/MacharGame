@@ -1,5 +1,6 @@
 #ifndef FACTORYPRODUCER_H
 #define FACTORYPRODUCER_H
+#include "Factory.h"
 
 
 class FactoryProducer
@@ -7,7 +8,7 @@ class FactoryProducer
     public:
         FactoryProducer();
         virtual ~FactoryProducer();
-        static GetFactor
+        //static Factory* GetFactory(int);
     protected:
 
     private:

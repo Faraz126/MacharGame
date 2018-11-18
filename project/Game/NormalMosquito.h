@@ -5,7 +5,7 @@ class NormalMosquito : public Mosquito
 private:
 
 public:
-    NormalMosquito();
+    NormalMosquito(){};
     void bite(Human*);
     ~NormalMosquito();
 };
