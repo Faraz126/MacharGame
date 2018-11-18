@@ -64,7 +64,7 @@ void MainMenu::Hover(SDL_Event* e)
         }
         else
         {
-            cancelBtn->diffStateBtn=4;
+            cancelBtn->diffStateBtn=38;
         }
 
     }
