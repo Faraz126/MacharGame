@@ -7,14 +7,15 @@ class Entrance
 {
 private:
     bool State;
+
+
+protected:
     SDL_Rect pos;
     int spriteNum;
 
-protected:
-
 public:
-    Entrance(int,int,int);
-    void Show(SDL_Renderer*);
+    Entrance(int,int);
+    virtual void Show(SDL_Renderer*) = 0;
     bool GetState();
     void SetState();
     void MosquitoEnter();
