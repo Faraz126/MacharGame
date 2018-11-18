@@ -20,7 +20,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
     Texture::GetInstance()->Render(35, renderer, &pos); //Highlight
 }
 
-void Outdoor::Update(SDL_Event* e, Screens_Node& node)
+void Outdoor::Update(SDL_Event& e, Screens_Node& node)
 {
 
 }

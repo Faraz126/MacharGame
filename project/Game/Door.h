@@ -8,11 +8,15 @@ class Door:public Entrance
 {
 private:
     //time TimeCovered;
+    bool  isOpen;
 protected:
 
 public:
     Door(int,int);
     void Show(SDL_Renderer*);
+    void Update(SDL_Event&, Screens_Node&);
+    virtual void ChangeState();
+    bool IsOpen();
     //time SetTime();
     ~Door();
 };

@@ -9,7 +9,7 @@ House::House()
     pos.h = 786;
     wall.h = 488;
 
-    noOfEntrance = rand()%2 + 2;
+    noOfEntrance = (rand() % 2) + 2;
     noOfHumans = (rand()%3) + 3;
     bed = new Bed[noOfHumans];
     //humans = new Human(this);
@@ -39,8 +39,8 @@ House::House()
 
     if (noOfEntrance == 3)
     {
-        showpieces = new Showpiece[1];
-        showpieces[0].SetPos(450, 150);
+        showpieces = new Showpiece();
+        showpieces[0].SetPos(467, 132, 26);
         entrance[1] = new Window(200,125);
         entrance[2] = new Window(600,125);
     }
@@ -84,9 +84,34 @@ void House::Show(SDL_Renderer* renderer)
 
 }
 
-void House::Update(SDL_Event* e, Screens_Node& node)
+void House::Update(SDL_Event& e, Screens_Node& node)
 {
+    for (int i = 0; i <noOfEntrance; i++)
+    {
+        entrance[i]->Update(e, node);
+    }
 
+    while (SDL_PollEvent(&e))
+    {
+        if (e.type == SDL_QUIT)
+        {
+            SDL_Quit();
+        }
+        else if( e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
+        {
+            int mousePosX = e.button.x;
+            int mousePosY = e.button.y;
+
+            for (int i = 0; i < noOfEntrance; i++)
+            {
+                if (entrance[i]->WithinEntrance(mousePosX, mousePosY))
+                {
+                    entrance[i]->ChangeState();
+                }
+
+            }
+        }
+    }
 }
 
 Bed* House::GetClosestBed(int x) //pass on Human x co-ordinates here

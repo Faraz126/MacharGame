@@ -42,7 +42,7 @@ public:
     void Show(SDL_Renderer*);
     void getWindowState();
     void getEntranceState();
-    void Update(SDL_Event* e, Screens_Node&);
+    void Update(SDL_Event& e, Screens_Node&);
     Bed* GetClosestBed(int);
     Door* GetDoor();
 };

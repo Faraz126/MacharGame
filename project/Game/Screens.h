@@ -28,7 +28,7 @@ public:
     Screens();
     //virtual void Click(SDL_Renderer*) = 0;
     virtual void Show(SDL_Renderer*) = 0;
-    virtual void Update(SDL_Event*, Screens_Node&) = 0;
+    virtual void Update(SDL_Event&, Screens_Node&) = 0;
     ~Screens();
 };
 

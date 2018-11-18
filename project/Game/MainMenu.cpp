@@ -98,13 +98,13 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
 }
 
 
-void MainMenu::Update(SDL_Event* e, Screens_Node& node)
+void MainMenu::Update(SDL_Event& e, Screens_Node& node)
 {
-    Menu::Hover(e);
-    Click(e);
-    Hover(e);
-    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN)
-        Menu::Click(e);
+    Menu::Hover(&e);
+    Click(&e);
+    Hover(&e);
+    if(e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEBUTTONDOWN)
+        Menu::Click(&e);
 }
 
 MainMenu::~MainMenu()
