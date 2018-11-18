@@ -23,6 +23,7 @@ class Plant : public Container
         void SetCovered(bool);
         void Show(SDL_Renderer*);
         Mosquito* Breed(int);
+
         ~Plant();
 };
 

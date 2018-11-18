@@ -20,8 +20,9 @@ void Plant::Show(SDL_Renderer* renderer)
 
 Mosquito* Plant::Breed(int n)
 {
-
+    return 0;
 }
+
 
 Plant::~Plant()
 {
