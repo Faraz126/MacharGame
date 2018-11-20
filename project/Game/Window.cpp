@@ -61,3 +61,8 @@ bool Window::IsOpen()
     }
     return true;
 }
+
+Window::~Window()
+{
+
+}

@@ -1,4 +1,14 @@
 #pragma once
+#include "Container.h"
+#include <SDL.h>
+#include <SDL_image.h>
+#include "Texture.h"
+#include "Mosquito.h"
+
+
+int TUB_WIDTH = 102;
+int TUB_HEIGHT = 109;
+
 
 class Tub : public Container
 {
@@ -7,9 +17,10 @@ private:
 protected:
 
 public:
-    Tub();
-    Mosquito* breedType(int);
-    void Show(SDl_Render*);
+    Tub(int,int);
+    Mosquito* Breed();
+    void Show(SDL_Renderer*);
+    void SetCovered(bool);
     ~Tub();
 };
 

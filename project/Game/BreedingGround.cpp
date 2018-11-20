@@ -7,7 +7,7 @@ BreedingGround::BreedingGround(int x, int y, int w, int h)
     pos.y = y;
     pos.w = w;
     pos.h = h;
-    //factory = new FactoryProducer::GetFactory(0);
+    factory = FactoryProducer::GetFactory(0);
 }
 
 void BreedingGround::UpdatePos(int x, int y)
@@ -21,10 +21,11 @@ void BreedingGround::Show(SDL_Renderer* renderer)
 
 }
 
-Mosquito* BreedingGround::Breed(int n)
+Mosquito* BreedingGround::Breed()
 {
 
 }
+
 
 BreedingGround::~BreedingGround()
 {

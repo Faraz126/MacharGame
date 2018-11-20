@@ -411,6 +411,84 @@ void Texture::SetRect(int n)
         clipFromTexture.w = 441;
         clipFromTexture.h = 346;
         break;
+    case 53:
+        clipFromTexture.x = 2282;
+        clipFromTexture.y = 1351;
+        clipFromTexture.w = 41;
+        clipFromTexture.h = 44;
+        break;
+    case 54:
+        clipFromTexture.x = 2344;
+        clipFromTexture.y = 1351;
+        clipFromTexture.w = 41;
+        clipFromTexture.h = 44;
+        break;
+    case 55:
+        clipFromTexture.x = 2286;
+        clipFromTexture.y = 1454;
+        clipFromTexture.w = 30;
+        clipFromTexture.h = 37;
+        break;
+    case 56:
+        clipFromTexture.x = 2350;
+        clipFromTexture.y = 1454;
+        clipFromTexture.w = 19;
+        clipFromTexture.h = 37;
+        break;
+    case 57:
+        clipFromTexture.x = 2399;
+        clipFromTexture.y = 1453;
+        clipFromTexture.w = 38;
+        clipFromTexture.h = 38;
+        break;
+    case 58:
+        clipFromTexture.x = 2458;
+        clipFromTexture.y = 1429;
+        clipFromTexture.w = 67;
+        clipFromTexture.h = 67;
+        break;
+    case 59:
+        clipFromTexture.x = 107;
+        clipFromTexture.y = 3479;
+        clipFromTexture.w = 743;
+        clipFromTexture.h = 334;
+        break;
+    case 60:
+        clipFromTexture.x = 103;
+        clipFromTexture.y = 3890;
+        clipFromTexture.w = 397;
+        clipFromTexture.h = 52;
+        break;
+    case 61:
+        clipFromTexture.x = 527;
+        clipFromTexture.y = 3894;
+        clipFromTexture.w = 47;
+        clipFromTexture.h = 44;
+        break;
+    case 62:
+        clipFromTexture.x = 903;
+        clipFromTexture.y = 3479;
+        clipFromTexture.w = 354;
+        clipFromTexture.h = 92;
+        break;
+    case 63:
+        clipFromTexture.x = 2571;
+        clipFromTexture.y = 1343;
+        clipFromTexture.w = 223;
+        clipFromTexture.h = 45;
+        break;
+    case 64:
+        clipFromTexture.x = 2573;
+        clipFromTexture.y = 1444;
+        clipFromTexture.w = 221;
+        clipFromTexture.h = 120;
+        break;
+    case 65:
+        clipFromTexture.x = 2583;
+        clipFromTexture.y = 1592;
+        clipFromTexture.w = 202;
+        clipFromTexture.h = 221;
+        break;
 
 
 

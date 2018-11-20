@@ -15,11 +15,10 @@ const int CAN_HEIGHT = 117*0.5;
 
 class TrashCan : public Container
 {
-    int spriteNum;
     public:
         TrashCan(int,int);
         void Show(SDL_Renderer*);
-        Mosquito* Breed(int);
+        Mosquito* Breed();
         ~TrashCan();
 };
 

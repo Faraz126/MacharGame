@@ -10,6 +10,8 @@
 #include "Showpiece.h"
 #include "Plant.h"
 #include "TrashCan.h"
+#include "Manhole.h"
+
 //#include "Human.h"
 
 class House: public Screens
@@ -17,6 +19,7 @@ class House: public Screens
 {
 private:
     //Money money;
+
     bool hasRepellent;
     int noOfHumans;
     int noOfEntrance;

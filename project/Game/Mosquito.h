@@ -10,10 +10,10 @@ private:
 protected:
 
 public:
-    Mosquito(){};
+    Mosquito();
     //void fly(Screens*);
     virtual void bite(Human*);
     //void follow(Window*);       //to go in the window
-    void follow(Human*);        //to go to human
-    ~Mosquito();
+    //void follow(Human*);        //to go to human
+    virtual ~Mosquito();
 };

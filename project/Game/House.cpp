@@ -140,3 +140,16 @@ Door* House::GetDoor()
     return static_cast<Door*>(entrance[0]);
 }
 
+House::~House()
+{
+    delete[] bed;
+
+    for (int i = 0; i <noOfEntrance; i++)
+    {
+        delete entrance[i];
+    }
+    delete[] entrance;
+    delete breedingplaces;
+    delete[] showpieces;
+}
+

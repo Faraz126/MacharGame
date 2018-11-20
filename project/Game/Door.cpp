@@ -39,3 +39,9 @@ bool Door::IsOpen()
 {
     return isOpen;
 }
+
+
+Door::~Door()
+{
+
+}

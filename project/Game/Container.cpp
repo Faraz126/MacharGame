@@ -21,7 +21,3 @@ Container::~Container()
 
 }
 
-Mosquito* Container::Breed(int n)
-{
-
-}
