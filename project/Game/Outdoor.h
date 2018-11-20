@@ -9,6 +9,7 @@
 #include"Soil.h"
 #include"TrashCan.h"
 #include"Manhole.h"
+#include"House.h"
 
 class Outdoor: public Screens
 {
@@ -28,15 +29,16 @@ private:
     int countTrashcan;
     int countManhole;
 
+    //House* house;
     Container** container;
 
 protected:
 
 public:
     Outdoor();
-    void AddHuman();
-    void LeaveHuman();
-    void Click();
+    //void AddHuman();
+    //void LeaveHuman();
+    //void Click();
     void Show(SDL_Renderer*);
     void Update(SDL_Event*, Screens_Node&);
     //Entrance* getCurrentState();

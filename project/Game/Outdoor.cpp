@@ -20,23 +20,28 @@ Outdoor:: Outdoor()
 
     countPlants = 11;
     countWater = 3;
-    countTrashcan = rand()%4;
+    countTrashcan = (rand()%4) + 2;
     countManhole = rand()%3;
-    countContainer = countPlants + countWater + countTrashcan + countManhole;
+    countContainer = countPlants + countTrashcan;
 
     container = new Container*[countContainer];
-    int i = 0;
-    for (int place = i; place<countPlants; place++)
+
+//    house1 = new house
+    int PlantPos[countPlants] = {345,440,780,860,940,1030,1435,1520,1600,2025,2095}; //fixed positions of plants
+    int TrashCanPos[4] = {650,1800,100,1060};
+    int i = 0; //iterator for containers
+    for (int place = 0; place<countPlants; place++)
     {
-        container[place] = new Plant(600,600);
+        container[i] = new Plant(PlantPos[place],320);
+        i++;
     }
 
-
-    for (int place = i; place<countTrashcan; place++)
+    for (int place = 0; place<countTrashcan; place++)
     {
-        container[place] = new TrashCan(200,200);
-    }
+        container[i] = new TrashCan(TrashCanPos[place],480);
+        i++;
 
+    }
 //    for (int place = i; place<countManhole; place++)
 //    {
 //        container[place] = new Manhole(125,150);
@@ -46,10 +51,12 @@ Outdoor:: Outdoor()
 
 void Outdoor::Show(SDL_Renderer* renderer)
 {
-    //pos1.x += 1;
     Texture::GetInstance()->RenderBack(35, renderer, &pos1, &pos);
-    container[0]->Show(renderer);
-    container[5]->Show(renderer);
+
+    for(int i = 0; i<countContainer; i++ )
+    {
+        container[i]->Show(renderer);
+    }
 }
 
 
@@ -59,21 +66,40 @@ void Outdoor::Update(SDL_Event* e,Screens_Node& node)
         //If a key was pressed
     if( e->type == SDL_KEYDOWN )
         {
-            if(pos1.x<0)
+            if(pos1.x < 0) //to stay inside screen width
             {
                 pos1.x = 0;
             }
 
-            if(pos1.x + pos1.w >= 1024*2.5)
+            if (pos1.x > 0) //allow left key press event only if in screen bound
+            {
+                if (e->key.keysym.sym == SDLK_LEFT )
+                {
+                    pos1.x -= 20;
+                    for(int i = 0; i<countContainer; i++ )
+                    {
+                        container[i]->SetX(20,0);
+                    }
+                    cout<<"yes"<<endl;
+                }
+            }
+
+            if(pos1.x + pos1.w >= 1024*2.5) //to not go beyond screen width
             {
                 pos1.x = (1024*2.5) - pos1.w;
             }
 
-            switch( e->key.keysym.sym )
+            if (pos1.x + pos1.w < 1024*2.5) //allow right key press event only if in screen bound
             {
-                case SDLK_LEFT: pos1.x -= 20; container[0]->SetX(20,0); cout<<"yes"<<endl; break;
-                case SDLK_RIGHT: pos1.x += 20; container[0]->SetX(20,1); cout<<"ok"<<endl; break;
-                default: break;
+                if (e->key.keysym.sym == SDLK_RIGHT )
+                {
+                    pos1.x += 20;
+                    for(int i = 0; i<countContainer; i++ )
+                    {
+                        container[i]->SetX(20,1);
+                    }
+                    cout<<"ok"<<endl;
+                }
             }
         }
 }
