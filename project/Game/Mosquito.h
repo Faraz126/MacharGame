@@ -1,8 +1,6 @@
 #pragma once
-#include "Screens.h"
-#include "Human.h"
-#include "Window.h"
 
+class Human;
 
 class Mosquito
 {
@@ -13,9 +11,9 @@ protected:
 
 public:
     Mosquito();
-    void fly(Screens*);
+    //void fly(Screens*);
     virtual void bite(Human*);
-    void follow(Window*);       //to go in the window
-    void follow(Human*);        //to go to human
-    ~Mosquito();
+    //void follow(Window*);       //to go in the window
+    //void follow(Human*);        //to go to human
+    virtual ~Mosquito();
 };

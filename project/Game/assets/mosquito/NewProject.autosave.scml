@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
+    <folder id="0">
+        <file id="0" name="mosquito.png" width="1816" height="1301" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="wing2.png" width="590" height="274" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="wing1.png" width="737" height="218" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <entity id="0" name="entity_000">
+        <animation id="0" name="NewAnimation" length="1000" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="1" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="0" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                </key>
+                <key id="1" time="800">
+                    <object_ref id="0" timeline="1" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="0" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="1" z_index="2"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="mosquito">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-1019" y="715.666667"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="wing2">
+                <key id="0">
+                    <object folder="0" file="1" x="-162.666667" y="786.666667"/>
+                </key>
+                <key id="1" time="800" spin="-1">
+                    <object folder="0" file="1" x="-162.666667" y="786.666667" angle="9.699278" scale_x="1" scale_y="1"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="wing1">
+                <key id="0" spin="-1">
+                    <object folder="0" file="2" x="-84" y="642"/>
+                </key>
+                <key id="1" time="800">
+                    <object folder="0" file="2" x="-84" y="642" angle="337.494516" scale_y="1"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

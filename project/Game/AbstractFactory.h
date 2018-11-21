@@ -1,14 +1,19 @@
-#pragma once
+#ifndef ABSTRACTFACTORY_H
+#define ABSTRACTFACTORY_H
+#include "Mosquito.h"
+
 
 class AbstractFactory
 {
-private:
+    public:
+        AbstractFactory();
+        virtual ~AbstractFactory();
+        virtual Mosquito* GetMosquito(int) = 0;
+        virtual void GetHuman() = 0;
+    protected:
+        Mosquito* mosquito;
 
-protected:
-
-public:
-    AbstractFactory();
-    Mosquito* GetMosquito(int);
-    Human* GetHuman(int);
-    ~AbstractFactory();
+    private:
 };
+
+#endif // ABSTRACTFACTORY_H

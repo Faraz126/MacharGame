@@ -16,12 +16,20 @@ void Container::SetCovered(bool status)
     isCovered = status;
 }
 
+void Container:: SetX(int delta, int direction)
+{
+    if ( direction == 0)
+    {
+        pos.x+=delta;
+    }
+    if ( direction == 1)
+    {
+        pos.x-=delta;
+    }
+}
+
 Container::~Container()
 {
 
 }
 
-Mosquito* Container::Breed(int n)
-{
-
-}

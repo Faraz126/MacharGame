@@ -5,7 +5,7 @@ class AedesMosquito : public Mosquito
 private:
 
 public:
-    AedesMosquito();
+    AedesMosquito(){};
     void bite(Human*);
     ~AedesMosquito();
 };

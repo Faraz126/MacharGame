@@ -1,12 +1,16 @@
 #pragma once
+#include <SDL.h>
+#include <SDL_image.h>
+#include "Human.h"
 
 class Hospital
 {
 private:
-    Chair* chair;
+/*    Chair* chair;
     Manual* manual;
     Medicine* medicine;
     Outdoor* outdoor;
+    */
 protected:
 
 public:

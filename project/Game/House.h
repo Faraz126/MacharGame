@@ -10,12 +10,16 @@
 #include "Showpiece.h"
 #include "Plant.h"
 #include "TrashCan.h"
+#include "Manhole.h"
+
+//#include "Human.h"
 
 class House: public Screens
 
 {
 private:
     //Money money;
+
     bool hasRepellent;
     int noOfHumans;
     int noOfEntrance;
@@ -26,6 +30,7 @@ private:
     Showpiece* showpieces;
     BreedingGround* breedingplaces;
     SDL_Rect wall;
+    Human* humans;
     //Outdoor* outdoor;
     //Door* door;
 protected:
@@ -41,4 +46,6 @@ public:
     void getWindowState();
     void getEntranceState();
     void Update(SDL_Event* e, Screens_Node&);
+    Bed* GetClosestBed(int);
+    Door* GetDoor();
 };

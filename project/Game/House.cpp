@@ -9,9 +9,10 @@ House::House()
     pos.h = 786;
     wall.h = 488;
 
-    noOfEntrance = rand()%2 + 2;
+    noOfEntrance = (rand() % 2) + 2;
     noOfHumans = (rand()%3) + 3;
     bed = new Bed[noOfHumans];
+    //humans = new Human(this);
     entrance = new Entrance*[noOfEntrance];
     int x;
     if (rand() % 2) //random x co-ordinate for the door
@@ -36,10 +37,11 @@ House::House()
 
 
 
+
     if (noOfEntrance == 3)
     {
-        showpieces = new Showpiece[1];
-        showpieces[0].SetPos(450, 150);
+        showpieces = new Showpiece();
+        showpieces[0].SetPos(467, 132, 26);
         entrance[1] = new Window(200,125);
         entrance[2] = new Window(600,125);
     }
@@ -85,6 +87,68 @@ void House::Show(SDL_Renderer* renderer)
 
 void House::Update(SDL_Event* e, Screens_Node& node)
 {
+    for (int i = 0; i <noOfEntrance; i++)
+    {
+        entrance[i]->Update(e, node);
+    }
 
+
+    if (e->type == SDL_QUIT)
+    {
+        SDL_Quit();
+    }
+    else if( e->type == SDL_MOUSEBUTTONDOWN && e->button.button == SDL_BUTTON_LEFT)
+    {
+        int mousePosX = e->button.x;
+        int mousePosY = e->button.y;
+
+        for (int i = 0; i < noOfEntrance; i++)
+        {
+            if (entrance[i]->WithinEntrance(mousePosX, mousePosY))
+            {
+                entrance[i]->ChangeState();
+            }
+
+        }
+    }
+
+}
+
+Bed* House::GetClosestBed(int x) //pass on Human x co-ordinates here
+{
+    Bed* minimum = &bed[0];
+    int dist = bed[0].GetDistance(x);
+
+    for (int i = 1; i < noOfHumans; i++)
+    {
+        if (!bed[i].GetOccupied())
+        {
+            int temp = bed[i].GetDistance(x);
+            if (temp < dist)
+            {
+                minimum = &bed[i];
+                dist = temp;
+            }
+        }
+    }
+    return minimum;
+}
+
+Door* House::GetDoor()
+{
+    return static_cast<Door*>(entrance[0]);
+}
+
+House::~House()
+{
+    delete[] bed;
+
+    for (int i = 0; i <noOfEntrance; i++)
+    {
+        delete entrance[i];
+    }
+    delete[] entrance;
+    delete breedingplaces;
+    delete[] showpieces;
 }
 

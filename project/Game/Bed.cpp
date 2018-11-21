@@ -33,3 +33,17 @@ Bed::~Bed()
 
 }
 
+int Bed::GetDistance(int x)
+{
+    return abs(pos.x - x);
+}
+
+bool Bed::GetOccupied()
+{
+    return occupied;
+}
+
+void Bed::SetOccupied(bool status)
+{
+    occupied = status;
+}

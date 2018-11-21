@@ -85,6 +85,8 @@ void Setting::Update(SDL_Event* e, Screens_Node& node)
 
 }
 
+
+
 void Setting::Click(SDL_Event* e)
 {
     int hoverX = e->button.x;
@@ -128,9 +130,6 @@ void Setting::Click(SDL_Event* e)
             {
                 slider[i].SetMouseClicked(false);
                 slider[i].diffStateBtn=61;
-
-
-
             }
        }
        else

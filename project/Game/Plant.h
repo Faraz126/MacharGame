@@ -3,7 +3,7 @@
 #define PLANT_H
 
 #include "Container.h"
-#include "Water.h"
+#include "CleanWater.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <random>
@@ -17,12 +17,14 @@ const int PLANT_HEIGHT = 192;
 class Plant : public Container
 {
     int type;
-    int spriteNum;
+    CleanWater* water;
     public:
         Plant(int, int);
         void SetCovered(bool);
         void Show(SDL_Renderer*);
-        Mosquito* Breed(int);
+
+        Mosquito* Breed();
+
         ~Plant();
 };
 

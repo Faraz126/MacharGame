@@ -12,6 +12,6 @@ class Showpiece
 public:
     Showpiece();
     void Show(SDL_Renderer*);
-    void SetPos(int, int);
+    void SetPos(int, int, int n = 24);
 
 };

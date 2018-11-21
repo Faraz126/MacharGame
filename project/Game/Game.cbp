@@ -45,6 +45,7 @@
 			<Add directory="../SDL2_image-devel-2.0.3-mingw/SDL2_image-2.0.3/i686-w64-mingw32/lib" />
 			<Add directory="../SDL2-devel-2.0.8-mingw/SDL2-2.0.8/i686-w64-mingw32/lib" />
 		</Linker>
+		<Unit filename="AbstractFactory.cpp" />
 		<Unit filename="AbstractFactory.h" />
 		<Unit filename="AedesMosquito.h" />
 		<Unit filename="Bed.cpp" />
@@ -59,12 +60,14 @@
 		<Unit filename="CancelButton.h" />
 		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
+		<Unit filename="CleanWater.cpp" />
 		<Unit filename="CleanWater.h" />
 		<Unit filename="Closing.cpp" />
 		<Unit filename="Closing.h" />
 		<Unit filename="Color.h" />
 		<Unit filename="Container.cpp" />
 		<Unit filename="Container.h" />
+		<Unit filename="DirtyWater.cpp" />
 		<Unit filename="DirtyWater.h" />
 		<Unit filename="Disease.h" />
 		<Unit filename="Door.cpp" />
@@ -73,9 +76,12 @@
 		<Unit filename="Entrance.h" />
 		<Unit filename="ExitMenu.cpp" />
 		<Unit filename="ExitMenu.h" />
+		<Unit filename="FactoryProducer.cpp" />
+		<Unit filename="FactoryProducer.h" />
 		<Unit filename="Hospital.h" />
 		<Unit filename="House.cpp" />
 		<Unit filename="House.h" />
+		<Unit filename="Human.cpp" />
 		<Unit filename="Human.h" />
 		<Unit filename="HumanFactory.h" />
 		<Unit filename="Lids.h" />
@@ -84,13 +90,17 @@
 		<Unit filename="MainMenu.cpp" />
 		<Unit filename="MainMenu.h" />
 		<Unit filename="MalariaMosquito.h" />
+		<Unit filename="Manhole.cpp" />
 		<Unit filename="Manhole.h" />
 		<Unit filename="ManholeLid.h" />
 		<Unit filename="Menu.cpp" />
 		<Unit filename="Menu.h" />
+		<Unit filename="Mosquito.cpp" />
 		<Unit filename="Mosquito.h" />
+		<Unit filename="MosquitoFactory.cpp" />
 		<Unit filename="MosquitoFactory.h" />
 		<Unit filename="Node.h" />
+		<Unit filename="NormalMosquito.cpp" />
 		<Unit filename="NormalMosquito.h" />
 		<Unit filename="Outdoor.cpp" />
 		<Unit filename="Outdoor.h" />
@@ -113,10 +123,10 @@
 		<Unit filename="TrashCan.cpp" />
 		<Unit filename="TrashCan.h" />
 		<Unit filename="TrashCanLid.h" />
+		<Unit filename="Tub.cpp" />
 		<Unit filename="Tub.h" />
 		<Unit filename="TubLid.h" />
 		<Unit filename="Water.cpp" />
-		<Unit filename="Water.h" />
 		<Unit filename="Window.cpp" />
 		<Unit filename="Window.h" />
 		<Unit filename="Word.cpp" />
