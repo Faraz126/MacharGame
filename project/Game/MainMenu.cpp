@@ -29,49 +29,34 @@ MainMenu::MainMenu():Menu(3,354,506,false)
 
 }
 
-void MainMenu::Click(SDL_Event* e)
+void MainMenu::HoverClick(SDL_Event* e)
 {
     int hoverX = e->button.x;  //for cancel button click
     int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEBUTTONDOWN)
+
+    if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
     {
-        if(e->button.button ==  SDL_BUTTON_LEFT)
+        if (e->type == SDL_MOUSEBUTTONDOWN)
         {
             SetMouseClicked(true);
-            if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
-            {
-                cancelBtn->Click();
-
-            }
-            else
-            {
-                cancelBtn->diffStateBtn=4;
-            }
+            cancelBtn->Click();
         }
-    }
-
-}
-
-void MainMenu::Hover(SDL_Event* e)
-{
-    int hoverX = e->button.x;   // for cancel button hover
-    int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEMOTION)
-    {
-        if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
+        else if (e->type == SDL_MOUSEBUTTONUP && e->button.button == SDL_BUTTON_LEFT)
         {
-            cancelBtn->Hover();
+            SetMouseClicked(false);
+            cancelBtn->diffStateBtn=4;
         }
         else
         {
-            cancelBtn->diffStateBtn=38;
+            cancelBtn->Hover();
         }
-
+    }
+    else
+    {
+        cancelBtn->diffStateBtn=53;
     }
 
 }
-
-
 
 void MainMenu::Show(SDL_Renderer* gRenderer)
 {
@@ -90,12 +75,13 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
 {
     int mouseX = e->button.x;
     int mouseY = e->button.y;
-    Menu::Hover(e);
-    Click(e);
-    Hover(e);
-    if(e->type == SDL_MOUSEBUTTONDOWN)
+    //Menu::Hover(e);
+    Menu::HoverClick(e);
+    HoverClick(e);
+    //Hover(e);
+    if(e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
     {
-        Menu::Click(e);
+
         if(e->button.button ==  SDL_BUTTON_LEFT)
         {
             SetMouseClicked(true);
@@ -132,5 +118,5 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
 
 MainMenu::~MainMenu()
 {
-
+    delete cancelBtn;
 }

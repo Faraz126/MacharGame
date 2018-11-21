@@ -31,13 +31,11 @@ Menu::Menu(int noOfButton, int x, int y, bool horizontal)
         }
 
     }
-
-
 }
 
 Menu::~Menu()
 {
-
+    delete[] btn;
 }
 
 void Menu::Show(SDL_Renderer* gRenderer)
@@ -49,50 +47,38 @@ void Menu::Show(SDL_Renderer* gRenderer)
 }
 
 
-void Menu::Hover(SDL_Event* e)
+void Menu::HoverClick(SDL_Event* e)
 {
     int hoverX = e->button.x;
     int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEMOTION)
+    for(int i=0; i<noOfButton; i++)
     {
-        for(int i=0; i<noOfButton; i++)
+        if( ( hoverX > btn[i].pos.x ) && ( hoverX < (btn[i].pos.x+btn[i].pos.w) ) && ( hoverY > btn[i].pos.y ) && (hoverY< (btn[i].pos.y+btn[i].pos.h) ))
+
         {
-             if( ( hoverX > btn[i].pos.x ) && ( hoverX < (btn[i].pos.x+btn[i].pos.w) ) && ( hoverY > btn[i].pos.y ) && (hoverY< (btn[i].pos.y+btn[i].pos.h) ) )
+            if(e->type == SDL_MOUSEBUTTONDOWN && e->button.button ==  SDL_BUTTON_LEFT)
             {
-                btn[i].Hover();
+                mouseClicked = true;
+                if(e->type == SDL_MOUSEBUTTONDOWN)
+                {
+                    btn[i].Click();
+                }
+            }
+            else if (e->type == SDL_MOUSEBUTTONUP && e->button.button == SDL_BUTTON_LEFT)
+            {
+                SetMouseClicked(false);
+                btn[i].intHover=1;
             }
             else
             {
-                btn[i].intHover=0;
+                btn[i].Hover();
             }
         }
-    }
-
-}
-
-void Menu::Click(SDL_Event* e)
-{
-    int hoverX = e->button.x;
-    int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEBUTTONDOWN)
-    {
-
-        if(e->button.button ==  SDL_BUTTON_LEFT)
+        else
         {
-            mouseClicked = true;
-            for(int i=0; i<noOfButton; i++)
-            {
-                 if( ( hoverX > btn[i].pos.x ) && ( hoverX < (btn[i].pos.x+btn[i].pos.w) ) && ( hoverY > btn[i].pos.y ) && (hoverY< (btn[i].pos.y+btn[i].pos.h) ) )
-                {
-
-                    btn[i].Click();
-                }
-                else
-                {
-                    btn[i].intHover=0;
-                }
-            }
+            btn[i].intHover = 0;
         }
+
     }
 
 }

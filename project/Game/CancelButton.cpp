@@ -6,7 +6,7 @@ CancelButton::CancelButton(SDL_Rect rect)
     pos.y = rect.y;
     pos.w = rect.w;
     pos.h = rect.h;
-    diffStateBtn= 38;
+    diffStateBtn= 53;
 
 
 
@@ -32,13 +32,12 @@ void CancelButton::Hover()
 
 void CancelButton::Click()
 {
-    diffStateBtn=39;   // if clicked sprite changed
+    diffStateBtn=54;   // if clicked sprite changed
 
 }
 
 bool CancelButton::WithinCancelRegion(int mouseX, int mouseY)
 {
-    bool inRegion = false;
     if( ( mouseX > pos.x ) && ( mouseX < (pos.x+pos.w) ) && ( mouseY > pos.y ) && (mouseY< (pos.y+pos.h) ) )
         return true;
     else

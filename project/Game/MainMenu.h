@@ -24,9 +24,9 @@ public:
 
     std::string buttonText[3];
     MainMenu();
-    void Click(SDL_Event*);
+    void HoverClick(SDL_Event*);
     void Show(SDL_Renderer*);
-    void Hover(SDL_Event*);
+    //void Hover(SDL_Event*);
     void Update(SDL_Event*, Screens_Node&);
     ~MainMenu();
 };

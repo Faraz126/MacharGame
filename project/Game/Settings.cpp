@@ -59,12 +59,12 @@ void Setting::Update(SDL_Event* e, Screens_Node& node)
 {
     int mouseX = e->button.x;
     int mouseY = e->button.y;
-    Menu::Hover(e);  //for button
-    Menu::Click(e);   //for button
+    //Menu::Hover(e);  //for button
+    Menu::HoverClick(e);   //for button
     Click(e);       //for cancel and slider
-    Hover(e);
+    //Hover(e);
 
-    if(e->type == SDL_MOUSEBUTTONDOWN)
+    if(e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP )
     {
         if(e->button.button ==  SDL_BUTTON_LEFT)
         {
@@ -75,105 +75,99 @@ void Setting::Update(SDL_Event* e, Screens_Node& node)
                 node.prev_screen = this;
                 node.prev_backable = false;  //cancel screen will close and main menu  screen will open
             }
+
+            if (btn[1].WithinRegion(mouseX,mouseY)==true)
+            {
+                slider[0].sliderPos.x =500;
+            }
         }
     }
+
 }
 
 void Setting::Click(SDL_Event* e)
 {
-    int hoverX = e->button.x;  //for cancel button click
-    int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEMOTION)
-    {
-        if(e->button.button == SDL_BUTTON_LEFT)
-        {
-
-            SetMouseClicked(true);
-            if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
-            {
-                cancelBtn->Click();
-            }
-            if (cancelBtn->WithinCancelRegion(hoverX,hoverY)==false)
-            {
-                cancelBtn->diffStateBtn=39;
-            }
-
-            for(int i=0; i<2; i++)
-            {
-               if (slider[i].WithinSliderRegion(hoverX,hoverY)==true)
-                {
-                    slider[i].Click();
-                    if (!slider[i].GetMouseClicked())
-                    {
-                        slider[i].SetMouseClicked(true);
-                    }
-                }
-
-                if (slider[i].WithinSliderRegion(hoverX,hoverY)==false)
-                {
-                    slider[i].diffStateBtn=0;
-                }
-                if (slider[i].GetMouseClicked())
-                {
-                    slider[i].sliderPos.x = hoverX;
-                    if (hoverX > 790)
-                    {
-                        slider[i].sliderPos.x= 790;
-                    }
-
-                    if (hoverX <500)
-                    {
-                        slider[i].sliderPos.x= 500;
-                    }
-                }
-
-            }
-
-        }
-    }
-    if (e->type == SDL_MOUSEBUTTONUP)
-    {
-        SetMouseClicked(false);
-        slider[0].SetMouseClicked(false);
-        slider[1].SetMouseClicked(false);
-    }
-
-}
-
-void Setting::Hover(SDL_Event* e)
-{
     int hoverX = e->button.x;
     int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEMOTION)
+
+    //for cancel button
+    if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
     {
-        if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
+        if (e->type == SDL_MOUSEBUTTONDOWN)
+        {
+            SetMouseClicked(true);
+            cancelBtn->Click();
+        }
+        else if (e->type == SDL_MOUSEBUTTONUP && e->button.button == SDL_BUTTON_LEFT)
+        {
+            SetMouseClicked(false);
+            cancelBtn->diffStateBtn=4;
+        }
+        else
         {
             cancelBtn->Hover();
         }
-        else if (cancelBtn->WithinCancelRegion(hoverX,hoverY)==false)
-        {
-            cancelBtn->diffStateBtn=38;
-        }
-        for(int i=0; i<2; i++)
-        {
-           if( slider[i].WithinSliderRegion(hoverX,hoverY)==true)
-            {
-                slider[i].Hover();
-                if (slider[i].GetMouseClicked()==true)
-                {
-                    slider[i].sliderPos.x +=2;
-                }
-            }
-            else if (slider[i].WithinSliderRegion(hoverX,hoverY)==false)
-            {
-                slider[i].diffStateBtn=0;
-            }
-        }
-
-
-
-
-
+    }
+    else
+    {
+        cancelBtn->diffStateBtn=53;
     }
 
+    //for slider
+    for(int i=0; i<2; i++)
+    {
+       if (slider[i].WithinSliderRegion(hoverX,hoverY))
+       {
+           if (e->type == SDL_MOUSEBUTTONDOWN)
+            {
+                slider[i].Click();
+                slider[i].SetMouseClicked(true);
+
+            }
+            else if (e->type == SDL_MOUSEBUTTONUP && (e->button.button == SDL_BUTTON_LEFT))
+            {
+                slider[i].SetMouseClicked(false);
+                slider[i].diffStateBtn=61;
+
+
+
+            }
+       }
+       else
+       {
+           if (e->type == SDL_MOUSEBUTTONUP)
+           {
+               slider[i].SetMouseClicked(false);
+               slider[i].Hover();
+
+
+           }
+
+           if (slider[i].GetMouseClicked())
+           {
+                slider[i].sliderPos.x = hoverX;
+
+               if (slider[i].sliderPos.x > 790)
+                {
+
+                    slider[i].sliderPos.x= 790;
+                }
+
+                else if (slider[i].sliderPos.x <500)
+                {
+
+                    slider[i].sliderPos.x= 500;
+                }
+
+           }
+       }
+    }
+
+}
+Setting::~Setting()
+{
+    delete settingPos;
+    delete cancelBtn;
+    delete []slider;
+    delete [] word;
 }

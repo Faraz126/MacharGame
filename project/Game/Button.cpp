@@ -56,10 +56,14 @@ void Button::Click()
 
 bool Button::WithinRegion(int mouseX, int mouseY)
 {
-    bool inRegion = false;
     if( ( mouseX > pos.x ) && ( mouseX < (pos.x+pos.w) ) && ( mouseY > pos.y ) && (mouseY< (pos.y+pos.h) ) )
         return true;
     else
         return false;
 }
 
+
+Button::~Button()
+{
+    delete word;
+}

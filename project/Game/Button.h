@@ -24,6 +24,7 @@ class Button
     void Render ( SDL_Renderer * );
     void setPosition ( int , int );
     bool WithinRegion (int, int);
+    ~Button();
 
 };
 

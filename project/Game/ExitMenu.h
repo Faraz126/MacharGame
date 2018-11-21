@@ -5,6 +5,7 @@
 #include "Menu.h"
 #include "MainMenu.h"
 #include "Slider.h"
+#include "Closing.h"
 
 
 class ExitMenu :public Menu

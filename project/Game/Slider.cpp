@@ -6,7 +6,7 @@ Slider::Slider()
     sliderPos.y= 0;
     sliderPos.w = 20;
     sliderPos.h = 20;
-    diffStateBtn= 0;
+    diffStateBtn= 61;
     mouseClicked = false;
 }
 

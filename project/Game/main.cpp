@@ -158,7 +158,7 @@ int main( int argc, char* args[] )
                     screen.prev_screen->Update(&e, screen);
                 }
             }
-            screen.cur_screen->Update(&e,screen);
+            //screen.cur_screen->Update(&e,screen);
             screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
             SDL_RenderPresent( gRenderer );
         }
