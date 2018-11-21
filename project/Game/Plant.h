@@ -11,8 +11,8 @@
 #include "Texture.h"
 
 
-const int PLANT_WIDTH = 102;
-const int PLANT_HEIGHT = 192;
+const int PLANT_WIDTH = 80;
+const int PLANT_HEIGHT = 150.588;
 
 class Plant : public Container
 {

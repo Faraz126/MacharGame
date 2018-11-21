@@ -15,12 +15,12 @@ class CancelButton
     public:
     int diffStateBtn;
     SDL_Rect pos;
-    CancelButton (int x, int y);
-    CancelButton();
+    CancelButton (int , int );
+    CancelButton(SDL_Rect);
     void Hover();
     void Click();
-    void Render ( SDL_Renderer * gRenderer );
-    void setPosition ( int x, int y);
+    void Show ( SDL_Renderer * );
+    bool WithinCancelRegion(int , int );
 
 };
 

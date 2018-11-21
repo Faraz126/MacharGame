@@ -144,26 +144,18 @@ int main( int argc, char* args[] )
             {
                 if( e.type == SDL_QUIT ) quit = true;
                 screen.cur_screen->Update(&e,screen);
-
             }
 
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 
-            while(SDL_PollEvent(&e))
+            if (screen.prev_screen != 0 && !screen.prev_backable)
             {
-                if (e.type == SDL_QUIT)
-                {
-                    quit = true;
-                }
-                screen.cur_screen->Update(&e,screen);
+                delete screen.prev_screen;
+                screen.prev_screen = 0;
             }
+            else if (screen.prev_backable != 0 && screen.prev_screen != 0)
 
-            if (screen.prev_backable != 0 && !screen.prev_backable)
-            {
-                //delete screen.prev_screen;
-            }
-            else if (screen.prev_backable != 0)
             {
                 screen.prev_screen->Show(gRenderer);
                 if (screen.prev_updatable)
@@ -171,7 +163,7 @@ int main( int argc, char* args[] )
                     screen.prev_screen->Update(&e, screen);
                 }
             }
-
+            //screen.cur_screen->Update(&e,screen);
             screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
             SDL_RenderPresent( gRenderer );
         }

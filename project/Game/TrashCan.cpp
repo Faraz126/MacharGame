@@ -2,7 +2,7 @@
 
 TrashCan::TrashCan(int x, int y): Container(x,y,CAN_WIDTH, CAN_HEIGHT)
 {
-    spriteNum = 41;
+    spriteNum = 65;
 }
 
 

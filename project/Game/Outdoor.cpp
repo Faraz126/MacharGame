@@ -21,24 +21,32 @@ Outdoor:: Outdoor()
     countPlants = 11;
     countWater = 3;
     countTrashcan = (rand()%4) + 2;
-    countManhole = rand()%3;
-    countContainer = countPlants + countTrashcan;
+    countManhole = (rand()%2)+2;
+    countContainer = countPlants + countTrashcan + countManhole;
 
     container = new Container*[countContainer];
 
 
-    int PlantPos[countPlants] = {345,440,780,860,940,1030,1435,1520,1600,2025,2095}; //fixed positions of plants
-    int TrashCanPos[4] = {650,1800,100,1060};
+    int plantPos[countPlants] = {345,440,780,860,940,1030,1435,1520,1600,2025,2095}; //fixed x-coordinates of plants
+    int trashCanPos[4] = {650,1800,80,1060}; //fixed x-coordinates of trash Cans
+    int manholePos[3] = {1500, 2270, 450};//fixed x-coordinates of manhole
+
     int i = 0; //iterator for containers
-    for (int place = 0; place<countPlants; place++)
+    for (int place = 0; place<countPlants; place++) //to place plants
     {
-        container[i] = new Plant(PlantPos[place],320);
+        container[i] = new Plant(plantPos[place],320);
         i++;
     }
 
-    for (int place = 0; place<countTrashcan; place++)
+    for (int place = 0; place<countTrashcan; place++) //to place trash Cans
     {
-        container[i] = new TrashCan(TrashCanPos[place],480);
+        container[i] = new TrashCan(trashCanPos[place],480);
+        i++;
+    }
+
+    for (int place = 0; place<countManhole; place++) //to place Manholes
+    {
+        container[i] = new Manhole(manholePos[place],730);
         i++;
     }
 
@@ -85,12 +93,6 @@ Outdoor:: Outdoor()
     entranceRect[3].w=302;
     entranceRect[3].h=179;
 
-
-//    for (int place = i; place<countManhole; place++)
-//    {
-//        container[place] = new Manhole(125,150);
-//    }
-
 }
 
 void Outdoor::Show(SDL_Renderer* renderer)
@@ -102,11 +104,11 @@ void Outdoor::Show(SDL_Renderer* renderer)
         container[i]->Show(renderer);
     }
 
-    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0);
-    for(int i = 0; i<4; i++)
-    {
-        SDL_RenderFillRect(renderer,&entranceRect[i]);
-    }
+//    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0);
+//    for(int i = 0; i<4; i++)
+//    {
+//        SDL_RenderFillRect(renderer,&entranceRect[i]);
+//    }
 }
 
 
@@ -184,5 +186,13 @@ void Outdoor::Update(SDL_Event* e,Screens_Node& node)
 
 Outdoor :: ~Outdoor()
 {
+    for (int i = 0; i <countContainer; i++)
+    {
+        delete container[i];
+    }
 
+    delete[] entranceRect;
+    delete[] houseRect;
+    delete[] house;
+    delete texture;
 }

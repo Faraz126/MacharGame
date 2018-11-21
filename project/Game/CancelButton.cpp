@@ -1,45 +1,46 @@
 #include "CancelButton.h"
 
-CancelButton::CancelButton()
+CancelButton::CancelButton(SDL_Rect rect)
 {
-    pos.x = 950;
-    pos.y = 10;
-    pos.w = 35;
-    pos.h = 35;
-    diffStateBtn= 43;
+    pos.x = rect.x ;
+    pos.y = rect.y;
+    pos.w = rect.w;
+    pos.h = rect.h;
+    diffStateBtn= 53;
+
+
 
 }
-CancelButton::CancelButton(int x, int y) : CancelButton()  //after overloaded call that constructor too
+CancelButton::CancelButton(int x, int y)   //after overloaded call that constructor too
 {
     x = y = 0;
 
 }
 
-void CancelButton::Render ( SDL_Renderer * gRenderer )
+void CancelButton::Show( SDL_Renderer * gRenderer )
 {
     texture = Texture::GetInstance(gRenderer); //singelton here, static method
     texture->Render(diffStateBtn, gRenderer, &pos);
 
-
-
 }
 
-void CancelButton::setPosition ( int x, int y)
-{
-    pos.x = x;              //setting position of buttons on the screen
-    pos.y = y;
-}
 
 void CancelButton::Hover()
 {
-    diffStateBtn =0;    // if hovered sprite changed
+    diffStateBtn =4;    // if hovered sprite changed
 }
 
 void CancelButton::Click()
 {
-    diffStateBtn=3;   // if clicked sprite changed
-    std::cout<<"btn clicked";
+    diffStateBtn=54;   // if clicked sprite changed
+
 }
 
-
+bool CancelButton::WithinCancelRegion(int mouseX, int mouseY)
+{
+    if( ( mouseX > pos.x ) && ( mouseX < (pos.x+pos.w) ) && ( mouseY > pos.y ) && (mouseY< (pos.y+pos.h) ) )
+        return true;
+    else
+        return false;
+}
 

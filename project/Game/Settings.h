@@ -9,15 +9,20 @@
 #include "SDL_image.h"
 #include "Menu.h"
 #include "CancelButton.h"
+#include "MainMenu.h"
+#include "Slider.h"
 
 class Setting : public Menu
 {
 private:
     SDL_Rect* settingPos;
-    SDL_Rect* cancelPos;
+    SDL_Rect settingscancelPos;
+    SDL_Rect sliderPos;
     Texture* texture;
     CancelButton *cancelBtn;
+    Slider* slider;
     Word* word;
+
 protected:
 
 public:

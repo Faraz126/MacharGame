@@ -20,8 +20,8 @@ public :
     void Free ();
     ~Texture (); // Deallocates memory
     void Render ( int serial, SDL_Renderer * gRenderer , SDL_Rect * clip = NULL ); // Renders the sprite at given serial no, where clip is located.
-    void Render ( char character, SDL_Renderer * gRenderer , SDL_Rect * clip = NULL );// Renders the given character, where the clip is located.
-    void RenderBack (int, SDL_Renderer*, SDL_Rect*, SDL_Rect*);
+    void Render ( char character, SDL_Renderer * gRenderer , SDL_Rect * clip = NULL ); // Renders the given character, where the clip is located.
+    void RenderBack(int serial, SDL_Renderer* renderer, SDL_Rect* clip1, SDL_Rect* clip2);
     void ChangeOpactiy(int val);
 
 

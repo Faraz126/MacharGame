@@ -19,79 +19,54 @@ MainMenu::MainMenu():Menu(3,354,506,false)
     pos2.h = 35;    //for cancel button
 
     mosquitoIterator=43;
-    iteratorr = true;
     buttonText[0]= "NEW GAME";
     buttonText[1] = "LOAD GAME";
     buttonText[2] = "SETTINGS";
 
-    cancelBtn = new CancelButton();
+    cancelBtn = new CancelButton(pos2);
 
     Menu::SetText(buttonText);
 
 }
 
-void MainMenu::Click(SDL_Event* e)
+void MainMenu::HoverClick(SDL_Event* e)
 {
-    int hoverX = e->button.x;
+    int hoverX = e->button.x;  //for cancel button click
     int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN)
+
+    if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
     {
-        if(e->button.button ==  SDL_BUTTON_LEFT)
+        if (e->type == SDL_MOUSEBUTTONDOWN)
         {
             SetMouseClicked(true);
-            if( ( hoverX > pos2.x ) && ( hoverX < (pos2.x+pos2.w) ) && ( hoverY > pos2.y ) && (hoverY< (pos2.y+pos2.h) ) )
-            {
-                cancelBtn->Click();
-
-            }
-            else
-            {
-                cancelBtn->diffStateBtn=4;
-            }
+            cancelBtn->Click();
         }
-    }
-
-}
-
-void MainMenu::Hover(SDL_Event* e)
-{
-    int hoverX = e->button.x;
-    int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEMOTION)
-    {
-        if( ( hoverX > pos2.x ) && ( hoverX < (pos2.x+pos2.w) ) && ( hoverY > pos2.y ) && (hoverY< (pos2.y+pos2.h) ) )
+        else if (e->type == SDL_MOUSEBUTTONUP && e->button.button == SDL_BUTTON_LEFT)
         {
-            cancelBtn->Hover();
+            SetMouseClicked(false);
+            cancelBtn->diffStateBtn=4;
         }
         else
         {
-            cancelBtn->diffStateBtn=4;
+            cancelBtn->Hover();
         }
-
+    }
+    else
+    {
+        cancelBtn->diffStateBtn=53;
     }
 
 }
 
-
-
 void MainMenu::Show(SDL_Renderer* gRenderer)
 {
-    if (iteratorr)
-    mosquitoIterator +=0.07;
-    else
-        mosquitoIterator -= 0.07;
-    if (mosquitoIterator>52 || mosquitoIterator < 43)
-    {
-        iteratorr = !iteratorr;
-    }
-
-
+    mosquitoIterator +=0.02;
+     if (mosquitoIterator>=52)
+        mosquitoIterator=43;
     texture = Texture::GetInstance(gRenderer);
     texture->Render(3,gRenderer,&pos0);
     texture->Render(int(mosquitoIterator),gRenderer,&pos1);
-    cancelBtn->Render(gRenderer);
-
-
+    cancelBtn->Show(gRenderer);
     Menu::Show(gRenderer);
 }
 
@@ -100,12 +75,13 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
 {
     int mouseX = e->button.x;
     int mouseY = e->button.y;
-    Menu::Hover(e);
-    Click(e);
-    Hover(e);
-    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN)
+    //Menu::Hover(e);
+    Menu::HoverClick(e);
+    HoverClick(e);
+    //Hover(e);
+    if(e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
     {
-        Menu::Click(e);
+
         if(e->button.button ==  SDL_BUTTON_LEFT)
         {
             SetMouseClicked(true);
@@ -114,6 +90,7 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
                 node.cur_screen = new Outdoor;
                 node.prev_screen = this;
                 node.prev_backable = false;  //outdoor screen will open
+
             }
 
             if (btn[2].WithinRegion(mouseX,mouseY)==true)
@@ -121,16 +98,25 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
                 node.cur_screen = new Setting;
                 node.prev_screen = this;
                 node.prev_backable = true;
-                node.prev_updatable = true;
+                node.prev_updatable = false;
             }
 
+            if( cancelBtn->WithinCancelRegion(mouseX,mouseY)==true)
+            {
+                node.cur_screen = new ExitMenu;
+                node.prev_screen = this;
+                node.prev_backable = true;
+                node.prev_updatable = false;
+
+            }
 
         }
+
     }
 }
 
 
 MainMenu::~MainMenu()
 {
-
+    delete cancelBtn;
 }

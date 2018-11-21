@@ -2,7 +2,7 @@
 #include "Screens.h"
 #include "Button.h"
 #include "Texture.h"
-#include <iostream>
+//#include <iostream>
 #include <string>
 #include "string.h"
 
@@ -28,8 +28,8 @@ public:
     Menu(int,int,int,bool);
     ~Menu();
     void Show(SDL_Renderer*);
-    void Hover(SDL_Event*);
-    void Click(SDL_Event*);
+    //void Hover(SDL_Event*);
+    void HoverClick(SDL_Event*);
     void SetNoOfButton(int);
     int GetNoOfButton();
     void SetMouseClicked(bool);

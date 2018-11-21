@@ -5,8 +5,8 @@
 #include "Texture.h"
 #include "Mosquito.h"
 
-const int MANHOLE_WIDTH = 354;
-const int MANHOLE_HEIGHT = 92;
+const int MANHOLE_WIDTH = 70;
+const int MANHOLE_HEIGHT = 18.006;
 
 class Manhole : public Container
 {

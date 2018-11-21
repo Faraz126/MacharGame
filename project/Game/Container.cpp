@@ -1,7 +1,6 @@
 #include "Container.h"
-#include "Texture.h"
 
-Container::Container(int x, int y, int w, int h, bool status): BreedingGround(x,y,w,h) //initing base class
+Container::Container(int x, int y, int w, int h, bool status): BreedingGround(x,y,w,h) //initiating base class
 {
     SetCovered(status);
 }
