@@ -62,6 +62,8 @@
 		<Unit filename="Character.h" />
 		<Unit filename="CleanWater.cpp" />
 		<Unit filename="CleanWater.h" />
+		<Unit filename="Clickable.cpp" />
+		<Unit filename="Clickable.h" />
 		<Unit filename="Closing.cpp" />
 		<Unit filename="Closing.h" />
 		<Unit filename="Color.h" />
@@ -126,7 +128,6 @@
 		<Unit filename="Tub.cpp" />
 		<Unit filename="Tub.h" />
 		<Unit filename="TubLid.h" />
-		<Unit filename="Water.cpp" />
 		<Unit filename="Window.cpp" />
 		<Unit filename="Window.h" />
 		<Unit filename="Word.cpp" />

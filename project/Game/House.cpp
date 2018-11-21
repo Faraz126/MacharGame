@@ -12,6 +12,7 @@ House::House()
     noOfEntrance = (rand() % 2) + 2;
     noOfHumans = (rand()%3) + 3;
     bed = new Bed[noOfHumans];
+    breedingplaces = new BreedingGround*[3];
     //humans = new Human(this);
     entrance = new Entrance*[noOfEntrance];
     int x;
@@ -19,13 +20,13 @@ House::House()
     {
         x = 265;
         entrance[0] = new Door(100, 300);
-        breedingplaces = new TrashCan(10,450);
+        breedingplaces[0] = new TrashCan(10,450);
     }
     else
     {
         x = 10;
         entrance[0] = new Door(750, 300);
-        breedingplaces = new TrashCan(925,450);
+        breedingplaces[0] = new TrashCan(925,450);
     }
 
     for (int i = 0; i<noOfHumans; i++)
@@ -33,11 +34,6 @@ House::House()
         bed[i].SetPos(x, 365);
         x += 150;
     }
-
-
-
-
-
     if (noOfEntrance == 3)
     {
         showpieces = new Showpiece();
@@ -53,6 +49,20 @@ House::House()
         entrance[1] = new Window(412,125);
     }
 
+    noOfBreedingPlaces = 1;
+    x = 50;
+    while (noOfBreedingPlaces < 3 && x < 800)
+    {
+        if (rand()%3 == 1)
+        {
+            breedingplaces[noOfBreedingPlaces++] = new Tub(x, 650);
+        }
+        else
+        {
+            breedingplaces[noOfBreedingPlaces] = 0;
+        }
+        x += 200;
+    }
 
 
 
@@ -81,7 +91,15 @@ void House::Show(SDL_Renderer* renderer)
         showpieces[0].Show(renderer);
         showpieces[1].Show(renderer);
     }
-    breedingplaces->Show(renderer);
+    for (int i = 0; i < 3; i++)
+    {
+        if (breedingplaces[i] != 0)
+
+        {
+            breedingplaces[i]->Show(renderer);
+        }
+
+    }
 
 }
 
@@ -104,7 +122,7 @@ void House::Update(SDL_Event* e, Screens_Node& node)
 
         for (int i = 0; i < noOfEntrance; i++)
         {
-            if (entrance[i]->WithinEntrance(mousePosX, mousePosY))
+            if (entrance[i]->WithinRegion(mousePosX, mousePosY))
             {
                 entrance[i]->ChangeState();
             }
@@ -152,3 +170,12 @@ House::~House()
     delete[] showpieces;
 }
 
+void House::ShowOutside(SDL_Renderer* renderer, const SDL_Rect& rect)
+{
+    float div = wall.w / rect.w;
+    for (int i = 0; i < noOfEntrance; i++)
+    {
+        entrance[i]->ShowOutside(renderer, rect, div);
+    }
+
+}
