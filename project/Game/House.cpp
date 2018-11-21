@@ -1,6 +1,12 @@
 #include "House.h"
 #include <random>
 
+House::~House()
+{
+
+}
+
+
 House::House()
 {
     pos.x = wall.x = 0;
