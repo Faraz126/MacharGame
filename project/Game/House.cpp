@@ -13,6 +13,10 @@ House::House()
     noOfHumans = (rand()%3) + 3;
     bed = new Bed[noOfHumans];
     breedingplaces = new BreedingGround*[3];
+    for (int i = 0; i< 3; i++)
+    {
+        breedingplaces[i] = 0;
+    }
     //humans = new Human(this);
     entrance = new Entrance*[noOfEntrance];
     int x;
@@ -50,18 +54,24 @@ House::House()
     }
 
     noOfBreedingPlaces = 1;
-    x = 50;
-    while (noOfBreedingPlaces < 3 && x < 800)
+    int y = 500;
+    while (noOfBreedingPlaces < 3 && y < 800)
     {
         if (rand()%3 == 1)
         {
-            breedingplaces[noOfBreedingPlaces++] = new Tub(x, 650);
+            if (rand()%2 == 1)
+            {
+                breedingplaces[noOfBreedingPlaces] = new Tub(15, y);
+            }
+            else
+            {
+                breedingplaces[noOfBreedingPlaces] = new Tub(900, y);
+            }
+
+            breedingplaces[noOfBreedingPlaces++]->ReduceSize(float(y)/1600);
+
         }
-        else
-        {
-            breedingplaces[noOfBreedingPlaces] = 0;
-        }
-        x += 200;
+        y += 100;
     }
 
 

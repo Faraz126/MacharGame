@@ -11,6 +11,7 @@ class Clickable
         bool WithinRegion(int, int);
         bool Collides(const SDL_Rect&);
         bool Collides(const int, const int, const int, const int);
+        void ReduceSize(double);
         virtual ~Clickable();
 
 
