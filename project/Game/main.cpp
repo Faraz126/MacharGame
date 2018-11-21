@@ -132,7 +132,7 @@ int main( int argc, char* args[] )
         Texture::GetInstance(gRenderer);
         Screens_Node screen;
 
-        screen.cur_screen = new Outdoor; //starting with main menu
+        screen.cur_screen = new MainMenu; //starting with main menu
 
 
 
@@ -159,9 +159,9 @@ int main( int argc, char* args[] )
                 screen.cur_screen->Update(&e,screen);
             }
 
-            if (screen.prev_backable != 0 && !screen.prev_backable)
+            if (screen.prev_screen != 0 && !screen.prev_backable)
             {
-                delete screen.prev_screen;
+                //delete screen.prev_screen;
             }
             else if (screen.prev_backable != 0)
             {
