@@ -2,6 +2,7 @@
 #include <random>
 #include <iostream>
 
+
 using namespace std;
 
 Outdoor:: Outdoor()
@@ -17,6 +18,12 @@ Outdoor:: Outdoor()
     pos1.y = 1805;
     pos1.w = 1024;
     pos1.h = 786;
+
+    cartPos = new SDL_Rect;
+    cartPos->x = 970;
+    cartPos->y = 730;
+    cartPos->w = 20;
+    cartPos->h = 20;
 
     countPlants = 11;
     countWater = 3;
@@ -83,6 +90,11 @@ void Outdoor::Show(SDL_Renderer* renderer)
         container[i]->Show(renderer);
     }
     SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0);
+
+    SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
+    SDL_RenderFillRect(renderer,cartPos);
+
+    shop->Show(renderer);
 
 /*
     for(int i = 0; i<4; i++)
