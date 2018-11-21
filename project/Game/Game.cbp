@@ -60,6 +60,8 @@
 		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
 		<Unit filename="CleanWater.h" />
+		<Unit filename="Closing.cpp" />
+		<Unit filename="Closing.h" />
 		<Unit filename="Color.h" />
 		<Unit filename="Container.cpp" />
 		<Unit filename="Container.h" />
@@ -119,6 +121,8 @@
 		<Unit filename="Window.h" />
 		<Unit filename="Word.cpp" />
 		<Unit filename="Word.h" />
+		<Unit filename="closingMoving.cpp" />
+		<Unit filename="closingMoving.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

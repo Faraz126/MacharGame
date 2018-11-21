@@ -3,10 +3,10 @@
 ClosingMoving::ClosingMoving()
 {
     ClosingMovingPos = new SDL_Rect;
-    ClosingMovingPos->x= 500;
+    ClosingMovingPos->x= 100;
     ClosingMovingPos->y= 100;
-    ClosingMovingPos->w= 1240;
-    ClosingMovingPos->h= 786;
+    ClosingMovingPos->w= 200;
+    ClosingMovingPos->h= 200;
 
     word = new Word[3];
 
@@ -24,11 +24,11 @@ void ClosingMoving::Show(SDL_Renderer* gRenderer)
 {
     SDL_SetRenderDrawColor( gRenderer, 255, 255, 255, 0);
 
-    SDL_RenderFillRect(gRenderer,ClosingMovingPos);
-    for(int i=0; i<2; i++)
-    {
-         word[i].Show(gRenderer);
-    }
+//    SDL_RenderFillRect(gRenderer,ClosingMovingPos);
+//    for(int i=0; i<2; i++)
+//    {
+//         word[i].Show(gRenderer);
+//    }
 }
 
 ClosingMoving::~ClosingMoving()
