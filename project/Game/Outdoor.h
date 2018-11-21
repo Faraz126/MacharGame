@@ -22,7 +22,7 @@ private:
 //    Manhole* manhole;
     //Outdoor* outdoor;
 
-    SDL_Rect pos, pos1;
+    SDL_Rect pos, pos1, shoppingPos;
     SDL_Rect* cartPos;
     Texture* texture;
     int countContainer;

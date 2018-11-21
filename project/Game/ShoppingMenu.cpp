@@ -2,10 +2,12 @@
 
 ShoppingMenu::ShoppingMenu():Menu()
 {
-    shoppingPos->x = 100;
-    shoppingPos->y = 680;
-    shoppingPos->w = 300;
-    shoppingPos->h = 200;
+    shoppingPos = new SDL_Rect();
+    shoppingPos->x = 250;
+    shoppingPos->y = 700;
+    shoppingPos->w = 700;
+    shoppingPos->h = 150;
+
 
 }
 

@@ -52,6 +52,7 @@ Outdoor:: Outdoor()
     houseRect= new SDL_Rect[4];
     entranceRect = new SDL_Rect[4];
     house = new House[4];
+    shop = new ShoppingMenu();
     houseRect[0].x=45;
     houseRect[0].y=140;
     houseRect[0].w=280;
