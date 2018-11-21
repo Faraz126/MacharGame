@@ -15,6 +15,7 @@ private:
 protected:
 
 public:
+
     Manhole(int,int);
     Mosquito* Breed();
     void Show(SDL_Renderer*);

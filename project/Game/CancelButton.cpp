@@ -6,7 +6,7 @@ CancelButton::CancelButton()
     pos.y = 10;
     pos.w = 35;
     pos.h = 35;
-    diffStateBtn= 4;
+    diffStateBtn= 43;
 
 }
 CancelButton::CancelButton(int x, int y) : CancelButton()  //after overloaded call that constructor too

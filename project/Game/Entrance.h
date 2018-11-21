@@ -7,6 +7,7 @@
 class Entrance
 {
 private:
+    bool state;
 
 protected:
     SDL_Rect pos;
@@ -21,7 +22,7 @@ public:
     bool WithinEntrance(int, int); //returns true if the given x,y co-ordinate is within the entrance.
     int GetX();
     int GetY();
-    virtual void Update(SDL_Event&, Screens_Node&) = 0;
+    virtual void Update(SDL_Event*, Screens_Node&) = 0;
     virtual void ChangeState() = 0;
     virtual ~Entrance();
 

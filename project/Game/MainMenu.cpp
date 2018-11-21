@@ -1,7 +1,7 @@
 #include "MainMenu.h"
 
 
-MainMenu::MainMenu():Menu(3,354,506)
+MainMenu::MainMenu():Menu(3,354,506,false)
 {
     pos0.x= 0;
     pos0.y = 0;
@@ -16,7 +16,7 @@ MainMenu::MainMenu():Menu(3,354,506)
     pos2.x = 950;
     pos2.y = 10;
     pos2.w = 35;
-    pos2.h = 35;
+    pos2.h = 35;    //for cancel button
 
     mosquitoIterator=43;
     iteratorr = true;
@@ -41,7 +41,6 @@ void MainMenu::Click(SDL_Event* e)
             SetMouseClicked(true);
             if( ( hoverX > pos2.x ) && ( hoverX < (pos2.x+pos2.w) ) && ( hoverY > pos2.y ) && (hoverY< (pos2.y+pos2.h) ) )
             {
-                std::cout<<"before click";
                 cancelBtn->Click();
 
             }
@@ -62,7 +61,6 @@ void MainMenu::Hover(SDL_Event* e)
     {
         if( ( hoverX > pos2.x ) && ( hoverX < (pos2.x+pos2.w) ) && ( hoverY > pos2.y ) && (hoverY< (pos2.y+pos2.h) ) )
         {
-            std::cout<<"hover";
             cancelBtn->Hover();
         }
         else
@@ -98,14 +96,39 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
 }
 
 
-void MainMenu::Update(SDL_Event& e, Screens_Node& node)
+void MainMenu::Update(SDL_Event* e, Screens_Node& node)
 {
-    Menu::Hover(&e);
-    Click(&e);
-    Hover(&e);
-    if(e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEBUTTONDOWN)
-        Menu::Click(&e);
+    int mouseX = e->button.x;
+    int mouseY = e->button.y;
+    Menu::Hover(e);
+    Click(e);
+    Hover(e);
+    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN)
+    {
+        Menu::Click(e);
+        if(e->button.button ==  SDL_BUTTON_LEFT)
+        {
+            SetMouseClicked(true);
+            if (btn[0].WithinRegion(mouseX,mouseY)==true)
+            {
+                node.cur_screen = new Outdoor;
+                node.prev_screen = this;
+                node.prev_backable = false;  //outdoor screen will open
+            }
+
+            if (btn[2].WithinRegion(mouseX,mouseY)==true)
+            {
+                node.cur_screen = new Setting;
+                node.prev_screen = this;
+                node.prev_backable = true;
+                node.prev_updatable = true;
+            }
+
+
+        }
+    }
 }
+
 
 MainMenu::~MainMenu()
 {

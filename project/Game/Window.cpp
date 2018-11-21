@@ -1,6 +1,7 @@
 #include "Window.h"
 #include <random>
 
+
 Window::Window(int x, int y): Entrance(x,y)
 {
     spriteNum = 13;
@@ -11,7 +12,7 @@ Window::Window(int x, int y): Entrance(x,y)
 
 }
 
-void Window::Update(SDL_Event& e, Screens_Node& node)
+void Window::Update(SDL_Event* e, Screens_Node& node)
 {
     currentTime = SDL_GetTicks();
     if (currentTime > (timeCovered + (10*1000)))
@@ -66,3 +67,4 @@ Window::~Window()
 {
 
 }
+

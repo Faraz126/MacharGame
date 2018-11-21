@@ -106,6 +106,7 @@
 		<Unit filename="Queue.h" />
 		<Unit filename="Screens.cpp" />
 		<Unit filename="Screens.h" />
+		<Unit filename="Settings.cpp" />
 		<Unit filename="Settings.h" />
 		<Unit filename="Showpiece.cpp" />
 		<Unit filename="Showpiece.h" />

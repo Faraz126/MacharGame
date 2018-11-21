@@ -1,5 +1,6 @@
 #include "Door.h"
 #include <random>
+
 Door::Door(int posx, int posy):Entrance(posx, posy)
 {
     spriteNum = (rand()%3)+10;
@@ -8,7 +9,7 @@ Door::Door(int posx, int posy):Entrance(posx, posy)
     isOpen = false;
 }
 
-void Door::Update(SDL_Event& e, Screens_Node& node)
+void Door::Update(SDL_Event* e, Screens_Node& node)
 {
 
 }

@@ -132,24 +132,34 @@ int main( int argc, char* args[] )
         Texture::GetInstance(gRenderer);
         Screens_Node screen;
 
-        screen.cur_screen = new House; //starting with main menu
+        screen.cur_screen = new Outdoor; //starting with main menu
+
 
 
 
         while (!quit)
         {
-            /*
+
             while (SDL_PollEvent(&e))
             {
                 if( e.type == SDL_QUIT ) quit = true;
+                screen.cur_screen->Update(&e,screen);
 
             }
-            */
-            screen.cur_screen->Update(e,screen);
+
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 
-            if (!screen.prev_backable)
+            while(SDL_PollEvent(&e))
+            {
+                if (e.type == SDL_QUIT)
+                {
+                    quit = true;
+                }
+                screen.cur_screen->Update(&e,screen);
+            }
+
+            if (screen.prev_backable != 0 && !screen.prev_backable)
             {
                 delete screen.prev_screen;
             }
@@ -158,7 +168,7 @@ int main( int argc, char* args[] )
                 screen.prev_screen->Show(gRenderer);
                 if (screen.prev_updatable)
                 {
-                    screen.prev_screen->Update(e, screen);
+                    screen.prev_screen->Update(&e, screen);
                 }
             }
 

@@ -33,8 +33,6 @@ void Button::setPosition ( int x, int y)
 }
 void Button::setText ( std::string str )
 {
-    std::cout << str;
-    std::cout << str.length();
     if (word == 0)
     {
         word = new Word(str, pos.x +(pos.w-(25*str.length()))/2, pos.y+15);
@@ -56,4 +54,12 @@ void Button::Click()
     intHover=2;   // if clicked sprite changed
 }
 
+bool Button::WithinRegion(int mouseX, int mouseY)
+{
+    bool inRegion = false;
+    if( ( mouseX > pos.x ) && ( mouseX < (pos.x+pos.w) ) && ( mouseY > pos.y ) && (mouseY< (pos.y+pos.h) ) )
+        return true;
+    else
+        return false;
+}
 

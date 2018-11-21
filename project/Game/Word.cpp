@@ -3,8 +3,14 @@
 #include <string>
 #include <iostream>
 
-
-
+Word::Word()
+{
+    x= 0;
+    y= 0;
+    characterSpacing= 25;
+    length= 0;
+    characters = 0;
+}
 
 Word::Word(std::string str ,  int x, int y)
 
@@ -25,9 +31,7 @@ void Word::Show ( SDL_Renderer * gRenderer )
 }
 void Word::SetText ( std::string str )
 {
-    std::cout << str;
     length = str.length();
-    std::cout <<length;
     if ( characters != NULL )
     {
         delete [] characters ;

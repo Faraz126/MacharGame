@@ -1,10 +1,10 @@
 #include "Entrance.h"
-#include <random>
 
 Entrance::Entrance(int x,int y)
 {
     pos.x = x;
     pos.y = y;
+
 }
 
 void Entrance::Show(SDL_Renderer* renderer)

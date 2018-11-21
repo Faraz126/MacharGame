@@ -8,6 +8,7 @@
 class Word
 {
     public :
+        Word();
         Word( std::string str, int x, int y);
         void Show ( SDL_Renderer * gRenderer );
         void SetText ( std::string str );
@@ -15,7 +16,6 @@ class Word
         int SetTextLength ();
     private :
         int x,y,characterSpacing;
-        //std::string renderWord ;
         int length;
         Character * characters ;
 };
