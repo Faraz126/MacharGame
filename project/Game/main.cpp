@@ -161,7 +161,7 @@ int main( int argc, char* args[] )
 
             if (screen.prev_backable != 0 && !screen.prev_backable)
             {
-                delete screen.prev_screen;
+                //delete screen.prev_screen;
             }
             else if (screen.prev_backable != 0)
             {

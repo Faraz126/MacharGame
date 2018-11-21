@@ -44,5 +44,5 @@ public:
     void Show(SDL_Renderer*);
     void Update(SDL_Event*, Screens_Node&);
     //Entrance* getCurrentState();
-    virtual ~Outdoor(){};
+    ~Outdoor();
 };
