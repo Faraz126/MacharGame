@@ -75,6 +75,28 @@ Outdoor:: Outdoor()
 
     shop->shopShow = false;
 
+    entranceRect[0].x=45;
+    entranceRect[0].y=261;
+    entranceRect[0].w=278;
+    entranceRect[0].h=185;
+
+    entranceRect[1].x=539;
+    entranceRect[1].y=261;
+    entranceRect[1].w=224;
+    entranceRect[1].h=189;
+
+    entranceRect[2].x=1138;
+    entranceRect[2].y=305;
+    entranceRect[2].w=283;
+    entranceRect[2].h=141;
+
+    entranceRect[3].x=1707;
+    entranceRect[3].y=262;
+    entranceRect[3].w=302;
+    entranceRect[3].h=179;
+    humans = GenerateHumans();
+
+
 
 
 //    for (int place = i; place<countManhole; place++)
@@ -82,6 +104,17 @@ Outdoor:: Outdoor()
 //        container[place] = new Manhole(125,150);
 //    }
 
+}
+
+Human** Outdoor::GenerateHumans()
+{
+    int n = CountHumans();
+    Human** temp = new Human*[n];
+    for (int i = 0; i < n; i++)
+    {
+        temp[i] = 0;
+    }
+    return temp;
 }
 
 void Outdoor::Show(SDL_Renderer* renderer)
@@ -94,11 +127,20 @@ void Outdoor::Show(SDL_Renderer* renderer)
     }
     SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0);
 
+
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
     SDL_RenderFillRect(renderer,cartPos);
 
     if(shop->shopShow)
         shop->Show(renderer);
+
+    for (int i = 0; i < 4; i++)
+    {
+        house[i].ShowOutside(renderer, entranceRect[i]);
+    }
+
+
+
 
 /*
     for(int i = 0; i<4; i++)
@@ -108,13 +150,33 @@ void Outdoor::Show(SDL_Renderer* renderer)
 */
 }
 
+int Outdoor::CountHumans()
+{
+    int sum = 0;
+    for (int i = 0; i < 4; i++)
+    {
+        sum += house[i].NoOfHumans();
+    }
+}
 
-void Outdoor::Update(SDL_Event* e,Screens_Node& node)
+void Outdoor::Update(int frame)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        house[i].Update(frame);
+    }
+
+}
+
+
+
+
+
+void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
 {
-        //If a key was pressed
 
-    shop->Update(e,node);
+    shop->HandleEvents(e,node);
     if (e->type == SDL_MOUSEBUTTONDOWN)
     {
         int x = e->button.x;
@@ -127,7 +189,7 @@ void Outdoor::Update(SDL_Event* e,Screens_Node& node)
                 node.cur_screen = &house[i];
                 node.prev_screen = this;
                 node.prev_backable = true;
-                node.prev_updatable = true;
+                node.prev_updatable = false;
             }
         }
 
@@ -158,6 +220,7 @@ void Outdoor::Update(SDL_Event* e,Screens_Node& node)
                     for(int i = 0; i<4; i++)
                     {
                         houseRect[i].x+=20;
+                        entranceRect[i].x += 20;
                     }
                 }
             }
@@ -180,7 +243,9 @@ void Outdoor::Update(SDL_Event* e,Screens_Node& node)
                     for(int i = 0; i<4; i++)
                     {
                         houseRect[i].x-=20;
+                        entranceRect[i].x -= 20;
                     }
+
                 }
             }
         }

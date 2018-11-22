@@ -7,10 +7,12 @@
 #include <stdio.h>
 #include "SDL_image.h"
 #include "Menu.h"
+#include <string>
+#include <iostream>
 
 
 
-class Tile
+class Tile: public Clickable
 {
 private:
     Texture* texture;
@@ -24,13 +26,15 @@ private:
 protected:
 
 public:
-    bool shopShow;
     Tile();
+    Tile(int, int, int, std::string, int);
+    void Show(SDL_Renderer*);
+    /*
     void Click(SDL_Event*);
     void Hover (SDL_Event*);
-    void Show(SDL_Renderer*);
-    void Update(SDL_Event*, Screens_Node&);
 
+    void Update(SDL_Event*, Screens_Node&);
+    */
     ~Tile();
 };
 

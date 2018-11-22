@@ -47,3 +47,12 @@ void Bed::SetOccupied(bool status)
 {
     occupied = status;
 }
+
+int Bed::GetX()
+{
+    return pos.x;
+}
+int Bed::GetY()
+{
+    return pos.y;
+}

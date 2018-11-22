@@ -34,7 +34,7 @@ void MainMenu::HoverClick(SDL_Event* e)
     int hoverX = e->button.x;  //for cancel button click
     int hoverY = e->button.y;
 
-    if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
+    if( cancelBtn->WithinRegion(hoverX,hoverY)==true)
     {
         if (e->type == SDL_MOUSEBUTTONDOWN)
         {
@@ -71,7 +71,12 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
 }
 
 
-void MainMenu::Update(SDL_Event* e, Screens_Node& node)
+void MainMenu::Update(int frame)
+{
+
+}
+
+void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     int mouseX = e->button.x;
     int mouseY = e->button.y;
@@ -101,7 +106,7 @@ void MainMenu::Update(SDL_Event* e, Screens_Node& node)
                 node.prev_updatable = false;
             }
 
-            if( cancelBtn->WithinCancelRegion(mouseX,mouseY)==true)
+            if( cancelBtn->WithinRegion(mouseX, mouseY))
             {
                 node.cur_screen = new ExitMenu;
                 node.prev_screen = this;

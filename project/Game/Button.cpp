@@ -1,11 +1,8 @@
 #include "Button.h"
 
-Button::Button()
+Button::Button() : Clickable(354,506,314,64)
 {
-    pos.x = 354;
-    pos.y = 506;
-    pos.w = 314;
-    pos.h = 64;
+
     intHover = 0;  //which
     word = 0;
 
@@ -52,14 +49,6 @@ void Button::Hover()
 void Button::Click()
 {
     intHover=2;   // if clicked sprite changed
-}
-
-bool Button::WithinRegion(int mouseX, int mouseY)
-{
-    if( ( mouseX > pos.x ) && ( mouseX < (pos.x+pos.w) ) && ( mouseY > pos.y ) && (mouseY< (pos.y+pos.h) ) )
-        return true;
-    else
-        return false;
 }
 
 

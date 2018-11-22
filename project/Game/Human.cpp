@@ -1,24 +1,29 @@
-/*
-
 #include "Human.h"
 #include "House.h"
+#include "Bed.h"
+#include <random>
 
-Human::Human()
+Human::Human(): Clickable(0,0,0,0)
 {
 
 }
 
-Human::Human(House* PersonHouse)
+Human::Human(House* PersonHouse) : Clickable(rand()%1024, 450, 100, 150)
 {
     infected = false;
-    position.x = 0;
-    position.y = 450;
-    position.w = 178;
-    position.h = 412;
     clip = 15;
     house = PersonHouse;
     IsIndoor = true;
     IsOutdoor = false;
+    IsWalkingHorizontal = true;
+    IsWalkingVertical = false;
+    IsSitting = false;
+    IsLyingDown = false;
+    Right = true;
+    Left = false;
+    Up = false;
+    Down = false;
+    // there needs to be some functionality for when the human is clicked on. Then it should imo have a determined path to hospital
 }
 
 Human::~Human()
@@ -26,40 +31,84 @@ Human::~Human()
 
 }
 
+
 void Human::Update()
 {
-    if(GetIsIndoor() == true)
+    if(IsIndoor == true && IsOutdoor == false)
     {
+        LieDown();          // if this is true then walk up and lie down
+        SitOnBed();              // if this is true then walk up and lie down
         Walking();
-        if(Sit() == true && rand() % 5 == 4)
-        {
-
-        }
-        else
-        {
-            Walking();
-        }
+        WalkAgain();
     }
-    if(GetIsOutdoor() == true)
+    if(IsOutdoor == true && IsIndoor == false)
     {
         Walking();
     }
 }
+
+
 
 void Human::Walking()
 {
-    if(position.x <= 1024)
+    if(pos.x <= 1024 && Right == true && IsWalkingHorizontal == true)
     {
         Walk();
+        if(pos.x == 1024)
+        {
+            Left = true;                            // to make sure it goes left and not write since it'll check both the conditions
+            Right = false;
+        }
     }
-    else if(position.x >= 0)
+    else if(pos.x >= 0 && Left == true && IsWalkingHorizontal == true)
     {
         WalkOpposite();
+        if(pos.x == 0)
+        {
+            Right = true;
+            Left = false;
+        }
     }
 }
 
+void Human::WalkUp()
+{
+    if(Up == true && IsWalkingVertical == true)
+    {
+        clip += 0.03;
+        if(clip >= 23)      // to change the clip after a certain amount the loop runs.
+        {
+            clip = 15;
+        }
+        speed += 0.6;
+        if(speed >= 1)    // to adjust the x pos after a certain amount the loop runs.
+        {
+            speed = 0;
+            pos.y -= 1;
+        }
+    }
+}
+
+void Human::WalkDown()
+{
+    if(Down == true && IsWalkingVertical == true)
+    {
+        clip += 0.03;
+        if(clip >= 23)      // to change the clip after a certain amount the loop runs.
+        {
+            clip = 15;
+        }
+        speed += 0.6;
+        if(speed >= 1)    // to adjust the x pos after a certain amount the loop runs.
+        {
+            speed = 0;
+            pos.y += 1;
+        }
+    }
+}
 
 void Human::Walk()       // walk will have a flip sign to make sure where it's walking
+
 {
     clip += 0.03;
     if(clip >= 23)      // to change the clip after a certain amount the loop runs.
@@ -67,109 +116,149 @@ void Human::Walk()       // walk will have a flip sign to make sure where it's w
         clip = 15;
     }
     speed += 0.6;
-    if(speed >= 1)    // to adjust the x position after a certain amount the loop runs.
+    if(speed >= 1)    // to adjust the x pos after a certain amount the loop runs.
     {
         speed = 0;
-        position.x += 1;
+        pos.x += 1;
     }
 }
 
 
 void Human::WalkOpposite()
 {
-    clip += 0.03;
-    if(clip >= 23)      // to change the clip after a certain amount the loop runs.
+    clip -= 0.03;
+    if(clip <= 15)      // to change the clip after a certain amount the loop runs.
     {
-        clip = 15;
+        clip = 23;
     }
     speed += 0.6;
-    if(speed >= 1)    // to adjust the x position after a certain amount the loop runs.
+    if(speed >= 1)    // to adjust the x pos after a certain amount the loop runs.
     {
         speed = 0;
-        position.x -= 1;
+        pos.x -= 1;
     }
 }
 
-int Human::GetBedPosition()
+void Human::WalkAgain()
 {
-    //house->GetClosestBed();
-    return 0;
-}
-
-bool Human::EnterHouse()
-{
-    if(house->GetDoor()->GetX() == GetXPosition() && house ->GetDoor()->GetX() == GetYPosition()) // if it reaches the x position of the bed and is not infected
+    if(IsSitting == true && rand() % 500 == 0) // if it reaches the x pos of the bed and is not infected
     {
-        return true;
+        IsWalkingHorizontal = false;
+        IsWalkingVertical = true;
+        IsLyingDown = false;
+        Down = true;
+        Up = false;
+        if(450 == GetYPosition())
+        {
+            IsSitting = false;
+            IsWalkingVertical = false;
+            IsWalkingHorizontal = true;
+            Down = false;
+            clip = 15;          // this will be the clip where it starts to walk again
+        }
+        WalkDown();
     }
-    return false;
 }
 
-bool Human::LeaveHouse()
+void Human::SitOnBed()               // this sit will be for sitting on bed in house
 {
-    if(house->GetDoor()->GetX() == GetXPosition() && house ->GetDoor()->GetX() == GetYPosition()) // if it reaches the x position of the bed and is not infected
+    if(GetBedXPosition() == GetXPosition() && infected == false && rand() % 5 == 0) // if it reaches the x pos of the bed and is not infected
     {
-        return true;
+        IsSitting = true;
+        IsWalkingHorizontal = false;
+        IsWalkingVertical = true;
+        IsLyingDown = false;
+        Down = false;
+        Up = true;
+        if(GetBedYPosition() == GetYPosition())
+        {
+            IsWalkingVertical = false;
+            Up = false;
+            otherclip = 17;          // this will be the clip where it sits
+        }
+        WalkUp();
+
+
+
     }
-    return false;
 }
 
-
-bool Human::Sit()
+int Human::GetBedXPosition()
 {
-    //Point bedposition = GetBedPosition();
-    if(house->GetDoor()->GetX() == GetXPosition() && house ->GetDoor()->GetX() == GetYPosition()  && infected == false) // if it reaches the x position of the bed and is not infected
-    {
-        return true;
-    }
-
+    Bed* pos = house -> GetClosestBed(GetXPosition());
+    return pos -> GetX();
 }
+
+int Human::GetBedYPosition()
+{
+    Bed* pos = house -> GetClosestBed(GetYPosition());
+    return pos -> GetY();
+}
+
 
 void Human::SetOutdoorIndoor()
 {
 
 }
 
-bool Human::GetIsOutdoor()
-{
-    return IsOutdoor;
-}
 
-bool Human::GetIsIndoor()
+void Human::LieDown()
 {
-    return IsIndoor;
-}
-
-bool Human::LieDown()
-{
-    /* The human will only lie down indoor. Means we need to have the position of the bed.
-       So that it goes to the bed and suddenly falls asleep.
-    */
-/*
-    Point bedposition = GetBedPosition();
-
-    if(bedposition.x == GetXPosition() && bedposition.y == GetYPosition() && infected == true)   // if it reaches at the x position of the bed and is infected
+    if(GetBedXPosition() == GetXPosition() && infected == true)   // if it reaches at the x pos of the bed and is infected
     {
-        return true;                                    // if it's at bed position then it lies down
+        IsWalkingHorizontal = false;
+        IsWalkingVertical = true;
+        IsSitting = true;
+        IsLyingDown = false;
+        Up = true;
+        Down = false;
+        otherclip = 20;          // this will be the clip where it lies down
     }
-
 }
-
-
 
 int Human::GetXPosition()
+
 {
-    return position.x;
+    return pos.x;
 }
 
 int Human::GetYPosition()
 {
-    return position.y;
+    return pos.y;
 }
 
-void Human::HumanRender(SDL_Renderer* gRenderer)
+void Human::Show(SDL_Renderer* gRenderer)
 {
-    Texture::GetInstance() -> Render(clip,gRenderer,&position);
+    if(IsWalkingHorizontal == true || IsWalkingVertical == true)
+    {
+        Texture::GetInstance() -> Render(int(clip),gRenderer,&pos);
+    }
+    else if(IsWalkingHorizontal == false || IsWalkingVertical == false)
+    {
+        Texture::GetInstance() -> Render(otherclip,gRenderer,&pos);
+    }
+}
+//now work on this. Yeah Okay
+
+
+void Human::EnterHouse()
+{
+    //
+}
+
+void Human::LeaveHouse()
+{
+/*    if(house->entrance == GetXPosition())
+    {
+        Up = true;
+        IsWalkingVertical = true;
+        IsWalkingHorizontal = false;
+        Down = false;
+        Right = false;
+        Left = false;
+        WalkUp();
+    }
+*/
 }
 
 void Human::MosquitoBite()
@@ -181,6 +270,4 @@ void Human::BackToNormal()
 {
 
 }
-
-*/
 

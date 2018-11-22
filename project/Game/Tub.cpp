@@ -1,8 +1,9 @@
 #include "Tub.h"
+#include <random>
 
 Tub::Tub(int x, int y) : Container(x, y, TUB_WIDTH, TUB_HEIGHT)
 {
-    spriteNum = 41; //need to replace with updated spritesheet.
+    spriteNum = 66 + (rand()%4); //need to replace with updated spritesheet.
 }
 
 void Tub::SetCovered(bool status)
@@ -17,7 +18,7 @@ void Tub::Show(SDL_Renderer* renderer)
 
 Mosquito* Tub::Breed()
 {
-    factory->GetMosquito(0);
+    return factory->GetMosquito(0);
 }
 
 

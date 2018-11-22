@@ -65,7 +65,15 @@ void Setting::Show(SDL_Renderer* gRenderer)
 
 }
 
-void Setting::Update(SDL_Event* e, Screens_Node& node)
+
+void Setting::Update(int frame)
+{
+
+}
+
+
+
+void Setting::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     int mouseX = e->button.x;
     int mouseY = e->button.y;
@@ -79,7 +87,7 @@ void Setting::Update(SDL_Event* e, Screens_Node& node)
         if(e->button.button ==  SDL_BUTTON_LEFT)
         {
             SetMouseClicked(true);
-            if (cancelBtn->WithinCancelRegion(mouseX,mouseY)==true)
+            if (cancelBtn->WithinRegion(mouseX,mouseY)==true)
             {
                 node.cur_screen = node.prev_screen;
                 node.prev_screen = this;
@@ -103,7 +111,7 @@ void Setting::Click(SDL_Event* e)
     int hoverY = e->button.y;
 
     //for cancel button
-    if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
+    if( cancelBtn->WithinRegion(hoverX,hoverY)==true)
     {
         if (e->type == SDL_MOUSEBUTTONDOWN)
         {

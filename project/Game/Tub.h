@@ -6,8 +6,8 @@
 #include "Mosquito.h"
 
 
-int TUB_WIDTH = 102;
-int TUB_HEIGHT = 109;
+const int TUB_WIDTH = 235;
+const int TUB_HEIGHT = 215;
 
 
 class Tub : public Container

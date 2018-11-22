@@ -2,11 +2,11 @@
 
 ShoppingMenu::ShoppingMenu():Menu()
 {
-//    shoppingPos = new SDL_Rect();
-//    shoppingPos->x = 200;
-//    shoppingPos->y = 700;
-//    shoppingPos->w = 750;
-//    shoppingPos->h = 150;
+    shoppingPos = new SDL_Rect();
+    shoppingPos->x = 200;
+    shoppingPos->y = 700;
+    shoppingPos->w = 750;
+    shoppingPos->h = 150;
 //
 //    repellentPos = new SDL_Rect();
 //    repellentPos->x = 280;
@@ -32,6 +32,11 @@ ShoppingMenu::ShoppingMenu():Menu()
     shoppingExitPos.h = 25;
 
     cancelBtn = new CancelButton(shoppingExitPos);
+    tile = new Tile[3];
+
+    tile[0].UpdatePos(280,710);
+    tile[1].UpdatePos(500,710);
+    tile[2].UpdatePos(720,710);
 
 }
 
@@ -45,14 +50,25 @@ void ShoppingMenu::Show(SDL_Renderer* gRenderer)
 //   SDL_RenderDrawRect(gRenderer,ddtPos);
 //   SDL_RenderDrawRect(gRenderer,windowPos);
    cancelBtn->Show(gRenderer);
+
+   for (int i=0; i<3; i++)
+   {
+       tile[i].Show(gRenderer);
+   }
 }
 
-void ShoppingMenu::Update(SDL_Event* e, Screens_Node&node)
+
+void ShoppingMenu::Update(int frame)
+{
+
+}
+
+void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
 {
     int hoverX = e->button.x;
     int hoverY = e->button.y;
 
-    if( cancelBtn->WithinCancelRegion(hoverX,hoverY))
+    if( cancelBtn->WithinRegion(hoverX,hoverY))
     {
         if (e->type == SDL_MOUSEBUTTONDOWN)
         {

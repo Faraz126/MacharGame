@@ -53,7 +53,7 @@ void Menu::HoverClick(SDL_Event* e)
     int hoverY = e->button.y;
     for(int i=0; i<noOfButton; i++)
     {
-        if( ( hoverX > btn[i].pos.x ) && ( hoverX < (btn[i].pos.x+btn[i].pos.w) ) && ( hoverY > btn[i].pos.y ) && (hoverY< (btn[i].pos.y+btn[i].pos.h) ))
+        if(btn[i].WithinRegion(hoverX, hoverY))
 
         {
             if(e->type == SDL_MOUSEBUTTONDOWN && e->button.button ==  SDL_BUTTON_LEFT)
