@@ -27,3 +27,8 @@ CleanWater::~CleanWater()
 {
     //dtor
 }
+
+void CleanWater::EventHandle(SDL_Event*)
+{
+
+}

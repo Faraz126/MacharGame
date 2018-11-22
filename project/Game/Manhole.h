@@ -21,6 +21,7 @@ public:
     void Show(SDL_Renderer*);
     void SetCovered(bool);
     ~Manhole();
+    void EventHandle(SDL_Event*){};
 };
 
 

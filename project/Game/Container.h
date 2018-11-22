@@ -14,11 +14,13 @@ class Container : public BreedingGround
         virtual void Show(SDL_Renderer*) = 0;
         bool GetCovered();
         //virtual Mosquito* Breed();
+        virtual void EventHandle(SDL_Event*) = 0;
         virtual void SetCovered(bool);
         void SetX(int,int);
-
+    protected:
+        Lids* lid;
     private:
         bool isCovered;
         //Lids* GenerateLid();
-        Lids* lid;
+
 };

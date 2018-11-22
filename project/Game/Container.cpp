@@ -18,9 +18,11 @@ void Container::SetCovered(bool status)
 
 void Container:: SetX(int delta, int direction)
 {
+    lid->SetX(delta, direction);
     if ( direction == 0)
     {
         pos.x+=delta;
+
     }
     if ( direction == 1)
     {
