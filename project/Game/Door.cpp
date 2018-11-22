@@ -7,7 +7,7 @@ Door::Door(int posx, int posy):Entrance(posx, posy, 145,188)
     isOpen = false;
 }
 
-void Door::Update(SDL_Event* e, Screens_Node& node)
+void Door::Update(int frame)
 {
 
 }

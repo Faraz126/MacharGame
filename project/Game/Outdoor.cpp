@@ -84,6 +84,9 @@ Outdoor:: Outdoor()
     entranceRect[3].y=262;
     entranceRect[3].w=302;
     entranceRect[3].h=179;
+    humans = GenerateHumans();
+
+
 
 
 
@@ -92,6 +95,17 @@ Outdoor:: Outdoor()
 //        container[place] = new Manhole(125,150);
 //    }
 
+}
+
+Human** Outdoor::GenerateHumans()
+{
+    int n = CountHumans();
+    Human** temp = new Human*[n];
+    for (int i = 0; i < n; i++)
+    {
+        temp[i] = 0;
+    }
+    return temp;
 }
 
 void Outdoor::Show(SDL_Renderer* renderer)
@@ -119,15 +133,28 @@ void Outdoor::Show(SDL_Renderer* renderer)
 */
 }
 
+int Outdoor::CountHumans()
+{
+    int sum = 0;
+    for (int i = 0; i < 4; i++)
+    {
+        sum += house[i].NoOfHumans();
+    }
+}
 
-void Outdoor::Update(SDL_Event* e,Screens_Node& node)
-
+void Outdoor::Update(int frame)
 {
     for (int i = 0; i < 4; i++)
     {
-        house[i].Update(e,node);
+        house[i].Update(frame);
     }
 
+}
+
+
+void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
+
+{
 
     if (e->type == SDL_MOUSEBUTTONDOWN)
     {
@@ -141,7 +168,7 @@ void Outdoor::Update(SDL_Event* e,Screens_Node& node)
                 node.cur_screen = &house[i];
                 node.prev_screen = this;
                 node.prev_backable = true;
-                node.prev_updatable = true;
+                node.prev_updatable = false;
             }
         }
     }

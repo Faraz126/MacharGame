@@ -17,7 +17,11 @@ House::House()
     {
         breedingplaces[i] = 0;
     }
-    //humans = new Human(this);
+    humans = new Human*[noOfHumans];
+    for (int i = 0; i < noOfHumans; i++)
+    {
+        humans[i] = new Human(this);
+    }
     entrance = new Entrance*[noOfEntrance];
     int x;
     if (rand() % 2) //random x co-ordinate for the door
@@ -40,16 +44,18 @@ House::House()
     }
     if (noOfEntrance == 3)
     {
-        showpieces = new Showpiece();
+        showpieces = new Showpiece[2];
         showpieces[0].SetPos(467, 132, 26);
+        showpieces[1].SetPos(200, 600, 70);
         entrance[1] = new Window(200,125);
         entrance[2] = new Window(600,125);
     }
     else
     {
-        showpieces = new Showpiece[2];
+        showpieces = new Showpiece[3];
         showpieces[0].SetPos(100, 150);
         showpieces[1].SetPos(700, 150);
+        showpieces[2].SetPos(200, 600, 70);
         entrance[1] = new Window(412,125);
     }
 
@@ -84,6 +90,8 @@ void House::Show(SDL_Renderer* renderer)
 
     //SDL_SetRenderDrawColor(renderer, 30,30,30,0); //wall feature
     //SDL_RenderFillRect(renderer, &wall);
+
+
     for(int i=0; i < noOfEntrance; i++)
     {
         entrance[i]->Show(renderer);
@@ -95,11 +103,13 @@ void House::Show(SDL_Renderer* renderer)
     if (noOfEntrance == 3)
     {
         showpieces[0].Show(renderer);
+        showpieces[1].Show(renderer);
     }
     else
     {
         showpieces[0].Show(renderer);
         showpieces[1].Show(renderer);
+        showpieces[2].Show(renderer);
     }
     for (int i = 0; i < 3; i++)
     {
@@ -108,19 +118,16 @@ void House::Show(SDL_Renderer* renderer)
         {
             breedingplaces[i]->Show(renderer);
         }
-
     }
-
+    for (int i = 0; i < noOfHumans; i++)
+    {
+        humans[i]->Show(renderer);
+    }
+//    humans->Show(renderer);
 }
 
-void House::Update(SDL_Event* e, Screens_Node& node)
+void House::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
-    for (int i = 0; i <noOfEntrance; i++)
-    {
-        entrance[i]->Update(e, node);
-    }
-
-
     if (e->type == SDL_QUIT)
     {
         SDL_Quit();
@@ -139,6 +146,23 @@ void House::Update(SDL_Event* e, Screens_Node& node)
 
         }
     }
+}
+
+
+void House::Update(int frame)
+{
+    for (int i = 0; i <noOfEntrance; i++)
+    {
+        entrance[i]->Update(frame);
+    }
+
+    for (int i = 0; i < noOfHumans; i++)
+    {
+        humans[i]->Update();
+    }
+
+
+
 
 }
 
@@ -187,5 +211,10 @@ void House::ShowOutside(SDL_Renderer* renderer, const SDL_Rect& rect)
     {
         entrance[i]->ShowOutside(renderer, rect, div);
     }
+}
 
+
+int House::NoOfHumans()
+{
+    return noOfHumans;
 }

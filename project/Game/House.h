@@ -12,7 +12,9 @@
 #include "TrashCan.h"
 #include "Manhole.h"
 #include "Tub.h"
-//#include "Human.h"
+#include "Human.h"
+
+
 
 class House: public Screens
 
@@ -30,7 +32,7 @@ private:
     Showpiece* showpieces;
     BreedingGround** breedingplaces;
     SDL_Rect wall;
-    Human* humans;
+    Human** humans;
     int noOfBreedingPlaces;
     //Outdoor* outdoor;
     //Door* door;
@@ -47,7 +49,9 @@ public:
     void ShowOutside(SDL_Renderer*, const SDL_Rect&);
     void getWindowState();
     void getEntranceState();
-    void Update(SDL_Event* e, Screens_Node&);
+    void Update(int);
+    void HandleEvents(SDL_Event* e, Screens_Node&);
+    int NoOfHumans();
     Bed* GetClosestBed(int);
     Door* GetDoor();
 };

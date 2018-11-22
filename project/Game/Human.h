@@ -1,14 +1,16 @@
-/*
 #pragma once
 #include <iostream>
 #include "Color.h"
 #include "Point.h"
 #include "Texture.h"
 #include "Mosquito.h"
+#include "Clickable.h"
 
 class House;
 
-class Human
+
+
+class Human: Clickable
 {
 private:
 
@@ -20,8 +22,18 @@ private:
     SDL_Rect position;
     House* house;
 //    Hospital* hospital;
-    int clip;
+    double clip;
+    int otherclip;
+    bool IsWalkingHorizontal;
+    bool IsWalkingVertical;
+    bool IsSitting;
+    bool IsLyingDown;
     double speed;
+    bool Right;
+    bool Left;
+    bool Up;
+    bool Down;
+
 
 protected:
 
@@ -32,14 +44,16 @@ public:
     void Walk();    // when human walks
     void WalkOpposite(); // walking opposite
     void Walking();      // Walking
-    bool Sit();     // when human sits
-    bool LieDown();   // when human lies down
-    bool EnterHouse();
-    bool LeaveHouse();
+    void SitOnBed();     // when human sits
+    void LieDown();   // when human lies down
+    void WalkAgain();
+    void WalkUp();
+    void WalkDown();
+    void EnterHouse();
+    void LeaveHouse();
     void SetOutdoorIndoor();
-    bool GetIsOutdoor();
-    bool GetIsIndoor();
-    int GetBedPosition();                          // So that human can walk and go to the right bed and lie down if not infected
+    int GetBedXPosition();                          // So that human can walk and go to the right bed and lie down if not infected
+    int GetBedYPosition();                          // So that human can walk and go to the right bed and lie down if not infected
     //void Routine(SDL_Rect*,SDL_Renderer*,Texture*);
     int GetXPosition();
     int GetYPosition();
@@ -47,7 +61,7 @@ public:
     //void setPosition(Point*);
     void MosquitoBite();
     void BackToNormal();
-    void HumanRender(SDL_Renderer*);
+    void HumanRender(SDL_Renderer*,int,bool);
+    void Show(SDL_Renderer*);
 };
 
-*/

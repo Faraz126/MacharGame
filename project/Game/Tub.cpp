@@ -18,7 +18,7 @@ void Tub::Show(SDL_Renderer* renderer)
 
 Mosquito* Tub::Breed()
 {
-    factory->GetMosquito(0);
+    return factory->GetMosquito(0);
 }
 
 

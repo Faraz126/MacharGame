@@ -14,7 +14,7 @@ protected:
 public:
     Door(int,int);
     void Show(SDL_Renderer*, SDL_Rect* rect = nullptr);
-    void Update(SDL_Event*, Screens_Node&);
+    void Update(int);
     void ShowOutside(SDL_Renderer*, const SDL_Rect&, float);
     virtual void ChangeState();
     bool IsOpen();

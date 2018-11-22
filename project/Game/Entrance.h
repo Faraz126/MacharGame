@@ -25,7 +25,7 @@ public:
     int GetY();
     int GetHeight();
     int GetWidth();
-    virtual void Update(SDL_Event*, Screens_Node&) = 0;
+    virtual void Update(int) = 0;
     virtual void ChangeState() = 0;
     virtual ~Entrance();
 

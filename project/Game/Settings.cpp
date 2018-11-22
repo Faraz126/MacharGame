@@ -55,7 +55,15 @@ void Setting::Show(SDL_Renderer* gRenderer)
 
 }
 
-void Setting::Update(SDL_Event* e, Screens_Node& node)
+
+void Setting::Update(int frame)
+{
+
+}
+
+
+
+void Setting::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     int mouseX = e->button.x;
     int mouseY = e->button.y;

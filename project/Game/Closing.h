@@ -20,6 +20,7 @@ protected:
 public:
     Closing();
     void Show(SDL_Renderer*);
-    void Update(SDL_Event*, Screens_Node&);
+    void Update(int);
+    void HandleEvents(SDL_Event*, Screens_Node&);
     ~Closing();
 };
