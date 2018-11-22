@@ -73,6 +73,8 @@ Outdoor:: Outdoor()
     houseRect[3].w=290;
     houseRect[3].h=300;
 
+    shop->shopShow = false;
+
 
 
 //    for (int place = i; place<countManhole; place++)
@@ -95,7 +97,8 @@ void Outdoor::Show(SDL_Renderer* renderer)
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
     SDL_RenderFillRect(renderer,cartPos);
 
-    shop->Show(renderer);
+    if(shop->shopShow)
+        shop->Show(renderer);
 
 /*
     for(int i = 0; i<4; i++)
@@ -111,7 +114,7 @@ void Outdoor::Update(SDL_Event* e,Screens_Node& node)
 {
         //If a key was pressed
 
-
+    shop->Update(e,node);
     if (e->type == SDL_MOUSEBUTTONDOWN)
     {
         int x = e->button.x;
@@ -127,6 +130,13 @@ void Outdoor::Update(SDL_Event* e,Screens_Node& node)
                 node.prev_updatable = true;
             }
         }
+
+        if(e->button.button ==  SDL_BUTTON_LEFT)
+        {
+            if( ( x >cartPos->x ) && ( x < (cartPos->x+cartPos->w) ) && ( y > cartPos->y ) && (y< (cartPos->y+cartPos->h) ) )
+                shop->shopShow = true;
+        }
+
     }
     if( e->type == SDL_KEYDOWN )
         {

@@ -14,8 +14,8 @@ Setting::Setting():Menu(2,175,630,true)  //calling menus constructor that is con
 
     settingSliderPos.x= 500-5;
     settingSliderPos.y= settingPos.y+75;
-    settingSliderPos.w= 310;
-    settingSliderPos.h= 20;
+    settingSliderPos.w= 397*0.7;
+    settingSliderPos.h= 52*0.7;
 
     settingSliderPos1.x= 500-5;
     settingSliderPos1.y= settingPos.y+150;

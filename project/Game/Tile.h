@@ -3,37 +3,35 @@
 #include <iostream>
 #include <string>
 #include "string.h"
-#include "CancelButton.h"
 #include "SDL.h"
 #include <stdio.h>
 #include "SDL_image.h"
 #include "Menu.h"
-#include "CancelButton.h"
 
-class ShoppingMenu : public Menu
+
+
+class Tile
 {
 private:
-    SDL_Rect* shoppingPos;
-    SDL_Rect* repellentPos;
-    SDL_Rect* ddtPos;
-    SDL_Rect* windowPos;
-    SDL_Rect shoppingExitPos;
-
-
     Texture* texture;
-    CancelButton *cancelBtn;
+    Word* word;
+    int spriteNumber;
+    int x;
+    int y;
+    std::string str;
+    int price;
 
 protected:
 
 public:
     bool shopShow;
-    ShoppingMenu();
+    Tile();
     void Click(SDL_Event*);
     void Hover (SDL_Event*);
     void Show(SDL_Renderer*);
-    void SetPosition(int,int);
     void Update(SDL_Event*, Screens_Node&);
 
-    ~ShoppingMenu();
+    ~Tile();
 };
+
 

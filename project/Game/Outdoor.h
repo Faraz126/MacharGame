@@ -31,6 +31,8 @@ private:
     int countTrashcan;
     int countManhole;
 
+    bool shopShow;
+
     SDL_Rect* houseRect; //rectangle for clickable region of house
     SDL_Rect* entranceRect; //rectangle for entrance region of house
     House* house;
