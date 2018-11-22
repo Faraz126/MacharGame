@@ -62,6 +62,8 @@
 		<Unit filename="Character.h" />
 		<Unit filename="CleanWater.cpp" />
 		<Unit filename="CleanWater.h" />
+		<Unit filename="Clickable.cpp" />
+		<Unit filename="Clickable.h" />
 		<Unit filename="Closing.cpp" />
 		<Unit filename="Closing.h" />
 		<Unit filename="Color.h" />
@@ -84,6 +86,7 @@
 		<Unit filename="Human.cpp" />
 		<Unit filename="Human.h" />
 		<Unit filename="HumanFactory.h" />
+		<Unit filename="Lids.cpp" />
 		<Unit filename="Lids.h" />
 		<Unit filename="LoadGame.h" />
 		<Unit filename="LoadMenu.h" />

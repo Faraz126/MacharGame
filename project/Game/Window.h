@@ -13,8 +13,9 @@ protected:
 
 public:
     Window(int,int);
-    void Show(SDL_Renderer*);
+    void Show(SDL_Renderer*, SDL_Rect* rect = nullptr);
     void Update(SDL_Event*, Screens_Node&);
+    void ShowOutside(SDL_Renderer*, const SDL_Rect&, float);
     virtual void ChangeState();
     bool IsOpen();
     //time SetTime();

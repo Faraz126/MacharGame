@@ -3,16 +3,16 @@
 #include <SDL_image.h>
 #include "FactoryProducer.h"
 #include "AbstractFactory.h"
+#include "Clickable.h"
 //#include "Mosquito.h"
 
 
-class BreedingGround
+class BreedingGround :public Clickable
 {
 private:
 
 protected:
     AbstractFactory* factory;
-    SDL_Rect pos;
     int spriteNum;
 public:
     BreedingGround(int, int, int, int);

@@ -1,21 +1,22 @@
 #pragma once
 #include <SDL.h>
 #include <SDL_image.h>
+#include"Clickable.h"
 
 
-class Lids
+class Lids:public Clickable
 {
-private:
+    private:
 
-protected:
+    protected:
 
 
-public:
-    Lids();
-    void Drag(SDL_Event);
-    void Drop(SDL_Event);
-    void Show(SDL_Renderer*);
-    void Uncover();
-    ~Lids();
+    public:
+        Lids(int,int,int,int);
+        virtual ~Lids();
+        void Drag(SDL_Event);
+        void Drop(SDL_Event);
+        virtual void Show(SDL_Renderer*) = 0;
+        void Uncover();
 };
 

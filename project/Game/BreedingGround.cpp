@@ -1,12 +1,8 @@
 #include "BreedingGround.h"
 
 
-BreedingGround::BreedingGround(int x, int y, int w, int h)
+BreedingGround::BreedingGround(int x, int y, int w, int h): Clickable(x,y,w,h)
 {
-    pos.x = x;
-    pos.y = y;
-    pos.w = w;
-    pos.h = h;
     factory = FactoryProducer::GetFactory(0);
 }
 
