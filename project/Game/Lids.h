@@ -1,10 +1,9 @@
 #pragma once
 #include <SDL.h>
 #include <SDL_image.h>
-#include"Clickable.h"
+#include "Clickable.h"
 
-
-class Lids:public Clickable
+class Lids: public Clickable
 {
     private:
 

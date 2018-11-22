@@ -32,7 +32,7 @@ void ExitMenu::Show(SDL_Renderer* gRenderer)
 
 }
 
-void ExitMenu::Update(SDL_Event* e, Screens_Node& node)
+void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     int mouseX = e->button.x;
     int mouseY = e->button.y;
@@ -62,7 +62,13 @@ void ExitMenu::Update(SDL_Event* e, Screens_Node& node)
             }
         }
     }
+}
 
+
+
+
+void ExitMenu::Update(int frame)
+{
 
 }
 

@@ -20,6 +20,7 @@ public:
     void Show(SDL_Renderer*);
     ~DirtyWater();
     void SetCovered(bool);
+    void EventHandle(SDL_Event*){};
 };
 
 

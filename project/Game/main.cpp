@@ -78,7 +78,7 @@ bool init()
                 int imgFlags = IMG_INIT_PNG;
                 if( !( IMG_Init( imgFlags ) & imgFlags ) )
                 {
-                    printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+                    printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
                     success = false;
                 }
             }
@@ -132,18 +132,18 @@ int main( int argc, char* args[] )
         Texture::GetInstance(gRenderer);
         Screens_Node screen;
 
-        screen.cur_screen = new Outdoor; //starting with main menu
 
-
+        screen.cur_screen = new MainMenu; //starting with main menu
+        int frame = 0;
 
 
         while (!quit)
         {
-
+            screen.cur_screen->Update(frame);
             while (SDL_PollEvent(&e))
             {
                 if( e.type == SDL_QUIT ) quit = true;
-                screen.cur_screen->Update(&e,screen);
+                screen.cur_screen->HandleEvents(&e,screen);
             }
 
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -160,12 +160,13 @@ int main( int argc, char* args[] )
                 screen.prev_screen->Show(gRenderer);
                 if (screen.prev_updatable)
                 {
-                    screen.prev_screen->Update(&e, screen);
+                    screen.prev_screen->Update(frame);
                 }
             }
             //screen.cur_screen->Update(&e,screen);
             screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
             SDL_RenderPresent( gRenderer );
+            frame++;
         }
 	}
 

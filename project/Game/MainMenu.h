@@ -28,6 +28,7 @@ public:
     void HoverClick(SDL_Event*);
     void Show(SDL_Renderer*);
     //void Hover(SDL_Event*);
-    void Update(SDL_Event*, Screens_Node&);
+    void Update(int);
+    void HandleEvents(SDL_Event*, Screens_Node&);
     ~MainMenu();
 };

@@ -71,7 +71,12 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
 }
 
 
-void MainMenu::Update(SDL_Event* e, Screens_Node& node)
+void MainMenu::Update(int frame)
+{
+
+}
+
+void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     int mouseX = e->button.x;
     int mouseY = e->button.y;

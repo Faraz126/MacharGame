@@ -77,7 +77,7 @@ Outdoor:: Outdoor()
     entranceRect[0].x=45;
     entranceRect[0].y=261;
     entranceRect[0].w=278;
-    entranceRect[0].h=189;
+    entranceRect[0].h=185;
 
     entranceRect[1].x=539;
     entranceRect[1].y=261;
@@ -93,7 +93,20 @@ Outdoor:: Outdoor()
     entranceRect[3].y=262;
     entranceRect[3].w=302;
     entranceRect[3].h=179;
+    humans = GenerateHumans();
 
+
+}
+
+Human** Outdoor::GenerateHumans()
+{
+    int n = CountHumans();
+    Human** temp = new Human*[n];
+    for (int i = 0; i < n; i++)
+    {
+        temp[i] = 0;
+    }
+    return temp;
 }
 
 void Outdoor::Show(SDL_Renderer* renderer)
@@ -103,7 +116,17 @@ void Outdoor::Show(SDL_Renderer* renderer)
     for(int i = 0; i<countContainer; i++ )
     {
         container[i]->Show(renderer);
+    }
 
+    for (int i = 0; i < 4; i++)
+    {
+        house[i].ShowOutside(renderer, entranceRect[i]);
+    }
+
+
+    for(int i = 0; i<4; i++)
+    {
+        SDL_RenderFillRect(renderer,&houseRect[i]);
     }
 
 //    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0);
@@ -113,11 +136,29 @@ void Outdoor::Show(SDL_Renderer* renderer)
 //    }
 }
 
+int Outdoor::CountHumans()
+{
+    int sum = 0;
+    for (int i = 0; i < 4; i++)
+    {
+        sum += house[i].NoOfHumans();
+    }
+}
 
-void Outdoor::Update(SDL_Event* e,Screens_Node& node)
+void Outdoor::Update(int frame)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        house[i].Update(frame);
+    }
+
+}
+
+
+void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
 {
-        //if mouse button is presses
+
     if (e->type == SDL_MOUSEBUTTONDOWN)
     {
         int x = e->button.x;
@@ -155,7 +196,7 @@ void Outdoor::Update(SDL_Event* e,Screens_Node& node)
                     for(int i = 0; i<4; i++)
                     {
                         houseRect[i].x+=20;
-                        entranceRect[i].x+=20;
+                        entranceRect[i].x += 20;
                     }
                 }
             }
@@ -178,8 +219,9 @@ void Outdoor::Update(SDL_Event* e,Screens_Node& node)
                     for(int i = 0; i<4; i++)
                     {
                         houseRect[i].x-=20;
-                        entranceRect[i].x-=20;
+                        entranceRect[i].x -= 20;
                     }
+
                 }
             }
         }

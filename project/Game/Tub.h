@@ -21,6 +21,7 @@ public:
     Mosquito* Breed();
     void Show(SDL_Renderer*);
     void SetCovered(bool);
+    void EventHandle(SDL_Event*){};
     ~Tub();
 };
 

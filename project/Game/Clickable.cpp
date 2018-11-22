@@ -54,3 +54,8 @@ void Clickable::ReduceSize(double n)
     pos.w = pos.w * n;
     pos.h = pos.h * n;
 }
+
+bool Clickable::Collides(const Clickable& obj)
+{
+    return Collides(obj.pos);
+}

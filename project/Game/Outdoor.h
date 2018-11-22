@@ -10,6 +10,10 @@
 #include"TrashCan.h"
 #include"Manhole.h"
 #include"House.h"
+#include "Human.h"
+
+
+
 
 class Outdoor: public Screens
 {
@@ -26,13 +30,18 @@ private:
     int countWater;
     int countTrashcan;
     int countManhole;
-
     SDL_Rect pos, pos1;
     Texture* texture;
+
+    int totalHumans;
+
     SDL_Rect* houseRect; //rectangle for clickable region of house
     SDL_Rect* entranceRect; //rectangle for entrance region of house
     House* house;
     Container** container;
+    Human** humans;
+    Human** GenerateHumans();
+    int CountHumans();
 
 
 protected:
@@ -43,7 +52,8 @@ public:
     //void LeaveHuman();
     //void Click();
     void Show(SDL_Renderer*);
-    void Update(SDL_Event*, Screens_Node&);
+    void Update(int);
+    void HandleEvents(SDL_Event*, Screens_Node&);
     //Entrance* getCurrentState();
     ~Outdoor();
 };

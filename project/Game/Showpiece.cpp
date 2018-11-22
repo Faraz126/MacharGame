@@ -26,11 +26,15 @@ void Showpiece::SetPos(int x, int y, int n)
     {
         pos.w = 91*0.7;
         pos.h = 145*0.7;
-    }
-    if (n == 26)
-    {
         spriteNum = n;
     }
+    else if( n == 70)
+    {
+        pos.w = 662;
+        pos.h = 102;
+        spriteNum = n;
+    }
+
 
 }
 

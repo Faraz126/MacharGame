@@ -26,7 +26,8 @@ public:
     void Hover (SDL_Event*);
     void Show(SDL_Renderer*);
     void SetPosition(int,int);
-    void Update(SDL_Event*, Screens_Node&);
+    void Update(int);
+    void HandleEvents(SDL_Event*, Screens_Node&);
     std::string buttonText[2];
     ~ExitMenu();
 };

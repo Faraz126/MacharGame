@@ -19,7 +19,15 @@ void Closing::Show(SDL_Renderer* gRenderer)
 
 
 }
-void Closing::Update(SDL_Event*, Screens_Node&)
+
+
+
+void Closing::Update(int frame)
+{
+
+}
+
+void Closing::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
 
 }

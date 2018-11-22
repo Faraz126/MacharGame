@@ -18,5 +18,7 @@ public:
     int GetDistance(int x); //passing on players x co-ordinate only
     bool GetOccupied();
     void SetOccupied(bool);
+    int GetX();
+    int GetY();
     ~Bed();
 };

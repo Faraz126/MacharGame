@@ -20,7 +20,8 @@ void Window::ShowOutside(SDL_Renderer* renderer, const SDL_Rect& rect ,float wid
     Show(renderer, &temp);
 }
 
-void Window::Update(SDL_Event* e, Screens_Node& node)
+
+void Window::Update(int)
 {
     currentTime = SDL_GetTicks();
     if (currentTime > (timeCovered + (10*1000)))
