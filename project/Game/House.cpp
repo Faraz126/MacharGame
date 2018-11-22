@@ -17,15 +17,11 @@ House::House()
     {
         breedingplaces[i] = 0;
     }
-<<<<<<< HEAD
-    //humans = new Human(this);
-=======
     humans = new Human*[noOfHumans];
     for (int i = 0; i < noOfHumans; i++)
     {
         humans[i] = new Human(this);
     }
->>>>>>> b93a1e84ea88749ab1d1f0b286ad9b434921bcb0
     entrance = new Entrance*[noOfEntrance];
     int x;
     if (rand() % 2) //random x co-ordinate for the door
@@ -118,18 +114,6 @@ void House::Show(SDL_Renderer* renderer)
     for (int i = 0; i < 3; i++)
     {
         if (breedingplaces[i] != 0)
-<<<<<<< HEAD
-
-        {
-            breedingplaces[i]->Show(renderer);
-        }
-
-    }
-
-}
-=======
->>>>>>> b93a1e84ea88749ab1d1f0b286ad9b434921bcb0
-
         {
             breedingplaces[i]->Show(renderer);
         }
@@ -226,14 +210,11 @@ void House::ShowOutside(SDL_Renderer* renderer, const SDL_Rect& rect)
     {
         entrance[i]->ShowOutside(renderer, rect, div);
     }
-<<<<<<< HEAD
 
-=======
 }
 
 
 int House::NoOfHumans()
 {
     return noOfHumans;
->>>>>>> b93a1e84ea88749ab1d1f0b286ad9b434921bcb0
 }

@@ -21,4 +21,18 @@ void Lids:: Drag(SDL_Event* e)
 //    }
 }
 
+void Lids::HandleEvents(SDL_Event* e)
+{
 
+}
+
+void Lids::SetX(int delta, int direction)
+{
+
+}
+
+void Lids::SetPosition(int x, int y)
+{
+    pos.x = x;
+    pos.y = y;
+}

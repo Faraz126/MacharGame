@@ -16,6 +16,9 @@ class Lids: public Clickable
         void Drag(SDL_Event*);
         void Drop(SDL_Event);
         virtual void Show(SDL_Renderer*) = 0;
+        void HandleEvents(SDL_Event*);
+        void SetX(int,int);
+        void SetPosition(int, int);
         void Uncover();
 };
 

@@ -11,7 +11,7 @@ void TrashCan::SetCovered(bool status)
 {
     if (status)
     {
-        lid->SetPosition(0,0) //set to right ahead of trashcan.
+        lid->SetPosition(0,0); //set to right ahead of trashcan.
     }
     Container::SetCovered(status);
 }
@@ -21,9 +21,9 @@ void TrashCan::EventHandle(SDL_Event* e)
 {
     int x = e->button.x;
     int y = e->button.y;
-    if (lid->WithinRegion(x,y) && !isCovered())
+    if (lid->WithinRegion(x,y) && !GetCovered())
     {
-        lid->EventHandle(e);
+        lid->HandleEvents(e);
     }
     if (Collides(*lid))
     {
@@ -51,8 +51,3 @@ Mosquito* TrashCan::Breed()
 
 }
 
-
-void TrashCan::SetCovered(bool status)
-{
-    Container::SetCovered(status);
-}

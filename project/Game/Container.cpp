@@ -3,14 +3,7 @@
 Container::Container(int x, int y, int w, int h, bool status): BreedingGround(x,y,w,h) //initiating base class
 {
     SetCovered(status);
-    if (!status)
-    {
-        lid = new TrashCanLid(x + 50, y + 50);
-    }
-    else
-    {
-        lid = 0;
-    }
+    lid = 0;
 }
 
 bool Container::GetCovered()
@@ -34,7 +27,11 @@ void Container::SetCovered(bool status)
 
 void Container:: SetX(int delta, int direction)
 {
-    lid->SetX(delta, direction);
+    if (lid != 0)
+    {
+        lid->SetX(delta, direction);
+    }
+
     if ( direction == 0)
     {
         pos.x+=delta;
