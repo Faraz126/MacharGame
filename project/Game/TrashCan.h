@@ -17,6 +17,7 @@ class TrashCan : public Container
 {
     public:
         TrashCan(int,int);
+        void SetCovered(bool status);
         void Show(SDL_Renderer*);
         Mosquito* Breed();
         ~TrashCan();

@@ -10,6 +10,15 @@ Lids::~Lids()
 
 }
 
+void Lids:: Drag(SDL_Event* e)
+{
+    int hoverX = e->button.x;
+    int hoverY = e->button.y;
 
+//    if (Lids.WithinRegion(hoverX,hoverY))
+//    {
+//
+//    }
+}
 
 

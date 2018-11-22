@@ -125,6 +125,7 @@
 		<Unit filename="Trash.h" />
 		<Unit filename="TrashCan.cpp" />
 		<Unit filename="TrashCan.h" />
+		<Unit filename="TrashCanLid.cpp" />
 		<Unit filename="TrashCanLid.h" />
 		<Unit filename="Tub.cpp" />
 		<Unit filename="Tub.h" />

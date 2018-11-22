@@ -10,6 +10,10 @@ TrashCan::TrashCan(int x, int y): Container(x,y,CAN_WIDTH, CAN_HEIGHT)
 void TrashCan::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->Render(spriteNum,renderer, &pos);
+    if (lid != 0)
+    {
+        lid->Show(renderer);
+    }
 }
 
 TrashCan::~TrashCan()
@@ -20,4 +24,10 @@ TrashCan::~TrashCan()
 Mosquito* TrashCan::Breed()
 {
 
+}
+
+
+void TrashCan::SetCovered(bool status)
+{
+    Container::SetCovered(status);
 }

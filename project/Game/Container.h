@@ -5,6 +5,8 @@
 #include "Lids.h"
 #include "Mosquito.h"
 #include "BreedingGround.h"
+#include "TrashCanLid.h"
+#include "Lids.h"
 
 class Container : public BreedingGround
 {
@@ -16,9 +18,11 @@ class Container : public BreedingGround
         //virtual Mosquito* Breed();
         virtual void SetCovered(bool);
         void SetX(int,int);
+    protected:
+        Lids* lid;
 
     private:
         bool isCovered;
         //Lids* GenerateLid();
-        Lids* lid;
+
 };

@@ -51,14 +51,13 @@ void Setting::Show(SDL_Renderer* gRenderer)
     {
          slider[i].Show(gRenderer);
     }
-
-
 }
 
 void Setting::Update(SDL_Event* e, Screens_Node& node)
 {
     int mouseX = e->button.x;
     int mouseY = e->button.y;
+
     //Menu::Hover(e);  //for button
     Menu::HoverClick(e);   //for button
     Click(e);       //for cancel and slider
@@ -120,13 +119,13 @@ void Setting::Click(SDL_Event* e)
     {
        if (slider[i].WithinSliderRegion(hoverX,hoverY))
        {
-           if (e->type == SDL_MOUSEBUTTONDOWN)
+           if ((e->type == SDL_MOUSEBUTTONDOWN)&& (e->button.button == SDL_BUTTON_LEFT))
             {
                 slider[i].Click();
                 slider[i].SetMouseClicked(true);
 
             }
-            else if (e->type == SDL_MOUSEBUTTONUP && (e->button.button == SDL_BUTTON_LEFT))
+            else if ((e->type == SDL_MOUSEBUTTONUP)&& (e->button.button == SDL_BUTTON_LEFT))
             {
                 slider[i].SetMouseClicked(false);
                 slider[i].diffStateBtn=61;

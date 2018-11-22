@@ -25,11 +25,12 @@ Outdoor:: Outdoor()
     countContainer = countPlants + countTrashcan + countManhole;
 
     container = new Container*[countContainer];
-
+    house = new House[4]; //house count is 4
 
     int plantPos[countPlants] = {345,440,780,860,940,1030,1435,1520,1600,2025,2095}; //fixed x-coordinates of plants
     int trashCanPos[4] = {650,1800,80,1060}; //fixed x-coordinates of trash Cans
     int manholePos[3] = {1500, 2270, 450};//fixed x-coordinates of manhole
+    int TrashCanLidPos[4] = {500, 700, 1000, 1200};
 
     int i = 0; //iterator for containers
     for (int place = 0; place<countPlants; place++) //to place plants
@@ -41,6 +42,7 @@ Outdoor:: Outdoor()
     for (int place = 0; place<countTrashcan; place++) //to place trash Cans
     {
         container[i] = new TrashCan(trashCanPos[place],480);
+        //Lids[i] = new TrashCanLid(TrashCanLidPos[place], 540);
         i++;
     }
 
@@ -50,9 +52,8 @@ Outdoor:: Outdoor()
         i++;
     }
 
-    houseRect= new SDL_Rect[4];
-    entranceRect = new SDL_Rect[4];
-    house = new House[4];
+    houseRect= new SDL_Rect[4]; //clickable region for all 4 houses
+    entranceRect = new SDL_Rect[4]; //region for windows & doors for all 4 houses
     houseRect[0].x=45;
     houseRect[0].y=140;
     houseRect[0].w=280;
@@ -102,6 +103,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
     for(int i = 0; i<countContainer; i++ )
     {
         container[i]->Show(renderer);
+
     }
 
 //    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0);
@@ -115,9 +117,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
 void Outdoor::Update(SDL_Event* e,Screens_Node& node)
 
 {
-        //If a key was pressed
-
-
+        //if mouse button is presses
     if (e->type == SDL_MOUSEBUTTONDOWN)
     {
         int x = e->button.x;
@@ -134,6 +134,7 @@ void Outdoor::Update(SDL_Event* e,Screens_Node& node)
             }
         }
     }
+        //If a key was pressed
     if( e->type == SDL_KEYDOWN )
         {
             if(pos1.x < 0) //to stay inside screen width
@@ -194,5 +195,4 @@ Outdoor :: ~Outdoor()
     delete[] entranceRect;
     delete[] houseRect;
     delete[] house;
-    delete texture;
 }
