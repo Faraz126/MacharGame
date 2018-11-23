@@ -13,15 +13,6 @@ bool Container::GetCovered()
 
 void Container::SetCovered(bool status)
 {
-    if (status)
-    {
-        //delete lid;
-        lid = 0;
-    }
-    else
-    {
-        lid = new TrashCanLid(pos.x + 50, pos.y + 50);
-    }
     isCovered = status;
 }
 

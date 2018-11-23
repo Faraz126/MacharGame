@@ -20,7 +20,7 @@ House::House()
     humans = new Human*[noOfHumans];
     for (int i = 0; i < noOfHumans; i++)
     {
-        humans[i] = new Human(this);
+        humans[i] = new Human((i*30), 388 + (i*90),this);
     }
     entrance = new Entrance*[noOfEntrance];
     int x;
@@ -118,11 +118,13 @@ void House::Show(SDL_Renderer* renderer)
             breedingplaces[i]->Show(renderer);
         }
     }
+
     for (int i = 0; i < noOfHumans; i++)
     {
         humans[i]->Show(renderer);
     }
 //    humans->Show(renderer);
+
 }
 
 void House::HandleEvents(SDL_Event* e, Screens_Node& node)
@@ -157,7 +159,7 @@ void House::Update(int frame)
 
     for (int i = 0; i < noOfHumans; i++)
     {
-        humans[i]->Update();
+        humans[i]->Update(frame);
     }
 
 
@@ -165,16 +167,16 @@ void House::Update(int frame)
 
 }
 
-Bed* House::GetClosestBed(int x) //pass on Human x co-ordinates here
+Bed* House::GetClosestBed(int x, int y) //pass on Human x co-ordinates here
 {
     Bed* minimum = &bed[0];
-    int dist = bed[0].GetDistance(x);
+    int dist = bed[0].GetDistance(x,y);
 
     for (int i = 1; i < noOfHumans; i++)
     {
         if (!bed[i].GetOccupied())
         {
-            int temp = bed[i].GetDistance(x);
+            int temp = bed[i].GetDistance(x,y);
             if (temp < dist)
             {
                 minimum = &bed[i];
@@ -218,3 +220,23 @@ int House::NoOfHumans()
 {
     return noOfHumans;
 }
+
+
+Bed* House::GetBeds(int &n)
+{
+    n = noOfHumans;
+    return bed;
+}
+
+BreedingGround** House::GetBreedingGrounds(int & n)
+{
+    n = noOfBreedingPlaces;
+    return breedingplaces;
+}
+
+Human** House::GetHumans(int & n)
+{
+    n = noOfHumans;
+    return humans;
+}
+

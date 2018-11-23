@@ -1,281 +1,283 @@
 #include "Human.h"
-#include "House.h"
-#include "Bed.h"
 #include <random>
+#include <cmath>
+#include "House.h"
 
-Human::Human(): Clickable(0,0,0,0)
+Human::Human(): Clickable(0,0,117, 575)
+{
+    ownHouse = 0;
+}
+
+
+Human::Human(int x, int y, House* house): Clickable(x,y,117, 575)
+{
+    ownHouse = house;
+    ReduceSize(0.3);
+    collideRect.x = pos.x + 10;
+    collideRect.y = pos.y + pos.h - 10;
+    collideRect.w = pos.w-10;
+    collideRect.h = 10;
+    isIndoor = true;
+    faceDirection = RIGHT;
+    isGoingToBed = true;
+    isGoingOut = false;
+    isVertical = false;
+    isHorizontal = true;
+    isWalking = false;
+    activity = WALKING;
+    step = 1;
+}
+
+Human::Human(House* house): Human(0,0, house)
 {
 
 }
 
-Human::Human(House* PersonHouse) : Clickable(rand()%1024, 450, 100, 150)
-{
-    infected = false;
-    clip = 15;
-    house = PersonHouse;
-    IsIndoor = true;
-    IsOutdoor = false;
-    IsWalkingHorizontal = true;
-    IsWalkingVertical = false;
-    IsSitting = false;
-    IsLyingDown = false;
-    Right = true;
-    Left = false;
-    Up = false;
-    Down = false;
-    // there needs to be some functionality for when the human is clicked on. Then it should imo have a determined path to hospital
-}
 
-Human::~Human()
+bool Human::Collide()
 {
 
-}
-
-
-void Human::Update()
-{
-    if(IsIndoor == true && IsOutdoor == false)
+    if (isIndoor)
     {
-        LieDown();          // if this is true then walk up and lie down
-        SitOnBed();              // if this is true then walk up and lie down
-        Walking();
-        WalkAgain();
-    }
-    if(IsOutdoor == true && IsIndoor == false)
-    {
-        Walking();
-    }
-}
-
-
-
-void Human::Walking()
-{
-    if(pos.x <= 1024 && Right == true && IsWalkingHorizontal == true)
-    {
-        Walk();
-        if(pos.x == 1024)
+        int n;
+        Bed* bed = ownHouse->GetBeds(n);
+        for (int i = 0; i <n; i++)
         {
-            std::cout << "Walk Left!" << std::endl;
-            Left = true;                            // to make sure it goes left and not write since it'll check both the conditions
-            Right = false;
+            if (bed[i].Collides(collideRect))
+            {
+                return true;
+            }
+        }
+        BreedingGround** breedingGrounds = ownHouse->GetBreedingGrounds(n);
+        for (int i = 0; i < n; i++)
+        {
+            if (breedingGrounds[i]->Collides(collideRect))
+            {
+                return true;
+            }
+        }
+        Human** humans = ownHouse->GetHumans(n);
+        for (int i = 0; i < n; i++)
+        {
+            if (humans[i]->Collides(collideRect) && humans[i] != this)
+            {
+                return true;
+            }
         }
     }
-    else if(pos.x >= 0 && Left == true && IsWalkingHorizontal == true)
+    return false;
+}
+
+void Human::Update(int frame)
+{
+    switch (activity)
     {
-        WalkOpposite();
-        if(pos.x == 0)
+    case GOING_TO_DOOR:
+        break;
+    case WALKING:
         {
-            std:: cout << "Walk Right!" << std::endl;
-            Right = true;
-            Left = false;
+            if (collideRect.x >= 1024)
+            {
+                faceDirection = LEFT;
+            }
+            else if (collideRect.x <= 0)
+            {
+                faceDirection = RIGHT;
+            }
+            break;
+        }
+
+    }
+
+
+    /*
+    if (frame % 500000 == 0 && !isGoingOut && !isGoingToBed)
+    {
+        int n = rand()% 150;
+        if (n < 30)
+        {
+            isGoingToBed = true;
+            bedToGoTo = ownHouse->GetClosestBed(pos.x, pos.y);
+            toFollowX = bedToGoTo->GetX();
+            toFollowY = bedToGoTo->GetY();
+
+            isGoingOut = false;
+            isWalking = false;
+        }
+        else if(n < 60)
+        {
+            isGoingToBed = false;
+            isGoingOut = true;
+            isWalking = false;
+        }
+        else
+        {
+            isGoingToBed = false;
+            isGoingOut = false;
+            isWalking = true;
         }
     }
-}
-
-void Human::WalkUp()
-{
-    if(Up == true && IsWalkingVertical == true)
+    /*
+    if (isGoingToBed)
     {
-        clip += 0.03;
-        if(clip >= 23)      // to change the clip after a certain amount the loop runs.
+        int curDist = (sqrt(pow((toFollowX-collideRect.x),2))+(pow((toFollowY-collideRect.y),2)));
+        if  (curDist < 10)
         {
-            clip = 15;
+            moving  = 5;
+            isGoingToBed = false;
+            isWalking = true;
         }
-        speed += 0.6;
-        if(speed >= 1)    // to adjust the x pos after a certain amount the loop runs.
+        int random = rand()%2;
+        if (random == 0 && toFollowX- collideRect.x < 0)
         {
-            speed = 0;
-            pos.y -= 1;
+            moving = RIGHT;
         }
-    }
-}
-
-void Human::WalkDown()
-{
-    if(Down == true && IsWalkingVertical == true)
-    {
-        clip += 0.03;
-        if(clip >= 23)      // to change the clip after a certain amount the loop runs.
+        else if (random == 0 && toFollowX- collideRect.x > 0)
         {
-            clip = 15;
+            moving = LEFT;
         }
-        speed += 0.6;
-        if(speed >= 1)    // to adjust the x pos after a certain amount the loop runs.
+        else if (random == 1 && toFollowY - collideRect.x > 0)
         {
-            speed = 0;
-            pos.y += 1;
+            moving = UP;
         }
-    }
-}
 
-void Human::Walk()       // walk will have a flip sign to make sure where it's walking
-
-{
-    clip += 0.03;
-    std::cout << "CLIP: " << clip << std::endl;
-    if(clip >= 23)      // to change the clip after a certain amount the loop runs.
-    {
-        std::cout << "YES" << std::endl;
-        clip = 15;
     }
-    speed += 0.6;
-    if(speed >= 1)    // to adjust the x pos after a certain amount the loop runs.
-    {
-        speed = 0;
-        pos.x += 1;
-    }
-}
 
-
-void Human::WalkOpposite()
-{
-    clip -= 0.03;
-    if(clip <= 15)      // to change the clip after a certain amount the loop runs.
+    if (isWalking)
     {
-        clip = 23;
-    }
-    speed += 0.6;
-    if(speed >= 1)    // to adjust the x pos after a certain amount the loop runs.
-    {
-        speed = 0;
-        pos.x -= 1;
-    }
-}
-
-void Human::WalkAgain()
-{
-    if(IsSitting == true && rand() % 500 == 0) // if it reaches the x pos of the bed and is not infected
-    {
-        IsWalkingHorizontal = false;
-        IsWalkingVertical = true;
-        IsLyingDown = false;
-        Down = true;
-        Up = false;
-        if(450 == GetYPosition())
+        int random = rand()% 4;
+        if (faceDirection == RIGHT)
         {
-            IsSitting = false;
-            IsWalkingVertical = false;
-            IsWalkingHorizontal = true;
-            Down = false;
-            clip = 15;          // this will be the clip where it starts to walk again
-            std::cout << "starting from default!" << std::endl;
+            if (random != LEFT)
+            {
+                faceDirection = random;
+                Move();
+            }
         }
-        std::cout << "Walk Down!" << std::endl;
-        WalkDown();
-    }
-}
-
-void Human::SitOnBed()               // this sit will be for sitting on bed in house
-{
-    if(GetBedXPosition() == GetXPosition() && infected == false && rand() % 5 == 0) // if it reaches the x pos of the bed and is not infected
-    {
-        IsSitting = true;
-        IsWalkingHorizontal = false;
-        IsWalkingVertical = true;
-        IsLyingDown = false;
-        Down = false;
-        Up = true;
-        if(GetBedYPosition() == GetYPosition())
+        else if (faceDirection == LEFT)
         {
-            IsWalkingVertical = false;
-            Up = false;
-            otherclip = 17;          // this will be the clip where it sits
-            std::cout << "Reached Bed!" << std::endl;
+            if (random != RIGHT)
+            {
+                faceDirection = random;
+                Move();
+            }
         }
-        std::cout << "Walk Up!" << std::endl;
-        WalkUp();
+        else if (faceDirection == UP)
+        {
+            if (random != DOWN)
+            {
+                faceDirection = random;
+                Move();
+            }
+        }
+        else if (faceDirection == DOWN)
+        {
+            if (random != UP)
+            {
+                faceDirection = random;
 
-
-
+            }
+        }
     }
-}
-
-int Human::GetBedXPosition()
-{
-    Bed* pos = house -> GetClosestBed(GetXPosition());
-    return pos -> GetX();
-}
-
-int Human::GetBedYPosition()
-{
-    Bed* pos = house -> GetClosestBed(GetYPosition());
-    return pos -> GetY();
-}
-
-
-void Human::SetOutdoorIndoor()
-{
-
-}
-
-
-void Human::LieDown()
-{
-    if(GetBedXPosition() == GetXPosition() && infected == true)   // if it reaches at the x pos of the bed and is infected
+    if (isGoingToBed)
     {
-        IsWalkingHorizontal = false;
-        IsWalkingVertical = true;
-        IsSitting = true;
-        IsLyingDown = false;
-        Up = true;
-        Down = false;
-        otherclip = 20;          // this will be the clip where it lies down
+        toFollowX = ownHouse->GetDoor()->GetX();
+        toFollowY = ownHouse->GetDoor()->GetY();
+
+        if (isHorizontal)
+        {
+            if (collideRect.x == toFollowX)
+            {
+                isHorizontal = false;
+                isVertical = true;
+            }
+            else if (collideRect.x > toFollowX)
+            {
+                faceDirection = LEFT;
+            }
+            else if (collideRect.x < toFollowX)
+            {
+                faceDirection = RIGHT;
+            }
+        }
+        else if (isVertical)
+        {
+            if (collideRect.y == toFollowY)
+            {
+                isHorizontal = false;
+                isVertical = true;
+            }
+            else if (collideRect.y > toFollowY)
+            {
+                faceDirection = UP;
+            }
+        }
+        else if (toFollowX == collideRect.x && toFollowY == collideRect.y)
+        {
+            faceDirection = 5;
+        }
     }
+    */
+    Move();
 }
 
-int Human::GetXPosition()
 
+void Human::Move()
 {
-    return pos.x;
-}
-
-int Human::GetYPosition()
-{
-    return pos.y;
-}
-
-void Human::Show(SDL_Renderer* gRenderer)
-{
-    if(IsWalkingHorizontal == true || IsWalkingVertical == true)
+    if (faceDirection == RIGHT)
     {
-        Texture::GetInstance() -> Render(int(clip),gRenderer,&pos);
+        pos.x += step;
+        collideRect.x += step;
+        /*
+        if (Collide())
+        {
+            pos.x -= step;
+            collideRect.x -= step;
+        }
+        */
     }
-    else if(IsWalkingHorizontal == false || IsWalkingVertical == false)
+    else if (faceDirection == LEFT)
     {
-        Texture::GetInstance() -> Render(otherclip,gRenderer,&pos);
+        pos.x -= step;
+        collideRect.x -= step;
+        /*
+        if (Collide())
+        {
+            pos.x += step;
+            collideRect.x += step;
+        }
+        */
     }
-}
-//now work on this. Yeah Okay
-
-
-void Human::EnterHouse()
-{
-    //
-}
-
-void Human::LeaveHouse()
-{
-/*    if(house->entrance == GetXPosition())
+    else if (faceDirection == DOWN)
     {
-        Up = true;
-        IsWalkingVertical = true;
-        IsWalkingHorizontal = false;
-        Down = false;
-        Right = false;
-        Left = false;
-        WalkUp();
+        pos.y += step;
+        collideRect.y += step;
+        /*
+        if (Collide())
+        {
+            pos.y -= step;
+            collideRect.y -= step;
+        }
+        */
     }
-*/
+    else if (faceDirection == UP)
+    {
+        pos.y -= step;
+        collideRect.y -= step;
+        /*
+        if (Collide())
+        {
+            pos.y += step;
+            collideRect.y += step;
+        }
+        */
+    }
+
 }
 
-void Human::MosquitoBite()
+void Human::Show(SDL_Renderer* renderer)
 {
-
+    Texture::GetInstance()->Render(74,renderer, &pos);
+    SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
+    SDL_RenderDrawRect(renderer, &collideRect);
 }
-
-void Human::BackToNormal()
-{
-
-}
-
