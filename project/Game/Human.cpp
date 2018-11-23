@@ -87,6 +87,13 @@ void Human::Update(int frame)
             break;
         }
 
+
+    if (frame % 10000)
+        {
+        }
+        activity = rand()%4;
+
+
     }
 
 
@@ -96,10 +103,19 @@ void Human::Update(int frame)
         int n = rand()% 150;
         if (n < 30)
         {
+<<<<<<< HEAD
             isGoingToBed = true;
             bedToGoTo = ownHouse->GetClosestBed(pos.x, pos.y);
             toFollowX = bedToGoTo->GetX();
             toFollowY = bedToGoTo->GetY();
+=======
+            //std:: cout << "Walk Right!" << std::endl;
+            Right = true;
+            Left = false;
+        }
+    }
+}
+>>>>>>> 9c7eea37c0327259caa32326d0ab9eb75c2422aa
 
             isGoingOut = false;
             isWalking = false;
@@ -141,6 +157,22 @@ void Human::Update(int frame)
             moving = UP;
         }
 
+<<<<<<< HEAD
+=======
+{
+    clip += 0.03;
+    //std::cout << "CLIP: " << clip << std::endl;
+    if(clip >= 23)      // to change the clip after a certain amount the loop runs.
+    {
+        //std::cout << "YES" << std::endl;
+        clip = 15;
+    }
+    speed += 0.6;
+    if(speed >= 1)    // to adjust the x pos after a certain amount the loop runs.
+    {
+        speed = 0;
+        pos.x += 1;
+>>>>>>> 9c7eea37c0327259caa32326d0ab9eb75c2422aa
     }
 
     if (isWalking)
@@ -186,6 +218,7 @@ void Human::Update(int frame)
 
         if (isHorizontal)
         {
+<<<<<<< HEAD
             if (collideRect.x == toFollowX)
             {
                 isHorizontal = false;
@@ -216,6 +249,42 @@ void Human::Update(int frame)
         {
             faceDirection = 5;
         }
+=======
+            IsSitting = false;
+            IsWalkingVertical = false;
+            IsWalkingHorizontal = true;
+            Down = false;
+            clip = 15;          // this will be the clip where it starts to walk again
+           // std::cout << "starting from default!" << std::endl;
+        }
+        //std::cout << "Walk Down!" << std::endl;
+        WalkDown();
+    }
+}
+
+void Human::SitOnBed()               // this sit will be for sitting on bed in house
+{
+    if(GetBedXPosition() == GetXPosition() && infected == false && rand() % 5 == 0) // if it reaches the x pos of the bed and is not infected
+    {
+        IsSitting = true;
+        IsWalkingHorizontal = false;
+        IsWalkingVertical = true;
+        IsLyingDown = false;
+        Down = false;
+        Up = true;
+        if(GetBedYPosition() == GetYPosition())
+        {
+            IsWalkingVertical = false;
+            Up = false;
+            otherclip = 17;          // this will be the clip where it sits
+            //std::cout << "Reached Bed!" << std::endl;
+        }
+        //std::cout << "Walk Up!" << std::endl;
+        WalkUp();
+
+
+
+>>>>>>> 9c7eea37c0327259caa32326d0ab9eb75c2422aa
     }
     */
     Move();

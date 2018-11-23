@@ -9,7 +9,7 @@
 #include "Lids.h""
 
 const int TRASHCANLID_WIDTH = 80;
-const int TRASHCANLID_HEIGHT = 15.914;
+const int TRASHCANLID_HEIGHT = 18.694;
 
 class TrashCanLid: public Lids
 {

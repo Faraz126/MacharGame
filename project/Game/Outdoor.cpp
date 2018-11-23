@@ -151,13 +151,16 @@ void Outdoor::Update(int frame)
     {
         house[i].Update(frame);
     }
-
 }
 
 
 void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
 {
+    for (int i = 0; i<countContainer; i++ )
+    {
+        container[i]->EventHandle(e);
+    }
 
     if (e->type == SDL_MOUSEBUTTONDOWN)
     {
@@ -174,6 +177,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
                 node.prev_updatable = false;
             }
         }
+
     }
         //If a key was pressed
     if( e->type == SDL_KEYDOWN )
