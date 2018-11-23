@@ -107,7 +107,7 @@ void Setting::Click(SDL_Event* e)
             SetMouseClicked(true);
             cancelBtn->Click();
         }
-        else if (e->type == SDL_MOUSEBUTTONUP && e->button.button == SDL_BUTTON_LEFT)
+        else if ((e->type == SDL_MOUSEBUTTONUP) && (e->button.button == SDL_BUTTON_LEFT))
         {
             SetMouseClicked(false);
             cancelBtn->diffStateBtn=4;

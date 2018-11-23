@@ -56,7 +56,7 @@ void Human::Walking()
         Walk();
         if(pos.x == 1024)
         {
-            std::cout << "Walk Left!" << std::endl;
+            //std::cout << "Walk Left!" << std::endl;
             Left = true;                            // to make sure it goes left and not write since it'll check both the conditions
             Right = false;
         }
@@ -66,7 +66,7 @@ void Human::Walking()
         WalkOpposite();
         if(pos.x == 0)
         {
-            std:: cout << "Walk Right!" << std::endl;
+            //std:: cout << "Walk Right!" << std::endl;
             Right = true;
             Left = false;
         }
@@ -113,10 +113,10 @@ void Human::Walk()       // walk will have a flip sign to make sure where it's w
 
 {
     clip += 0.03;
-    std::cout << "CLIP: " << clip << std::endl;
+    //std::cout << "CLIP: " << clip << std::endl;
     if(clip >= 23)      // to change the clip after a certain amount the loop runs.
     {
-        std::cout << "YES" << std::endl;
+        //std::cout << "YES" << std::endl;
         clip = 15;
     }
     speed += 0.6;
@@ -159,9 +159,9 @@ void Human::WalkAgain()
             IsWalkingHorizontal = true;
             Down = false;
             clip = 15;          // this will be the clip where it starts to walk again
-            std::cout << "starting from default!" << std::endl;
+           // std::cout << "starting from default!" << std::endl;
         }
-        std::cout << "Walk Down!" << std::endl;
+        //std::cout << "Walk Down!" << std::endl;
         WalkDown();
     }
 }
@@ -181,9 +181,9 @@ void Human::SitOnBed()               // this sit will be for sitting on bed in h
             IsWalkingVertical = false;
             Up = false;
             otherclip = 17;          // this will be the clip where it sits
-            std::cout << "Reached Bed!" << std::endl;
+            //std::cout << "Reached Bed!" << std::endl;
         }
-        std::cout << "Walk Up!" << std::endl;
+        //std::cout << "Walk Up!" << std::endl;
         WalkUp();
 
 

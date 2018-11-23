@@ -20,7 +20,7 @@ bool Clickable::WithinRegion(int x, int y)
 
 bool Clickable::Collides(const SDL_Rect& rect)
 {
-    if (pos.y + pos.h <= rect.h)
+    if (pos.y + pos.h <= rect.y)
     {
         return false;
     }
