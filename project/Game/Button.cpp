@@ -28,6 +28,12 @@ void Button::setPosition ( int x, int y)
     pos.x = x;              //setting position of buttons on the screen
     pos.y = y;
 }
+void Button::SetWidth(int w,int h)
+{
+    pos.w = w;
+    pos.h = h;
+}
+
 void Button::setText ( std::string str )
 {
     if (word == 0)

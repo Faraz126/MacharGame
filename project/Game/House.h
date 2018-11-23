@@ -13,6 +13,8 @@
 #include "Manhole.h"
 #include "Tub.h"
 #include "Human.h"
+#include "Button.h"
+
 
 
 
@@ -34,6 +36,8 @@ private:
     SDL_Rect wall;
     Human** humans;
     int noOfBreedingPlaces;
+    Button* btn;
+
     //Outdoor* outdoor;
     //Door* door;
 protected:

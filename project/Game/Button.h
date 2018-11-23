@@ -9,12 +9,13 @@
 
 class Button : public Clickable
 {
-    Word * word ;
+
     void Click(SDL_Rect*);
     Texture * texture ;
     SDL_Event e;
 
     public:
+    Word * word ; //public as will be used to decrease size
     int intHover;
     Button (std::string str , int x, int y);
     void setText ( std::string str );
@@ -23,6 +24,7 @@ class Button : public Clickable
     void Click();
     void Render ( SDL_Renderer * );
     void setPosition ( int , int );
+    void SetWidth(int,int);
     ~Button();
 
 };

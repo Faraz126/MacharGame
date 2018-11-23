@@ -40,6 +40,7 @@ private:
 
     bool shopShow;
 
+
     int totalHumans;
 
     SDL_Rect* houseRect; //rectangle for clickable region of house
