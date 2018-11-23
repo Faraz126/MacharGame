@@ -20,7 +20,7 @@ House::House()
     humans = new Human*[noOfHumans];
     for (int i = 0; i < noOfHumans; i++)
     {
-        humans[i] = new Human(this);
+        humans[i] = new Human((i*30), 388 + (i*90),this);
     }
     entrance = new Entrance*[noOfEntrance];
     int x;
@@ -79,9 +79,6 @@ House::House()
         }
         y += 100;
     }
-
-
-
 }
 
 void House::Show(SDL_Renderer* renderer)
@@ -118,11 +115,13 @@ void House::Show(SDL_Renderer* renderer)
             breedingplaces[i]->Show(renderer);
         }
     }
+
     for (int i = 0; i < noOfHumans; i++)
     {
         humans[i]->Show(renderer);
     }
 //    humans->Show(renderer);
+
 }
 
 void House::HandleEvents(SDL_Event* e, Screens_Node& node)
@@ -142,7 +141,6 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
             {
                 entrance[i]->ChangeState();
             }
-
         }
     }
 }
@@ -157,24 +155,20 @@ void House::Update(int frame)
 
     for (int i = 0; i < noOfHumans; i++)
     {
-        humans[i]->Update();
+        humans[i]->Update(frame);
     }
-
-
-
-
 }
 
-Bed* House::GetClosestBed(int x) //pass on Human x co-ordinates here
+Bed* House::GetClosestBed(int x, int y) //pass on Human x co-ordinates here
 {
     Bed* minimum = &bed[0];
-    int dist = bed[0].GetDistance(x);
+    int dist = bed[0].GetDistance(x,y);
 
     for (int i = 1; i < noOfHumans; i++)
     {
         if (!bed[i].GetOccupied())
         {
-            int temp = bed[i].GetDistance(x);
+            int temp = bed[i].GetDistance(x,y);
             if (temp < dist)
             {
                 minimum = &bed[i];
@@ -210,11 +204,35 @@ void House::ShowOutside(SDL_Renderer* renderer, const SDL_Rect& rect)
     {
         entrance[i]->ShowOutside(renderer, rect, div);
     }
-
 }
-
 
 int House::NoOfHumans()
 {
     return noOfHumans;
 }
+
+Bed* House::GetBeds(int &n)
+{
+    n = noOfHumans;
+    return bed;
+}
+
+BreedingGround** House::GetBreedingGrounds(int & n)
+{
+    n = noOfBreedingPlaces;
+    return breedingplaces;
+}
+
+Human** House::GetHumans(int & n)
+{
+    n = noOfHumans;
+    return humans;
+}
+
+Entrance** House::GetEntrance(int & n)
+{
+    n = noOfEntrance;
+    return entrance;
+}
+
+

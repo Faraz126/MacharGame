@@ -5,6 +5,14 @@ Entrance::Entrance(int x,int y, int w, int h): Clickable(x,y,w,h)
 
 }
 
+void Entrance::SetOutdoorPos(int x, int y,int w, int h)
+{
+    OutdoorPos.x = x;
+    OutdoorPos.y = y;
+    OutdoorPos.w = w;
+    OutdoorPos.h = h;
+}
+
 void Entrance::Show(SDL_Renderer* renderer, SDL_Rect* rect)
 {
 

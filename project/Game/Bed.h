@@ -3,19 +3,19 @@
 #include <SDL_image.h>
 #include "Texture.h"
 #include <cstdlib>
+#include "Clickable.h"
 
 
-class Bed
+class Bed : public Clickable
 {
     bool occupied;
-    SDL_Rect pos;
 
 public:
     Bed();
     Bed(int,int);
     void SetPos(int,int);
     void Draw(SDL_Renderer*);
-    int GetDistance(int x); //passing on players x co-ordinate only
+    int GetDistance(int x, int y); //passing on players x co-ordinate only
     bool GetOccupied();
     void SetOccupied(bool);
     int GetX();

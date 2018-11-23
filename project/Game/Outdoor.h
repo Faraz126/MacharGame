@@ -42,6 +42,8 @@ private:
     Human** humans;
     Human** GenerateHumans();
     int CountHumans();
+    void GetHouseEntrance();
+    Entrance** entrance;
 
 
 protected:

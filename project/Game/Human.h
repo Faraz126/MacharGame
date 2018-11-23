@@ -5,6 +5,13 @@
 #include "Texture.h"
 #include "Mosquito.h"
 #include "Clickable.h"
+#include <SDL.h>
+#include <SDL_image.h>
+#include "Bed.h"
+
+
+enum DIRECTION {UP, RIGHT, DOWN, LEFT};
+enum STATES_HUMAN {GOING_TO_BED, GOING_TO_DOOR, WALKING};
 
 class House;
 
@@ -13,26 +20,21 @@ class House;
 class Human: Clickable
 {
 private:
-
-    bool infected;
-    bool wearRepellant;
-    bool IsOutdoor;
-    bool IsIndoor;
-    Color* skin;
-    SDL_Rect position;
-    House* house;
-//    Hospital* hospital;
-    double clip;
-    int otherclip;
-    bool IsWalkingHorizontal;
-    bool IsWalkingVertical;
-    bool IsSitting;
-    bool IsLyingDown;
-    double speed;
-    bool Right;
-    bool Left;
-    bool Up;
-    bool Down;
+    House* ownHouse;
+    SDL_Rect collideRect;
+    bool isIndoor;
+    bool isGoingToBed;
+    bool isGoingOut;
+    bool isWalking;
+    Bed* bedToGoTo;
+    int toFollowX;
+    int toFollowY;
+    int faceDirection;
+    bool isVertical;
+    bool isHorizontal;
+    int activity;
+    int step;
+    void Move();
 
 
 protected:
@@ -40,28 +42,10 @@ protected:
 public:
     Human();
     Human(House*);
-    ~Human();
-    void Walk();    // when human walks
-    void WalkOpposite(); // walking opposite
-    void Walking();      // Walking
-    void SitOnBed();     // when human sits
-    void LieDown();   // when human lies down
-    void WalkAgain();
-    void WalkUp();
-    void WalkDown();
-    void EnterHouse();
-    void LeaveHouse();
-    void SetOutdoorIndoor();
-    int GetBedXPosition();                          // So that human can walk and go to the right bed and lie down if not infected
-    int GetBedYPosition();                          // So that human can walk and go to the right bed and lie down if not infected
-    //void Routine(SDL_Rect*,SDL_Renderer*,Texture*);
-    int GetXPosition();
-    int GetYPosition();
-    void Update();
-    //void setPosition(Point*);
-    void MosquitoBite();
-    void BackToNormal();
-    void HumanRender(SDL_Renderer*,int,bool);
+    void Update(int);
+    Human(int,int, House*);
     void Show(SDL_Renderer*);
+    bool Collide();
+
 };
 

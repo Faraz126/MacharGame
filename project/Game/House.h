@@ -55,6 +55,10 @@ public:
     void Update(int);
     void HandleEvents(SDL_Event* e, Screens_Node&);
     int NoOfHumans();
-    Bed* GetClosestBed(int);
+    Bed* GetClosestBed(int,int);
     Door* GetDoor();
+    Bed* GetBeds(int&);
+    BreedingGround** GetBreedingGrounds(int&);
+    Human** GetHumans(int & );
+    Entrance** GetEntrance(int & n);
 };

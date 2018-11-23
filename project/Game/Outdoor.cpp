@@ -25,6 +25,7 @@ Outdoor:: Outdoor()
     countContainer = countPlants + countTrashcan + countManhole;
 
     container = new Container*[countContainer];
+    entrance = new Entrance*[12];
     house = new House[4]; //house count is 4
 
     int plantPos[countPlants] = {345,440,780,860,940,1030,1435,1520,1600,2025,2095}; //fixed x-coordinates of plants
@@ -94,8 +95,6 @@ Outdoor:: Outdoor()
     entranceRect[3].w=302;
     entranceRect[3].h=179;
     humans = GenerateHumans();
-
-
 }
 
 Human** Outdoor::GenerateHumans()
@@ -241,4 +240,44 @@ Outdoor :: ~Outdoor()
     delete[] entranceRect;
     delete[] houseRect;
     delete[] house;
+}
+
+void Outdoor::GetHouseEntrance()
+{
+    int c = 0;
+    Entrance** entry;
+    for(int i = 0; i<4; i++ )
+    {
+        int n = 0;
+        entry = house[i].GetEntrance(n);
+
+        for(int x = 0; x<n; x++ )
+        {
+            entrance[c] = entry[x];
+
+            entry[0]->GetHeight() = 145;
+            entry[0]->GetWidth() = 188;
+            entry[0]->GetX() = houseRect[i] + 150;
+            entry[0]->GetY() = 70;
+
+            if(n==2)
+            {
+                entry[1]->GetHeight() = 200;
+                entry[1]->GetWidth() = 110;
+                entry[1]->GetX() = houseRect[i] + 100;
+                entry[1]->GetY() = 70;
+
+                entry[2]->GetHeight() = 200;
+                entry[2]->GetWidth() = 110;
+                entry[2]->GetX() = houseRect[i] + 200;
+                entry[2]->GetY() = 70;
+            }
+            c++;
+        }
+    }
+
+    for (int i = c; i < 12; i++)
+    {
+        entrance[i] = NULL;
+    }
 }

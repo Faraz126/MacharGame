@@ -13,7 +13,10 @@ private:
 protected:
     int spriteNum;
 
+
 public:
+    SDL_Rect OutdoorPos;
+    void SetOutdoorPos(int,int,int, int);
     Entrance(int,int,int,int);
     virtual void Show(SDL_Renderer*, SDL_Rect* rect = nullptr) = 0;
     virtual void ShowOutside(SDL_Renderer*, const SDL_Rect&, float) = 0;
