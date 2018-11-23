@@ -26,7 +26,6 @@ public:
     bool WithinSliderRegion(int, int);
     void SetMouseClicked(bool);
     bool GetMouseClicked();
-    int diffStateBtn;
     void setPosition ( int, int);
     SDL_Rect sliderPos;
 

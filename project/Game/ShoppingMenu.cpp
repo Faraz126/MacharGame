@@ -7,24 +7,6 @@ ShoppingMenu::ShoppingMenu():Menu()
     shoppingPos->y = 700;
     shoppingPos->w = 750;
     shoppingPos->h = 150;
-//
-//    repellentPos = new SDL_Rect();
-//    repellentPos->x = 280;
-//    repellentPos->y = 710;
-//    repellentPos->w = 200;
-//    repellentPos->h = 65;
-//
-//    ddtPos = new SDL_Rect();
-//    ddtPos->x = 500;
-//    ddtPos->y = 710;
-//    ddtPos->w = 200;
-//    ddtPos->h = 65;
-//
-//    windowPos = new SDL_Rect();
-//    windowPos->x = 720;
-//    windowPos->y = 710;
-//    windowPos->w = 200;
-//    windowPos->h = 65;
 
     shoppingExitPos.x = 220;
     shoppingExitPos.y = 710;
@@ -32,11 +14,15 @@ ShoppingMenu::ShoppingMenu():Menu()
     shoppingExitPos.h = 25;
 
     cancelBtn = new CancelButton(shoppingExitPos);
-    tile = new Tile[3];
 
+    tile = new Tile[3];
+    tile[0].SetTileText("REPELLENT", "PRICE");
+    tile[1].SetTileText("DDT", "PRICE");
+    tile[2].SetTileText("WINDOW REPAIR", "PRICE");
     tile[0].UpdatePos(280,710);
     tile[1].UpdatePos(500,710);
     tile[2].UpdatePos(720,710);
+
 
 }
 
@@ -44,11 +30,6 @@ void ShoppingMenu::Show(SDL_Renderer* gRenderer)
 {
    SDL_SetRenderDrawColor( gRenderer, 255, 255, 255, 0);
    SDL_RenderFillRect(gRenderer,shoppingPos);
-
-   //SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 0);
-//   SDL_RenderDrawRect(gRenderer,repellentPos);
-//   SDL_RenderDrawRect(gRenderer,ddtPos);
-//   SDL_RenderDrawRect(gRenderer,windowPos);
    cancelBtn->Show(gRenderer);
 
    for (int i=0; i<3; i++)
@@ -70,26 +51,44 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
 
     if( cancelBtn->WithinRegion(hoverX,hoverY))
     {
-        if (e->type == SDL_MOUSEBUTTONDOWN)
+        if (e->type == SDL_MOUSEBUTTONDOWN && e->button.button == SDL_BUTTON_LEFT)
         {
             SetMouseClicked(true);
-            cancelBtn->Click();
-            shopShow = false;
-        }
-        else if (e->type == SDL_MOUSEBUTTONUP && e->button.button == SDL_BUTTON_LEFT)
-        {
-            SetMouseClicked(false);
-            cancelBtn->diffStateBtn=4;
+            shopShow = false;    //if false close shopping menu
         }
         else
         {
-            cancelBtn->Hover();
+            cancelBtn->Hover();  //changing state at hover
         }
     }
     else
     {
         cancelBtn->diffStateBtn=53;
     }
+
+    for(int i=0; i<3; i++)    //mouse events for tiles
+    {
+        if (tile[i].WithinRegion(hoverX,hoverY))
+        {
+           if (e->type == SDL_MOUSEBUTTONDOWN)
+            {
+                SetMouseClicked(true);
+                if(e->button.button == SDL_BUTTON_LEFT)
+                    tile[i].tileState =100;
+            }
+            else
+            {
+                SetMouseClicked(false);
+                tile[i].tileState=0;
+            }
+        }
+        else
+        {
+            tile[i].tileState=200;
+        }
+
+    }
+
 
 }
 

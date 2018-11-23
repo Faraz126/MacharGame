@@ -136,8 +136,6 @@
 		<Unit filename="Window.h" />
 		<Unit filename="Word.cpp" />
 		<Unit filename="Word.h" />
-		<Unit filename="closingMoving.cpp" />
-		<Unit filename="closingMoving.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

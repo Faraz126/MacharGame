@@ -12,20 +12,20 @@ Setting::Setting():Menu(2,175,630,true)  //calling menus constructor that is con
     settingscancelPos.w = 35;
     settingscancelPos.h = 35;    //for cancel button
 
-    settingSliderPos.x= 500-5;
+    settingSliderPos.x= 500-5;       //for slider bases
     settingSliderPos.y= settingPos.y+75;
-    settingSliderPos.w= 397*0.7;
-    settingSliderPos.h= 52*0.7;
+    settingSliderPos.w= 397*0.8;
+    settingSliderPos.h= 52*0.8;
 
     settingSliderPos1.x= 500-5;
     settingSliderPos1.y= settingPos.y+150;
-    settingSliderPos1.w= 310;
-    settingSliderPos1.h= 20;
+    settingSliderPos1.w= 397*0.8;
+    settingSliderPos1.h= 52*0.8;
 
     buttonText[0]= "SAVE";
     buttonText[1] = "RESET";
     cancelBtn = new CancelButton(settingscancelPos);  //making a cancel button
-    slider = new Slider[2];
+    slider = new Slider[2]; //slider for volume and brightness
 
     Menu::SetText(buttonText);
     word = new Word[3];  // 3 because 3 words, settings, volume and brightness
@@ -62,9 +62,7 @@ void Setting::Show(SDL_Renderer* gRenderer)
          slider[i].Show(gRenderer);
     }
 
-
 }
-
 
 void Setting::Update(int frame)
 {
@@ -77,10 +75,9 @@ void Setting::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     int mouseX = e->button.x;
     int mouseY = e->button.y;
-    //Menu::Hover(e);  //for button
     Menu::HoverClick(e);   //for button
     Click(e);       //for cancel and slider
-    //Hover(e);
+
 
     if(e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP )
     {
@@ -113,15 +110,14 @@ void Setting::Click(SDL_Event* e)
     //for cancel button
     if( cancelBtn->WithinRegion(hoverX,hoverY)==true)
     {
-        if (e->type == SDL_MOUSEBUTTONDOWN)
+        if (e->type == SDL_MOUSEBUTTONDOWN && e->button.button == SDL_BUTTON_LEFT)
         {
             SetMouseClicked(true);
-            cancelBtn->Click();
         }
         else if (e->type == SDL_MOUSEBUTTONUP && e->button.button == SDL_BUTTON_LEFT)
         {
             SetMouseClicked(false);
-            cancelBtn->diffStateBtn=4;
+            cancelBtn->diffStateBtn=54;
         }
         else
         {
@@ -138,16 +134,16 @@ void Setting::Click(SDL_Event* e)
     {
        if (slider[i].WithinSliderRegion(hoverX,hoverY))
        {
-           if (e->type == SDL_MOUSEBUTTONDOWN)
+           if (e->type == SDL_MOUSEBUTTONDOWN && (e->button.button == SDL_BUTTON_LEFT) )
             {
-                slider[i].Click();
+                //slider[i].Click();
                 slider[i].SetMouseClicked(true);
 
             }
             else if (e->type == SDL_MOUSEBUTTONUP && (e->button.button == SDL_BUTTON_LEFT))
             {
                 slider[i].SetMouseClicked(false);
-                slider[i].diffStateBtn=61;
+                //slider[i].diffStateBtn=61;
             }
        }
        else
@@ -155,8 +151,7 @@ void Setting::Click(SDL_Event* e)
            if (e->type == SDL_MOUSEBUTTONUP)
            {
                slider[i].SetMouseClicked(false);
-               slider[i].Hover();
-
+               //slider[i].Hover();
 
            }
 

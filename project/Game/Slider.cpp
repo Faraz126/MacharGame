@@ -4,26 +4,15 @@ Slider::Slider()
 {
     sliderPos.x= 0;
     sliderPos.y= 0;
-    sliderPos.w = 20;
-    sliderPos.h = 20;
-    diffStateBtn= 61;
+    sliderPos.w = 47 * 0.7;
+    sliderPos.h = 50 * 0.7;
     mouseClicked = false;
 }
 
 void Slider::Show( SDL_Renderer * gRenderer )
 {
     texture = Texture::GetInstance(gRenderer); //singelton here, static method
-    texture->Render(diffStateBtn, gRenderer, &sliderPos);
-}
-
-void Slider::Click()
-{
-    diffStateBtn = 39;
-}
-
-void Slider::Hover()
-{
-    diffStateBtn = 38;
+    texture->Render(61, gRenderer, &sliderPos);
 }
 
 

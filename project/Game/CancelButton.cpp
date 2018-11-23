@@ -25,14 +25,10 @@ void CancelButton::Show( SDL_Renderer * gRenderer )
 
 void CancelButton::Hover()
 {
-    diffStateBtn =4;    // if hovered sprite changed
+    diffStateBtn =54;    // if hovered sprite changed
 }
 
-void CancelButton::Click()
-{
-    diffStateBtn=54;   // if clicked sprite changed
 
-}
 
 
 

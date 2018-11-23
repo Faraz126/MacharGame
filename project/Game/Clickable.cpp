@@ -10,7 +10,7 @@ Clickable::Clickable(int x, int y, int w, int h)
 
 Clickable::~Clickable()
 {
-    //dtor
+
 }
 
 bool Clickable::WithinRegion(int x, int y)

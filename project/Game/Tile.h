@@ -9,8 +9,7 @@
 #include "Menu.h"
 #include <string>
 #include <iostream>
-
-
+#include "Word.h"
 
 class Tile: public Clickable
 {
@@ -28,13 +27,10 @@ protected:
 public:
     Tile();
     Tile(int, int, int, std::string, int);
+    int tileState;
     void Show(SDL_Renderer*);
-    /*
-    void Click(SDL_Event*);
-    void Hover (SDL_Event*);
-
-    void Update(SDL_Event*, Screens_Node&);
-    */
+    void UpdatePos(int,int);
+    void SetTileText(std::string str1, std::string str2);
     ~Tile();
 };
 

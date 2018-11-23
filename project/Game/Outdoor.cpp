@@ -157,6 +157,7 @@ int Outdoor::CountHumans()
     {
         sum += house[i].NoOfHumans();
     }
+    return sum;
 }
 
 void Outdoor::Update(int frame)

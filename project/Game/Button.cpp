@@ -3,7 +3,7 @@
 Button::Button() : Clickable(354,506,314,64)
 {
 
-    intHover = 0;  //which
+    intHover = 0;  //which state of button
     word = 0;
 
 }
