@@ -197,14 +197,6 @@ House::~House()
     delete[] showpieces;
 }
 
-void House::ShowOutside(SDL_Renderer* renderer, const SDL_Rect& rect)
-{
-    float div = wall.w / rect.w;
-    for (int i = 0; i < noOfEntrance; i++)
-    {
-        entrance[i]->ShowOutside(renderer, rect, div);
-    }
-}
 
 int House::NoOfHumans()
 {

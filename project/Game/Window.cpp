@@ -10,16 +10,10 @@ Window::Window(int x, int y): Entrance(x,y, 200,110)
 
 }
 
-void Window::ShowOutside(SDL_Renderer* renderer, const SDL_Rect& rect ,float widthRatio)
+void Window::ShowOutside(SDL_Renderer* renderer)
 {
-    SDL_Rect temp;
-    temp.x = rect.x + (((1024-(float)pos.x)/1024)*(float)rect.w) -35;
-    temp.y = 325;
-    temp.w = pos.w/widthRatio;
-    temp.h = pos.h/widthRatio;
-    Show(renderer, &temp);
+    Show(renderer, &OutdoorPos);
 }
-
 
 void Window::Update(int)
 {

@@ -95,6 +95,7 @@ Outdoor:: Outdoor()
     entranceRect[3].w=302;
     entranceRect[3].h=179;
     humans = GenerateHumans();
+    GetHouseEntrance();
 }
 
 Human** Outdoor::GenerateHumans()
@@ -117,9 +118,12 @@ void Outdoor::Show(SDL_Renderer* renderer)
         container[i]->Show(renderer);
     }
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 12; i++)
     {
-        house[i].ShowOutside(renderer, entranceRect[i]);
+        if (entrance[i]!=NULL)
+        {
+            entrance[i]->ShowOutside(renderer);
+        }
     }
 
 
@@ -255,22 +259,16 @@ void Outdoor::GetHouseEntrance()
         {
             entrance[c] = entry[x];
 
-            entry[0]->GetHeight() = 145;
-            entry[0]->GetWidth() = 188;
-            entry[0]->GetX() = houseRect[i] + 150;
-            entry[0]->GetY() = 70;
+            entry[0]->SetOutdoorPos(houseRect[i].x+150,200,145,188);
 
+            if(n==3)
+            {
+                entry[1]->SetOutdoorPos(houseRect[i].x+100,70,110,200);
+                entry[2]->SetOutdoorPos(houseRect[i].x+200,70,110,200);
+            }
             if(n==2)
             {
-                entry[1]->GetHeight() = 200;
-                entry[1]->GetWidth() = 110;
-                entry[1]->GetX() = houseRect[i] + 100;
-                entry[1]->GetY() = 70;
-
-                entry[2]->GetHeight() = 200;
-                entry[2]->GetWidth() = 110;
-                entry[2]->GetX() = houseRect[i] + 200;
-                entry[2]->GetY() = 70;
+                entry[1]->SetOutdoorPos(houseRect[i].x+100,70,110,200);
             }
             c++;
         }
