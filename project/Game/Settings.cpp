@@ -93,7 +93,7 @@ void Setting::HandleEvents(SDL_Event* e, Screens_Node& node)
 
             if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
-                slider[0].sliderPos.x =500;
+                slider[0].SetSliderPosX(500);
             }
         }
     }
@@ -157,18 +157,18 @@ void Setting::Click(SDL_Event* e)
 
            if (slider[i].GetMouseClicked())
            {
-                slider[i].sliderPos.x = hoverX;
+                slider[i].SetSliderPosX(hoverX);
 
-               if (slider[i].sliderPos.x > 780)
+               if (slider[i].GetSliderPosX() > 780)
                 {
 
-                    slider[i].sliderPos.x= 780;
+                    slider[i].SetSliderPosX(780);
                 }
 
-                else if (slider[i].sliderPos.x <500)
+                else if (slider[i].GetSliderPosX() <500)
                 {
 
-                    slider[i].sliderPos.x= 500;
+                    slider[i].SetSliderPosX(500);
                 }
 
            }

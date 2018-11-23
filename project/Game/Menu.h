@@ -9,12 +9,8 @@
 class Menu: public Screens
 {
 private:
-    int w;
-    int h;
-    int x;
-    int y;
+    int x,y,w,h;
     SDL_Rect* menu;
-
     int noOfButton;
     Texture* texture;
     bool mouseClicked;

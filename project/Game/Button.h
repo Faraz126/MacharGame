@@ -12,7 +12,6 @@ class Button : public Clickable
 
     void Click(SDL_Rect*);
     Texture * texture ;
-    SDL_Event e;
 
     public:
     Word * word ; //public as will be used to decrease size

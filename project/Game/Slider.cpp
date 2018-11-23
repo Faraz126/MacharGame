@@ -18,7 +18,6 @@ void Slider::Show( SDL_Renderer * gRenderer )
 
 bool Slider::WithinSliderRegion(int mouseX, int mouseY)
 {
-    bool inRegion = false;
     if( ( mouseX > sliderPos.x ) && ( mouseX < (sliderPos.x+sliderPos.w) ) && ( mouseY > sliderPos.y ) && (mouseY< (sliderPos.y+sliderPos.h) ) )
         return true;
     else
@@ -45,3 +44,12 @@ Slider::~Slider()
 
 }
 
+void Slider::SetSliderPosX(int x)
+{
+    this->sliderPos.x = x;;
+}
+
+int Slider::GetSliderPosX()
+{
+    return sliderPos.x;
+}

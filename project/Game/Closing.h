@@ -13,7 +13,6 @@ class Closing:public Menu
     private:
     SDL_Rect* closingPos;
     SDL_Rect* closingWordPos;
-    //Texture* texture;
     Word* word;
     double counter;
 

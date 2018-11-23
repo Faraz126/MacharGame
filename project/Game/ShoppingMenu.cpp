@@ -94,6 +94,8 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
 
 ShoppingMenu::~ShoppingMenu()
 {
-
+    delete[] tile;
+    delete cancelBtn;
+    delete shoppingPos;
 }
 

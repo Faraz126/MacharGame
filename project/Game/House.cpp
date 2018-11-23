@@ -151,7 +151,7 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
             }
 
         }
-         if (btn->WithinRegion(mousePosX,mousePosY))
+         if (btn->WithinRegion(mousePosX,mousePosY))  //for outdoor button in house
         {
             node.cur_screen = node.prev_screen;
         }

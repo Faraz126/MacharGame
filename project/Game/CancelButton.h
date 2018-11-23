@@ -11,7 +11,6 @@ class CancelButton : public Clickable
 {
     void Click(SDL_Rect*);
     Texture * texture ;
-    SDL_Event e;
 
     public:
     int diffStateBtn;

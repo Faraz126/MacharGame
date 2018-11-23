@@ -17,6 +17,7 @@ class ExitMenu :public Menu
     CancelButton *cancelBtn;
     Slider* slider;
     Word* word;
+    std::string buttonText[2];
 
 protected:
 
@@ -28,6 +29,5 @@ public:
     void SetPosition(int,int);
     void Update(int);
     void HandleEvents(SDL_Event*, Screens_Node&);
-    std::string buttonText[2];
     ~ExitMenu();
 };

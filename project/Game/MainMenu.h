@@ -15,19 +15,18 @@ class MainMenu: public Menu
     SDL_Rect pos0;
     SDL_Rect pos1;
     SDL_Rect pos2;
-    SDL_Renderer* gRenderer;
+    //SDL_Renderer* gRenderer;
     Texture* texture;
     CancelButton* cancelBtn;
     double mosquitoIterator;
     bool iteratorr;
+    std::string buttonText[3];
 
 public:
 
-    std::string buttonText[3];
     MainMenu();
     void HoverClick(SDL_Event*);
     void Show(SDL_Renderer*);
-    //void Hover(SDL_Event*);
     void Update(int);
     void HandleEvents(SDL_Event*, Screens_Node&);
     ~MainMenu();
