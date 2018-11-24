@@ -10,7 +10,7 @@
 #include"TrashCan.h"
 #include"Manhole.h"
 #include"House.h"
-
+#include "Clickable.h"
 #include "ShoppingMenu.h"
 #include "Human.h"
 

@@ -13,13 +13,13 @@
 
 
 enum DIRECTION {UP, RIGHT, DOWN, LEFT};
-enum STATES_HUMAN {GOING_TO_BED, WALKING, GOING_TO_DOOR, SITTING, LYING};
+enum STATES_HUMAN {GOING_TO_BED, WALKING, GOING_TO_DOOR, SITTING, LYING, AVOIDING_COLLISION};
 
 class House;
 
 
 
-class Human: Clickable
+class Human: public Clickable
 {
 private:
     House* ownHouse;
@@ -54,10 +54,12 @@ public:
     Human(int,int, House*);
     void Show(SDL_Renderer*);
     void ChangeState(int = -1);
-    bool Collide();
+    bool Collide(SDL_Rect&);
     void ChangeBedToFollow();
     void ChooseBed();
     void ChooseDoor();
+    bool MoveAllowed();
+    void ChangeDirection();
 
 };
 
