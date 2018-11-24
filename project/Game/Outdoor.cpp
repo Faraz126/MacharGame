@@ -213,7 +213,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
                 node.cur_screen = &house[i];
                 node.prev_screen = this;
                 node.prev_backable = true;
-                node.prev_updatable = false;
+                node.prev_updatable = true;
             }
         }
 

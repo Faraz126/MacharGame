@@ -24,7 +24,8 @@ class House: public Screens
 {
 private:
     //Money money;
-
+    int width;
+    int height;
     bool hasRepellent;
     int noOfHumans;
     int noOfEntrance;
@@ -64,4 +65,6 @@ public:
     Bed* GetBeds(int&);
     BreedingGround** GetBreedingGrounds(int&);
     Human** GetHumans(int & );
+    int GetWidth();
+    int GetHeight();
 };

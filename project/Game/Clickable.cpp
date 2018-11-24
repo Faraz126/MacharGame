@@ -72,3 +72,9 @@ int Clickable::GetDistance(int x, int y)
 {
     return sqrt((abs(pos.x - x)*abs(pos.x - x))+(abs(pos.y - y)*abs(pos.y - y)));
 }
+
+void Clickable::GetCenter(int& x, int& y)
+{
+    x = pos.x + pos.w/2;
+    y = pos.y + pos.h/2;
+}

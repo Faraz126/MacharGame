@@ -16,6 +16,7 @@ class Clickable
         void ReduceSize(double);
         virtual ~Clickable();
         int GetDistance(int,int);
+        void GetCenter(int&, int&);
 
     protected:
         SDL_Rect pos;

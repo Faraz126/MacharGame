@@ -5,8 +5,8 @@ House::House()
 {
     pos.x = wall.x = 0;
     pos.y = wall.y = 0;
-    pos.w = wall.w = 1024;
-    pos.h = 786;
+    pos.w = wall.w = width = 1024;
+    pos.h = height = 786;
     wall.h = 488;
 
     noOfEntrance = (rand() % 2) + 2;
@@ -16,11 +16,6 @@ House::House()
     for (int i = 0; i< 3; i++)
     {
         breedingplaces[i] = 0;
-    }
-    humans = new Human*[noOfHumans];
-    for (int i = 0; i < noOfHumans; i++)
-    {
-        humans[i] = new Human((i*30), 388 + (i*90),this);
     }
     entrance = new Entrance*[noOfEntrance];
     int x;
@@ -84,6 +79,11 @@ House::House()
     btn->SetWidth(200,55);
     btn->setText("OUTDOOR");
     btn->word->ReduceSize(0.8);
+    humans = new Human*[noOfHumans];
+    for (int i = 0; i < noOfHumans; i++)
+    {
+        humans[i] = new Human((i*30), 388 + (i*90),this);
+    }
 
 
 
@@ -255,3 +255,12 @@ Human** House::GetHumans(int & n)
     return humans;
 }
 
+int House::GetWidth()
+{
+    return width;
+}
+
+int House::GetHeight()
+{
+    return height;
+}

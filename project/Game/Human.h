@@ -8,10 +8,12 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Bed.h"
+#include <stack>
+#include "Door.h"
 
 
 enum DIRECTION {UP, RIGHT, DOWN, LEFT};
-enum STATES_HUMAN {GOING_TO_BED, GOING_TO_DOOR, WALKING};
+enum STATES_HUMAN {GOING_TO_BED, WALKING, GOING_TO_DOOR, SITTING, LYING};
 
 class House;
 
@@ -32,9 +34,15 @@ private:
     int faceDirection;
     bool isVertical;
     bool isHorizontal;
+    bool isInfected;
     int activity;
     int step;
     void Move();
+    int timeSince;
+    int slowDownFactor;
+    int spriteNum;
+    Door* door;
+    std::stack <int> myStack;
 
 
 protected:
@@ -45,7 +53,11 @@ public:
     void Update(int);
     Human(int,int, House*);
     void Show(SDL_Renderer*);
+    void ChangeState(int = -1);
     bool Collide();
+    void ChangeBedToFollow();
+    void ChooseBed();
+    void ChooseDoor();
 
 };
 

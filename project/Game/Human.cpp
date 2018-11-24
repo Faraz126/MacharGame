@@ -11,6 +11,7 @@ Human::Human(): Clickable(0,0,117, 575)
 
 Human::Human(int x, int y, House* house): Clickable(x,y,117, 575)
 {
+    spriteNum = 74;
     ownHouse = house;
     ReduceSize(0.3);
     collideRect.x = pos.x + 10;
@@ -25,7 +26,13 @@ Human::Human(int x, int y, House* house): Clickable(x,y,117, 575)
     isHorizontal = true;
     isWalking = false;
     activity = WALKING;
+    timeSince = 0;
     step = 1;
+    slowDownFactor = 1;
+    isInfected = false;
+    door = ownHouse->GetDoor();
+
+
 }
 
 Human::Human(House* house): Human(0,0, house)
@@ -70,31 +77,115 @@ bool Human::Collide()
 
 void Human::Update(int frame)
 {
-    switch (activity)
+    if (frame % slowDownFactor == 0)
     {
-    case GOING_TO_DOOR:
-        break;
-    case WALKING:
+        switch (activity)
         {
-            if (collideRect.x >= 1024)
+            case SITTING:
             {
-                faceDirection = LEFT;
+                timeSince++;
+                if (timeSince > 2000)
+                {
+                    bedToGoTo->SetOccupied(false);
+                    ChangeState();
+                }
+                break;
             }
-            else if (collideRect.x <= 0)
+
+            case GOING_TO_BED:
             {
-                faceDirection = RIGHT;
+                if (!bedToGoTo->GetOccupied())
+                {
+                    if (toFollowX > collideRect.x && isHorizontal)
+                    {
+                        faceDirection = RIGHT;
+                        Move();
+                    }
+                    else if(toFollowX < collideRect.x && isHorizontal)
+                    {
+                        faceDirection = LEFT;
+                        Move();
+                    }
+                    else
+                    {
+                        isHorizontal = !isHorizontal;
+                        faceDirection = UP;
+                    }
+                    if (toFollowY < collideRect.y && !isHorizontal)
+                    {
+                        faceDirection = UP;
+                        Move();
+                    }
+                    else if (toFollowY == collideRect.y && !isHorizontal)
+                    {
+                        isHorizontal = true;
+                        spriteNum = 75;
+                        bedToGoTo->SetOccupied(true);
+                        if (!isInfected)
+                        {
+                            ChangeState(SITTING);
+                        }
+
+                    }
+                }
+                else
+                {
+                    ChangeBedToFollow();
+                }
+                break;
             }
-            break;
+            case GOING_TO_DOOR:
+            {
+                    if (toFollowX > collideRect.x && isHorizontal)
+                    {
+                        faceDirection = RIGHT;
+                        Move();
+                    }
+                    else if(toFollowX < collideRect.x && isHorizontal)
+                    {
+                        faceDirection = LEFT;
+                        Move();
+                    }
+                    else
+                    {
+                        isHorizontal = !isHorizontal;
+                        faceDirection = UP;
+                    }
+                    if (toFollowY < collideRect.y && !isHorizontal)
+                    {
+                        faceDirection = UP;
+                        Move();
+                    }
+                    else if (toFollowY == collideRect.y && !isHorizontal)
+                    {
+                        spriteNum = 75;
+                        ChangeState(SITTING);
+                        isHorizontal = true;
+                    }
+                break;
+            }
 
+
+            case WALKING:
+            {
+                if (timeSince*step > (ownHouse->GetWidth())*2)
+                {
+                    ChangeState();
+                }
+                if (collideRect.x >= ownHouse->GetWidth())
+                {
+                    faceDirection = LEFT;
+                }
+                else if (collideRect.x <= 0)
+                {
+                    faceDirection = RIGHT;
+                }
+                Move();
+                timeSince++;
+                break;
+
+            }
         }
-
-
-    if (frame % 10000)
-        {
-        }
-        activity = rand()%4;
-
-
     }
 
 
@@ -304,12 +395,12 @@ void Human::SitOnBed()               // this sit will be for sitting on bed in h
 >>>>>>> 9c7eea37c0327259caa32326d0ab9eb75c2422aa
     }
     */
-    Move();
 }
 
 
 void Human::Move()
 {
+
     if (faceDirection == RIGHT)
     {
         pos.x += step;
@@ -361,9 +452,81 @@ void Human::Move()
 
 }
 
+void Human::ChangeState(int n)
+{
+    timeSince = 0;
+    if (!myStack.empty())
+    {
+        activity = myStack.top();
+        myStack.pop();
+    }
+    if (n != -1)
+    {
+        activity = n;
+    }
+    else
+    {
+        activity = rand()%3;
+        switch (activity)
+        {
+            case (WALKING):
+            {
+                break;
+            }
+            case (GOING_TO_BED):
+            {
+                if (!isIndoor)
+                {
+                    myStack.push(GOING_TO_BED);
+                    activity = GOING_TO_DOOR;
+                }
+            }
+            case (GOING_TO_DOOR):
+            {
+                break;
+            }
+        }
+    }
+
+    if (activity == GOING_TO_BED)
+    {
+        ChooseBed();
+    }
+    else if (activity == GOING_TO_DOOR)
+    {
+        ChooseDoor();
+    }
+
+}
+
+void Human::ChangeBedToFollow()
+{
+    ChooseBed();
+}
+
+void Human::ChooseBed()
+{
+    int n;
+    Bed* myBeds = ownHouse->GetBeds(n);
+    for (int i = 0; i < n; i++)
+    {
+        if (!myBeds[i].GetOccupied())
+        {
+            myBeds[i].GetCenter(toFollowX, toFollowY);
+            bedToGoTo = &myBeds[i];
+            break;
+        }
+    }
+}
+
+void Human::ChooseDoor()
+{
+    door->GetCenter(toFollowX, toFollowY);
+}
+
 void Human::Show(SDL_Renderer* renderer)
 {
-    Texture::GetInstance()->Render(74,renderer, &pos);
+    Texture::GetInstance()->Render(spriteNum,renderer, &pos);
     SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
     SDL_RenderDrawRect(renderer, &collideRect);
 }
