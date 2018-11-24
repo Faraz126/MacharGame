@@ -18,46 +18,12 @@ Outdoor:: Outdoor()
     pos1.w = 1024;
     pos1.h = 786;
 
-    countEntrances = 0; //initializing count
-    countPlants = 11;
-    countDirtyWater = (rand()%4) + 2;
-    countTrashcan = (rand()%4) + 2;
-    countManhole = (rand()%2)+2;
-    countContainer = countPlants + countTrashcan + countManhole + countDirtyWater;
 
     container = new Container*[countContainer];
     entrance = new Entrance*[12];
     house = new House[4]; //house count is 4
 
-    int plantPos[countPlants] = {345,440,780,860,940,1030,1435,1520,1600,2025,2095}; //fixed x-coordinates of plants
-    int trashCanPos[4] = {650,1800,80,1060}; //fixed x-coordinates of trash Cans
-    int manholePos[3] = {1500, 2270, 450};//fixed x-coordinates of manhole
-    int TrashCanLidPos[4] = {500, 700, 1000, 1200};
-    int DirtyWaterPos[4] = {300, 800, 1000, 1200};
-
-    int i = 0; //iterator for containers
-    for (int place = 0; place<countPlants; place++) //to place plants
-    {
-        container[i] = new Plant(plantPos[place],320);
-        i++;
-    }
-
-    for (int place = 0; place<countTrashcan; place++) //to place trash Cans
-    {
-        container[i] = new TrashCan(trashCanPos[place],480);
-        i++;
-    }
-
-    for (int place = 0; place<countManhole; place++) //to place Manholes
-    {
-        container[i] = new Manhole(manholePos[place],rand()%(150)+580); // y b/w 730 & 730 px
-        i++;
-    }
-    for (int place = 0; place<countDirtyWater; place++) //to place DirtWater
-    {
-        container[i] = new DirtyWater (DirtyWaterPos[place],rand()%(150)+580); // y b/w 730 & 730 px
-        i++;
-    }
+    PlaceContainers();
 
     houseRect= new SDL_Rect[4]; //clickable region for all 4 houses
     houseRect[0].x=45;
@@ -129,6 +95,7 @@ int Outdoor::CountHumans()
     {
         sum += house[i].NoOfHumans();
     }
+    return sum;
 }
 
 void Outdoor::Update(int frame)
@@ -259,6 +226,54 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                 }
             }
         }
+}
+
+void Outdoor:: PlaceContainers()
+{
+    countEntrances = 0; //initializing count
+    countPlants = 11;
+    countCleanWater = (rand()%2) + 2;
+    countTrashcan = (rand()%4) + 2;
+    countManhole = (rand()%2)+2;
+    countContainer = countPlants + countTrashcan + (countManhole*2) + countCleanWater; //countDirtyWater = countManhole
+
+    int plantPos[countPlants] = {345,440,780,860,940,1030,1435,1520,1600,2025,2095}; //fixed x-coordinates of plants
+    int trashCanPos[4] = {650,1800,80,1060}; //fixed x-coordinates of trash Cans
+    int manholePos[3] = {1500, 2270, 450};//fixed x-coordinates of manhole
+    int DirtyWaterPos[3] = {1430, 2240, 400};
+    //int TrashCanLidPos[4] = {500, 700, 1000, 1200};
+    int CleanWaterPos[3] = {200, 2050, 1700};
+    int ManholePosY[3] = {rand()%(110)+620,rand()%(110)+620,rand()%(110)+620};
+    int i = 0; //iterator for containers
+    for (int place = 0; place<countPlants; place++) //to place plants
+    {
+        container[i] = new Plant(plantPos[place],320);
+        i++;
+    }
+
+    for (int place = 0; place<countTrashcan; place++) //to place trash Cans
+    {
+        container[i] = new TrashCan(trashCanPos[place],480);
+        i++;
+    }
+
+    for (int place = 0; place<countManhole; place++) //to place DirtyWater, countDirtyWater = countManhole
+    {
+        container[i] = new DirtyWater(DirtyWaterPos[place],ManholePosY[place]); // y b/w 730 & 730 px
+        i++;
+    }
+
+    for (int place = 0; place<countManhole; place++) //to place Manholes
+    {
+        container[i] = new Manhole(manholePos[place],ManholePosY[place]); // y b/w 730 & 730 px
+        i++;
+    }
+
+    for (int place = 0; place<countCleanWater; place++) //to placeCleanWater
+    {
+        container[i] = new CleanWater(CleanWaterPos[place],rand()%(110)+620); // y b/w 730 & 730 px
+        i++;
+    }
 }
 
 Outdoor :: ~Outdoor()

@@ -5,7 +5,6 @@
 #include "Lids.h"
 #include "Mosquito.h"
 #include "BreedingGround.h"
-#include "TrashCanLid.h"
 #include "Lids.h"
 
 class Container : public BreedingGround

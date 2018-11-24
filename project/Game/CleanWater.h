@@ -4,9 +4,10 @@
 #include <SDL_image.h>
 #include "Texture.h"
 #include "Mosquito.h"
+#include "Soil.h"
 
-const int C_WATER_HEIGHT = 100;
-const int C_WATER_WIDTH = 100;
+const int C_WATER_HEIGHT = 135;
+const int C_WATER_WIDTH = 507;
 
 class CleanWater : public Container
 {

@@ -5,8 +5,8 @@
 #include "Texture.h"
 #include "Mosquito.h"
 
-const int WATER_HEIGHT = 509;
-const int WATER_WIDTH = 136;
+const int WATER_HEIGHT = 136;
+const int WATER_WIDTH = 509;
 
 class DirtyWater : public Container
 {
@@ -21,6 +21,7 @@ public:
     ~DirtyWater();
     void SetCovered(bool);
     void EventHandle(SDL_Event*){};
+
 };
 
 

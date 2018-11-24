@@ -3,7 +3,7 @@
 DirtyWater::DirtyWater(int x, int y): Container(x,y, WATER_WIDTH, WATER_HEIGHT)
 {
     spriteNum = 71;
-    ReduceSize(0.5);
+    ReduceSize(0.25);
     //SetCovered((bool)(rand()%2));
 
 }
@@ -23,6 +23,8 @@ Mosquito* DirtyWater::Breed()
 {
     return factory->GetMosquito(0);
 }
+
+
 
 DirtyWater::~DirtyWater()
 {

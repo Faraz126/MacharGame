@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Mosquito.h"
+#include "TrashCanLid.h"
 
 const int CAN_WIDTH = 70;
 const int CAN_HEIGHT = 73.234;

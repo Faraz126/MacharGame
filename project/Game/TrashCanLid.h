@@ -1,12 +1,9 @@
 #pragma once
-#ifndef TRASHCANLID_H
-#define TRASHCANLID_H
-
 #include <SDL.h>
 #include <SDL_image.h>
 #include <random>
 #include "Texture.h"
-#include "Lids.h""
+#include "Lids.h"
 
 const int TRASHCANLID_WIDTH = 80;
 const int TRASHCANLID_HEIGHT = 18.694;
@@ -24,4 +21,3 @@ class TrashCanLid: public Lids
         ~TrashCanLid();
 };
 
-#endif

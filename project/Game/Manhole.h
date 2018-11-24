@@ -4,6 +4,7 @@
 #include <SDL_image.h>
 #include "Texture.h"
 #include "Mosquito.h"
+#include "ManholeLid.h"
 
 const int MANHOLE_WIDTH = 70;
 const int MANHOLE_HEIGHT = 18.006;
@@ -21,7 +22,7 @@ public:
     void Show(SDL_Renderer*);
     void SetCovered(bool);
     ~Manhole();
-    void EventHandle(SDL_Event*){};
+    void EventHandle(SDL_Event*);
 };
 
 

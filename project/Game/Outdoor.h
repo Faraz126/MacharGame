@@ -12,7 +12,7 @@
 #include"House.h"
 #include "Human.h"
 #include "DirtyWater.h"
-
+#include "CleanWater.h"
 
 
 
@@ -28,7 +28,7 @@ private:
 
     int countContainer;
     int countPlants;
-    int countDirtyWater;
+    int countCleanWater;
     int countTrashcan;
     int countManhole;
     int countEntrances;
@@ -47,6 +47,8 @@ private:
     Human** GenerateHumans();
     int CountHumans();
     void GetHouseEntrance();
+    void HandleScrolling(SDL_Event*);
+    void PlaceContainers();
 
 protected:
 
@@ -57,7 +59,6 @@ public:
     //void Click();
     void Show(SDL_Renderer*);
     void Update(int);
-    void HandleScrolling(SDL_Event*);
     void HandleEvents(SDL_Event*, Screens_Node&);
     //Entrance* getCurrentState();
     ~Outdoor();
