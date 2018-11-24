@@ -12,13 +12,12 @@ private:
     Texture * texture ;
     SDL_Event e;
     bool mouseClicked;
+    SDL_Rect sliderPos;
 
 protected:
 
 public:
     Slider();
-    int GetValue();
-    void SetValue(int);
     void Show(SDL_Renderer*);
     ~Slider();
     void Click();
@@ -26,9 +25,11 @@ public:
     bool WithinSliderRegion(int, int);
     void SetMouseClicked(bool);
     bool GetMouseClicked();
-    int diffStateBtn;
     void setPosition ( int, int);
-    SDL_Rect sliderPos;
+    void SetSliderPosX(int);
+    int GetSliderPosX();
+
+
 
 };
 

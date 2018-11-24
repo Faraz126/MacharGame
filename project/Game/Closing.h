@@ -5,15 +5,16 @@
 #include "Menu.h"
 #include "MainMenu.h"
 #include "Screens.h"
-#include "closingMoving.h"
+#include <string>
+
 
 class Closing:public Menu
 {
     private:
     SDL_Rect* closingPos;
-    //Texture* texture;
+    SDL_Rect* closingWordPos;
     Word* word;
-    ClosingMoving* closMove;
+    double counter;
 
 protected:
 

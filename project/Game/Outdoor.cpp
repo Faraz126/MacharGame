@@ -2,6 +2,7 @@
 #include <random>
 #include <iostream>
 
+
 using namespace std;
 
 Outdoor:: Outdoor()
@@ -17,6 +18,12 @@ Outdoor:: Outdoor()
     pos1.y = 1805;
     pos1.w = 1024;
     pos1.h = 786;
+
+    cartPos = new SDL_Rect;
+    cartPos->x = 970;
+    cartPos->y = 730;
+    cartPos->w = 20;
+    cartPos->h = 20;
 
     countPlants = 11;
     countWater = 3;
@@ -45,7 +52,6 @@ Outdoor:: Outdoor()
         //Lids[i] = new TrashCanLid(TrashCanLidPos[place], 540);
         i++;
     }
-
     for (int place = 0; place<countManhole; place++) //to place Manholes
     {
         container[i] = new Manhole(manholePos[place],730);
@@ -54,6 +60,9 @@ Outdoor:: Outdoor()
 
     houseRect= new SDL_Rect[4]; //clickable region for all 4 houses
     entranceRect = new SDL_Rect[4]; //region for windows & doors for all 4 houses
+
+    house = new House[4];
+    shop = new ShoppingMenu();
     houseRect[0].x=45;
     houseRect[0].y=140;
     houseRect[0].w=280;
@@ -73,6 +82,8 @@ Outdoor:: Outdoor()
     houseRect[3].y=150;
     houseRect[3].w=290;
     houseRect[3].h=300;
+
+    shop->shopShow = false;
 
     entranceRect[0].x=45;
     entranceRect[0].y=261;
@@ -94,6 +105,12 @@ Outdoor:: Outdoor()
     entranceRect[3].w=302;
     entranceRect[3].h=179;
     humans = GenerateHumans();
+
+
+//    for (int place = i; place<countManhole; place++)
+//    {
+//        container[place] = new Manhole(125,150);
+//    }
 
 
 }
@@ -118,6 +135,13 @@ void Outdoor::Show(SDL_Renderer* renderer)
         container[i]->Show(renderer);
     }
 
+
+    SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
+    SDL_RenderFillRect(renderer,cartPos);
+
+    if(shop->shopShow)
+        shop->Show(renderer);
+
     for (int i = 0; i < 4; i++)
     {
         house[i].ShowOutside(renderer, entranceRect[i]);
@@ -129,11 +153,21 @@ void Outdoor::Show(SDL_Renderer* renderer)
 //        SDL_RenderFillRect(renderer,&houseRect[i]);
 //    }
 
+
 //    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0);
 //    for(int i = 0; i<4; i++)
 //    {
 //        SDL_RenderFillRect(renderer,&entranceRect[i]);
 //    }
+
+
+/*
+    for(int i = 0; i<4; i++)
+    {
+        SDL_RenderFillRect(renderer,&houseRect[i]);
+    }
+*/
+
 }
 
 int Outdoor::CountHumans()
@@ -143,6 +177,7 @@ int Outdoor::CountHumans()
     {
         sum += house[i].NoOfHumans();
     }
+    return sum;
 }
 
 void Outdoor::Update(int frame)
@@ -154,6 +189,9 @@ void Outdoor::Update(int frame)
 }
 
 
+
+
+
 void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
 {
@@ -162,6 +200,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
         container[i]->EventHandle(e);
     }
 
+    shop->HandleEvents(e,node);
     if (e->type == SDL_MOUSEBUTTONDOWN)
     {
         int x = e->button.x;
@@ -176,6 +215,13 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
                 node.prev_backable = true;
                 node.prev_updatable = false;
             }
+        }
+
+
+        if(e->button.button ==  SDL_BUTTON_LEFT)
+        {
+            if( ( x >cartPos->x ) && ( x < (cartPos->x+cartPos->w) ) && ( y > cartPos->y ) && (y< (cartPos->y+cartPos->h) ) )
+                shop->shopShow = true;
         }
 
     }

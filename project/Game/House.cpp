@@ -79,6 +79,11 @@ House::House()
         }
         y += 100;
     }
+    btn = new Button;
+    btn->setPosition(800,10);
+    btn->SetWidth(200,55);
+    btn->setText("OUTDOOR");
+    btn->word->ReduceSize(0.8);
 
 
 
@@ -125,6 +130,8 @@ void House::Show(SDL_Renderer* renderer)
     }
 //    humans->Show(renderer);
 
+    btn->Render(renderer);
+
 }
 
 void House::HandleEvents(SDL_Event* e, Screens_Node& node)
@@ -146,7 +153,13 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
             }
 
         }
+         if (btn->WithinRegion(mousePosX,mousePosY))  //for outdoor button in house
+        {
+            node.cur_screen = node.prev_screen;
+            node.prev_screen = this;
+        }
     }
+
 }
 
 
@@ -161,6 +174,8 @@ void House::Update(int frame)
     {
         humans[i]->Update(frame);
     }
+
+
 
 
 

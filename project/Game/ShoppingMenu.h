@@ -9,27 +9,27 @@
 #include "SDL_image.h"
 #include "Menu.h"
 #include "CancelButton.h"
-#include "MainMenu.h"
-#include "Slider.h"
+#include "Tile.h"
 
-class Setting : public Menu
+
+class ShoppingMenu : public Menu
 {
 private:
-    SDL_Rect settingPos;
-    SDL_Rect settingscancelPos;
-    SDL_Rect settingSliderPos;
-    SDL_Rect settingSliderPos1;
-    SDL_Rect sliderPos;
+    SDL_Rect* shoppingPos;
+    SDL_Rect* repellentPos;
+    SDL_Rect* ddtPos;
+    SDL_Rect* windowPos;
+    SDL_Rect shoppingExitPos;
+
     Texture* texture;
-    CancelButton *cancelBtn;
-    Slider* slider;
-    Word* word;
-    std::string buttonText[2];
+    CancelButton* cancelBtn;
+    Tile* tile;
 
 protected:
 
 public:
-    Setting();
+    bool shopShow;
+    ShoppingMenu();
     void Click(SDL_Event*);
     void Hover (SDL_Event*);
     void Show(SDL_Renderer*);
@@ -37,7 +37,6 @@ public:
     void Update(int);
     void HandleEvents(SDL_Event*, Screens_Node&);
 
-
-    ~Setting();
+    ~ShoppingMenu();
 };
 

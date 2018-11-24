@@ -1,10 +1,10 @@
 #pragma once
 #include "Texture.h"
 #include <SDL.h>
+#include "Clickable.h"
 
-class Character
+class Character: public Clickable
 {
-    SDL_Rect charRect;
     char shownChar;
     Texture* texture;
 

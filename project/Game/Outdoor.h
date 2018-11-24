@@ -10,7 +10,10 @@
 #include"TrashCan.h"
 #include"Manhole.h"
 #include"House.h"
+
+#include "ShoppingMenu.h"
 #include "Human.h"
+
 
 
 
@@ -25,20 +28,25 @@ private:
 //    Manhole* manhole;
     //Outdoor* outdoor;
 
+
+    SDL_Rect pos, pos1, shoppingPos;
+    SDL_Rect* cartPos;
+    Texture* texture;
+
     int countContainer;
     int countPlants;
     int countWater;
     int countTrashcan;
     int countManhole;
-    SDL_Rect pos, pos1;
-    Texture* texture;
-
+    bool shopShow;
     int totalHumans;
 
     SDL_Rect* houseRect; //rectangle for clickable region of house
     SDL_Rect* entranceRect; //rectangle for entrance region of house
     House* house;
     Container** container;
+    ShoppingMenu* shop;
+
     Human** humans;
     Human** GenerateHumans();
     int CountHumans();

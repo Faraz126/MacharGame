@@ -1,4 +1,6 @@
 #include "Clickable.h"
+#include <cstdlib>
+#include <cmath>
 
 Clickable::Clickable(int x, int y, int w, int h)
 {
@@ -10,7 +12,7 @@ Clickable::Clickable(int x, int y, int w, int h)
 
 Clickable::~Clickable()
 {
-    //dtor
+
 }
 
 bool Clickable::WithinRegion(int x, int y)
@@ -55,7 +57,18 @@ void Clickable::ReduceSize(double n)
     pos.h = pos.h * n;
 }
 
+
 bool Clickable::Collides(const Clickable& obj)
 {
     return Collides(obj.pos);
+}
+void Clickable::UpdatePos(int x,int y)
+{
+    pos.x = x;
+    pos.y = y;
+}
+
+int Clickable::GetDistance(int x, int y)
+{
+    return sqrt((abs(pos.x - x)*abs(pos.x - x))+(abs(pos.y - y)*abs(pos.y - y)));
 }

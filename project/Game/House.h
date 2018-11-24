@@ -13,6 +13,8 @@
 #include "Manhole.h"
 #include "Tub.h"
 #include "Human.h"
+#include "Button.h"
+
 
 
 
@@ -37,6 +39,8 @@ private:
     Human** humans;
 
     int noOfBreedingPlaces;
+    Button* btn;
+
     //Outdoor* outdoor;
     //Door* door;
 protected:

@@ -1,21 +1,19 @@
 #include "CancelButton.h"
 
-CancelButton::CancelButton(SDL_Rect rect)
+CancelButton::CancelButton(SDL_Rect rect): Clickable(rect.x,rect.y, rect.w,rect.h)
 {
-    pos.x = rect.x ;
-    pos.y = rect.y;
-    pos.w = rect.w;
-    pos.h = rect.h;
     diffStateBtn= 53;
 
 
 
 }
+/*
 CancelButton::CancelButton(int x, int y)   //after overloaded call that constructor too
 {
     x = y = 0;
 
 }
+*/
 
 void CancelButton::Show( SDL_Renderer * gRenderer )
 {
@@ -27,20 +25,10 @@ void CancelButton::Show( SDL_Renderer * gRenderer )
 
 void CancelButton::Hover()
 {
-    diffStateBtn =4;    // if hovered sprite changed
+    diffStateBtn =54;    // if hovered sprite changed
 }
 
-void CancelButton::Click()
-{
-    diffStateBtn=54;   // if clicked sprite changed
 
-}
 
-bool CancelButton::WithinCancelRegion(int mouseX, int mouseY)
-{
-    if( ( mouseX > pos.x ) && ( mouseX < (pos.x+pos.w) ) && ( mouseY > pos.y ) && (mouseY< (pos.y+pos.h) ) )
-        return true;
-    else
-        return false;
-}
+
 

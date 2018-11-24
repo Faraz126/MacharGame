@@ -85,6 +85,7 @@ void Human::Update(int frame)
                 faceDirection = RIGHT;
             }
             break;
+
         }
 
 
@@ -104,12 +105,15 @@ void Human::Update(int frame)
         if (n < 30)
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             isGoingToBed = true;
             bedToGoTo = ownHouse->GetClosestBed(pos.x, pos.y);
             toFollowX = bedToGoTo->GetX();
             toFollowY = bedToGoTo->GetY();
 =======
             //std:: cout << "Walk Right!" << std::endl;
+=======
+>>>>>>> 6f0251d7d8c54a492201badeeed4528e18c5218b
             Right = true;
             Left = false;
         }
@@ -161,10 +165,15 @@ void Human::Update(int frame)
 =======
 {
     clip += 0.03;
+<<<<<<< HEAD
     //std::cout << "CLIP: " << clip << std::endl;
     if(clip >= 23)      // to change the clip after a certain amount the loop runs.
     {
         //std::cout << "YES" << std::endl;
+=======
+    if(clip >= 23)      // to change the clip after a certain amount the loop runs.
+    {
+>>>>>>> 6f0251d7d8c54a492201badeeed4528e18c5218b
         clip = 15;
     }
     speed += 0.6;
@@ -255,9 +264,13 @@ void Human::Update(int frame)
             IsWalkingHorizontal = true;
             Down = false;
             clip = 15;          // this will be the clip where it starts to walk again
+<<<<<<< HEAD
            // std::cout << "starting from default!" << std::endl;
         }
         //std::cout << "Walk Down!" << std::endl;
+=======
+        }
+>>>>>>> 6f0251d7d8c54a492201badeeed4528e18c5218b
         WalkDown();
     }
 }
@@ -277,9 +290,13 @@ void Human::SitOnBed()               // this sit will be for sitting on bed in h
             IsWalkingVertical = false;
             Up = false;
             otherclip = 17;          // this will be the clip where it sits
+<<<<<<< HEAD
             //std::cout << "Reached Bed!" << std::endl;
         }
         //std::cout << "Walk Up!" << std::endl;
+=======
+        }
+>>>>>>> 6f0251d7d8c54a492201badeeed4528e18c5218b
         WalkUp();
 
 

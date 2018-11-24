@@ -115,6 +115,8 @@
 		<Unit filename="Screens.h" />
 		<Unit filename="Settings.cpp" />
 		<Unit filename="Settings.h" />
+		<Unit filename="ShoppingMenu.cpp" />
+		<Unit filename="ShoppingMenu.h" />
 		<Unit filename="Showpiece.cpp" />
 		<Unit filename="Showpiece.h" />
 		<Unit filename="Slider.cpp" />
@@ -122,6 +124,8 @@
 		<Unit filename="Soil.h" />
 		<Unit filename="Texture.cpp" />
 		<Unit filename="Texture.h" />
+		<Unit filename="Tile.cpp" />
+		<Unit filename="Tile.h" />
 		<Unit filename="Trash.h" />
 		<Unit filename="TrashCan.cpp" />
 		<Unit filename="TrashCan.h" />
@@ -134,8 +138,6 @@
 		<Unit filename="Window.h" />
 		<Unit filename="Word.cpp" />
 		<Unit filename="Word.h" />
-		<Unit filename="closingMoving.cpp" />
-		<Unit filename="closingMoving.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

@@ -1,12 +1,9 @@
 #include "Button.h"
 
-Button::Button()
+Button::Button() : Clickable(354,506,314,64)
 {
-    pos.x = 354;
-    pos.y = 506;
-    pos.w = 314;
-    pos.h = 64;
-    intHover = 0;  //which
+
+    intHover = 0;  //which state of button
     word = 0;
 
 }
@@ -31,6 +28,12 @@ void Button::setPosition ( int x, int y)
     pos.x = x;              //setting position of buttons on the screen
     pos.y = y;
 }
+void Button::SetWidth(int w,int h)
+{
+    pos.w = w;
+    pos.h = h;
+}
+
 void Button::setText ( std::string str )
 {
     if (word == 0)
@@ -52,14 +55,6 @@ void Button::Hover()
 void Button::Click()
 {
     intHover=2;   // if clicked sprite changed
-}
-
-bool Button::WithinRegion(int mouseX, int mouseY)
-{
-    if( ( mouseX > pos.x ) && ( mouseX < (pos.x+pos.w) ) && ( mouseY > pos.y ) && (mouseY< (pos.y+pos.h) ) )
-        return true;
-    else
-        return false;
 }
 
 

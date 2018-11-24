@@ -34,22 +34,9 @@ void MainMenu::HoverClick(SDL_Event* e)
     int hoverX = e->button.x;  //for cancel button click
     int hoverY = e->button.y;
 
-    if( cancelBtn->WithinCancelRegion(hoverX,hoverY)==true)
+    if( cancelBtn->WithinRegion(hoverX,hoverY)==true)
     {
-        if (e->type == SDL_MOUSEBUTTONDOWN)
-        {
-            SetMouseClicked(true);
-            cancelBtn->Click();
-        }
-        else if (e->type == SDL_MOUSEBUTTONUP && e->button.button == SDL_BUTTON_LEFT)
-        {
-            SetMouseClicked(false);
-            cancelBtn->diffStateBtn=4;
-        }
-        else
-        {
-            cancelBtn->Hover();
-        }
+        cancelBtn->Hover();
     }
     else
     {
@@ -80,10 +67,8 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     int mouseX = e->button.x;
     int mouseY = e->button.y;
-    //Menu::Hover(e);
     Menu::HoverClick(e);
     HoverClick(e);
-    //Hover(e);
     if(e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
     {
 
@@ -106,7 +91,7 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_updatable = false;
             }
 
-            if( cancelBtn->WithinCancelRegion(mouseX,mouseY)==true)
+            if( cancelBtn->WithinRegion(mouseX, mouseY))
             {
                 node.cur_screen = new ExitMenu;
                 node.prev_screen = this;
