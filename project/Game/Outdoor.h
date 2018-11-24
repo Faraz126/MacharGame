@@ -48,7 +48,6 @@ private:
     House* house;
     Container** container;
     ShoppingMenu* shop;
-
     Human** humans;
     Human** GenerateHumans();
     int CountHumans();

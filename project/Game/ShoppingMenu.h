@@ -21,6 +21,7 @@ private:
     SDL_Rect* windowPos;
     SDL_Rect shoppingExitPos;
 
+
     Texture* texture;
     CancelButton* cancelBtn;
     Tile* tile;

@@ -85,6 +85,15 @@ House::House()
     btn->setText("OUTDOOR");
     btn->word->ReduceSize(0.8);
 
+    //houseShop->shopShow = false;
+
+    cartPos = new SDL_Rect;
+    cartPos->x = 970;
+    cartPos->y = 730;
+    cartPos->w = 20;
+    cartPos->h = 20;
+
+
 
 
 }
@@ -130,6 +139,8 @@ void House::Show(SDL_Renderer* renderer)
     }
 //    humans->Show(renderer);
     btn->Render(renderer);
+    if(houseShop->shopShow)
+        houseShop->Show(renderer);
 }
 
 void House::HandleEvents(SDL_Event* e, Screens_Node& node)
@@ -142,6 +153,9 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
     {
         int mousePosX = e->button.x;
         int mousePosY = e->button.y;
+
+        if( ( mousePosX >cartPos->x ) && ( mousePosX < (cartPos->x+cartPos->w) ) && ( mousePosY > cartPos->y ) && (mousePosY< (cartPos->y+cartPos->h) ) )
+            houseShop->shopShow = true;
 
         for (int i = 0; i < noOfEntrance; i++)
         {

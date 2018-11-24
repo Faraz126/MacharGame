@@ -22,15 +22,19 @@ private:
     std::string str;
     int price;
 
+
 protected:
 
 public:
+    SDL_Rect iconPos;
+    int sprite;
     Tile();
     Tile(int, int, int, std::string, int);
     int tileState;
-    void Show(SDL_Renderer*);
+    void Show(SDL_Renderer*,int sprite);
     void UpdatePos(int,int);
     void SetTileText(std::string str1, std::string str2);
+    void SetTileIcon(int, SDL_Renderer*, SDL_Rect);
     ~Tile();
 };
 

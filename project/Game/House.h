@@ -14,6 +14,7 @@
 #include "Tub.h"
 #include "Human.h"
 #include "Button.h"
+#include "ShoppingMenu.h"
 
 
 
@@ -37,6 +38,8 @@ private:
     Human** humans;
     int noOfBreedingPlaces;
     Button* btn;
+    ShoppingMenu* houseShop;
+    SDL_Rect* cartPos;
 
     //Outdoor* outdoor;
     //Door* door;

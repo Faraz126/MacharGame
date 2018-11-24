@@ -69,7 +69,6 @@ void Closing::Show(SDL_Renderer* gRenderer)
 }
 
 
-
 void Closing::Update(int frame)
 {
 
