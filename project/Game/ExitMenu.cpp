@@ -3,9 +3,9 @@
 ExitMenu::ExitMenu():Menu(2,175,520,true)  //calling menus constructor that is constructing 2 buttons horizontally
 {
     exitPos = new SDL_Rect;
-    exitPos->x= 150;
+    exitPos->x= 135;
     exitPos->y= 380;
-    exitPos->w= 720;
+    exitPos->w= 760;
     exitPos->h= 250;  //settings
 
     buttonText[0]= "YES";
@@ -15,15 +15,15 @@ ExitMenu::ExitMenu():Menu(2,175,520,true)  //calling menus constructor that is c
     Menu::SetText(buttonText);
     word = new Word[1];
 
-    word[0].SetText("DO YOU REALLY WANT TO QUIT");
-    word[0].SetPosition(exitPos->x+35,exitPos->y+15);
+    word[0].SetText("DO YOU REALLY WANT TO QUIT ?");
+    word[0].SetPosition(exitPos->x+40,exitPos->y+15);
 
 }
 
 void ExitMenu::Show(SDL_Renderer* gRenderer)
 {
-    SDL_SetRenderDrawColor( gRenderer, 255, 255, 255, 0);   //Exit ka rectangle wala box
-    SDL_RenderFillRect(gRenderer,exitPos);
+    texture = Texture::GetInstance(gRenderer);
+    texture->Render(59,gRenderer,exitPos);
     Menu::Show(gRenderer);
     for(int i=0; i<1; i++)      //rendering all words i.e settings,volume,brightness
     {
@@ -59,6 +59,7 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_screen = this;
                 node.prev_backable = false;
                 node.prev_updatable = false;
+                SDL_Delay(1);
             }
         }
     }

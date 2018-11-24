@@ -15,6 +15,8 @@
 #include "Human.h"
 #include "Button.h"
 #include "ShoppingMenu.h"
+#include "EndMenu.h"
+#include "PauseMenu.h"
 
 
 

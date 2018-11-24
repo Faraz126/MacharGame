@@ -138,6 +138,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
     {
         house[i].ShowOutside(renderer, entranceRect[i]);
     }
+//    SDL_SetWindowBrightness(SDL_Window* gWindow,0.5);
 
 
 
@@ -224,6 +225,14 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
                         entranceRect[i].x += 20;
                     }
                 }
+
+            }
+
+            if(e->key.keysym.sym == SDLK_ESCAPE)  //will open pause menu
+            {
+                node.cur_screen = new PauseMenu;
+                node.prev_screen = this;
+                node.prev_updatable = false;
             }
 
             if(pos1.x + pos1.w >= 1024*2.5) //to not go beyond screen width

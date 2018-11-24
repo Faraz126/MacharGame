@@ -8,6 +8,7 @@ House::House()
     pos.w = wall.w = 1024;
     pos.h = 786;
     wall.h = 488;
+    houseShop = new ShoppingMenu();
 
     noOfEntrance = (rand() % 2) + 2;
     noOfHumans = (rand()%3) + 3;
@@ -85,7 +86,7 @@ House::House()
     btn->setText("OUTDOOR");
     btn->word->ReduceSize(0.8);
 
-    //houseShop->shopShow = false;
+    houseShop->shopShow = false;
 
     cartPos = new SDL_Rect;
     cartPos->x = 970;
@@ -139,6 +140,8 @@ void House::Show(SDL_Renderer* renderer)
     }
 //    humans->Show(renderer);
     btn->Render(renderer);
+    SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
+    SDL_RenderFillRect(renderer,cartPos);
     if(houseShop->shopShow)
         houseShop->Show(renderer);
 }
@@ -148,6 +151,17 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
     if (e->type == SDL_QUIT)
     {
         SDL_Quit();
+    }
+    if( e->type == SDL_KEYDOWN )
+    {
+
+        if(e->key.keysym.sym == SDLK_ESCAPE)    //will open pause menu
+        {
+            node.cur_screen = new PauseMenu;
+            node.prev_screen = this;
+            node.prev_updatable = false;
+
+        }
     }
     else if( e->type == SDL_MOUSEBUTTONDOWN && e->button.button == SDL_BUTTON_LEFT)
     {
@@ -185,9 +199,6 @@ void House::Update(int frame)
     {
         humans[i]->Update();
     }
-
-
-
 
 
 
