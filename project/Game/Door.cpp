@@ -5,6 +5,7 @@ Door::Door(int posx, int posy):Entrance(posx, posy, 145,188)
 {
     spriteNum = (rand()%3)+10;
     isOpen = false;
+    rect = 0;
 }
 
 void Door::Update(int frame)
@@ -12,7 +13,7 @@ void Door::Update(int frame)
 
 }
 
-void Door::Show(SDL_Renderer* renderer, SDL_Rect* rect)
+void Door::Show(SDL_Renderer* renderer)
 {
     if (rect == 0)
     {
@@ -42,7 +43,7 @@ void Door::ShowOutside(SDL_Renderer* renderer, const SDL_Rect& rect ,float width
     temp.w = pos.w/widthRatio;
     temp.h = pos.h/widthRatio;
     temp.y = rect.y + (rect.h - temp.h) ;
-    Show(renderer, &temp);
+    Texture::GetInstance()->Render(spriteNum, renderer, &temp);
 }
 
 void Door::ChangeState()

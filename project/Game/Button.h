@@ -21,7 +21,9 @@ class Button : public Clickable
     Button();
     void Hover();
     void Click();
-    void Render ( SDL_Renderer * );
+    void Show( SDL_Renderer * );
+    void HandleEvents(SDL_Event*, Screens_Node&){};
+    void Update(int){};
     void setPosition ( int , int );
     void SetWidth(int,int);
     ~Button();

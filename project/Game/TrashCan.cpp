@@ -17,13 +17,11 @@ void TrashCan::SetCovered(bool status)
 }
 
 
-void TrashCan::EventHandle(SDL_Event* e)
+void TrashCan::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
-    int x = e->button.x;
-    int y = e->button.y;
     if (!GetCovered())
     {
-        lid->HandleEvents(e);
+        lid->HandleEvents(e, node);
     }
     if (Collides(*lid))
     {

@@ -42,7 +42,7 @@ void Menu::Show(SDL_Renderer* gRenderer)
 {
     for(int i=0; i<noOfButton; i++)
     {
-         btn[i].Render(gRenderer);
+         btn[i].Show(gRenderer);
     }
 }
 

@@ -30,6 +30,8 @@ public:
     int tileState;
     void Show(SDL_Renderer*);
     void UpdatePos(int,int);
+    void Update(int){};
+    void HandleEvents(SDL_Event*, Screens_Node&){};
     void SetTileText(std::string str1, std::string str2);
     ~Tile();
 };

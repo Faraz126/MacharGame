@@ -14,7 +14,7 @@ Button::Button( std::string str , int x, int y) : Button()  //after overloaded c
 
 }
 
-void Button::Render ( SDL_Renderer * gRenderer )
+void Button::Show( SDL_Renderer * gRenderer )
 {
     texture = Texture::GetInstance(gRenderer); //singelton here, static method
     texture->Render(intHover, gRenderer, &pos);

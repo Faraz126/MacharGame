@@ -12,7 +12,8 @@ Human::Human(): Clickable(0,0,197, 575)
 Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
 {
     spriteNum = 74;
-    ownHouse = house;
+    ownHouse  =  house;
+    currentScenario = house;
     ReduceSize(0.3);
     collideRect.x = pos.x + 10;
     collideRect.y = pos.y + pos.h - 10;
@@ -35,7 +36,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
 
 }
 
-void Human::HandleEvents(SDL_Event* e)
+void Human::HandleEvents(SDL_Event* e, Screens_Node&)
 {
     return;
 }

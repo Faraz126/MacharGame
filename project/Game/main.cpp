@@ -123,7 +123,6 @@ int main( int argc, char* args[] )
 	}
 	else
 	{
-        bool quit = false;
 
         Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
 

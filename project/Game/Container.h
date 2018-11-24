@@ -13,10 +13,10 @@ class Container : public BreedingGround
     public:
         Container(int, int, int, int, bool = false);
         virtual ~Container();
-        virtual void Show(SDL_Renderer*) = 0;
+        //virtual void Show(SDL_Renderer*) = 0;
         bool GetCovered();
         //virtual Mosquito* Breed();
-        virtual void EventHandle(SDL_Event*) = 0;
+        //virtual void HandleEvents(SDL_Event*) = 0;
         virtual void SetCovered(bool);
         void SetX(int,int);
     protected:

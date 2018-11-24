@@ -14,7 +14,7 @@ class Lids: public Clickable
         Lids(int,int,int,int);
         virtual ~Lids();
         virtual void Show(SDL_Renderer*) = 0;
-        void HandleEvents(SDL_Event*);
+        void HandleEvents(SDL_Event*, Screens_Node&);
         void SetX(int,int);
         void SetPosition(int, int);
         void Uncover();

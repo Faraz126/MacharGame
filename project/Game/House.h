@@ -14,12 +14,13 @@
 #include "Tub.h"
 #include "Human.h"
 #include "Button.h"
+#include <vector>
 
 
 
 
 
-class House: public Screens
+class House: public Scenario
 
 {
 private:
@@ -28,18 +29,14 @@ private:
     int height;
     bool hasRepellent;
     int noOfHumans;
-    int noOfEntrance;
-    Entrance** entrance;
+
+
     Bed* bed;
     SDL_Rect pos;
     Texture* texture;
     Showpiece* showpieces;
-    BreedingGround** breedingplaces;
     SDL_Rect wall;
-
     Human** humans;
-
-    int noOfBreedingPlaces;
     Button* btn;
 
     //Outdoor* outdoor;
@@ -63,7 +60,6 @@ public:
     Bed* GetClosestBed(int,int);
     Door* GetDoor();
     Bed* GetBeds(int&);
-    BreedingGround** GetBreedingGrounds(int&);
     Human** GetHumans(int & );
     int GetWidth();
     int GetHeight();

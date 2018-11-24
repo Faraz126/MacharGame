@@ -7,7 +7,7 @@ Window::Window(int x, int y): Entrance(x,y, 200,110)
     spriteNum = 13;
     timeCovered = currentTime = SDL_GetTicks();
     state = CLOSED;
-
+    rect = 0;
 }
 
 void Window::ShowOutside(SDL_Renderer* renderer, const SDL_Rect& rect ,float widthRatio)
@@ -17,7 +17,7 @@ void Window::ShowOutside(SDL_Renderer* renderer, const SDL_Rect& rect ,float wid
     temp.y = 325;
     temp.w = pos.w/widthRatio;
     temp.h = pos.h/widthRatio;
-    Show(renderer, &temp);
+    Texture::GetInstance()->Render(spriteNum, renderer, &temp);
 }
 
 
@@ -34,7 +34,7 @@ void Window::Update(int)
     }
 }
 
-void Window::Show(SDL_Renderer* renderer, SDL_Rect* rect)
+void Window::Show(SDL_Renderer* renderer)
 {
     if (rect == 0)
     {

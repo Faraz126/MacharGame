@@ -9,16 +9,18 @@ class Window :public Entrance
 {
 private:
     int timeCovered, currentTime, state;
+    SDL_Rect* rect;
 protected:
 
 public:
     Window(int,int);
-    void Show(SDL_Renderer*, SDL_Rect* rect = nullptr);
+    void Show(SDL_Renderer*);
 
     void Update(int);
     void ShowOutside(SDL_Renderer*, const SDL_Rect&, float);
     virtual void ChangeState();
     bool IsOpen();
+    void HandleEvents(SDL_Event*, Screens_Node&){};
     //time SetTime();
     ~Window();
 };

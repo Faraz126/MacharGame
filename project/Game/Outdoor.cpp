@@ -197,7 +197,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 {
     for (int i = 0; i<countContainer; i++ )
     {
-        container[i]->EventHandle(e);
+        container[i]->HandleEvents(e,node);
     }
 
     shop->HandleEvents(e,node);

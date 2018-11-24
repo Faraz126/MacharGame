@@ -1,4 +1,4 @@
-#include"TrashCanLid.h"
+#include "TrashCanLid.h"
 
 TrashCanLid:: TrashCanLid(int x, int y): Lids(x,y, TRASHCANLID_WIDTH, TRASHCANLID_HEIGHT)
 {

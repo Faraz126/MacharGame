@@ -24,17 +24,20 @@ House::House()
         x = 265;
         entrance[0] = new Door(100, 300);
         breedingplaces[0] = new TrashCan(10,450);
+        myQ.push_back(breedingplaces[0]);
     }
     else
     {
         x = 10;
         entrance[0] = new Door(750, 300);
         breedingplaces[0] = new TrashCan(925,450);
+        myQ.push_back(breedingplaces[0]);
     }
 
     for (int i = 0; i<noOfHumans; i++)
     {
         bed[i].SetPos(x, 365);
+        myQ.push_back(&bed[i]);
         x += 150;
     }
     if (noOfEntrance == 3)
@@ -63,18 +66,20 @@ House::House()
             if (rand()%2 == 1)
             {
                 breedingplaces[noOfBreedingPlaces] = new Tub(15, y);
+
             }
             else
             {
                 breedingplaces[noOfBreedingPlaces] = new Tub(900, y);
             }
-
+            myQ.push_back(breedingplaces[noOfBreedingPlaces]);
             breedingplaces[noOfBreedingPlaces++]->ReduceSize(float(y)/1600);
 
         }
         y += 100;
     }
     btn = new Button;
+    myQ.push_back(btn);
     btn->setPosition(800,10);
     btn->SetWidth(200,55);
     btn->setText("OUTDOOR");
@@ -83,6 +88,7 @@ House::House()
     for (int i = 0; i < noOfHumans; i++)
     {
         humans[i] = new Human((i*30), 388 + (i*90),this);
+        myQ.push_back(humans[i]);
     }
 
 
@@ -101,9 +107,10 @@ void House::Show(SDL_Renderer* renderer)
     {
         entrance[i]->Show(renderer);
     }
+    /*
     for(int i=0; i<noOfHumans; i++)
     {
-        bed[i].Draw(renderer);
+        bed[i].Show(renderer);
     }
     if (noOfEntrance == 3)
     {
@@ -130,7 +137,12 @@ void House::Show(SDL_Renderer* renderer)
     }
 //    humans->Show(renderer);
 
-    btn->Render(renderer);
+    btn->Show(renderer);
+    */
+    for (int i = 0; i < myQ.size(); i++)
+    {
+        myQ[i]->Show(renderer);
+    }
 
 }
 
@@ -161,7 +173,7 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
 
         for (int i = 0; i < noOfHumans; i++)
         {
-            humans[i]->HandleEvents(e);
+            humans[i]->HandleEvents(e, node);
         }
     }
 
@@ -179,12 +191,6 @@ void House::Update(int frame)
     {
         humans[i]->Update(frame);
     }
-
-
-
-
-
-
 }
 
 Bed* House::GetClosestBed(int x, int y) //pass on Human x co-ordinates here
@@ -248,17 +254,14 @@ Bed* House::GetBeds(int &n)
     return bed;
 }
 
-BreedingGround** House::GetBreedingGrounds(int & n)
-{
-    n = noOfBreedingPlaces;
-    return breedingplaces;
-}
+
 
 Human** House::GetHumans(int & n)
 {
     n = noOfHumans;
     return humans;
 }
+
 
 int House::GetWidth()
 {

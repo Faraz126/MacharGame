@@ -12,15 +12,8 @@ void BreedingGround::UpdatePos(int x, int y)
     pos.y = y;
 }
 
-void BreedingGround::Show(SDL_Renderer* renderer)
-{
 
-}
 
-Mosquito* BreedingGround::Breed()
-{
-
-}
 
 
 BreedingGround::~BreedingGround()

@@ -9,14 +9,16 @@ class Door:public Entrance
 private:
     //time TimeCovered;
     bool  isOpen;
+    SDL_Rect* rect;
 protected:
 
 public:
     Door(int,int);
-    void Show(SDL_Renderer*, SDL_Rect* rect = nullptr);
+    void Show(SDL_Renderer*);
 
     void Update(int);
     void ShowOutside(SDL_Renderer*, const SDL_Rect&, float);
+    void HandleEvents(SDL_Event*, Screens_Node&){};
     virtual void ChangeState();
     bool IsOpen();
     //time SetTime();

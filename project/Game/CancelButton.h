@@ -18,6 +18,8 @@ class CancelButton : public Clickable
     CancelButton(SDL_Rect);
     void Hover();
     void Click();
+    void Update(int){};
+    void HandleEvents(SDL_Event*, Screens_Node&){};
     void Show ( SDL_Renderer * );
 
 };

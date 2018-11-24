@@ -18,6 +18,17 @@ void CleanWater::Show(SDL_Renderer* renderer)
     Texture::GetInstance()->Render(spriteNum,renderer, &pos);
 }
 
+void CleanWater::Update(int)
+{
+
+
+}
+
+void CleanWater::HandleEvents(SDL_Event*, Screens_Node&)
+{
+
+}
+
 Mosquito* CleanWater::Breed()
 {
     return factory->GetMosquito(0);
@@ -28,7 +39,4 @@ CleanWater::~CleanWater()
     //dtor
 }
 
-void CleanWater::EventHandle(SDL_Event*)
-{
 
-}

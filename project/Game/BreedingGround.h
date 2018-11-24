@@ -16,7 +16,7 @@ protected:
     int spriteNum;
 public:
     BreedingGround(int, int, int, int);
-    virtual void Show(SDL_Renderer*) = 0;
+   // virtual void Show(SDL_Renderer*) = 0;
     virtual Mosquito* Breed() = 0;
     virtual ~BreedingGround();
     void UpdatePos(int,int);

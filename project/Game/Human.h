@@ -10,6 +10,7 @@
 #include "Bed.h"
 #include <stack>
 #include "Door.h"
+#include "Scenario.h"
 
 
 enum DIRECTION {UP, RIGHT, DOWN, LEFT};
@@ -23,6 +24,7 @@ class Human: public Clickable
 {
 private:
     House* ownHouse;
+    Scenario* currentScenario;
     SDL_Rect collideRect;
     bool isIndoor;
     bool isGoingToBed;
@@ -60,7 +62,7 @@ public:
     void ChooseDoor();
     bool MoveAllowed();
     void ChangeDirection();
-    void HandleEvents(SDL_Event*);
+    void HandleEvents(SDL_Event*, Screens_Node&);
 
 };
 

@@ -11,7 +11,7 @@ Lids::~Lids()
 }
 
 
-void Lids::HandleEvents(SDL_Event* e)
+void Lids::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     int x = e->button.x;
     int y = e->button.y;

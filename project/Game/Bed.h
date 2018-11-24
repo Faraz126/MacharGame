@@ -14,7 +14,9 @@ public:
     Bed();
     Bed(int,int);
     void SetPos(int,int);
-    void Draw(SDL_Renderer*);
+    void Show(SDL_Renderer*);
+    void Update(int){};
+    void HandleEvents(SDL_Event*, Screens_Node&){};
     //passing on players x co-ordinate only
     bool GetOccupied();
     void SetOccupied(bool);
