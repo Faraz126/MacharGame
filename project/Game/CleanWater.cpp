@@ -1,6 +1,6 @@
 #include "CleanWater.h"
 
-CleanWater::CleanWater(int x, int y): Container(x,y, WATER_WIDTH, WATER_HEIGHT)
+CleanWater::CleanWater(int x, int y): Container(x,y, C_WATER_WIDTH, C_WATER_HEIGHT)
 {
     spriteNum = rand()%4 + 27;
     SetCovered((bool)(rand()%2));

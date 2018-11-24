@@ -39,6 +39,20 @@ int Entrance::GetWidth()
     return pos.w;
 }
 
+void Entrance:: SetOutdoorX(int delta, int direction)
+{
+
+    if ( direction == 0)
+    {
+        OutdoorPos.x+=delta;
+
+    }
+    if ( direction == 1)
+    {
+        OutdoorPos.x-=delta;
+    }
+}
+
 Entrance::~Entrance()
 {
 

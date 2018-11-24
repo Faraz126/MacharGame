@@ -11,6 +11,7 @@
 #include"Manhole.h"
 #include"House.h"
 #include "Human.h"
+#include "DirtyWater.h"
 
 
 
@@ -27,24 +28,25 @@ private:
 
     int countContainer;
     int countPlants;
-    int countWater;
+    int countDirtyWater;
     int countTrashcan;
     int countManhole;
-    SDL_Rect pos, pos1;
-    Texture* texture;
-
+    int countEntrances;
     int totalHumans;
 
+    SDL_Rect pos, pos1;
+
+    Texture* texture;
     SDL_Rect* houseRect; //rectangle for clickable region of house
-    SDL_Rect* entranceRect; //rectangle for entrance region of house
     House* house;
+
     Container** container;
     Human** humans;
+    Entrance** entrance;
+
     Human** GenerateHumans();
     int CountHumans();
     void GetHouseEntrance();
-    Entrance** entrance;
-
 
 protected:
 
@@ -55,6 +57,7 @@ public:
     //void Click();
     void Show(SDL_Renderer*);
     void Update(int);
+    void HandleScrolling(SDL_Event*);
     void HandleEvents(SDL_Event*, Screens_Node&);
     //Entrance* getCurrentState();
     ~Outdoor();

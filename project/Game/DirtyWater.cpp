@@ -2,14 +2,15 @@
 
 DirtyWater::DirtyWater(int x, int y): Container(x,y, WATER_WIDTH, WATER_HEIGHT)
 {
-    spriteNum = rand()%4 + 27;
-    SetCovered((bool)(rand()%2));
+    spriteNum = 71;
+    ReduceSize(0.5);
+    //SetCovered((bool)(rand()%2));
 
 }
 
 void DirtyWater::SetCovered(bool status)
 {
-    spriteNum = spriteNum + (4*(int)status);
+    //spriteNum = spriteNum + (4*(int)status);
     Container::SetCovered(status);
 }
 

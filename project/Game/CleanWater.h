@@ -5,8 +5,8 @@
 #include "Texture.h"
 #include "Mosquito.h"
 
-const int WATER_HEIGHT = 100;
-const int WATER_WIDTH = 100;
+const int C_WATER_HEIGHT = 100;
+const int C_WATER_WIDTH = 100;
 
 class CleanWater : public Container
 {

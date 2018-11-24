@@ -13,6 +13,7 @@ class Clickable
         bool Collides(const int, const int, const int, const int);
         bool Collides(const Clickable&);
         void ReduceSize(double);
+        void SetX(int,int);
         virtual ~Clickable();
 
 

@@ -59,3 +59,17 @@ bool Clickable::Collides(const Clickable& obj)
 {
     return Collides(obj.pos);
 }
+
+void Clickable:: SetX(int delta, int direction)
+{
+
+    if ( direction == 0)
+    {
+        pos.x+=delta;
+
+    }
+    if ( direction == 1)
+    {
+        pos.x-=delta;
+    }
+}
