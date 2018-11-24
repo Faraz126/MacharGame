@@ -9,8 +9,16 @@ Character::Character()
 Character::Character( char c )
 {
     this -> shownChar = c;
+    int ascii = c;
+    if (ascii >= 97)
+    {
+        this->charRect.h = 101;
+    }
+    else
+    {
+        this -> charRect .h = 73;
+    }
     this -> charRect .w = 73;
-    this -> charRect .h = 73;
 }
 
 void Character::Show ( SDL_Renderer * gRenderer )
@@ -29,4 +37,9 @@ void Character::SetPosition ( int x , int y)
 void Character::SetChar ( char c)
 {
     shownChar= c;
+    int ascii = c;
+    if (ascii >= 97)
+    {
+        charRect.h = 41;
+    }
 }

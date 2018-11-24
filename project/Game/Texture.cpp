@@ -549,6 +549,31 @@ void Texture::SetRect(int n)
         clipFromTexture.w = 117;
         clipFromTexture.h = 575;
         break;
+    case 75:
+        clipFromTexture.x = 2643;
+        clipFromTexture.y = 1887;
+        clipFromTexture.w = 89;
+        clipFromTexture.h = 188;
+        break;
+    case 76:
+        clipFromTexture.x = 2643;
+        clipFromTexture.y = 2135;
+        clipFromTexture.w = 89;
+        clipFromTexture.h = 191;
+        break;
+    case 77:
+        clipFromTexture.x = 2631;
+        clipFromTexture.y = 2401;
+        clipFromTexture.w = 90;
+        clipFromTexture.h = 156;
+        break;
+    case 78:
+        clipFromTexture.x = 614;
+        clipFromTexture.y = 3881;
+        clipFromTexture.w = 1024;
+        clipFromTexture.h = 786;
+        break;
+
     }
 
 }
@@ -563,21 +588,47 @@ void Texture::SetRect(char c)
     if (ascii == 32) //for space
     {
         ascii = 27;
+        clipFromTexture.x = 625 + (ascii)*73;
+        clipFromTexture.y = col*73;
+        clipFromTexture.w = 73;
+        clipFromTexture.h = 73;
     }
-    else if (ascii >= 97) //for small letters
+    if ((ascii >= 65 && ascii <= 90)|| (ascii >= 97 && ascii <= 122))
     {
-        col = 1;
-        ascii -= 97;
+        if (ascii >= 97 && ascii <= 122) //for small letters
+        {
+            col = 1;
+            ascii -= 97;
+            clipFromTexture.h = 101;
+        }
+        else if (ascii >= 65 && ascii <= 90) //for capital letters
+        {
+            ascii -= 65;
+            clipFromTexture.h = 73;
+        }
+        clipFromTexture.x = 625 + (ascii)*73;
+        clipFromTexture.y = col*73;
+        clipFromTexture.w = 73;
+    }
 
-    }
-    else if (ascii >= 65 && ascii <= 90) //for capital letters
+    else if (ascii >= 48 && ascii <= 57)
     {
-        ascii -= 65;
+        ascii -= 48;
+        clipFromTexture.x = 625 + (ascii)*73;
+        clipFromTexture.y = 184;
+        clipFromTexture.h = 73;
+        clipFromTexture.w = 73;
     }
-    clipFromTexture.x = 625 + (ascii)*73;
-    clipFromTexture.y = col*73;
-    clipFromTexture.w = 73;
-    clipFromTexture.h = 73;
+
+    else if (ascii == 63)
+    {
+        clipFromTexture.x = 1356;
+        clipFromTexture.y = 184;
+        clipFromTexture.h = 73;
+        clipFromTexture.w = 73;
+    }
+
+
 }
 
 
