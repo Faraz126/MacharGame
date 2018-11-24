@@ -158,6 +158,11 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
             node.cur_screen = node.prev_screen;
             node.prev_screen = this;
         }
+
+        for (int i = 0; i < noOfHumans; i++)
+        {
+            humans[i]->HandleEvents(e);
+        }
     }
 
 }

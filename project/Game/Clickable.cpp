@@ -78,3 +78,24 @@ void Clickable::GetCenter(int& x, int& y)
     x = pos.x + pos.w/2;
     y = pos.y + pos.h/2;
 }
+
+bool Clickable::Collides(const SDL_Rect& rect, const SDL_Rect& pos)
+{
+    if (pos.y + pos.h <= rect.y)
+    {
+        return false;
+    }
+    if (pos.y >= rect.y + rect.h)
+    {
+        return false;
+    }
+    if (pos.x + pos.w <= rect.x)
+    {
+        return false;
+    }
+    if (pos.x >= rect.x + rect.w)
+    {
+        return false;
+    }
+    return true;
+}

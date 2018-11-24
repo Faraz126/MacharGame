@@ -35,6 +35,11 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
 
 }
 
+void Human::HandleEvents(SDL_Event* e)
+{
+    return;
+}
+
 Human::Human(House* house): Human(0,0, house)
 {
 
@@ -66,7 +71,7 @@ bool Human::Collide(SDL_Rect& tempRect)
         Human** humans = ownHouse->GetHumans(n);
         for (int i = 0; i < n; i++)
         {
-            if (humans[i]->Collides(tempRect) && humans[i] != this)
+            if (humans[i]->Collides(tempRect, humans[i]->collideRect) && humans[i] != this)
             {
                 return true;
             }
@@ -144,7 +149,7 @@ void Human::Update(int frame)
                     }
                     else
                     {
-                        isHorizontal = !isHorizontal;
+                        isHorizontal = false;
                         faceDirection = UP;
                     }
                     if (toFollowY < collideRect.y && !isHorizontal)
@@ -154,7 +159,7 @@ void Human::Update(int frame)
                     }
                     else if (door->Collides(pos))
                     {
-                        spriteNum = 75;
+                        spriteNum = 76;
                         ChangeState(SITTING);
                         isHorizontal = true;
                     }
@@ -181,11 +186,11 @@ void Human::Update(int frame)
                 timeSince++;
                 break;
             }
-            case (AVOIDING_COLLISION):
+            case AVOIDING_COLLISION:
             {
                 Move();
                 timeSince++;
-                if (timeSince>5)
+                if (timeSince>10)
                 {
                     ChangeState();
                 }
@@ -264,31 +269,34 @@ void Human::Move()
         timeSince = 0;
         activity = AVOIDING_COLLISION;
     }
-
-
-    if (faceDirection == RIGHT)
+    else
     {
 
-        pos.x += step;
-        collideRect.x += step;
+        if (faceDirection == RIGHT)
+        {
 
-    }
-    else if (faceDirection == LEFT)
-    {
-        pos.x -= step;
-        collideRect.x -= step;
+            pos.x += step;
+            collideRect.x += step;
 
-    }
-    else if (faceDirection == DOWN)
-    {
-        pos.y += step;
-        collideRect.y += step;
+        }
+        else if (faceDirection == LEFT)
+        {
+            pos.x -= step;
+            collideRect.x -= step;
 
-    }
-    else if (faceDirection == UP)
-    {
-        pos.y -= step;
-        collideRect.y -= step;
+        }
+        else if (faceDirection == DOWN)
+        {
+            pos.y += step;
+            collideRect.y += step;
+
+        }
+        else if (faceDirection == UP)
+        {
+            pos.y -= step;
+            collideRect.y -= step;
+
+        }
 
     }
 
@@ -417,17 +425,24 @@ void Human::ChooseDoor()
 
 void Human::Show(SDL_Renderer* renderer)
 {
-    if (faceDirection == RIGHT || faceDirection == LEFT)
+    if (activity == WALKING || activity == GOING_TO_BED || activity == GOING_TO_DOOR)
     {
-        Texture::GetInstance()->Render(80,renderer, &pos);
+        if (faceDirection == RIGHT || faceDirection == LEFT)
+        {
+            Texture::GetInstance()->Render(80,renderer, &pos);
+        }
+        else if (faceDirection == UP)
+        {
+            Texture::GetInstance()->Render(79,renderer, &pos);
+        }
+        else
+        {
+            Texture::GetInstance()->Render(74, renderer, &pos);
+        }
     }
-    else if (faceDirection == UP)
+    else if (activity == SITTING)
     {
-        Texture::GetInstance()->Render(79,renderer, &pos);
-    }
-    else
-    {
-        Texture::GetInstance()->Render(74, renderer, &pos);
+        Texture::GetInstance()->Render(spriteNum, renderer, &pos);
     }
 
     SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);

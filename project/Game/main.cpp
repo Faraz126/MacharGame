@@ -11,7 +11,7 @@
 #include "time.h"
 #include <random>
 #include"Outdoor.h"
-
+#include "GLOBALS.h"
 
 using namespace std;
 
@@ -137,12 +137,12 @@ int main( int argc, char* args[] )
         int frame = 0;
 
 
-        while (!quit)
+        while (!GAME_QUIT)
         {
             screen.cur_screen->Update(frame);
             while (SDL_PollEvent(&e))
             {
-                if( e.type == SDL_QUIT ) quit = true;
+                if( e.type == SDL_QUIT ) GAME_QUIT = true;
                 screen.cur_screen->HandleEvents(&e,screen);
             }
 

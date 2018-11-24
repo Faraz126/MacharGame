@@ -60,6 +60,7 @@ public:
     void ChooseDoor();
     bool MoveAllowed();
     void ChangeDirection();
+    void HandleEvents(SDL_Event*);
 
 };
 
