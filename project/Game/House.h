@@ -48,7 +48,7 @@ public:
     ~House();
     bool GetHasRepellent();
     void AddHuman();
-    void LeaveHuman();
+    void LeaveHuman(Human*);
     void Click();
     void Show(SDL_Renderer*);
     void ShowOutside(SDL_Renderer*, const SDL_Rect&);

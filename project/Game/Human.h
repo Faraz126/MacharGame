@@ -11,6 +11,7 @@
 #include <stack>
 #include "Door.h"
 #include "Scenario.h"
+#include "DoublyLinked.h"
 
 
 enum DIRECTION {UP, RIGHT, DOWN, LEFT};
@@ -23,9 +24,13 @@ class House;
 class Human: public Clickable
 {
 private:
+    SDL_Rect face, body, legs;
     House* ownHouse;
     Scenario* currentScenario;
     SDL_Rect collideRect;
+    double sizeFactor;
+    int faceSprite,bodySprite,legSprite;
+    double walker;
     bool isIndoor;
     bool isGoingToBed;
     bool isGoingOut;
@@ -44,7 +49,7 @@ private:
     int slowDownFactor;
     int spriteNum;
     Door* door;
-    std::stack <int> myStack;
+    DLL<int> myStack;
 
 
 protected:
@@ -62,7 +67,9 @@ public:
     void ChooseDoor();
     bool MoveAllowed();
     void ChangeDirection();
+    void BuildHuman();
     void HandleEvents(SDL_Event*, Screens_Node&);
 
 };
+
 

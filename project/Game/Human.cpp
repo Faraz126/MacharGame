@@ -3,6 +3,7 @@
 #include <cmath>
 #include "House.h"
 
+
 Human::Human(): Clickable(0,0,197, 575)
 {
     ownHouse = 0;
@@ -14,7 +15,8 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     spriteNum = 74;
     ownHouse  =  house;
     currentScenario = house;
-    ReduceSize(0.3);
+    sizeFactor = 0.3;
+    ReduceSize(sizeFactor);
     collideRect.x = pos.x + 10;
     collideRect.y = pos.y + pos.h - 10;
     collideRect.w = pos.w-10;
@@ -29,10 +31,34 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     activity = WALKING;
     timeSince = 0;
     step = 1;
-    slowDownFactor = 1;
+    slowDownFactor = 3;
     isInfected = false;
     door = ownHouse->GetDoor();
+    faceSprite = 86;
+    bodySprite = 83;
+    legSprite = 103;
+    walker = 0;
+    BuildHuman();
 
+
+}
+
+void Human::BuildHuman()
+{
+    face.x = pos.x;
+    face.y = pos.y;
+    face.w = 193*sizeFactor;
+    face.h = 124*sizeFactor;
+
+    body.x = pos.x;
+    body.y = face.y + face.h-10;
+    body.w = 193 * sizeFactor;
+    body.h = 268 * sizeFactor;
+
+    legs.x = pos.x+10;
+    legs.y = body.y + body.h-15;
+    legs.w = 177*sizeFactor;
+    legs.h = 250*sizeFactor;
 
 }
 
@@ -85,14 +111,30 @@ void Human::Update(int frame)
 {
     if (frame % slowDownFactor == 0)
     {
+
+        walker += 0.02;
+        if (walker > 10)
+        {
+            walker = 0;
+        }
         switch (activity)
         {
+            case (LYING):
+            {
+                timeSince++;
+                if (timeSince > 2000)
+                {
+                    ChangeState();
+                }
+                break;
+            }
+
             case SITTING:
             {
                 timeSince++;
                 if (timeSince > 2000)
                 {
-                    //bedToGoTo->SetOccupied(false);
+                    bedToGoTo->SetOccupied(false);
                     ChangeState();
                 }
                 break;
@@ -120,7 +162,7 @@ void Human::Update(int frame)
                         faceDirection = UP;
 
                     }
-                    if (bedToGoTo->Collides(pos))
+                    if (bedToGoTo->Collides(collideRect) || bedToGoTo->Collides(legs))
                     {
                         isHorizontal = true;
                         spriteNum = 75;
@@ -158,10 +200,10 @@ void Human::Update(int frame)
                         faceDirection = UP;
 
                     }
-                    else if (door->Collides(pos))
+                    if (door->Collides(collideRect) || door->Collides(legs))
                     {
                         spriteNum = 76;
-                        ChangeState(SITTING);
+                        ChangeState(LYING);
                         isHorizontal = true;
                     }
                 Move();
@@ -264,7 +306,7 @@ void Human::Move()
     {
         if (activity != AVOIDING_COLLISION)
         {
-            myStack.push(activity);
+            myStack.Append(activity);
         }
         ChangeDirection();
         timeSince = 0;
@@ -278,24 +320,36 @@ void Human::Move()
 
             pos.x += step;
             collideRect.x += step;
+            face.x += step;
+            body.x += step;
+            legs.x += step;
 
         }
         else if (faceDirection == LEFT)
         {
             pos.x -= step;
             collideRect.x -= step;
+            face.x -= step;
+            body.x -= step;
+            legs.x -= step;
 
         }
         else if (faceDirection == DOWN)
         {
             pos.y += step;
             collideRect.y += step;
+            face.y += step;
+            body.y += step;
+            legs.y += step;
 
         }
         else if (faceDirection == UP)
         {
             pos.y -= step;
             collideRect.y -= step;
+            face.y -= step;
+            body.y -= step;
+            legs.y -= step;
 
         }
 
@@ -306,10 +360,9 @@ void Human::Move()
 void Human::ChangeState(int n)
 {
     timeSince = 0;
-    if (!myStack.empty())
+    if (!myStack.IsEmpty())
     {
-        activity = myStack.top();
-        myStack.pop();
+        activity = myStack.Pop();
     }
     else if (n != -1)
     {
@@ -328,7 +381,7 @@ void Human::ChangeState(int n)
             {
                 if (!isIndoor)
                 {
-                    myStack.push(GOING_TO_BED);
+                    myStack.Append(GOING_TO_BED);
                     activity = GOING_TO_DOOR;
                 }
             }
@@ -365,9 +418,10 @@ void Human::ChooseBed()
         {
             myBeds[i].GetCenter(toFollowX, toFollowY);
             bedToGoTo = &myBeds[i];
-            break;
+            return;
         }
     }
+
 }
 
 bool Human::MoveAllowed()
@@ -428,18 +482,50 @@ void Human::Show(SDL_Renderer* renderer)
 {
     if (activity == WALKING || activity == GOING_TO_BED || activity == GOING_TO_DOOR)
     {
-        if (faceDirection == RIGHT || faceDirection == LEFT)
+        int face = 0;
+        int body = 0;
+        int leg = 0;
+        bool flipped = false;
+
+        if (faceDirection == UP)
         {
-            Texture::GetInstance()->Render(80,renderer, &pos);
+            face = 85;
+            leg = 93;
+            body = 82;
         }
-        else if (faceDirection == UP)
+        else if (faceDirection == RIGHT)
         {
-            Texture::GetInstance()->Render(79,renderer, &pos);
+            face = 86;
+            leg = 103;
+            body = 83;
+            flipped = false;
+        }
+        else if (faceDirection == LEFT)
+        {
+            face = 86;
+            leg = 103;
+            body = 83;
+            flipped = true;
+        }
+        else if (faceDirection == DOWN)
+        {
+            face = 84;
+            leg = 93;
+            body = 81;
+        }
+        if (!flipped)
+        {
+            Texture::GetInstance()->Render(face,renderer, &this->face);
+            Texture::GetInstance()->Render((int)(leg+ walker), renderer, &legs);
+            Texture::GetInstance()->Render(body,renderer, &this->body);
         }
         else
         {
-            Texture::GetInstance()->Render(74, renderer, &pos);
+            Texture::GetInstance()->RenderFlipped(face,renderer, &this->face);
+            Texture::GetInstance()->RenderFlipped((int)(leg+ walker), renderer, &legs);
+            Texture::GetInstance()->RenderFlipped(body,renderer, &this->body);
         }
+
     }
     else if (activity == SITTING)
     {

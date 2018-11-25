@@ -18,15 +18,19 @@ class DLL
 
 public:
 
+    bool IsEmpty()
+    {
+        return len == 0;
+    }
     DLL()
     {
-        Node<Type>* head= tail = 0;
+        Node<Type>* head = tail = NULL;
         len = 0;
     }
 
     DLL(const DLL& list_given)
     {
-        head = tail = 0;
+        head = tail = NULL;
         len = 0;
         Node<Type>* temp = list_given.head;
         while (temp != list_given.tail)
@@ -58,105 +62,163 @@ public:
         len++;
 
     }
+
     void Append(Type data, int index)
     {
-        if((index<0) || (index > len))
+        if(index >= 0 && index <= len )
         {
-            cout<<"invalid index";
-        }
-        else
-        {
-            Node<Type>* c_node  = new Node<Type>;
-            Node<Type>* temp  = new Node<Type>;
-            c_node->data = data;
-            temp =head;
-            if(index==0)
+            if (index == 0)
             {
+                if ( len == 0)
+                {
+                    head = tail = new Node<Type>;
+                    head -> data = data ;
+                }
+                else
+                {
+                    head -> prev = new Node<Type> ;
+                    head ->prev -> next = head ;
+                    head = head -> prev ;
+                    head -> data = data ;
+                }
+            }
 
-                c_node->next = head;
-                head = c_node;
+            else if (index == len )
+            {
+                tail -> next = new Node<Type>;
+                tail ->next -> prev = tail ;
+                tail = tail -> next ;
+                tail -> data = data ;
             }
             else
             {
-                int iter = 0;
-                while(iter!=index)
+                Node<Type>* temp ;
+                if (index <= len /2)
                 {
-                    temp = temp->next;
-                    iter++;
+                    temp = head ;
+                    for ( int j = 0; j < index; j ++)
+                    {
+                        temp =temp -> next ;
+                    }
                 }
-                c_node->prev = temp->prev;
-                c_node->next = temp->next;
+                else
+                {
+                    temp = tail ;
+                    for ( int j = 0; j < len -index -1; j ++)
+                    {
+                        temp = temp -> prev ;
+                    }
+                }
 
-            }
+                Node<Type>* newNode = new Node<Type> ;
+                newNode -> data = data ;
+                newNode -> prev = temp -> prev ;
+                newNode -> next = temp ;
+                temp ->prev -> next = newNode ;
+                temp -> prev = newNode ;
 
-            len++;
+                }
+            len ++;
+        }
+
+        else
+        {
+            cout << " Index is out of range " << endl ;
         }
     }
+
     Type Pop()
     {
         Type val;
         if (len == 0)
         {
-            return -1;
-        }
-        val = tail->data;
-        tail = tail->prev;
-        if (tail != 0 && tail->next != 0)
-        {
-            delete tail->next;
-            tail->next= 0;
-        }
-
-
-        len--;
-        return val;
-
-    }
-    Type Pop(int index)
-    {
-        Type val;
-        Node<Type>* c_node = head;
-
-        if (index == 0)
-        {
-            if (head == tail)
-            {
-                tail = head->next;
-            }
-            head = head->next;
-            if (head != 0)
-            {
-                head->prev = 0;
-            }
-
-            val = c_node->data;
-            len--;
-            delete c_node;
+            val = -1;
+            cout<<"Can not pop. List is empty"<<endl;
             return val;
         }
 
-        else if (index == len-1)
+        val = tail->data;
+        if(head==tail)
         {
-            return Pop();
+            Node<Type>* tem = head;
+            head = head->next = head->prev = NULL;
+            tail = tail->next = tail->prev = NULL;
+            delete tem;
         }
-
-        int c_index = 0;
-        while (c_index != index)
+        else
         {
-            c_node = c_node->next;
-            c_index++;
+            tail = tail->prev;
+            delete tail->next;
+            tail->next = NULL;
         }
-        val = c_node->data;
-        c_node->prev->next = c_node->next;
-        c_node->next->prev = c_node->prev;
-        delete c_node;
-
+        len--;
         return val;
-
     }
+
+    Type Pop(int index)
+    {
+        Type val;
+
+        if (index<0 || index>=len)
+        {
+            cout<<"invalid index"<<endl;
+            return -1;
+        }
+
+        if (len == 0)
+        {
+            cout<<"Can not pop. List is empty"<<endl;
+            return -1;
+        }
+
+        if(index==len-1 && index!=0)
+        {
+            val = tail->data;
+            tail = tail->prev;
+            delete tail->next;
+            tail->next = NULL;
+            len--;
+        }
+
+        else if (index == 0)
+        {
+            Node<Type>* c_node = head;
+            val = head->data;
+            if(head==tail)
+            {
+                head = head->next = head->prev = NULL;
+                tail = tail->next = tail->prev = NULL;
+                delete c_node;
+            }
+            else
+            {
+                head = head->next;
+                delete c_node;
+            }
+            len--;
+        }
+
+        else
+        {
+            Node<Type>* c_node = head;
+            int i=0;
+            while(i!=index)
+            {
+                c_node = c_node->next;
+                i++;
+            }
+            val = c_node->data;
+            c_node->prev->next = c_node->next;
+            c_node->next->prev = c_node->prev;
+            delete c_node;
+            len--;
+        }
+        return val;
+    }
+
     void Show()
     {
-        std::cout << "CURRENT LEN " << len << std::endl;
+        std::cout << endl<<"CURRENT LEN " << len << std::endl;
         if (len == 0)
         {
             return;

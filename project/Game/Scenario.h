@@ -12,12 +12,12 @@ class BreedingGround;
 
 class Scenario : public Screens
 {
-    protected:
-        int noOfEntrance;
-        BreedingGround** breedingplaces;
-        std::vector<Clickable*> myQ;
-        Entrance** entrance;
-        int noOfBreedingPlaces;
+protected:
+    int noOfEntrance;
+    BreedingGround** breedingplaces;
+    std::vector<Clickable*> myQ;
+    Entrance** entrance;
+    int noOfBreedingPlaces;
 
 public:
     BreedingGround** GetBreedingGrounds(int&);

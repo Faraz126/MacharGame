@@ -112,6 +112,8 @@
 		<Unit filename="Plant.h" />
 		<Unit filename="Point.h" />
 		<Unit filename="Queue.h" />
+		<Unit filename="Scenario.cpp" />
+		<Unit filename="Scenario.h" />
 		<Unit filename="Screens.cpp" />
 		<Unit filename="Screens.h" />
 		<Unit filename="Settings.cpp" />
