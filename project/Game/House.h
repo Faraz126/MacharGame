@@ -51,7 +51,6 @@ public:
     void LeaveHuman(Human*);
     void Click();
     void Show(SDL_Renderer*);
-    void ShowOutside(SDL_Renderer*, const SDL_Rect&);
     void getWindowState();
     void getEntranceState();
     void Update(int);

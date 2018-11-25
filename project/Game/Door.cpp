@@ -35,15 +35,11 @@ void Door::Show(SDL_Renderer* renderer)
 }
 
 
-void Door::ShowOutside(SDL_Renderer* renderer, const SDL_Rect& rect ,float widthRatio)
+void Door::ShowOutside(SDL_Renderer* renderer)
 {
-    SDL_Rect temp;
-    temp.x = rect.x + (((1024-(float)pos.x)/1024)*(float)rect.w) -35;
 
-    temp.w = pos.w/widthRatio;
-    temp.h = pos.h/widthRatio;
-    temp.y = rect.y + (rect.h - temp.h) ;
-    Texture::GetInstance()->Render(spriteNum, renderer, &temp);
+    Texture::GetInstance()->Render(spriteNum, renderer, &OutdoorPos);
+
 }
 
 void Door::ChangeState()

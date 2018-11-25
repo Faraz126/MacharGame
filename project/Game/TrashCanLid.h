@@ -1,7 +1,4 @@
 #pragma once
-#ifndef TRASHCANLID_H
-#define TRASHCANLID_H
-
 #include <SDL.h>
 #include <SDL_image.h>
 #include <random>
@@ -26,4 +23,3 @@ class TrashCanLid: public Lids
         ~TrashCanLid();
 };
 
-#endif

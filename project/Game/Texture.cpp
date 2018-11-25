@@ -579,6 +579,7 @@ void Texture::SetRect(int n)
         clipFromTexture.w = 197;
         clipFromTexture.h = 575;
         break;
+
     case 80:
         clipFromTexture.x = 95;
         clipFromTexture.y = 4691;
@@ -778,8 +779,6 @@ void Texture::SetRect(int n)
         clipFromTexture.h = 250;
         break;
 
-
-
     }
 
 }
@@ -844,6 +843,7 @@ void Texture::RenderFlipped(int serial, SDL_Renderer* renderer, SDL_Rect* clip)
     SDL_RenderCopyEx(renderer, this->texture, &clipFromTexture, clip,0.0,0,SDL_FLIP_HORIZONTAL);
 
 }
+
 
 
 

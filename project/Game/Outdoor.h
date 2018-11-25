@@ -13,12 +13,14 @@
 #include "Clickable.h"
 #include "ShoppingMenu.h"
 #include "Human.h"
+#include "DirtyWater.h"
+#include "CleanWater.h"
+#include "Scenario.h"
 
 
 
 
-
-class Outdoor: public Screens
+class Outdoor: public Scenario
 {
 private:
 //    Mosquito* mosquito;
@@ -35,22 +37,27 @@ private:
 
     int countContainer;
     int countPlants;
-    int countWater;
+    int countCleanWater;
     int countTrashcan;
     int countManhole;
     bool shopShow;
     int totalHumans;
 
+
     SDL_Rect* houseRect; //rectangle for clickable region of house
-    SDL_Rect* entranceRect; //rectangle for entrance region of house
     House* house;
+
     Container** container;
     ShoppingMenu* shop;
 
     Human** humans;
+    Entrance** entrance;
+
     Human** GenerateHumans();
     int CountHumans();
-
+    void GetHouseEntrance();
+    void HandleScrolling(SDL_Event*);
+    void PlaceContainers();
 
 protected:
 

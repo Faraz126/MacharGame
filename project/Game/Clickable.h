@@ -15,6 +15,7 @@ class Clickable
         bool Collides(const Clickable&);
         static bool Collides(const SDL_Rect&, const SDL_Rect&);
         void ReduceSize(double);
+        void SetX(int,int);
         virtual ~Clickable();
         int GetDistance(int,int);
         void GetCenter(int&, int&);

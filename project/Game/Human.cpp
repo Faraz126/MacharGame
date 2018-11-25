@@ -119,6 +119,7 @@ void Human::Update(int frame)
         }
         switch (activity)
         {
+
             case (LYING):
             {
                 timeSince++;
@@ -251,6 +252,7 @@ void Human::ChangeDirection()
     {
         case (UP):
         {
+
             if( rand()%2 == 0)
             {
                 faceDirection = RIGHT;
@@ -398,6 +400,7 @@ void Human::ChangeState(int n)
     }
     else if (activity == GOING_TO_DOOR)
     {
+
         ChooseDoor();
     }
 
@@ -465,6 +468,7 @@ bool Human::MoveAllowed()
             }
             break;
         }
+
     }
     if (Collide(tempRect))
     {

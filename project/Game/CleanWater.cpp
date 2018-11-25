@@ -1,21 +1,39 @@
 #include "CleanWater.h"
 
-CleanWater::CleanWater(int x, int y): Container(x,y, WATER_WIDTH, WATER_HEIGHT)
+CleanWater::CleanWater(int x, int y): Container(x,y, C_WATER_WIDTH, C_WATER_HEIGHT)
 {
-    spriteNum = rand()%4 + 27;
-    SetCovered((bool)(rand()%2));
-
+    spriteNum = 72;
+    ReduceSize(0.25);
+    lid = new Soil(pos.x, pos.y - 100);
 }
 
 void CleanWater::SetCovered(bool status)
 {
-    spriteNum = spriteNum + (4*(int)status);
+    if (status)
+    {
+        lid->SetPosition(pos.x-6,pos.y-14); //set to right ahead of trashcan.
+    }
     Container::SetCovered(status);
+}
+
+void CleanWater::HandleEvents(SDL_Event* e, Screens_Node& node)
+{
+    int x = e->button.x;
+    int y = e->button.y;
+    if (!GetCovered())
+    {
+        lid->HandleEvents(e,node);
+    }
+    if (Collides(*lid))
+    {
+        SetCovered(true);
+    }
 }
 
 void CleanWater::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->Render(spriteNum,renderer, &pos);
+    lid->Show(renderer);
 }
 
 void CleanWater::Update(int)
@@ -24,10 +42,6 @@ void CleanWater::Update(int)
 
 }
 
-void CleanWater::HandleEvents(SDL_Event*, Screens_Node&)
-{
-
-}
 
 Mosquito* CleanWater::Breed()
 {
@@ -38,5 +52,4 @@ CleanWater::~CleanWater()
 {
     //dtor
 }
-
 

@@ -14,10 +14,11 @@ protected:
 
 public:
     Window(int,int);
+
     void Show(SDL_Renderer*);
 
     void Update(int);
-    void ShowOutside(SDL_Renderer*, const SDL_Rect&, float);
+    void ShowOutside(SDL_Renderer*);
     virtual void ChangeState();
     bool IsOpen();
     void HandleEvents(SDL_Event*, Screens_Node&){};

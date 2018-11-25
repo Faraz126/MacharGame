@@ -17,8 +17,8 @@ public:
     void Show(SDL_Renderer*);
 
     void Update(int);
-    void ShowOutside(SDL_Renderer*, const SDL_Rect&, float);
     void HandleEvents(SDL_Event*, Screens_Node&){};
+    void ShowOutside(SDL_Renderer*);
     virtual void ChangeState();
     bool IsOpen();
     //time SetTime();

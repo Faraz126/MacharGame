@@ -62,6 +62,7 @@ bool Clickable::Collides(const Clickable& obj)
 {
     return Collides(obj.pos);
 }
+
 void Clickable::UpdatePos(int x,int y)
 {
     pos.x = x;
@@ -98,4 +99,17 @@ bool Clickable::Collides(const SDL_Rect& rect, const SDL_Rect& pos)
         return false;
     }
     return true;
+}
+void Clickable:: SetX(int delta, int direction)
+{
+
+    if ( direction == 0)
+    {
+        pos.x+=delta;
+
+    }
+    if ( direction == 1)
+    {
+        pos.x-=delta;
+    }
 }

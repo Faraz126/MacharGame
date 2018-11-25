@@ -96,6 +96,7 @@
 		<Unit filename="MalariaMosquito.h" />
 		<Unit filename="Manhole.cpp" />
 		<Unit filename="Manhole.h" />
+		<Unit filename="ManholeLid.cpp" />
 		<Unit filename="ManholeLid.h" />
 		<Unit filename="Menu.cpp" />
 		<Unit filename="Menu.h" />
@@ -124,6 +125,7 @@
 		<Unit filename="Showpiece.h" />
 		<Unit filename="Slider.cpp" />
 		<Unit filename="Slider.h" />
+		<Unit filename="Soil.cpp" />
 		<Unit filename="Soil.h" />
 		<Unit filename="Texture.cpp" />
 		<Unit filename="Texture.h" />

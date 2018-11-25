@@ -12,14 +12,17 @@ private:
 
 protected:
     int spriteNum;
+    SDL_Rect OutdoorPos;
 
 public:
+    void SetOutdoorPos(int,int,int, int);
     Entrance(int,int,int,int);
     virtual void Show(SDL_Renderer*) = 0;
-    virtual void ShowOutside(SDL_Renderer*, const SDL_Rect&, float) = 0;
+    virtual void ShowOutside(SDL_Renderer*) = 0;
     virtual bool IsOpen() = 0;
     void SetState();
     void MosquitoEnter();
+    void SetOutdoorX(int,int);
     //bool WithinEntrance(int, int); //returns true if the given x,y co-ordinate is within the entrance.
     int GetX();
     int GetY();

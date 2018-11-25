@@ -91,8 +91,6 @@ House::House()
         myQ.push_back(humans[i]);
     }
 
-
-
 }
 
 void House::Show(SDL_Renderer* renderer)
@@ -163,7 +161,6 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
             {
                 entrance[i]->ChangeState();
             }
-
         }
          if (btn->WithinRegion(mousePosX,mousePosY))  //for outdoor button in house
         {
@@ -231,22 +228,11 @@ House::~House()
     delete[] showpieces;
 }
 
-void House::ShowOutside(SDL_Renderer* renderer, const SDL_Rect& rect)
-{
-    float div = wall.w / rect.w;
-    for (int i = 0; i < noOfEntrance; i++)
-    {
-        entrance[i]->ShowOutside(renderer, rect, div);
-    }
-
-}
-
 
 int House::NoOfHumans()
 {
     return noOfHumans;
 }
-
 
 Bed* House::GetBeds(int &n)
 {
