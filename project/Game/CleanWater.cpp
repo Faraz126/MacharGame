@@ -3,7 +3,7 @@
 CleanWater::CleanWater(int x, int y): Container(x,y, C_WATER_WIDTH, C_WATER_HEIGHT)
 {
     spriteNum = 72;
-    ReduceSize(0.25);
+    //ReduceSize(0.25);
     lid = new Soil(pos.x, pos.y + 100);
 }
 

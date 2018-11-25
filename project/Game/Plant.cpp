@@ -14,7 +14,6 @@ void Plant::SetCovered(bool status)
     spriteNum = spriteNum + (4*(int)status);
     if (status && water != 0)
     {
-        //spriteNum+=4;
         //delete water;
     }
     else
