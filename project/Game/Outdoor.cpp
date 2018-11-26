@@ -96,6 +96,7 @@ Outdoor:: Outdoor()
     entranceRect[3].h=179;
     humans = GenerateHumans();
 
+//    points = new Score;
 
 
 
@@ -138,7 +139,12 @@ void Outdoor::Show(SDL_Renderer* renderer)
     {
         house[i].ShowOutside(renderer, entranceRect[i]);
     }
-//    SDL_SetWindowBrightness(SDL_Window* gWindow,0.5);
+
+    points.Show(renderer);
+    money.Show(renderer);
+
+    //alert.Show(renderer);
+
 
 
 
@@ -167,6 +173,11 @@ void Outdoor::Update(int frame)
     {
         house[i].Update(frame);
     }
+    //alert.Update(alert.GetTimerSprite());
+
+
+
+
 
 }
 
@@ -233,6 +244,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
                 node.cur_screen = new PauseMenu;
                 node.prev_screen = this;
                 node.prev_updatable = false;
+                node.prev_backable = true;
             }
 
             if(pos1.x + pos1.w >= 1024*2.5) //to not go beyond screen width
@@ -259,6 +271,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
                 }
             }
         }
+        //alert.HandleEvents(e,node);
 }
 
 

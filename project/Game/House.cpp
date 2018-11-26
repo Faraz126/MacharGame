@@ -97,6 +97,7 @@ House::House()
 
 
 
+
 }
 
 void House::Show(SDL_Renderer* renderer)
@@ -144,6 +145,8 @@ void House::Show(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer,cartPos);
     if(houseShop->shopShow)
         houseShop->Show(renderer);
+    points.Show(renderer);
+    money.Show(renderer);
 }
 
 void House::HandleEvents(SDL_Event* e, Screens_Node& node)
@@ -160,6 +163,7 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
             node.cur_screen = new PauseMenu;
             node.prev_screen = this;
             node.prev_updatable = false;
+            node.prev_backable = true;
 
         }
     }

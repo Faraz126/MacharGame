@@ -17,6 +17,8 @@
 #include "ShoppingMenu.h"
 #include "EndMenu.h"
 #include "PauseMenu.h"
+#include "Score.h"
+#include "Money.h"
 
 
 
@@ -42,6 +44,9 @@ private:
     Button* btn;
     ShoppingMenu* houseShop;
     SDL_Rect* cartPos;
+    Score points;
+    Money money;
+
 
     //Outdoor* outdoor;
     //Door* door;

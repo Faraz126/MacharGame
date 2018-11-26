@@ -10,13 +10,11 @@
 #include"TrashCan.h"
 #include"Manhole.h"
 #include"House.h"
-
 #include "ShoppingMenu.h"
 #include "Human.h"
-
-
-
-
+#include "Score.h"
+#include "Money.h"
+#include "Alert.h"
 
 class Outdoor: public Screens
 {
@@ -51,6 +49,9 @@ private:
     Human** humans;
     Human** GenerateHumans();
     int CountHumans();
+    Score points;
+    Money money;
+    Alert alert;
 
 protected:
 
