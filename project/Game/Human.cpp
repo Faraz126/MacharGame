@@ -17,10 +17,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     currentScenario = house;
     sizeFactor = 0.3;
     ReduceSize(sizeFactor);
-    collideRect.x = pos.x + 10;
-    collideRect.y = pos.y + pos.h - 10;
-    collideRect.w = pos.w-10;
-    collideRect.h = 10;
+
     isIndoor = true;
     faceDirection = RIGHT;
     isGoingToBed = true;
@@ -53,6 +50,11 @@ void Human::ChangeScenario(Scenario* scenario)
 
 void Human::BuildHuman()
 {
+    collideRect.x = pos.x + 10;
+    collideRect.y = pos.y + pos.h - 10;
+    collideRect.w = pos.w-10;
+    collideRect.h = 10;
+
     face.x = pos.x;
     face.y = pos.y;
     face.w = 193*sizeFactor;
@@ -214,6 +216,15 @@ void Human::Update(int frame)
                         spriteNum = 76;
                         ChangeState(LYING);
                         isHorizontal = true;
+                        if (!isIndoor)
+                        {
+                            GoIndoor();
+                        }
+                        else
+                        {
+                            GoOutdoor();
+                        }
+
                     }
                 Move();
                 break;
@@ -487,7 +498,15 @@ bool Human::MoveAllowed()
 
 void Human::ChooseDoor()
 {
-    door->GetCenter(toFollowX, toFollowY);
+    if (isIndoor)
+    {
+        door->GetCenter(toFollowX, toFollowY);
+    }
+    else
+    {
+        door->OutdoorPosCenter(toFollowX, toFollowY);
+    }
+
 }
 
 void Human::Show(SDL_Renderer* renderer)
@@ -546,4 +565,28 @@ void Human::Show(SDL_Renderer* renderer)
 
     SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
     SDL_RenderDrawRect(renderer, &collideRect);
+}
+
+
+void Human::GoIndoor()
+{
+    isIndoor = true;
+
+}
+
+void Human::GoOutdoor()
+{
+    isIndoor = false;
+    ownHouse->GetOutdoor()->AddHuman(this);
+    ChangeScenario(ownHouse->GetOutdoor());
+    door->OutdoorPosCenter(pos.x, pos.y);
+    ReduceSize(0.5);
+    BuildHuman();
+    ChangeState(WALKING);
+
+}
+
+bool Human::GetIndoor()
+{
+    return isIndoor;
 }

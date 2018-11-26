@@ -18,8 +18,6 @@ void CleanWater::SetCovered(bool status)
 
 void CleanWater::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
-    int x = e->button.x;
-    int y = e->button.y;
     if (!GetCovered())
     {
         lid->HandleEvents(e,node);

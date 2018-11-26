@@ -34,7 +34,6 @@ private:
     bool hasRepellent;
     int noOfHumans;
 
-
     Bed* bed;
     SDL_Rect pos;
     Texture* texture;
@@ -56,8 +55,11 @@ public:
     House();
     ~House();
     bool GetHasRepellent();
-    void AddHuman();
-    void LeaveHuman(Human*);
+    void AddHuman(Human*){};
+    void LeaveHuman(Human*){};
+    void SetOutdoor(Scenario*);
+    Scenario* GetOutdoor();
+    Scenario* outdoor;
     void Click();
     void Show(SDL_Renderer*);
     void getWindowState();

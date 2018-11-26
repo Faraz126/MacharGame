@@ -49,10 +49,10 @@ private:
 
     Container** container;
     ShoppingMenu* shop;
-    Human** humans;
+    //Human** humans;
     Entrance** entrance;
 
-    Human** GenerateHumans();
+    //Human** GenerateHumans();
     int CountHumans();
     void GetHouseEntrance();
     void HandleScrolling(SDL_Event*);
@@ -66,8 +66,8 @@ protected:
 
 public:
     Outdoor();
-    //void AddHuman();
-    //void LeaveHuman();
+    void AddHuman(Human*);
+    void LeaveHuman(Human*){};
     //void Click();
     void Show(SDL_Renderer*);
     void Update(int);

@@ -30,6 +30,12 @@ Outdoor:: Outdoor()
     entrance = new Entrance*[12];
     house = new House[4]; //house count is 4
 
+    for (int i = 0; i < 4; i++)
+    {
+        // Setting outdoor pointer in every house. To be used by mosquitoes and humans.
+        house[i].SetOutdoor(this);
+    }
+
     PlaceContainers();
 
     houseRect= new SDL_Rect[4]; //clickable region for all 4 houses
@@ -52,7 +58,7 @@ Outdoor:: Outdoor()
     houseRect[3].y=150;
     houseRect[3].w=290;
     houseRect[3].h=300;
-    humans = GenerateHumans();
+    //humans = GenerateHumans();
     //noOfEntrance = 0;
     GetHouseEntrance();
     shop = new ShoppingMenu;
@@ -61,6 +67,7 @@ Outdoor:: Outdoor()
 
 }
 
+/*
 Human** Outdoor::GenerateHumans()
 {
     int n = CountHumans();
@@ -71,6 +78,7 @@ Human** Outdoor::GenerateHumans()
     }
     return temp;
 }
+*/
 
 void Outdoor::Show(SDL_Renderer* renderer)
 {
@@ -97,6 +105,11 @@ void Outdoor::Show(SDL_Renderer* renderer)
 
     points.Show(renderer);
     money.Show(renderer);
+
+    for (int i = 0; i < humans.size(); i++)
+    {
+        humans[i]->Show(renderer);
+    }
 
     //alert.Show(renderer);
 
@@ -141,6 +154,12 @@ void Outdoor::Update(int frame)
     {
         house[i].Update(frame);
     }
+
+    for (int i = 0; i < humans.size(); i++)
+    {
+        humans[i]->Update(frame);
+    }
+
 }
 
 
@@ -344,4 +363,10 @@ Outdoor :: ~Outdoor()
 
     delete[] houseRect;
     delete[] house;
+}
+
+
+void Outdoor::AddHuman(Human* human)
+{
+    humans.push_back(human);
 }

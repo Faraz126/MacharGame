@@ -12,7 +12,7 @@ Window::Window(int x, int y): Entrance(x,y, 200,110)
 
 void Window::ShowOutside(SDL_Renderer* renderer)
 {
-    Texture::GetInstance()->Render(spriteNum, renderer, &OutdoorPos);
+    Texture::GetInstance()->Render(spriteNum, renderer, &outdoorPos);
 }
 
 void Window::Update(int)

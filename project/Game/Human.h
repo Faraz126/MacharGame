@@ -50,6 +50,9 @@ private:
     int spriteNum;
     Door* door;
     DLL<int> myStack;
+    void GoOutdoor();
+    void GoIndoor();
+    void ChangeScenario(Scenario*);
 
 
 protected:
@@ -69,7 +72,9 @@ public:
     void ChangeDirection();
     void BuildHuman();
     void HandleEvents(SDL_Event*, Screens_Node&);
-    void ChangeScenario(Scenario*);
+    bool GetIndoor();
+
+
 
 };
 

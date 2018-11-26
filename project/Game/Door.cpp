@@ -13,6 +13,12 @@ void Door::Update(int frame)
 
 }
 
+void Door::OutdoorPosCenter(int& followX, int& followY)
+{
+    followX = outdoorPos.x + (outdoorPos.w/2);
+    followY = outdoorPos.y + (outdoorPos.h/2);
+}
+
 void Door::Show(SDL_Renderer* renderer)
 {
     if (rect == 0)
@@ -38,7 +44,7 @@ void Door::Show(SDL_Renderer* renderer)
 void Door::ShowOutside(SDL_Renderer* renderer)
 {
 
-    Texture::GetInstance()->Render(spriteNum, renderer, &OutdoorPos);
+    Texture::GetInstance()->Render(spriteNum, renderer, &outdoorPos);
 
 }
 

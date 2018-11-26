@@ -12,10 +12,10 @@ void Entrance::Show(SDL_Renderer* renderer)
 
 void Entrance::SetOutdoorPos(int x, int y,int w, int h)
 {
-    OutdoorPos.x = x;
-    OutdoorPos.y = y;
-    OutdoorPos.w = w;
-    OutdoorPos.h = h;
+    outdoorPos.x = x;
+    outdoorPos.y = y;
+    outdoorPos.w = w;
+    outdoorPos.h = h;
 }
 
 
@@ -45,12 +45,12 @@ void Entrance:: SetOutdoorX(int delta, int direction)
 
     if ( direction == 0)
     {
-        OutdoorPos.x+=delta;
+        outdoorPos.x+=delta;
 
     }
     if ( direction == 1)
     {
-        OutdoorPos.x-=delta;
+        outdoorPos.x-=delta;
     }
 }
 

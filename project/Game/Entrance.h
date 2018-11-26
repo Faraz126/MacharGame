@@ -12,7 +12,7 @@ private:
 
 protected:
     int spriteNum;
-    SDL_Rect OutdoorPos;
+    SDL_Rect outdoorPos;
 
 public:
     void SetOutdoorPos(int,int,int, int);

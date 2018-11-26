@@ -89,7 +89,6 @@ House::House()
     for (int i = 0; i < noOfHumans; i++)
     {
         humans[i] = new Human((i*30), 388 + (i*90),this);
-        myQ.push_back(humans[i]);
     }
 
 
@@ -106,6 +105,12 @@ House::House()
 
 
 }
+
+void House::SetOutdoor(Scenario* outdoorPtr)
+{
+    outdoor = outdoorPtr;
+}
+
 
 void House::Show(SDL_Renderer* renderer)
 {
@@ -143,15 +148,21 @@ void House::Show(SDL_Renderer* renderer)
         }
     }
 
-    for (int i = 0; i < noOfHumans; i++)
-    {
-        humans[i]->Show(renderer);
-    }
-//    humans->Show(renderer);
-<<<<<<< HEAD
-
     btn->Show(renderer);
     */
+
+
+    for (int i = 0; i < noOfHumans; i++)
+    {
+        if (humans[i]->GetIndoor())
+        {
+            humans[i]->Show(renderer);
+        }
+    }
+//    humans->Show(renderer);
+
+
+
     for (int i = 0; i < myQ.size(); i++)
     {
         myQ[i]->Show(renderer);
@@ -296,3 +307,11 @@ int House::GetHeight()
 {
     return height;
 }
+
+
+Scenario* House::GetOutdoor()
+{
+    return outdoor;
+}
+
+
