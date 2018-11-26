@@ -8,6 +8,7 @@ House::House()
     pos.w = wall.w = width = 1024;
     pos.h = height = 786;
     wall.h = 488;
+    houseShop = new ShoppingMenu();
 
     noOfEntrance = (rand() % 2) + 2;
     noOfHumans = (rand()%3) + 3;
@@ -91,6 +92,19 @@ House::House()
         myQ.push_back(humans[i]);
     }
 
+
+    houseShop->shopShow = false;
+
+    cartPos = new SDL_Rect;
+    cartPos->x = 970;
+    cartPos->y = 730;
+    cartPos->w = 20;
+    cartPos->h = 20;
+
+
+
+
+
 }
 
 void House::Show(SDL_Renderer* renderer)
@@ -134,6 +148,7 @@ void House::Show(SDL_Renderer* renderer)
         humans[i]->Show(renderer);
     }
 //    humans->Show(renderer);
+<<<<<<< HEAD
 
     btn->Show(renderer);
     */
@@ -141,6 +156,14 @@ void House::Show(SDL_Renderer* renderer)
     {
         myQ[i]->Show(renderer);
     }
+
+    btn->Show(renderer);
+    SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
+    SDL_RenderFillRect(renderer,cartPos);
+    if(houseShop->shopShow)
+        houseShop->Show(renderer);
+    points.Show(renderer);
+    money.Show(renderer);
 
 }
 
@@ -150,10 +173,25 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
     {
         SDL_Quit();
     }
+    if( e->type == SDL_KEYDOWN )
+    {
+
+        if(e->key.keysym.sym == SDLK_ESCAPE)    //will open pause menu
+        {
+            node.cur_screen = new PauseMenu;
+            node.prev_screen = this;
+            node.prev_updatable = false;
+            node.prev_backable = true;
+
+        }
+    }
     else if( e->type == SDL_MOUSEBUTTONDOWN && e->button.button == SDL_BUTTON_LEFT)
     {
         int mousePosX = e->button.x;
         int mousePosY = e->button.y;
+
+        if( ( mousePosX >cartPos->x ) && ( mousePosX < (cartPos->x+cartPos->w) ) && ( mousePosY > cartPos->y ) && (mousePosY< (cartPos->y+cartPos->h) ) )
+            houseShop->shopShow = true;
 
         for (int i = 0; i < noOfEntrance; i++)
         {

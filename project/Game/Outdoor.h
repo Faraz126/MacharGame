@@ -16,9 +16,9 @@
 #include "DirtyWater.h"
 #include "CleanWater.h"
 #include "Scenario.h"
-
-
-
+#include "Score.h"
+#include "Money.h"
+#include "Alert.h"
 
 class Outdoor: public Scenario
 {
@@ -49,7 +49,6 @@ private:
 
     Container** container;
     ShoppingMenu* shop;
-
     Human** humans;
     Entrance** entrance;
 
@@ -58,6 +57,10 @@ private:
     void GetHouseEntrance();
     void HandleScrolling(SDL_Event*);
     void PlaceContainers();
+
+    Score points;
+    Money money;
+    Alert alert;
 
 protected:
 

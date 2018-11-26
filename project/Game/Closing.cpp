@@ -63,11 +63,11 @@ void Closing::Show(SDL_Renderer* gRenderer)
     }
     counter += 0.0008;
     if(counter>1.75)
+
         SDL_Quit();
 
 
 }
-
 
 
 void Closing::Update(int frame)

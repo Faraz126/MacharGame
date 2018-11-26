@@ -15,7 +15,11 @@
 #include "Human.h"
 #include "Button.h"
 #include <vector>
-
+#include "ShoppingMenu.h"
+#include "EndMenu.h"
+#include "PauseMenu.h"
+#include "Score.h"
+#include "Money.h"
 
 
 
@@ -38,6 +42,11 @@ private:
     SDL_Rect wall;
     Human** humans;
     Button* btn;
+    ShoppingMenu* houseShop;
+    SDL_Rect* cartPos;
+    Score points;
+    Money money;
+
 
     //Outdoor* outdoor;
     //Door* door;

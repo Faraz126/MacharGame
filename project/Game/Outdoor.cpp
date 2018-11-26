@@ -57,6 +57,7 @@ Outdoor:: Outdoor()
     GetHouseEntrance();
     shop = new ShoppingMenu;
 
+//    points = new Score;
 
 }
 
@@ -93,6 +94,12 @@ void Outdoor::Show(SDL_Renderer* renderer)
             entrance[i]->ShowOutside(renderer);
         }
     }
+
+    points.Show(renderer);
+    money.Show(renderer);
+
+    //alert.Show(renderer);
+
 
 
 //    for(int i = 0; i<4; i++)
@@ -172,8 +179,15 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
             if( ( x >cartPos->x ) && ( x < (cartPos->x+cartPos->w) ) && ( y > cartPos->y ) && (y< (cartPos->y+cartPos->h) ) )
                 shop->shopShow = true;
         }
-
     }
+    if(e->key.keysym.sym == SDLK_ESCAPE)  //will open pause menu
+    {
+        node.cur_screen = new PauseMenu;
+        node.prev_screen = this;
+        node.prev_updatable = false;
+        node.prev_backable = true;
+    }
+
     HandleScrolling(e);
 }
 
@@ -239,6 +253,7 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                         houseRect[i].x+=20;
                     }
                 }
+
             }
 
             if(pos1.x + pos1.w >= 1024*2.5) //to not go beyond screen width
@@ -268,6 +283,7 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                 }
             }
         }
+        //alert.HandleEvents(e,node);
 }
 
 void Outdoor:: PlaceContainers()

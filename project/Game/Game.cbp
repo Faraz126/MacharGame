@@ -48,6 +48,8 @@
 		<Unit filename="AbstractFactory.cpp" />
 		<Unit filename="AbstractFactory.h" />
 		<Unit filename="AedesMosquito.h" />
+		<Unit filename="Alert.cpp" />
+		<Unit filename="Alert.h" />
 		<Unit filename="Bed.cpp" />
 		<Unit filename="Bed.h" />
 		<Unit filename="BreedingGround.cpp" />
@@ -74,7 +76,12 @@
 		<Unit filename="Disease.h" />
 		<Unit filename="Door.cpp" />
 		<Unit filename="Door.h" />
+<<<<<<< HEAD
 		<Unit filename="DoublyLinked.h" />
+=======
+		<Unit filename="EndMenu.cpp" />
+		<Unit filename="EndMenu.h" />
+>>>>>>> 3db8d0f5e10645e68bf1255a747744b4a16524d8
 		<Unit filename="Entrance.cpp" />
 		<Unit filename="Entrance.h" />
 		<Unit filename="ExitMenu.cpp" />
@@ -100,6 +107,8 @@
 		<Unit filename="ManholeLid.h" />
 		<Unit filename="Menu.cpp" />
 		<Unit filename="Menu.h" />
+		<Unit filename="Money.cpp" />
+		<Unit filename="Money.h" />
 		<Unit filename="Mosquito.cpp" />
 		<Unit filename="Mosquito.h" />
 		<Unit filename="MosquitoFactory.cpp" />
@@ -109,12 +118,19 @@
 		<Unit filename="NormalMosquito.h" />
 		<Unit filename="Outdoor.cpp" />
 		<Unit filename="Outdoor.h" />
+		<Unit filename="PauseMenu.cpp" />
+		<Unit filename="PauseMenu.h" />
 		<Unit filename="Plant.cpp" />
 		<Unit filename="Plant.h" />
 		<Unit filename="Point.h" />
 		<Unit filename="Queue.h" />
+<<<<<<< HEAD
 		<Unit filename="Scenario.cpp" />
 		<Unit filename="Scenario.h" />
+=======
+		<Unit filename="Score.cpp" />
+		<Unit filename="Score.h" />
+>>>>>>> 3db8d0f5e10645e68bf1255a747744b4a16524d8
 		<Unit filename="Screens.cpp" />
 		<Unit filename="Screens.h" />
 		<Unit filename="Settings.cpp" />

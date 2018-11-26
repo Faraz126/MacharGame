@@ -833,7 +833,6 @@ void Texture::SetRect(char c)
         clipFromTexture.w = 73;
     }
 
-
 }
 
 

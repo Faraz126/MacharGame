@@ -1,24 +1,24 @@
 #include "Settings.h"
 
-Setting::Setting():Menu(2,175,630,true)  //calling menus constructor that is constructing 2 buttons horizontally
+Setting::Setting():Menu(2,185,640,true)  //calling menus constructor that is constructing 2 buttons horizontally
 {
     settingPos.x= 110;
-    settingPos.y= 380;
+    settingPos.y= 390;
     settingPos.w= 800;
-    settingPos.h= 350;  //settings
+    settingPos.h= 380;  //settings
 
-    settingscancelPos.x = 850;
+    settingscancelPos.x = 860;
     settingscancelPos.y = 400;
     settingscancelPos.w = 35;
     settingscancelPos.h = 35;    //for cancel button
 
     settingSliderPos.x= 500-5;       //for slider bases
-    settingSliderPos.y= settingPos.y+75;
+    settingSliderPos.y= settingPos.y+85;
     settingSliderPos.w= 397*0.8;
     settingSliderPos.h= 52*0.8;
 
     settingSliderPos1.x= 500-5;
-    settingSliderPos1.y= settingPos.y+150;
+    settingSliderPos1.y= settingPos.y+160;
     settingSliderPos1.w= 397*0.8;
     settingSliderPos1.h= 52*0.8;
 
@@ -31,16 +31,16 @@ Setting::Setting():Menu(2,175,630,true)  //calling menus constructor that is con
     word = new Word[3];  // 3 because 3 words, settings, volume and brightness
 
     word[0].SetText("SETTINGS");
-    word[0].SetPosition(settingPos.x+290,settingPos.y+15);
+    word[0].SetPosition(settingPos.x+290,settingPos.y+25);
 
     word[1].SetText("VOLUME");
-    word[1].SetPosition(settingPos.x+10,settingPos.y+75);
+    word[1].SetPosition(settingPos.x+10,settingPos.y+85);
 
     word[2].SetText("BRIGHTNESS");
-    word[2].SetPosition(settingPos.x+10,settingPos.y+150);
+    word[2].SetPosition(settingPos.x+10,settingPos.y+160);
 
-    slider[0].setPosition(500,settingPos.y+75);
-    slider[1].setPosition(500,settingPos.y+150);
+    slider[0].setPosition(500,settingPos.y+85);
+    slider[1].setPosition(500,settingPos.y+160);
 }
 
 void Setting::Show(SDL_Renderer* gRenderer)
