@@ -22,9 +22,6 @@ protected:
 public:
     BreedingGround** GetBreedingGrounds(int&);
     Entrance** GetEntrance(int &);
-
-
-
 };
 
 

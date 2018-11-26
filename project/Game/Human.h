@@ -69,6 +69,7 @@ public:
     void ChangeDirection();
     void BuildHuman();
     void HandleEvents(SDL_Event*, Screens_Node&);
+    void ChangeScenario(Scenario*);
 
 };
 

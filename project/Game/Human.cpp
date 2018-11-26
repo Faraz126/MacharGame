@@ -43,6 +43,14 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
 
 }
 
+
+void Human::ChangeScenario(Scenario* scenario)
+{
+    currentScenario = scenario;
+}
+
+
+
 void Human::BuildHuman()
 {
     face.x = pos.x;
