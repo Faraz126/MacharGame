@@ -50,25 +50,24 @@ void Human::ChangeScenario(Scenario* scenario)
 
 void Human::BuildHuman()
 {
-    collideRect.x = pos.x + 10;
-    collideRect.y = pos.y + pos.h - 10;
-    collideRect.w = pos.w-10;
-    collideRect.h = 10;
-
     face.x = pos.x;
     face.y = pos.y;
     face.w = 193*sizeFactor;
     face.h = 124*sizeFactor;
 
     body.x = pos.x;
-    body.y = face.y + face.h-10;
+    body.y = face.y + face.h - (10*(3*sizeFactor));
     body.w = 193 * sizeFactor;
     body.h = 268 * sizeFactor;
 
     legs.x = pos.x+10;
-    legs.y = body.y + body.h-15;
+    legs.y = body.y + body.h - (10*(3*sizeFactor));
     legs.w = 177*sizeFactor;
     legs.h = 250*sizeFactor;
+    collideRect.x = pos.x + (10*(3*sizeFactor));
+    collideRect.y = legs.y + legs.h - 10;
+    collideRect.w = legs.w;
+    collideRect.h = 10;
 
 }
 
@@ -85,10 +84,10 @@ Human::Human(House* house): Human(0,0, house)
 
 bool Human::Collide(SDL_Rect& tempRect)
 {
-
+    int n;
     if (isIndoor)
     {
-        int n;
+
         Bed* bed = ownHouse->GetBeds(n);
         for (int i = 0; i <n; i++)
         {
@@ -97,21 +96,21 @@ bool Human::Collide(SDL_Rect& tempRect)
                 return true;
             }
         }
-        BreedingGround** breedingGrounds = ownHouse->GetBreedingGrounds(n);
-        for (int i = 0; i < n; i++)
+    }
+    BreedingGround** breedingGrounds = currentScenario->GetBreedingGrounds(n);
+    for (int i = 0; i < n; i++)
+    {
+        if (breedingGrounds[i]->Collides(tempRect))
         {
-            if (breedingGrounds[i]->Collides(tempRect))
-            {
-                return true;
-            }
+            return true;
         }
-        Human** humans = ownHouse->GetHumans(n);
-        for (int i = 0; i < n; i++)
+    }
+    std::vector<Human*> humans = currentScenario->GetHumans(n);
+    for (int i = 0; i < n; i++)
+    {
+        if (humans[i]->Collides(tempRect, humans[i]->collideRect) && humans[i] != this)
         {
-            if (humans[i]->Collides(tempRect, humans[i]->collideRect) && humans[i] != this)
-            {
-                return true;
-            }
+            return true;
         }
     }
     return false;
@@ -233,11 +232,11 @@ void Human::Update(int frame)
 
             case WALKING:
             {
-                if (timeSince*step > (ownHouse->GetWidth())*2)
+                if (timeSince*step > (currentScenario->GetWidth())*2)
                 {
                     ChangeState();
                 }
-                if (collideRect.x >= ownHouse->GetWidth())
+                if (collideRect.x >= currentScenario->GetWidth())
                 {
                     faceDirection = LEFT;
                 }
@@ -454,7 +453,7 @@ bool Human::MoveAllowed()
         case (RIGHT):
         {
             tempRect.x++;
-            if (tempRect.x > 1024)
+            if (tempRect.x > currentScenario->GetWidth())
             {
                 return false;
             }
@@ -472,7 +471,7 @@ bool Human::MoveAllowed()
         case (UP):
         {
             tempRect.y--;
-            if (tempRect.y <= 488)
+            if (tempRect.y <= currentScenario->GetHeight())
             {
                 return false;
             }
@@ -580,8 +579,10 @@ void Human::GoOutdoor()
     ownHouse->GetOutdoor()->AddHuman(this);
     ChangeScenario(ownHouse->GetOutdoor());
     door->OutdoorPosCenter(pos.x, pos.y);
-    ReduceSize(0.5);
+    sizeFactor = 0.2;
+    ReduceSize(sizeFactor);
     BuildHuman();
+
     ChangeState(WALKING);
 
 }
@@ -589,4 +590,24 @@ void Human::GoOutdoor()
 bool Human::GetIndoor()
 {
     return isIndoor;
+}
+
+
+void Human::SetX(int delta, int direction)
+{
+    if ( direction == 0)
+    {
+        collideRect.x+=delta;
+        face.x += delta;
+        body.x += delta;
+        legs.x += delta;
+    }
+    if ( direction == 1)
+    {
+        collideRect.x -=delta;
+        face.x -= delta;
+        body.x -= delta;
+        legs.x -= delta;
+    }
+    Clickable::SetX(delta, direction);
 }

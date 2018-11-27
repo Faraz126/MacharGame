@@ -47,7 +47,7 @@ private:
     SDL_Rect* houseRect; //rectangle for clickable region of house
     House* house;
 
-    Container** container;
+    //Container** container;
     ShoppingMenu* shop;
     //Human** humans;
     Entrance** entrance;

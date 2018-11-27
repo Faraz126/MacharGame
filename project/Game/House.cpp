@@ -6,8 +6,8 @@ House::House()
     pos.x = wall.x = 0;
     pos.y = wall.y = 0;
     pos.w = wall.w = width = 1024;
-    pos.h = height = 786;
-    wall.h = 488;
+    pos.h = 786;
+    wall.h = height = 488;
     houseShop = new ShoppingMenu();
 
     noOfEntrance = (rand() % 2) + 2;
@@ -85,10 +85,11 @@ House::House()
     btn->SetWidth(200,55);
     btn->setText("OUTDOOR");
     btn->word->ReduceSize(0.8);
-    humans = new Human*[noOfHumans];
+    Human* humanPtr;
     for (int i = 0; i < noOfHumans; i++)
     {
-        humans[i] = new Human((i*30), 388 + (i*90),this);
+        humanPtr = new Human((i*30), 388 + (i*90),this);
+        humans.push_back(humanPtr);
     }
 
 
@@ -287,25 +288,6 @@ Bed* House::GetBeds(int &n)
 {
     n = noOfHumans;
     return bed;
-}
-
-
-
-Human** House::GetHumans(int & n)
-{
-    n = noOfHumans;
-    return humans;
-}
-
-
-int House::GetWidth()
-{
-    return width;
-}
-
-int House::GetHeight()
-{
-    return height;
 }
 
 

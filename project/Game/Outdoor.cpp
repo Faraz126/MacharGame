@@ -8,10 +8,14 @@ using namespace std;
 Outdoor:: Outdoor()
 {
     //screen dimensions
+    width = 1024*2.5;
+    height = 460;
+
     pos.x = 0;
     pos.y = 0;
     pos.w = 1024;
     pos.h = 786;
+
 
     //part of sprite clipped from spritesheet
     pos1.x = 0;
@@ -86,7 +90,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
 
     for(int i = 0; i<countContainer; i++ )
     {
-        container[i]->Show(renderer);
+        breedingplaces[i]->Show(renderer);
     }
 
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
@@ -169,9 +173,9 @@ void Outdoor::Update(int frame)
 void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
 {
-    for (int i = 0; i<countContainer; i++ ) ///to drag & drop lids on containers
+    for (int i = 0; i<noOfBreedingPlaces; i++ ) ///to drag & drop lids on breedingplacess
     {
-        container[i]->HandleEvents(e,node);
+        breedingplaces[i]->HandleEvents(e,node);
     }
 
     shop->HandleEvents(e,node);
@@ -258,9 +262,9 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                 if (e->key.keysym.sym == SDLK_LEFT )
                 {
                     pos1.x -= 20;
-                    for(int i = 0; i<countContainer; i++ )
+                    for(int i = 0; i<noOfBreedingPlaces; i++ )
                     {
-                        container[i]->SetX(20,0);
+                        breedingplaces[i]->SetX(20,0);
                     }
                     for(int i = 0; i<noOfEntrance; i++ )
                     {
@@ -270,6 +274,11 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                     for(int i = 0; i<4; i++)
                     {
                         houseRect[i].x+=20;
+                    }
+
+                    for (int i = 0; i < humans.size(); i++)
+                    {
+                        humans[i]->SetX(20,0);
                     }
                 }
 
@@ -285,9 +294,9 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                 if (e->key.keysym.sym == SDLK_RIGHT )
                 {
                     pos1.x += 20;
-                    for(int i = 0; i<countContainer; i++ )
+                    for(int i = 0; i<noOfBreedingPlaces; i++ )
                     {
-                        container[i]->SetX(20,1);
+                        breedingplaces[i]->SetX(20,1);
                     }
                     for(int i = 0; i<noOfEntrance; i++ )
                     {
@@ -297,6 +306,10 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                     for(int i = 0; i<4; i++)
                     {
                         houseRect[i].x-=20;
+                    }
+                    for (int i = 0; i < humans.size(); i++)
+                    {
+                        humans[i]->SetX(20,1);
                     }
 
                 }
@@ -313,7 +326,8 @@ void Outdoor:: PlaceContainers()
     countTrashcan = (rand()%4) + 2;
     countManhole = (rand()%2)+2;
     countContainer = countPlants + countTrashcan + (countManhole*2) + countCleanWater; //countDirtyWater = countManhole
-    container = new Container*[countContainer];
+    noOfBreedingPlaces = countContainer;
+    breedingplaces = new BreedingGround*[countContainer];
 
     int plantPos[countPlants] = {345,440,780,860,940,1030,1435,1520,1600,2025,2095}; //fixed x-coordinates of plants
     int trashCanPos[4] = {650,1800,80,1060}; //fixed x-coordinates of trash Cans
@@ -322,34 +336,34 @@ void Outdoor:: PlaceContainers()
     //int TrashCanLidPos[4] = {500, 700, 1000, 1200};
     int CleanWaterPos[3] = {200, 2050, 1700};
     int ManholePosY[3] = {rand()%(110)+620,rand()%(110)+620,rand()%(110)+620};
-    int i = 0; //iterator for containers
+    int i = 0; //iterator for breedingplacess
     for (int place = 0; place<countPlants; place++) //to place plants
     {
-        container[i] = new Plant(plantPos[place],320);
+        breedingplaces[i] = new Plant(plantPos[place],320);
         i++;
     }
 
     for (int place = 0; place<countTrashcan; place++) //to place trash Cans
     {
-        container[i] = new TrashCan(trashCanPos[place],480);
+        breedingplaces[i] = new TrashCan(trashCanPos[place],480);
         i++;
     }
 
     for (int place = 0; place<countManhole; place++) //to place DirtyWater, countDirtyWater = countManhole
     {
-        container[i] = new DirtyWater(DirtyWaterPos[place],ManholePosY[place]); // y b/w 730 & 730 px
+        breedingplaces[i] = new DirtyWater(DirtyWaterPos[place],ManholePosY[place]); // y b/w 730 & 730 px
         i++;
     }
 
     for (int place = 0; place<countManhole; place++) //to place Manholes
     {
-        container[i] = new Manhole(manholePos[place],ManholePosY[place]); // y b/w 730 & 730 px
+        breedingplaces[i] = new Manhole(manholePos[place],ManholePosY[place]); // y b/w 730 & 730 px
         i++;
     }
 
     for (int place = 0; place<countCleanWater; place++) //to placeCleanWater
     {
-        container[i] = new CleanWater(CleanWaterPos[place],rand()%(110)+620); // y b/w 730 & 730 px
+        breedingplaces[i] = new CleanWater(CleanWaterPos[place],rand()%(110)+620); // y b/w 730 & 730 px
         i++;
     }
 }
@@ -358,7 +372,7 @@ Outdoor :: ~Outdoor()
 {
     for (int i = 0; i <countContainer; i++)
     {
-        delete container[i];
+        delete breedingplaces[i];
     }
 
     delete[] houseRect;
@@ -370,3 +384,5 @@ void Outdoor::AddHuman(Human* human)
 {
     humans.push_back(human);
 }
+
+

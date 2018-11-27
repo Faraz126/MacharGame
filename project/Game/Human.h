@@ -73,6 +73,7 @@ public:
     void BuildHuman();
     void HandleEvents(SDL_Event*, Screens_Node&);
     bool GetIndoor();
+    void SetX(int, int);
 
 
 

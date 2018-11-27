@@ -29,8 +29,7 @@ class House: public Scenario
 {
 private:
     //Money money;
-    int width;
-    int height;
+
     bool hasRepellent;
     int noOfHumans;
 
@@ -39,7 +38,7 @@ private:
     Texture* texture;
     Showpiece* showpieces;
     SDL_Rect wall;
-    Human** humans;
+    //Human** humans;
     Button* btn;
     ShoppingMenu* houseShop;
     SDL_Rect* cartPos;
@@ -70,7 +69,6 @@ public:
     Bed* GetClosestBed(int,int);
     Door* GetDoor();
     Bed* GetBeds(int&);
-    Human** GetHumans(int & );
-    int GetWidth();
-    int GetHeight();
+
+
 };

@@ -14,6 +14,8 @@ class BreedingGround;
 class Scenario : public Screens
 {
 protected:
+    int width;
+    int height;
     int noOfEntrance;
     BreedingGround** breedingplaces;
     std::vector<Clickable*> myQ;
@@ -28,10 +30,14 @@ public:
     BreedingGround** GetBreedingGrounds(int&);
     Entrance** GetEntrance(int &);
 
+
     virtual void AddHuman(Human*){};
     virtual void LeaveHuman(Human*){};
     virtual void AddMosquito(Mosquito*){};
     virtual void LeaveMosquito(Mosquito*){};
+    std::vector<Human*>& GetHumans(int & );
+    int GetWidth();
+    int GetHeight();
     ~Scenario(){};
 
 };
