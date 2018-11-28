@@ -13,14 +13,24 @@ BreedingGround** Scenario::GetBreedingGrounds(int & n)
     return breedingplaces;
 }
 
-int Scenario::GetWidth()
+int Scenario::GetStartWidth()
 {
-    return width;
+    return startWidth;
 }
 
-int Scenario::GetHeight()
+int Scenario::GetStartHeight()
 {
-    return height;
+    return startHeight;
+}
+
+int Scenario::GetEndWidth()
+{
+    return endWidth;
+}
+
+int Scenario::GetEndHeight()
+{
+    return endHeight;
 }
 
 std::vector<Human*>& Scenario::GetHumans(int & n)
@@ -29,4 +39,10 @@ std::vector<Human*>& Scenario::GetHumans(int & n)
     return humans;
 }
 
+
+std::vector<Mosquito*>& Scenario::GetMosquitoes(int& n)
+{
+    n = mosquitoes.size();
+    return mosquitoes;
+}
 

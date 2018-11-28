@@ -47,6 +47,7 @@
 		</Linker>
 		<Unit filename="AbstractFactory.cpp" />
 		<Unit filename="AbstractFactory.h" />
+		<Unit filename="AedesMosquito.cpp" />
 		<Unit filename="AedesMosquito.h" />
 		<Unit filename="Alert.cpp" />
 		<Unit filename="Alert.h" />
@@ -62,6 +63,8 @@
 		<Unit filename="CancelButton.h" />
 		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
+		<Unit filename="ChickengunyaMosquito.cpp" />
+		<Unit filename="ChickengunyaMosquito.h" />
 		<Unit filename="CleanWater.cpp" />
 		<Unit filename="CleanWater.h" />
 		<Unit filename="Clickable.cpp" />
@@ -73,6 +76,7 @@
 		<Unit filename="Container.h" />
 		<Unit filename="DirtyWater.cpp" />
 		<Unit filename="DirtyWater.h" />
+		<Unit filename="Disease.cpp" />
 		<Unit filename="Disease.h" />
 		<Unit filename="Door.cpp" />
 		<Unit filename="Door.h" />
@@ -96,6 +100,7 @@
 		<Unit filename="LoadMenu.h" />
 		<Unit filename="MainMenu.cpp" />
 		<Unit filename="MainMenu.h" />
+		<Unit filename="MalariaMosquito.cpp" />
 		<Unit filename="MalariaMosquito.h" />
 		<Unit filename="Manhole.cpp" />
 		<Unit filename="Manhole.h" />

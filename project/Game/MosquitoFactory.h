@@ -4,6 +4,8 @@
 #include "AbstractFactory.h"
 #include "Mosquito.h"
 #include "NormalMosquito.h"
+#include "AedesMosquito.h"
+#include "MalariaMosquito.h"
 
 
 class MosquitoFactory : public AbstractFactory

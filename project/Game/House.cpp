@@ -1,14 +1,21 @@
 #include "House.h"
 #include <random>
+#include "Scenario.h"
 
 House::House()
 {
     pos.x = wall.x = 0;
     pos.y = wall.y = 0;
-    pos.w = wall.w = width = 1024;
+    pos.w = wall.w = 1024;
     pos.h = 786;
-    wall.h = height = 488;
+    wall.h = 488;
     houseShop = new ShoppingMenu();
+
+    startWidth = 0;
+    endWidth = 1024;
+
+    startHeight = 488;
+    endHeight = 786;
 
     noOfEntrance = (rand() % 2) + 2;
     noOfHumans = (rand()%3) + 3;
@@ -25,6 +32,7 @@ House::House()
         x = 265;
         entrance[0] = new Door(100, 300);
         breedingplaces[0] = new TrashCan(10,450);
+        breedingplaces[0]->SetScenario(this);
         myQ.push_back(breedingplaces[0]);
     }
     else
@@ -32,6 +40,7 @@ House::House()
         x = 10;
         entrance[0] = new Door(750, 300);
         breedingplaces[0] = new TrashCan(925,450);
+        breedingplaces[0]->SetScenario(this);
         myQ.push_back(breedingplaces[0]);
     }
 
@@ -73,6 +82,7 @@ House::House()
             {
                 breedingplaces[noOfBreedingPlaces] = new Tub(900, y);
             }
+            breedingplaces[noOfBreedingPlaces]->SetScenario(this);
             myQ.push_back(breedingplaces[noOfBreedingPlaces]);
             breedingplaces[noOfBreedingPlaces++]->ReduceSize(float(y)/1600);
 
@@ -102,9 +112,12 @@ House::House()
     cartPos->h = 20;
 
 
-
-
-
+    Mosquito* mosquito;
+    for (int i = 0; i < 4; i++)
+    {
+        mosquito = new AedesMosquito(this);
+        mosquitoes.push_back(mosquito);
+    }
 }
 
 void House::SetOutdoor(Scenario* outdoorPtr)
@@ -121,10 +134,18 @@ void House::Show(SDL_Renderer* renderer)
     //SDL_RenderFillRect(renderer, &wall);
 
 
+
+
     for(int i=0; i < noOfEntrance; i++)
     {
         entrance[i]->Show(renderer);
     }
+
+    for (int i = 0; i < mosquitoes.size(); i++)
+    {
+        mosquitoes[i]->Show(renderer);
+    }
+
     /*
     for(int i=0; i<noOfHumans; i++)
     {
@@ -218,10 +239,10 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
             node.prev_screen = this;
         }
 
-        for (int i = 0; i < noOfHumans; i++)
-        {
-            humans[i]->HandleEvents(e, node);
-        }
+    }
+    for (int i = 0; i <myQ.size(); i++)
+    {
+        myQ[i]->HandleEvents(e, node);
     }
 
 }
@@ -238,6 +259,17 @@ void House::Update(int frame)
     {
         humans[i]->Update(frame);
     }
+
+    for (int i = 0; i < myQ.size(); i++)
+    {
+        myQ[i]->Update(frame);
+    }
+
+    for (int i = 0; i < mosquitoes.size();i++)
+    {
+        mosquitoes[i]->Update(frame);
+    }
+
 }
 
 Bed* House::GetClosestBed(int x, int y) //pass on Human x co-ordinates here

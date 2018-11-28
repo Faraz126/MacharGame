@@ -10,13 +10,16 @@
 #include "Bed.h"
 #include <stack>
 #include "Door.h"
-#include "Scenario.h"
+//#include "Scenario.h"
 #include "DoublyLinked.h"
+#include "Disease.h"
+
 
 
 enum DIRECTION {UP, RIGHT, DOWN, LEFT};
 enum STATES_HUMAN {GOING_TO_BED, WALKING, GOING_TO_DOOR, SITTING, LYING, AVOIDING_COLLISION};
 
+class Scenario;
 class House;
 
 
@@ -53,6 +56,8 @@ private:
     void GoOutdoor();
     void GoIndoor();
     void ChangeScenario(Scenario*);
+    Disease* disease;
+
 
 
 protected:
@@ -74,6 +79,8 @@ public:
     void HandleEvents(SDL_Event*, Screens_Node&);
     bool GetIndoor();
     void SetX(int, int);
+    void SetInfected(Disease*);
+    Disease* GetInfected();
 
 
 

@@ -8,8 +8,11 @@ using namespace std;
 Outdoor:: Outdoor()
 {
     //screen dimensions
-    width = 1024*2.5;
-    height = 460;
+
+    startWidth = 0;
+    endWidth = 1024*2.5;
+    startHeight = 460;
+    endHeight = 786;
 
     pos.x = 0;
     pos.y = 0;
@@ -115,6 +118,11 @@ void Outdoor::Show(SDL_Renderer* renderer)
         humans[i]->Show(renderer);
     }
 
+    for (int i = 0; i < mosquitoes.size(); i++)
+    {
+        mosquitoes[i]->Show(renderer);
+    }
+
     //alert.Show(renderer);
 
 
@@ -164,6 +172,17 @@ void Outdoor::Update(int frame)
         humans[i]->Update(frame);
     }
 
+    /* JUST ADD SCENARIO
+    for (int i = 0; i < noOfBreedingPlaces; i++)
+    {
+        breedingplaces[i]->Update(frame);
+    }
+
+    for (int i = 0; i < mosquitoes.size(); i++)
+    {
+        mosquitoes[i]->Update(frame);
+    }
+    */
 }
 
 
@@ -261,6 +280,8 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
             {
                 if (e->key.keysym.sym == SDLK_LEFT )
                 {
+                    startWidth += 20;
+                    endWidth += 20;
                     pos1.x -= 20;
                     for(int i = 0; i<noOfBreedingPlaces; i++ )
                     {
@@ -293,6 +314,8 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
             {
                 if (e->key.keysym.sym == SDLK_RIGHT )
                 {
+                    startWidth -= 20;
+                    endWidth -= 20;
                     pos1.x += 20;
                     for(int i = 0; i<noOfBreedingPlaces; i++ )
                     {

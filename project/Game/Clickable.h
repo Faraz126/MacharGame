@@ -22,6 +22,8 @@ class Clickable
         virtual void Show(SDL_Renderer*) = 0;
         virtual void Update(int) = 0;
         virtual void HandleEvents(SDL_Event*, Screens_Node&) = 0;
+        int GetX();
+        int GetY();
 
     protected:
         SDL_Rect pos;

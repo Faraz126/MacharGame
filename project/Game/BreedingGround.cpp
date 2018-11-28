@@ -13,8 +13,19 @@ void BreedingGround::UpdatePos(int x, int y)
 }
 
 
+void BreedingGround::SetScenario(Scenario* scenario)
+{
+    currentScenario = scenario;
+}
 
 
+void BreedingGround::AddMosquito(Mosquito* produced)
+{
+    int n;
+    produced->SetScenario(currentScenario); //sets the scenario of the mosquito
+    produced->UpdatePositiion(pos.x, pos.y);
+    currentScenario->GetMosquitoes(n).push_back(produced);
+}
 
 BreedingGround::~BreedingGround()
 {

@@ -19,15 +19,6 @@ void Entrance::SetOutdoorPos(int x, int y,int w, int h)
 }
 
 
-int Entrance::GetX()
-{
-    return pos.x;
-}
-
-int Entrance::GetY()
-{
-    return pos.y;
-}
 
 int Entrance::GetHeight()
 {

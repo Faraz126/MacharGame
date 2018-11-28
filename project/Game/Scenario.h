@@ -5,6 +5,7 @@
 #include "Clickable.h"
 #include "Entrance.h"
 #include "Mosquito.h"
+#include "Human.h"
 
 #include <vector>
 
@@ -14,8 +15,12 @@ class BreedingGround;
 class Scenario : public Screens
 {
 protected:
-    int width;
-    int height;
+
+    int startHeight;
+    int endHeight;
+    int startWidth;
+    int endWidth;
+
     int noOfEntrance;
     BreedingGround** breedingplaces;
     std::vector<Clickable*> myQ;
@@ -36,8 +41,11 @@ public:
     virtual void AddMosquito(Mosquito*){};
     virtual void LeaveMosquito(Mosquito*){};
     std::vector<Human*>& GetHumans(int & );
-    int GetWidth();
-    int GetHeight();
+    std::vector<Mosquito*>& GetMosquitoes(int &);
+    int GetEndHeight();
+    int GetStartHeight();
+    int GetEndWidth();
+    int GetStartWidth();
     ~Scenario(){};
 
 };

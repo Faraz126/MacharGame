@@ -21,7 +21,7 @@ class TrashCan : public Container
         void Show(SDL_Renderer*);
         void SetCovered(bool);
         void HandleEvents(SDL_Event*, Screens_Node&);
-        void Update(int){};
+        void Update(int);
         Mosquito* Breed();
         ~TrashCan();
 };

@@ -1,19 +1,45 @@
 #pragma once
+#include "Texture.h"
+#include "Window.h"
+#include <vector>
 
+class Scenario;
 class Human;
+
+enum MOSQUITO {MALARIA, AEDES, NORMAL};
 
 class Mosquito
 {
 private:
 
-
 protected:
+    double speed_x;
+    double speed_y;
+    bool DetectHuman;
+    bool DetectEntrance;
+    SDL_Rect position;
+    bool IsFollowingHuman;
+    bool IsFollowingEntrance;
+    Scenario* screen;
+    std::vector<Human*> humans;
+    Entrance* entrance;
+    int timer;
 
 public:
-    Mosquito();
-    //void fly(Screens*);
-    virtual void bite(Human*);
-    //void follow(Window*);       //to go in the window
-    //void follow(Human*);        //to go to human
-    virtual ~Mosquito();
+    //Mosquito();         // confused about what to do with this
+    void SetScenario(Scenario*);
+    void UpdatePositiion(int,int);
+    virtual void Fly() = 0;
+    virtual void Bite(Human*) = 0;
+    virtual void Follow(Entrance*) = 0;      // to go in the window
+    virtual void Follow(Human*) = 0;        //to go to human
+    virtual void Update(int) = 0;
+    virtual void DetectAnEntrance() = 0;
+    virtual void DetectAHuman() = 0;
+    virtual void DetectOrFollow() = 0;
+    virtual void ReachedEntrance() = 0;
+    virtual void Show(SDL_Renderer*) = 0;
+    Entrance* GetClosestEntrance();
+    //virtual ~Mosquito();
 };
+

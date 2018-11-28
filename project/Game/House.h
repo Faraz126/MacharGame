@@ -20,6 +20,8 @@
 #include "PauseMenu.h"
 #include "Score.h"
 #include "Money.h"
+#include "Scenario.h"
+#include "AedesMosquito.h"
 
 
 

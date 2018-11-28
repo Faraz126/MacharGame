@@ -2,6 +2,7 @@
 #include <random>
 #include <cmath>
 #include "House.h"
+#include "Scenario.h"
 
 
 Human::Human(): Clickable(0,0,197, 575)
@@ -17,7 +18,6 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     currentScenario = house;
     sizeFactor = 0.3;
     ReduceSize(sizeFactor);
-
     isIndoor = true;
     faceDirection = RIGHT;
     isGoingToBed = true;
@@ -34,6 +34,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     faceSprite = 86;
     bodySprite = 83;
     legSprite = 103;
+    disease = nullptr;
     walker = 0;
     BuildHuman();
 
@@ -232,15 +233,15 @@ void Human::Update(int frame)
 
             case WALKING:
             {
-                if (timeSince*step > (currentScenario->GetWidth())*2)
+                if (timeSince*step > ((currentScenario->GetEndWidth()-currentScenario->GetStartWidth())*2))
                 {
                     ChangeState();
                 }
-                if (collideRect.x >= currentScenario->GetWidth())
+                if (collideRect.x >= currentScenario->GetEndWidth())
                 {
                     faceDirection = LEFT;
                 }
-                else if (collideRect.x <= 0)
+                else if (collideRect.x <= currentScenario->GetStartWidth())
                 {
                     faceDirection = RIGHT;
                 }
@@ -453,7 +454,7 @@ bool Human::MoveAllowed()
         case (RIGHT):
         {
             tempRect.x++;
-            if (tempRect.x > currentScenario->GetWidth())
+            if (tempRect.x > currentScenario->GetEndWidth())
             {
                 return false;
             }
@@ -462,7 +463,7 @@ bool Human::MoveAllowed()
         case (LEFT):
         {
             tempRect.x--;
-            if (tempRect.x < 0)
+            if (tempRect.x < currentScenario->GetStartWidth())
             {
                 return false;
             }
@@ -471,7 +472,7 @@ bool Human::MoveAllowed()
         case (UP):
         {
             tempRect.y--;
-            if (tempRect.y <= currentScenario->GetHeight())
+            if (tempRect.y <= currentScenario->GetStartHeight())
             {
                 return false;
             }
@@ -480,7 +481,7 @@ bool Human::MoveAllowed()
         case (DOWN):
         {
             tempRect.y++;
-            if (tempRect.y >= 786)
+            if (tempRect.y >= currentScenario->GetEndHeight())
             {
                 return false;
             }
@@ -610,4 +611,15 @@ void Human::SetX(int delta, int direction)
         legs.x -= delta;
     }
     Clickable::SetX(delta, direction);
+}
+
+void Human::SetInfected(Disease* disease)
+{
+    this -> disease = disease;
+    //std::cout << disease << std::endl;
+}
+
+Disease* Human::GetInfected()
+{
+    return disease;
 }

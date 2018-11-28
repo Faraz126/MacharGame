@@ -15,6 +15,20 @@ Clickable::~Clickable()
 
 }
 
+
+
+int Clickable::GetX()
+{
+    return pos.x;
+}
+
+int Clickable::GetY()
+{
+    return pos.y;
+}
+
+
+
 bool Clickable::WithinRegion(int x, int y)
 {
     return (x >= pos.x && y >= pos.y && x <= pos.x + pos.w && y <= pos.y + pos.h);
@@ -56,6 +70,7 @@ void Clickable::ReduceSize(double n)
     pos.w = pos.w * n;
     pos.h = pos.h * n;
 }
+
 
 
 bool Clickable::Collides(const Clickable& obj)
