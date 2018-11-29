@@ -81,11 +81,40 @@ void Scenario::LeaveMosquito(Mosquito* mosquito)
 void Scenario::AddHuman(Human* human)
 {
     humans.push_back(human);
+    myQ.push_back(human);
 }
 
 void Scenario::LeaveHuman(Human* human)
 {
     humans.erase(std::remove(humans.begin(), humans.end(), human), humans.end());
+    myQ.erase(std::remove(myQ.begin(), myQ.end(), human), myQ.end());
 }
 
+bool Scenario::Collides(Clickable* obj)
+{
+    for (int i = 0; i < myQ.size(); i++)
+    {
+        if (myQ[i]->Collides(*obj) && myQ[i] != obj)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
+bool Scenario::Collides(SDL_Rect& rect)
+{
+    for (int i = 0; i < myQ.size(); i++)
+    {
+        if (myQ[i]->Collides(rect))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+std::vector<Clickable*>& Scenario::GetQ()
+{
+    return myQ;
+}

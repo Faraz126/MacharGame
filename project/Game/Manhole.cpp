@@ -29,7 +29,7 @@ void Manhole::HandleEvents(SDL_Event* e, Screens_Node& node)
     {
         lid->HandleEvents(e,node);
     }
-    if (Collides(*lid))
+    if (lid->Collides(*this))
     {
         SetCovered(true);
     }

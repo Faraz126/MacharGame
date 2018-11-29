@@ -74,6 +74,8 @@ void Clickable::ReduceSize(double n)
 
 
 
+
+
 bool Clickable::Collides(const Clickable& obj)
 {
     return Collides(obj.pos);

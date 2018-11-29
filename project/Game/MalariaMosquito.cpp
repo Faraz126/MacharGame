@@ -218,7 +218,7 @@ void MalariaMosquito::DetectAHuman()
 {
     int n;
     humans = screen->GetHumans(n);
-    for(int i = 0;i < n;i++)
+    for(int i = 0;i < humans.size();i++)
     {
         humans[i]->GetDistance(position.x,position.y);
 

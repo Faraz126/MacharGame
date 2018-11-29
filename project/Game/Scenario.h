@@ -43,16 +43,20 @@ public:
     virtual void LeaveHuman(Human*);
     virtual void AddMosquito(Mosquito*);
     virtual void LeaveMosquito(Mosquito*);
+    std::vector<Clickable*>& GetQ();
     std::vector<Human*>& GetHumans(int & );
     std::vector<Mosquito*>& GetMosquitoes(int &);
     int GetEndHeight();
     int GetStartHeight();
     int GetEndWidth();
     int GetStartWidth();
+    bool Collides(Clickable*);
+    bool Collides(SDL_Rect&);
     int GetCode();
     ~Scenario(){};
 
 };
+
 
 
 

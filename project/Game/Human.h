@@ -7,7 +7,7 @@
 #include "Clickable.h"
 #include <SDL.h>
 #include <SDL_image.h>
-#include "Bed.h"
+
 #include <stack>
 #include "Door.h"
 //#include "Scenario.h"
@@ -21,7 +21,7 @@ enum STATES_HUMAN {GOING_TO_BED, WALKING, GOING_TO_DOOR, SITTING, LYING, AVOIDIN
 
 class Scenario;
 class House;
-
+class Bed;
 
 
 class Human: public Clickable
@@ -81,6 +81,8 @@ public:
     void SetX(int, int);
     void SetInfected(int);
     int GetInfected();
+    void UpdatePos(int x, int y);
+    bool Collides(const SDL_Rect&);
 
 
 

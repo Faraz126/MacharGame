@@ -93,9 +93,9 @@ void Outdoor::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->RenderBack(35, renderer, &pos1, &pos);
 
-    for(int i = 0; i<countContainer; i++ )
+    for(int i = 0; i<myQ.size(); i++ )
     {
-        breedingplaces[i]->Show(renderer);
+        myQ[i]->Show(renderer);
     }
 
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
@@ -114,12 +114,12 @@ void Outdoor::Show(SDL_Renderer* renderer)
 
     points->Show(renderer);
     money.Show(renderer);
-
+    /*
     for (int i = 0; i < humans.size(); i++)
     {
         humans[i]->Show(renderer);
     }
-
+    /*
     for (int i = 0; i < mosquitoes.size(); i++)
     {
         mosquitoes[i]->Show(renderer);
@@ -169,7 +169,7 @@ void Outdoor::Update(int frame)
     {
         house[i].Update(frame);
     }
-
+    /*
     for (int i = 0; i < humans.size(); i++)
     {
         humans[i]->Update(frame);
@@ -180,7 +180,12 @@ void Outdoor::Update(int frame)
     {
         breedingplaces[i]->Update(frame);
     }
+    */
 
+    for (int i = 0; i < myQ.size(); i++)
+    {
+        myQ[i]->Update(frame);
+    }
     for (int i = 0; i < mosquitoes.size(); i++)
     {
         mosquitoes[i]->Update(frame);
@@ -379,30 +384,48 @@ void Outdoor:: PlaceContainers()
     for (int place = 0; place<countPlants; place++) //to place plants
     {
         breedingplaces[i] = new Plant(plantPos[place],320);
+        myQ.push_back(breedingplaces[i]);
         i++;
     }
 
     for (int place = 0; place<countTrashcan; place++) //to place trash Cans
     {
+        int x = trashCanPos[place];
+        int y = 480;
         breedingplaces[i] = new TrashCan(trashCanPos[place],480);
+        while (Collides(breedingplaces[i]))
+        {
+            breedingplaces[i]->UpdatePos(++x,++y);
+        }
+        myQ.push_back(breedingplaces[i]);
         i++;
     }
 
     for (int place = 0; place<countManhole; place++) //to place DirtyWater, countDirtyWater = countManhole
     {
         breedingplaces[i] = new DirtyWater(DirtyWaterPos[place],ManholePosY[place]); // y b/w 730 & 730 px
+        myQ.push_back(breedingplaces[i]);
         i++;
     }
 
     for (int place = 0; place<countManhole; place++) //to place Manholes
     {
         breedingplaces[i] = new Manhole(manholePos[place],ManholePosY[place]); // y b/w 730 & 730 px
+        myQ.push_back(breedingplaces[i]);
         i++;
     }
 
     for (int place = 0; place<countCleanWater; place++) //to placeCleanWater
     {
-        breedingplaces[i] = new CleanWater(CleanWaterPos[place],rand()%(110)+620); // y b/w 730 & 730 px
+        int x = CleanWaterPos[place];
+        int y = rand()%(110)+620;
+        breedingplaces[i] = new CleanWater(CleanWaterPos[place],y); // y b/w 730 & 730 px
+        while (Collides(breedingplaces[i]))
+        {
+            breedingplaces[i]->UpdatePos(++x,++y);
+        }
+        myQ.push_back(breedingplaces[i]);
+
         i++;
     }
 }

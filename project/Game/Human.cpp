@@ -3,6 +3,7 @@
 #include <cmath>
 #include "House.h"
 #include "Scenario.h"
+#include "Bed.h"
 
 
 Human::Human(): Clickable(0,0,197, 575)
@@ -29,7 +30,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     activity = WALKING;
     timeSince = 0;
     step = 1;
-    slowDownFactor = 4;
+    slowDownFactor = 2;
     isInfected = false;
     door = ownHouse->GetDoor();
     faceSprite = 86;
@@ -87,6 +88,7 @@ Human::Human(House* house): Human(0,0, house)
 
 bool Human::Collide(SDL_Rect& tempRect)
 {
+    /*
     int n;
     if (isIndoor)
     {
@@ -100,6 +102,7 @@ bool Human::Collide(SDL_Rect& tempRect)
             }
         }
     }
+
     BreedingGround** breedingGrounds = currentScenario->GetBreedingGrounds(n);
     for (int i = 0; i < n; i++)
     {
@@ -116,8 +119,27 @@ bool Human::Collide(SDL_Rect& tempRect)
             return true;
         }
     }
+    */
+
+    std::vector<Clickable*> myQ = currentScenario->GetQ();
+
+    for (int i = 0; i < myQ.size(); i++)
+    {
+        if (myQ[i]->Collides(tempRect) && myQ[i] != this)
+        {
+            return true;
+        }
+    }
     return false;
 }
+
+
+bool Human::Collides(const SDL_Rect& rect)
+{
+    return Clickable::Collides(collideRect, rect);
+}
+
+
 
 void Human::Update(int frame)
 {
@@ -184,7 +206,7 @@ void Human::Update(int frame)
                     {
                         isHorizontal = true;
                         spriteNum = 75;
-                        bedToGoTo->SetOccupied(true);
+                        bedToGoTo->SetOccupied(true, this);
                         if (!isInfected)
                         {
                             ChangeState(SITTING);
@@ -231,7 +253,7 @@ void Human::Update(int frame)
 
                             GoIndoor();
                         }
-                        else if (door->Collides(collideRect) || door->Collides(legs))
+                        else if (isIndoor && (door->Collides(collideRect) || door->Collides(legs)))
                         {
                             spriteNum = 76;
                             isHorizontal = true;
@@ -405,21 +427,6 @@ void Human::ChangeState(int n)
     else
     {
         activity = rand()%3;
-        switch (activity)
-        {
-            case (WALKING):
-            {
-                break;
-            }
-            case (GOING_TO_BED):
-            {
-                break;
-            }
-            case (GOING_TO_DOOR):
-            {
-                break;
-            }
-        }
     }
 
     if (activity == GOING_TO_BED)
@@ -617,13 +624,19 @@ void Human::GoOutdoor()
     ReduceSize(sizeFactor);
     BuildHuman();
 
-    ChangeState();
+    ChangeState(WALKING);
 
 }
 
 bool Human::GetIndoor()
 {
     return isIndoor;
+}
+
+void Human::UpdatePos(int x, int y)
+{
+    Clickable::UpdatePos(x,y);
+    BuildHuman();
 }
 
 
@@ -648,6 +661,7 @@ void Human::SetX(int delta, int direction)
 
 void Human::SetInfected(int code)
 {
+    /*
     if (activity != SITTING && activity != LYING)
     {
 
@@ -667,8 +681,9 @@ void Human::SetInfected(int code)
             isInfected = false;
         }
 
-    }
 
+    }
+    */
     //std::cout << disease << std::endl;
 
 }

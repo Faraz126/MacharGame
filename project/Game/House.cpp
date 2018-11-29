@@ -102,7 +102,14 @@ House::House()
     Human* humanPtr;
     for (int i = 0; i < noOfHumans; i++)
     {
+        int x = i * 30;
+        int y = 388 + (i*90);
         humanPtr = new Human((i*30), 388 + (i*90),this);
+        while (Collides(humanPtr))
+        {
+            humanPtr->UpdatePos(++x,y);
+        }
+        myQ.push_back(humanPtr);
         humans.push_back(humanPtr);
     }
 
@@ -180,7 +187,7 @@ void House::Show(SDL_Renderer* renderer)
     btn->Show(renderer);
     */
 
-
+    /*
     for (int i = 0; i < noOfHumans; i++)
     {
         if (humans[i]->GetIndoor())
@@ -188,6 +195,7 @@ void House::Show(SDL_Renderer* renderer)
             humans[i]->Show(renderer);
         }
     }
+    */
 //    humans->Show(renderer);
 
 
@@ -261,12 +269,12 @@ void House::Update(int frame)
     {
         entrance[i]->Update(frame);
     }
-
+    /*
     for (int i = 0; i < noOfHumans; i++)
     {
         humans[i]->Update(frame);
     }
-
+    */
     for (int i = 0; i < myQ.size(); i++)
     {
         myQ[i]->Update(frame);
