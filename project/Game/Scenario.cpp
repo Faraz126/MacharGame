@@ -1,5 +1,12 @@
 #include "Scenario.h"
 #include "BreedingGround.h"
+#include <algorithm>
+
+Scenario::Scenario()
+{
+    points = Score::GetInstance();
+}
+
 
 Entrance** Scenario::GetEntrance(int & n)
 {
@@ -46,3 +53,26 @@ std::vector<Mosquito*>& Scenario::GetMosquitoes(int& n)
     return mosquitoes;
 }
 
+int Scenario::GetCode()
+{
+    return code;
+}
+
+void Scenario::SetUpScenarios()
+{
+    for (int i = 0; i < noOfBreedingPlaces; i++)
+    {
+        breedingplaces[i]->SetScenario(this);
+    }
+
+}
+
+void Scenario::AddMosquito(Mosquito* mosquito)
+{
+    mosquitoes.push_back(mosquito);
+}
+
+void Scenario::LeaveMosquito(Mosquito* mosquito)
+{
+    mosquitoes.erase(std::remove(mosquitoes.begin(), mosquitoes.end(), mosquito), mosquitoes.end());
+}

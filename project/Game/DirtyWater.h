@@ -18,7 +18,7 @@ public:
     DirtyWater(int, int);
     Mosquito* Breed();
     void Show(SDL_Renderer*);
-    void Update(int){};
+    void Update(int);
     ~DirtyWater();
     void SetCovered(bool);
     void HandleEvents(SDL_Event*, Screens_Node&){};

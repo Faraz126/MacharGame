@@ -1,6 +1,7 @@
 #include "Outdoor.h"
 #include <random>
 #include <iostream>
+#include <algorithm>
 
 
 using namespace std;
@@ -8,7 +9,7 @@ using namespace std;
 Outdoor:: Outdoor()
 {
     //screen dimensions
-
+    code = 0;
     startWidth = 0;
     endWidth = 1024*2.5;
     startHeight = 460;
@@ -69,6 +70,7 @@ Outdoor:: Outdoor()
     //noOfEntrance = 0;
     GetHouseEntrance();
     shop = new ShoppingMenu;
+    SetUpScenarios();
 
 //    points = new Score;
 
@@ -110,7 +112,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
         }
     }
 
-    points.Show(renderer);
+    points->Show(renderer);
     money.Show(renderer);
 
     for (int i = 0; i < humans.size(); i++)
@@ -162,6 +164,7 @@ int Outdoor::CountHumans()
 
 void Outdoor::Update(int frame)
 {
+    (*points)++;
     for (int i = 0; i < 4; i++)
     {
         house[i].Update(frame);
@@ -172,7 +175,7 @@ void Outdoor::Update(int frame)
         humans[i]->Update(frame);
     }
 
-    /* JUST ADD SCENARIO
+     //JUST ADD SCENARIO
     for (int i = 0; i < noOfBreedingPlaces; i++)
     {
         breedingplaces[i]->Update(frame);
@@ -182,7 +185,12 @@ void Outdoor::Update(int frame)
     {
         mosquitoes[i]->Update(frame);
     }
-    */
+
+    for (int i = 0; i < noOfEntrance; i++)
+    {
+        entrance[i]->Update(frame);
+    }
+
 }
 
 
@@ -301,6 +309,10 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                     {
                         humans[i]->SetX(20,0);
                     }
+                    for (int i = 0; i < mosquitoes.size(); i++)
+                    {
+                        mosquitoes[i]->SetX(20,0);
+                    }
                 }
 
             }
@@ -333,6 +345,10 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                     for (int i = 0; i < humans.size(); i++)
                     {
                         humans[i]->SetX(20,1);
+                    }
+                    for (int i = 0; i < mosquitoes.size(); i++)
+                    {
+                        mosquitoes[i]->SetX(20,1);
                     }
 
                 }
@@ -407,5 +423,11 @@ void Outdoor::AddHuman(Human* human)
 {
     humans.push_back(human);
 }
+
+void Outdoor::LeaveHuman(Human* human)
+{
+    humans.erase(std::remove(humans.begin(), humans.end(), human), humans.end());
+}
+
 
 

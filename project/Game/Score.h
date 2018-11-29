@@ -8,12 +8,14 @@
 
 class Score
 {
+    Score();
     Word* word;
+    static Score* instance;
     int scr;
     //SDL_Renderer* gRenderer;
 public:
 
-    Score();
+    static Score* GetInstance();
     ~Score();
     void Show(SDL_Renderer*);
     Score operator+(const Score&);

@@ -20,6 +20,7 @@ AedesMosquito::AedesMosquito()
     Dengue = new Disease();
     Chikengunya = new Disease();
     timer = 0;
+    diseaseCode = DENGUE;
 
 
 }
@@ -87,18 +88,18 @@ void AedesMosquito::Fly()
 
 void AedesMosquito::Bite(Human* human)
 {
-    if(IsFollowingHuman == true && abs(position.x - human->GetX()) <= 20 && abs(position.y - human -> GetY()) <= 20)
+    if(IsFollowingHuman == true && abs(position.x - human->GetX()) <= 5 && abs(position.y - human -> GetY()) <= 5)
     {
         if(rand() % 2 == 0)         // if this is true then infect with Dengue
         {
-            human -> SetInfected(Dengue);
+            human -> SetInfected(diseaseCode);
             DetectHuman = false;
             IsFollowingHuman = false;
             timer -= 2500;
         }
         else if(rand() % 2 == 1)    // if this is true then infect with Chikengunya
         {
-            human -> SetInfected(Dengue);
+            human -> SetInfected(diseaseCode);
             DetectHuman = false;
             IsFollowingHuman = false;
             timer -= 2500;
@@ -151,25 +152,25 @@ void AedesMosquito::Follow(Entrance* entrance)        // Going to entrance
     }
     speed_x += rand() % 5;
     speed_y += rand() % 5;
-    if(entrance -> GetX() > position.x && rand() % 4 == 0 && speed_x  >= 10)    // to move the mosquito right
+    if(entrance -> GetX(indoor) > position.x && rand() % 4 == 0 && speed_x  >= 10)    // to move the mosquito right
     {
         int random = rand() % 10;
         position.x += random;
         speed_x = 0;
     }
-    else if(entrance -> GetX() < position.x && rand() % 4 == 1 && speed_x  >= 10) // to move the mosquito left
+    else if(entrance -> GetX(indoor) < position.x && rand() % 4 == 1 && speed_x  >= 10) // to move the mosquito left
     {
         int random = rand() % 10;
         position.x -= random;
         speed_x = 0;
     }
-    else if(entrance -> GetY() > position.y && rand() % 4 == 2 && speed_y  >= 10) // to move the mosquito up
+    else if(entrance -> GetY(indoor) > position.y && rand() % 4 == 2 && speed_y  >= 10) // to move the mosquito up
     {
         int random = rand() % 10;
         position.y += random;
         speed_y = 0;
     }
-    else if(entrance -> GetY() < position.y && rand() % 4 == 3 && speed_y  >= 10) // to move the mosquito down
+    else if(entrance -> GetY(indoor) < position.y && rand() % 4 == 3 && speed_y  >= 10) // to move the mosquito down
     {
         int random = rand() % 10;
         position.y -= random;
@@ -213,8 +214,8 @@ void AedesMosquito::DetectAnEntrance()
 {
     entrance = GetClosestEntrance();
     if( entrance != 0 &&
-        (abs(position.x - entrance -> GetX())) < 200 &&
-        (abs(entrance -> GetY() - position.y)) < 200 &&
+        (abs(position.x - entrance -> GetX(indoor))) < 200 &&
+        (abs(entrance -> GetY(indoor) - position.y)) < 200 &&
         IsFollowingHuman == false
         )
     {
@@ -241,7 +242,7 @@ void AedesMosquito::DetectAHuman()
         if(abs(position.x - humans[i] -> GetX() < 100) &&
            abs(position.y - humans[i] -> GetY() < 100) &&
           (IsFollowingEntrance == false &&
-           humans[i]->GetInfected() == nullptr)
+           humans[i]->GetInfected() == 0)
           )
         {
             IsFollowingHuman = true;
@@ -260,11 +261,30 @@ void AedesMosquito::DetectAHuman()
 
 void AedesMosquito::ReachedEntrance()
 {
-    if(entrance->GetX() == position.x && entrance->GetY() == position.y)
+    if(entrance->GetX(indoor) == position.x && entrance->GetY(indoor) == position.y)
     {
 
         DetectEntrance = false;
         IsFollowingEntrance = false;
+
+        if (indoor)
+        {
+            screen->LeaveMosquito(this);
+            SetScenario(entrance->GetOutdoor());
+            indoor = false;
+            screen->AddMosquito(this);
+            entrance->GetOutdoorPos(position.x, position.y);
+
+        }
+        else
+        {
+            screen->LeaveMosquito(this);
+            SetScenario(entrance->GetScenario());
+            indoor = true;
+            screen->AddMosquito(this);
+            position.x = entrance->GetX(indoor);
+            position.y = entrance->GetY(indoor);
+        }
     }
 }
 

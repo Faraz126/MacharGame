@@ -3,10 +3,12 @@
 Plant::Plant(int x, int y): Container(x,y, PLANT_WIDTH, PLANT_HEIGHT)
 {
     spriteNum = rand()%4 + 27; //to choose if plant is watered or not
+    water = 0;
     SetCovered((bool)(rand()%2));
+    percentage = 5;
 
         //plant image proportion with which image will be rendered
-    water = 0;
+
 }
 
 void Plant::SetCovered(bool status)
@@ -15,6 +17,7 @@ void Plant::SetCovered(bool status)
     if (status && water != 0)
     {
         //delete water;
+        water = 0;
     }
     else
     {
@@ -35,6 +38,17 @@ Mosquito* Plant::Breed()
 {
     return water->Breed();
 
+}
+
+void Plant::Update(int)
+{
+    if (!GetCovered() && water != 0)
+    {
+        if ((rand()%10000) < percentage)
+        {
+            AddMosquito(Breed());
+        }
+    }
 }
 
 Plant::~Plant()

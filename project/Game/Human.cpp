@@ -13,6 +13,7 @@ Human::Human(): Clickable(0,0,197, 575)
 
 Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
 {
+
     spriteNum = 74;
     ownHouse  =  house;
     currentScenario = house;
@@ -34,9 +35,10 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     faceSprite = 86;
     bodySprite = 83;
     legSprite = 103;
-    disease = nullptr;
+    disease = 0;
     walker = 0;
     BuildHuman();
+    bedToGoTo = 0;
 
 
 }
@@ -146,14 +148,19 @@ void Human::Update(int frame)
                 if (timeSince > 2000)
                 {
                     bedToGoTo->SetOccupied(false);
+                    while (!myStack.IsEmpty())
+                    {
+                        myStack.Pop();
+                    }
                     ChangeState();
+                    isInfected = false;
                 }
                 break;
             }
 
             case GOING_TO_BED:
             {
-                if (!bedToGoTo->GetOccupied())
+                if (bedToGoTo != 0 && !bedToGoTo->GetOccupied())
                 {
                     if (toFollowX > collideRect.x && isHorizontal)
                     {
@@ -182,13 +189,18 @@ void Human::Update(int frame)
                         {
                             ChangeState(SITTING);
                         }
+                        else
+                        {
+                            ChangeState(SITTING);
+                        }
                     }
-                    Move();
+
                 }
                 else
                 {
                     ChangeBedToFollow();
                 }
+                Move();
                 break;
             }
             case GOING_TO_DOOR:
@@ -211,17 +223,18 @@ void Human::Update(int frame)
                         faceDirection = UP;
 
                     }
-                    if (door->Collides(collideRect) || door->Collides(legs))
+                    if (true)
                     {
-                        spriteNum = 76;
-                        ChangeState(LYING);
-                        isHorizontal = true;
-                        if (!isIndoor)
+
+                        if (!isIndoor && Clickable::Collides(door->GetOutdoorRect(), legs) && Clickable::Collides(door->GetOutdoorRect(), collideRect))
                         {
+
                             GoIndoor();
                         }
-                        else
+                        else if (door->Collides(collideRect) || door->Collides(legs))
                         {
+                            spriteNum = 76;
+                            isHorizontal = true;
                             GoOutdoor();
                         }
 
@@ -400,11 +413,7 @@ void Human::ChangeState(int n)
             }
             case (GOING_TO_BED):
             {
-                if (!isIndoor)
-                {
-                    myStack.Append(GOING_TO_BED);
-                    activity = GOING_TO_DOOR;
-                }
+                break;
             }
             case (GOING_TO_DOOR):
             {
@@ -415,11 +424,15 @@ void Human::ChangeState(int n)
 
     if (activity == GOING_TO_BED)
     {
+        if (!isIndoor)
+        {
+            myStack.Append(GOING_TO_BED);
+            activity = GOING_TO_DOOR;
+        }
         ChooseBed();
     }
     else if (activity == GOING_TO_DOOR)
     {
-
         ChooseDoor();
     }
 
@@ -544,6 +557,16 @@ void Human::Show(SDL_Renderer* renderer)
             leg = 93;
             body = 81;
         }
+
+        if (isInfected)
+        {
+            face += 3;
+        }
+        else
+        {
+            face += 6;
+        }
+
         if (!flipped)
         {
             Texture::GetInstance()->Render(face,renderer, &this->face);
@@ -571,6 +594,14 @@ void Human::Show(SDL_Renderer* renderer)
 void Human::GoIndoor()
 {
     isIndoor = true;
+    ownHouse->GetOutdoor()->LeaveHuman(this);
+    ChangeScenario(ownHouse);
+    door->GetCenter(pos.x, pos.y);
+    sizeFactor = 0.3;
+    ReduceSize(sizeFactor);
+    BuildHuman();
+    ChangeState();
+
 
 }
 
@@ -584,7 +615,7 @@ void Human::GoOutdoor()
     ReduceSize(sizeFactor);
     BuildHuman();
 
-    ChangeState(WALKING);
+    ChangeState();
 
 }
 
@@ -613,13 +644,27 @@ void Human::SetX(int delta, int direction)
     Clickable::SetX(delta, direction);
 }
 
-void Human::SetInfected(Disease* disease)
+void Human::SetInfected(int code)
 {
-    this -> disease = disease;
+    this -> disease = code;
+    if (code)
+    {
+        isInfected = true;
+        while (!myStack.IsEmpty())
+        {
+            myStack.Pop();
+        }
+
+        ChangeState(GOING_TO_BED);
+    }
+    else
+    {
+        isInfected = false;
+    }
     //std::cout << disease << std::endl;
 }
 
-Disease* Human::GetInfected()
+int Human::GetInfected()
 {
     return disease;
 }

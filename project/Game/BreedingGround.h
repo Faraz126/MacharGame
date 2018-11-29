@@ -14,7 +14,7 @@ private:
 
 protected:
     AbstractFactory* factory;
-    Scenario* currentScenario; //whether the breeding place is in in house or outdoor.
+
     int spriteNum;
     int percentage;
 public:
@@ -24,5 +24,5 @@ public:
     void AddMosquito(Mosquito*);
     virtual ~BreedingGround();
     void UpdatePos(int,int);
-    void SetScenario(Scenario*);
+
 };

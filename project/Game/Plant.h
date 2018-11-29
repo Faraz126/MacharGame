@@ -23,7 +23,7 @@ class Plant : public Container
         void SetCovered(bool);
         void Show(SDL_Renderer*);
         void HandleEvents(SDL_Event*, Screens_Node&){};
-        void Update(int){};
+        void Update(int);
         Mosquito* Breed();
 
         ~Plant();

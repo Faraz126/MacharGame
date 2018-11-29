@@ -1,6 +1,7 @@
 #include "Clickable.h"
 #include <cstdlib>
 #include <cmath>
+#include "Scenario.h"
 
 Clickable::Clickable(int x, int y, int w, int h)
 {
@@ -127,4 +128,16 @@ void Clickable:: SetX(int delta, int direction)
     {
         pos.x-=delta;
     }
+}
+
+
+void Clickable::SetScenario(Scenario* scenario)
+{
+    currentScenario = scenario;
+}
+
+
+Scenario* Clickable::GetScenario()
+{
+    return currentScenario;
 }

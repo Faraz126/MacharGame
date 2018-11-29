@@ -2,11 +2,18 @@
 #include "Mosquito.h"
 
 
-/*
+
 Mosquito::Mosquito()
 {
-
+    indoor = true;
 }
+
+void Mosquito::SetIndoor(bool status)
+{
+    indoor = status;
+}
+
+/*
 
 Mosquito::~Mosquito()
 {
@@ -14,9 +21,24 @@ Mosquito::~Mosquito()
 }
 
 */
+
 void Mosquito::Bite(Human*)
 {
 
+}
+
+
+
+void Mosquito::UpdatePositiion(int x,int y)
+{
+    position.x = x;
+    position.y = y;
+}
+
+void Mosquito::SetScenario(Scenario* cScenario)
+{
+    screen = cScenario;
+    indoor = screen->GetCode();
 }
 
 Entrance* Mosquito::GetClosestEntrance()
@@ -29,22 +51,38 @@ Entrance* Mosquito::GetClosestEntrance()
     Entrance* temp = 0;
     for (int i = 0; i < noOfEntrance; i++)
     {
-        if (entrance[i]->GetDistance(x,y) < dist && entrance[i]->IsOpen())
+        if (indoor)
         {
-            dist = entrance[i]->GetDistance(x,y);
-            temp = entrance[i];
+            if (entrance[i]->GetDistance(x,y) < dist && entrance[i]->IsOpen())
+            {
+                dist = entrance[i]->GetDistance(x,y);
+                temp = entrance[i];
+            }
         }
+        else
+        {
+            if (entrance[i]->GetDistanceOutside(x,y) < dist && entrance[i]->IsOpen())
+            {
+                dist = entrance[i]->GetDistanceOutside(x,y);
+                temp = entrance[i];
+            }
+
+        }
+
     }
     return temp;
 }
 
-void Mosquito::UpdatePositiion(int x,int y)
+void Mosquito::SetX(int delta, int direction)
 {
-    position.x = x;
-    position.y = y;
-}
 
-void Mosquito::SetScenario(Scenario* cScenario)
-{
-    screen = cScenario;
+    if ( direction == 0)
+    {
+        position.x+=delta;
+
+    }
+    if ( direction == 1)
+    {
+        position.x-=delta;
+    }
 }

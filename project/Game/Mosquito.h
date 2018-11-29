@@ -7,12 +7,15 @@ class Scenario;
 class Human;
 
 enum MOSQUITO {MALARIA, AEDES, NORMAL};
+enum DISEASE {BITEN, DISEASE_MALARIA, CHICKENGUNYA, DENGUE};
+
 
 class Mosquito
 {
 private:
 
 protected:
+    bool indoor;
     double speed_x;
     double speed_y;
     bool DetectHuman;
@@ -23,10 +26,12 @@ protected:
     Scenario* screen;
     std::vector<Human*> humans;
     Entrance* entrance;
+//    bool indoor;
     int timer;
+    int diseaseCode;
 
 public:
-    //Mosquito();         // confused about what to do with this
+    Mosquito();         // confused about what to do with this
     void SetScenario(Scenario*);
     void UpdatePositiion(int,int);
     virtual void Fly() = 0;
@@ -39,7 +44,10 @@ public:
     virtual void DetectOrFollow() = 0;
     virtual void ReachedEntrance() = 0;
     virtual void Show(SDL_Renderer*) = 0;
+    void SetIndoor(bool);
     Entrance* GetClosestEntrance();
+    void SetX(int delta, int direction);
+
     //virtual ~Mosquito();
 };
 

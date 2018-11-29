@@ -50,7 +50,7 @@ private:
     //Container** container;
     ShoppingMenu* shop;
     //Human** humans;
-    Entrance** entrance;
+    //Entrance** entrance;
 
     //Human** GenerateHumans();
     int CountHumans();
@@ -58,7 +58,7 @@ private:
     void HandleScrolling(SDL_Event*);
     void PlaceContainers();
 
-    Score points;
+
     Money money;
     Alert alert;
 
@@ -67,7 +67,7 @@ protected:
 public:
     Outdoor();
     void AddHuman(Human*);
-    void LeaveHuman(Human*){};
+    void LeaveHuman(Human*);
     //void Click();
     void Show(SDL_Renderer*);
     void Update(int);

@@ -56,7 +56,7 @@ private:
     void GoOutdoor();
     void GoIndoor();
     void ChangeScenario(Scenario*);
-    Disease* disease;
+    int disease;
 
 
 
@@ -79,8 +79,8 @@ public:
     void HandleEvents(SDL_Event*, Screens_Node&);
     bool GetIndoor();
     void SetX(int, int);
-    void SetInfected(Disease*);
-    Disease* GetInfected();
+    void SetInfected(int);
+    int GetInfected();
 
 
 

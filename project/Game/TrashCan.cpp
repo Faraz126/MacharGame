@@ -4,7 +4,7 @@ TrashCan::TrashCan(int x, int y): Container(x,y,CAN_WIDTH, CAN_HEIGHT)
 {
     spriteNum = 65;
     lid = new TrashCanLid(pos.x, pos.y + 100); //creating trash can lid at the given point
-    percentage = 20;
+    percentage = 5;
 }
 
 

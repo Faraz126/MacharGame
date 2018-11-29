@@ -25,6 +25,7 @@ ChickengunyaMosquito::ChickengunyaMosquito(Scenario* screen)
     speed_x = 0;
     speed_y = 0;
     frames = 0;
+    diseaseCode = CHICKENGUNYA;
 
 }
 
@@ -89,7 +90,7 @@ void ChickengunyaMosquito::bite(Human* human)
 {
     if(IsFollowingHuman == true && position.x == human->GetX() && position.y == human -> GetY())
     {
-        human -> SetInfected(Chickengunya);
+        human -> SetInfected(diseaseCode);
         IsFollowingHuman = false;
     }
 
@@ -153,21 +154,21 @@ void ChickengunyaMosquito::follow(Entrance* entrance)        // Going to entranc
         }
         speed_x += rand() % 5;
         speed_y += rand() % 5;
-        if(entrance -> GetX() > position.x && rand() % 4 == 0 && speed_x  >= 10)    // to move the mosquito right
+        if(entrance -> GetX(indoor) > position.x && rand() % 4 == 0 && speed_x  >= 10)    // to move the mosquito right
         {
             int random = rand() % 10;
             position.x += random;
             speed_x = 0;
     //        std::cout << "X Position: " << position.x << std::endl;
         }
-        else if(entrance -> GetX() < position.x && rand() % 4 == 1 && speed_x  >= 10) // to move the mosquito left
+        else if(entrance -> GetX(indoor) < position.x && rand() % 4 == 1 && speed_x  >= 10) // to move the mosquito left
         {
             int random = rand() % 10;
             position.x -= random;
             speed_x = 0;
     //        std::cout << "X Position: " << position.x << std::endl;
         }
-        else if(entrance -> GetY() > position.y && rand() % 4 == 2 && speed_y  >= 10) // to move the mosquito up
+        else if(entrance -> GetY(indoor) > position.y && rand() % 4 == 2 && speed_y  >= 10) // to move the mosquito up
         {
             int random = rand() % 10;
             position.y += random;
@@ -176,7 +177,7 @@ void ChickengunyaMosquito::follow(Entrance* entrance)        // Going to entranc
             speed_y = 0;
     //        std::cout << "Y Position: " << position.y << std::endl;
         }
-        else if(entrance -> GetY() < position.y && rand() % 4 == 3 && speed_y  >= 10) // to move the mosquito down
+        else if(entrance -> GetY(indoor) < position.y && rand() % 4 == 3 && speed_y  >= 10) // to move the mosquito down
         {
             int random = rand() % 10;
             position.y -= random;
@@ -200,8 +201,8 @@ void ChickengunyaMosquito::Detect()
         entrance = GetClosestEntrance();
 
         if(
-           (abs(position.x - entrance -> GetX())) < 200 &&
-           (abs(entrance -> GetY() - position.y)) < 200 &&
+           (abs(position.x - entrance -> GetX(indoor))) < 200 &&
+           (abs(entrance -> GetY(indoor) - position.y)) < 200 &&
            IsFollowingHuman == false
            )
         {
@@ -227,7 +228,7 @@ void ChickengunyaMosquito::Detect()
             if(abs(position.x - humans[i] -> GetX() < 100) &&
                abs(position.y - humans[i] -> GetY() < 100) &&
                (IsFollowingEntrance == false &&
-               humans[i]->GetInfected() == nullptr)
+               humans[i]->GetInfected() == 0)
                )
             {
                 std::cout << humans[i]->GetInfected() << std::endl;
@@ -270,7 +271,7 @@ void ChickengunyaMosquito::Detect()
 
 void ChickengunyaMosquito::ReachedEntrance()
 {
-    if(entrance->GetX() == position.x && entrance->GetY() == position.y)
+    if(entrance->GetX(indoor) == position.x && entrance->GetY(indoor) == position.y)
     {
         // will either go indoor or outdoor
     }

@@ -4,6 +4,8 @@
 #include <SDL_image.h>
 #include "Screens.h"
 
+class Scenario;
+
 class Clickable
 {
     public:
@@ -25,8 +27,11 @@ class Clickable
         int GetX();
         int GetY();
 
+        void SetScenario(Scenario*);
+        Scenario* GetScenario();
     protected:
         SDL_Rect pos;
+        Scenario* currentScenario; //whether the breeding place is in in house or outdoor.
 
 
 

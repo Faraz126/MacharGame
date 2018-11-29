@@ -23,7 +23,7 @@
 #include "Scenario.h"
 #include "AedesMosquito.h"
 
-
+class Outdoor;
 
 
 class House: public Scenario
@@ -44,8 +44,9 @@ private:
     Button* btn;
     ShoppingMenu* houseShop;
     SDL_Rect* cartPos;
-    Score points;
+
     Money money;
+    void SetUpScenarios();
 
 
     //Outdoor* outdoor;
@@ -58,9 +59,9 @@ public:
     bool GetHasRepellent();
     void AddHuman(Human*){};
     void LeaveHuman(Human*){};
-    void SetOutdoor(Scenario*);
-    Scenario* GetOutdoor();
-    Scenario* outdoor;
+    void SetOutdoor(Outdoor*);
+    Outdoor* GetOutdoor();
+    Outdoor* outdoor;
     void Click();
     void Show(SDL_Renderer*);
     void getWindowState();

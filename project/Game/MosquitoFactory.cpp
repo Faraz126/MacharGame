@@ -17,14 +17,17 @@ Mosquito* MosquitoFactory::GetMosquito(int n)
         case MALARIA:
         {
             mosquito = new MalariaMosquito();
+            break;
         }
         case AEDES:
         {
             mosquito = new AedesMosquito();
+            break;
         }
         case NORMAL:
         {
             mosquito = new NormalMosquito();
+            break;
         }
     }
     return mosquito;

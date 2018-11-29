@@ -4,6 +4,7 @@ DirtyWater::DirtyWater(int x, int y): Container(x,y, WATER_WIDTH, WATER_HEIGHT)
 {
     spriteNum = 71;
     ReduceSize(0.25);
+    percentage = 5;
     //SetCovered((bool)(rand()%2));
 
 }
@@ -21,9 +22,20 @@ void DirtyWater::Show(SDL_Renderer* renderer)
 
 Mosquito* DirtyWater::Breed()
 {
-    return factory->GetMosquito(0);
+    return factory->GetMosquito(MALARIA);
 }
 
+
+void DirtyWater::Update(int)
+{
+    if (!GetCovered())
+    {
+        if ((rand()%10000) < percentage)
+        {
+            AddMosquito(Breed());
+        }
+    }
+}
 
 
 DirtyWater::~DirtyWater()

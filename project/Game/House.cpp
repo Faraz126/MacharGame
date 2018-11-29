@@ -1,9 +1,11 @@
 #include "House.h"
 #include <random>
 #include "Scenario.h"
+#include "Outdoor.h"
 
 House::House()
 {
+    code = 1;
     pos.x = wall.x = 0;
     pos.y = wall.y = 0;
     pos.w = wall.w = 1024;
@@ -31,16 +33,17 @@ House::House()
     {
         x = 265;
         entrance[0] = new Door(100, 300);
+        entrance[0]->SetScenario(this);
         breedingplaces[0] = new TrashCan(10,450);
-        breedingplaces[0]->SetScenario(this);
+
         myQ.push_back(breedingplaces[0]);
     }
     else
     {
         x = 10;
         entrance[0] = new Door(750, 300);
+        entrance[0]->SetScenario(this);
         breedingplaces[0] = new TrashCan(925,450);
-        breedingplaces[0]->SetScenario(this);
         myQ.push_back(breedingplaces[0]);
     }
 
@@ -57,6 +60,7 @@ House::House()
         showpieces[1].SetPos(200, 600, 70);
         entrance[1] = new Window(200,125);
         entrance[2] = new Window(600,125);
+
     }
     else
     {
@@ -68,8 +72,8 @@ House::House()
     }
 
     noOfBreedingPlaces = 1;
-    int y = 500;
-    while (noOfBreedingPlaces < 3 && y < 800)
+    int y = 600;
+    while (noOfBreedingPlaces < 3 && y < 740)
     {
         if (rand()%3 == 1)
         {
@@ -87,7 +91,7 @@ House::House()
             breedingplaces[noOfBreedingPlaces++]->ReduceSize(float(y)/1600);
 
         }
-        y += 100;
+        y += 70;
     }
     btn = new Button;
     myQ.push_back(btn);
@@ -118,11 +122,14 @@ House::House()
         mosquito = new AedesMosquito(this);
         mosquitoes.push_back(mosquito);
     }
+    SetUpScenarios();
 }
 
-void House::SetOutdoor(Scenario* outdoorPtr)
+void House::SetOutdoor(Outdoor* outdoorPtr)
 {
     outdoor = outdoorPtr;
+    SetUpScenarios();
+
 }
 
 
@@ -195,7 +202,7 @@ void House::Show(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer,cartPos);
     if(houseShop->shopShow)
         houseShop->Show(renderer);
-    points.Show(renderer);
+    points->Show(renderer);
     money.Show(renderer);
 
 }
@@ -323,9 +330,19 @@ Bed* House::GetBeds(int &n)
 }
 
 
-Scenario* House::GetOutdoor()
+Outdoor* House::GetOutdoor()
 {
     return outdoor;
 }
 
+
+void House::SetUpScenarios()
+{
+    Scenario::SetUpScenarios();
+    for (int i = 0; i < noOfEntrance; i++)
+    {
+        entrance[i]->SetScenario(this);
+        entrance[i]->SetOutdoor(outdoor);
+    }
+}
 
