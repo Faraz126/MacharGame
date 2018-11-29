@@ -66,8 +66,8 @@ protected:
 
 public:
     Outdoor();
-    void AddHuman(Human*);
-    void LeaveHuman(Human*);
+    //void AddHuman(Human*);
+    //void LeaveHuman(Human*);
     //void Click();
     void Show(SDL_Renderer*);
     void Update(int);

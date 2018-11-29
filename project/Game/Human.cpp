@@ -29,7 +29,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     activity = WALKING;
     timeSince = 0;
     step = 1;
-    slowDownFactor = 3;
+    slowDownFactor = 4;
     isInfected = false;
     door = ownHouse->GetDoor();
     faceSprite = 86;
@@ -226,7 +226,7 @@ void Human::Update(int frame)
                     if (true)
                     {
 
-                        if (!isIndoor && Clickable::Collides(door->GetOutdoorRect(), legs) && Clickable::Collides(door->GetOutdoorRect(), collideRect))
+                        if (!isIndoor && (Clickable::Collides(door->GetOutdoorRect(), legs) || Clickable::Collides(door->GetOutdoorRect(), collideRect)))
                         {
 
                             GoIndoor();
@@ -595,6 +595,7 @@ void Human::GoIndoor()
 {
     isIndoor = true;
     ownHouse->GetOutdoor()->LeaveHuman(this);
+    ownHouse->AddHuman(this);
     ChangeScenario(ownHouse);
     door->GetCenter(pos.x, pos.y);
     sizeFactor = 0.3;
@@ -609,6 +610,7 @@ void Human::GoOutdoor()
 {
     isIndoor = false;
     ownHouse->GetOutdoor()->AddHuman(this);
+    ownHouse->LeaveHuman(this);
     ChangeScenario(ownHouse->GetOutdoor());
     door->OutdoorPosCenter(pos.x, pos.y);
     sizeFactor = 0.2;
@@ -646,25 +648,32 @@ void Human::SetX(int delta, int direction)
 
 void Human::SetInfected(int code)
 {
-    this -> disease = code;
-    if (code)
+    if (activity != SITTING && activity != LYING)
     {
-        isInfected = true;
-        while (!myStack.IsEmpty())
+
+        this -> disease = code;
+        if (code)
         {
-            myStack.Pop();
+            isInfected = true;
+            while (!myStack.IsEmpty())
+            {
+                myStack.Pop();
+            }
+
+            ChangeState(GOING_TO_BED);
+        }
+        else
+        {
+            isInfected = false;
         }
 
-        ChangeState(GOING_TO_BED);
     }
-    else
-    {
-        isInfected = false;
-    }
+
     //std::cout << disease << std::endl;
+
 }
 
 int Human::GetInfected()
 {
-    return disease;
+    return isInfected;
 }

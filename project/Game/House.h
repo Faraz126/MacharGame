@@ -57,8 +57,8 @@ public:
     House();
     ~House();
     bool GetHasRepellent();
-    void AddHuman(Human*){};
-    void LeaveHuman(Human*){};
+    //void AddHuman(Human*){};
+    //void LeaveHuman(Human*);
     void SetOutdoor(Outdoor*);
     Outdoor* GetOutdoor();
     Outdoor* outdoor;

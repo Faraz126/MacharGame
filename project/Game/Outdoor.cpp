@@ -419,15 +419,4 @@ Outdoor :: ~Outdoor()
 }
 
 
-void Outdoor::AddHuman(Human* human)
-{
-    humans.push_back(human);
-}
-
-void Outdoor::LeaveHuman(Human* human)
-{
-    humans.erase(std::remove(humans.begin(), humans.end(), human), humans.end());
-}
-
-
 

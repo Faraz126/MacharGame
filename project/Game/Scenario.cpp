@@ -76,3 +76,16 @@ void Scenario::LeaveMosquito(Mosquito* mosquito)
 {
     mosquitoes.erase(std::remove(mosquitoes.begin(), mosquitoes.end(), mosquito), mosquitoes.end());
 }
+
+
+void Scenario::AddHuman(Human* human)
+{
+    humans.push_back(human);
+}
+
+void Scenario::LeaveHuman(Human* human)
+{
+    humans.erase(std::remove(humans.begin(), humans.end(), human), humans.end());
+}
+
+

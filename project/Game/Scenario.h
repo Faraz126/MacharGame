@@ -39,8 +39,8 @@ public:
     Entrance** GetEntrance(int &);
 
     Scenario();
-    virtual void AddHuman(Human*){};
-    virtual void LeaveHuman(Human*){};
+    virtual void AddHuman(Human*);
+    virtual void LeaveHuman(Human*);
     virtual void AddMosquito(Mosquito*);
     virtual void LeaveMosquito(Mosquito*);
     std::vector<Human*>& GetHumans(int & );
