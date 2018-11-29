@@ -1,5 +1,6 @@
 #include "House.h"
 #include <random>
+#include "Outdoor.h"
 
 House::House()
 {
@@ -25,20 +26,20 @@ House::House()
         x = 265;
         entrance[0] = new Door(100, 300);
         breedingplaces[0] = new TrashCan(10,450);
-        myQ.push_back(breedingplaces[0]);
+        myQ.Append(breedingplaces[0]);
     }
     else
     {
         x = 10;
         entrance[0] = new Door(750, 300);
         breedingplaces[0] = new TrashCan(925,450);
-        myQ.push_back(breedingplaces[0]);
+        myQ.Append(breedingplaces[0]);
     }
 
     for (int i = 0; i<noOfHumans; i++)
     {
         bed[i].SetPos(x, 365);
-        myQ.push_back(&bed[i]);
+        myQ.Append(&bed[i]);
         x += 150;
     }
     if (noOfEntrance == 3)
@@ -73,14 +74,14 @@ House::House()
             {
                 breedingplaces[noOfBreedingPlaces] = new Tub(900, y);
             }
-            myQ.push_back(breedingplaces[noOfBreedingPlaces]);
+            myQ.Append(breedingplaces[noOfBreedingPlaces]);
             breedingplaces[noOfBreedingPlaces++]->ReduceSize(float(y)/1600);
 
         }
         y += 100;
     }
     btn = new Button;
-    myQ.push_back(btn);
+    myQ.Append(btn);
     btn->setPosition(800,10);
     btn->SetWidth(200,55);
     btn->setText("OUTDOOR");
@@ -89,7 +90,7 @@ House::House()
     for (int i = 0; i < noOfHumans; i++)
     {
         humanPtr = new Human((i*30), 388 + (i*90),this);
-        humans.push_back(humanPtr);
+        humans.Append(humanPtr);
     }
 
 
@@ -107,7 +108,7 @@ House::House()
 
 }
 
-void House::SetOutdoor(Scenario* outdoorPtr)
+void House::SetOutdoor(Outdoor* outdoorPtr)
 {
     outdoor = outdoorPtr;
 }
@@ -155,18 +156,18 @@ void House::Show(SDL_Renderer* renderer)
 
     for (int i = 0; i < noOfHumans; i++)
     {
-        if (humans[i]->GetIndoor())
+        if (humans.GiveItem(i)->GetIndoor())
         {
-            humans[i]->Show(renderer);
+            humans.GiveItem(i)->Show(renderer);
         }
     }
 //    humans->Show(renderer);
 
 
 
-    for (int i = 0; i < myQ.size(); i++)
+    for (int i = 0; i < myQ.GetLength(); i++)
     {
-        myQ[i]->Show(renderer);
+        myQ.GiveItem(i)->Show(renderer);
     }
 
     btn->Show(renderer);
@@ -216,11 +217,13 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
         {
             node.cur_screen = node.prev_screen;
             node.prev_screen = this;
+            node.prev_backable = true;
+            node.prev_updatable = true;
         }
 
         for (int i = 0; i < noOfHumans; i++)
         {
-            humans[i]->HandleEvents(e, node);
+            humans.GiveItem(i)->HandleEvents(e, node);
         }
     }
 
@@ -236,7 +239,7 @@ void House::Update(int frame)
 
     for (int i = 0; i < noOfHumans; i++)
     {
-        humans[i]->Update(frame);
+        humans.GiveItem(i)->Update(frame);
     }
 }
 
@@ -291,7 +294,7 @@ Bed* House::GetBeds(int &n)
 }
 
 
-Scenario* House::GetOutdoor()
+Outdoor* House::GetOutdoor()
 {
     return outdoor;
 }

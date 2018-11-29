@@ -32,7 +32,7 @@ Outdoor:: Outdoor()
 
 
     entrance = new Entrance*[12];
-    house = new House[4]; //house count is 4
+    house = new House[5]; //house count is 4 & 1 hospital
 
     for (int i = 0; i < 4; i++)
     {
@@ -42,28 +42,34 @@ Outdoor:: Outdoor()
 
     PlaceContainers();
 
-    houseRect= new SDL_Rect[4]; //clickable region for all 4 houses
-    houseRect[0].x=45;
-    houseRect[0].y=140;
-    houseRect[0].w=280;
-    houseRect[0].h=320;
+    buildingRect= new SDL_Rect[4]; //clickable region for all 4 houses
+    buildingRect[0].x=45;
+    buildingRect[0].y=140;
+    buildingRect[0].w=280;
+    buildingRect[0].h=320;
 
-    houseRect[1].x=545;
-    houseRect[1].y=115;
-    houseRect[1].w=210;
-    houseRect[1].h=350;
+    buildingRect[1].x=515;
+    buildingRect[1].y=140;
+    buildingRect[1].w=280;
+    buildingRect[1].h=320;
 
-    houseRect[2].x=1138;
-    houseRect[2].y=150;
-    houseRect[2].w=280;
-    houseRect[2].h=300;
+    buildingRect[2].x=1138;
+    buildingRect[2].y=140;
+    buildingRect[2].w=280;
+    buildingRect[2].h=320;
 
-    houseRect[3].x=1710;
-    houseRect[3].y=150;
-    houseRect[3].w=290;
-    houseRect[3].h=300;
+    buildingRect[3].x=1710;
+    buildingRect[3].y=140;
+    buildingRect[3].w=290;
+    buildingRect[3].h=320;
+
+    buildingRect[4].x = 2190;
+    buildingRect[4].y = 130;
+    buildingRect[4].w = 350;
+    buildingRect[4].h = 350;
     //humans = GenerateHumans();
     //noOfEntrance = 0;
+    hospital = new Hospital();
     GetHouseEntrance();
     shop = new ShoppingMenu;
 
@@ -110,9 +116,9 @@ void Outdoor::Show(SDL_Renderer* renderer)
     points.Show(renderer);
     money.Show(renderer);
 
-    for (int i = 0; i < humans.size(); i++)
+    for (int i = 0; i < humans.GetLength(); i++)
     {
-        humans[i]->Show(renderer);
+        humans.GiveItem(i)->Show(renderer);
     }
 
     //alert.Show(renderer);
@@ -121,24 +127,24 @@ void Outdoor::Show(SDL_Renderer* renderer)
 
 //    for(int i = 0; i<4; i++)
 //    {
-//        SDL_RenderFillRect(renderer,&houseRect[i]);
+//        SDL_RenderFillRect(renderer,&buildingRect[i]);
 //    }
 
-
+//
 //    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0);
-
+//
 //    for(int i = 0; i<4; i++)
 //    {
 //        SDL_RenderFillRect(renderer,&entranceRect[i]);
 //    }
 
 
-/*
-    for(int i = 0; i<4; i++)
-    {
-        SDL_RenderFillRect(renderer,&houseRect[i]);
-    }
-*/
+
+//    for(int i = 0; i<5; i++)
+//    {
+//        SDL_RenderFillRect(renderer,&buildingRect[i]);
+//    }
+
 
 }
 
@@ -159,21 +165,18 @@ void Outdoor::Update(int frame)
         house[i].Update(frame);
     }
 
-    for (int i = 0; i < humans.size(); i++)
+    for (int i = 0; i < humans.GetLength(); i++)
     {
-        humans[i]->Update(frame);
+        humans.GiveItem(i)->Update(frame);
     }
 
 }
 
 
-
-
-
 void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
 {
-    for (int i = 0; i<noOfBreedingPlaces; i++ ) ///to drag & drop lids on breedingplacess
+    for (int i = 0; i<noOfBreedingPlaces; i++ ) ///to drag & drop lids on breeding places
     {
         breedingplaces[i]->HandleEvents(e,node);
     }
@@ -187,7 +190,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
         for (int i = 0; i<4; i++)
         {
-            if (x >= houseRect[i].x && y >= houseRect[i].y && x < houseRect[i].x + houseRect[i].w && y < houseRect[i].y + houseRect[i].h)
+            if (x >= buildingRect[i].x && y >= buildingRect[i].y && x < buildingRect[i].x + buildingRect[i].w && y < buildingRect[i].y + buildingRect[i].h)
             {
                 node.cur_screen = &house[i];
                 node.prev_screen = this;
@@ -196,6 +199,13 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
             }
         }
 
+        if (x >= buildingRect[4].x && y >= buildingRect[4].y && x < buildingRect[4].x + buildingRect[4].w && y < buildingRect[4].y + buildingRect[4].h)
+            {
+                node.cur_screen = hospital;
+                node.prev_screen = this;
+                node.prev_backable = true;
+                node.prev_updatable = true;
+            }
 
         if(e->button.button ==  SDL_BUTTON_LEFT)
         {
@@ -226,16 +236,16 @@ void Outdoor::GetHouseEntrance()
         {
             entrance[noOfEntrance] = entry[x];
 
-            entry[0]->SetOutdoorPos(houseRect[i].x+160,376,225*0.25,298*0.25); //for door
+            entry[0]->SetOutdoorPos(buildingRect[i].x+160,372,225*0.25,298*0.25); //for door
 
             if(n==3) //if two windows
             {
-                entry[1]->SetOutdoorPos(houseRect[i].x+20,270,200*0.35,110*0.35);
-                entry[2]->SetOutdoorPos(houseRect[i].x+130,270,200*0.35,110*0.35);
+                entry[1]->SetOutdoorPos(buildingRect[i].x+60,270,200*0.35,110*0.35);
+                entry[2]->SetOutdoorPos(buildingRect[i].x+160,270,200*0.35,110*0.35);
             }
             if(n==2) //if one window
             {
-                entry[1]->SetOutdoorPos(houseRect[i].x+100,270,200*0.5,110*0.5);
+                entry[1]->SetOutdoorPos(buildingRect[i].x+100,270,200*0.5,110*0.5);
             }
             noOfEntrance++;
         }
@@ -271,14 +281,14 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                         entrance[i]->SetOutdoorX(20,0);
                     }
 
-                    for(int i = 0; i<4; i++)
+                    for(int i = 0; i<5; i++)
                     {
-                        houseRect[i].x+=20;
+                        buildingRect[i].x+=20;
                     }
 
-                    for (int i = 0; i < humans.size(); i++)
+                    for (int i = 0; i < humans.GetLength(); i++)
                     {
-                        humans[i]->SetX(20,0);
+                        humans.GiveItem(i)->SetX(20,0);
                     }
                 }
 
@@ -303,13 +313,13 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                         entrance[i]->SetOutdoorX(20,1);
                     }
 
-                    for(int i = 0; i<4; i++)
+                    for(int i = 0; i<5; i++)
                     {
-                        houseRect[i].x-=20;
+                        buildingRect[i].x-=20;
                     }
-                    for (int i = 0; i < humans.size(); i++)
+                    for (int i = 0; i < humans.GetLength(); i++)
                     {
-                        humans[i]->SetX(20,1);
+                        humans.GiveItem(i)->SetX(20,1);
                     }
 
                 }
@@ -370,19 +380,15 @@ void Outdoor:: PlaceContainers()
 
 Outdoor :: ~Outdoor()
 {
-    for (int i = 0; i <countContainer; i++)
-    {
-        delete breedingplaces[i];
-    }
-
-    delete[] houseRect;
+    delete[] buildingRect;
     delete[] house;
 }
 
 
-void Outdoor::AddHuman(Human* human)
+bool Outdoor::AddHuman(Human* human)
 {
-    humans.push_back(human);
+    humans.Append(human);
+    return true;
 }
 
 

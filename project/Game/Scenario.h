@@ -5,8 +5,7 @@
 #include "Clickable.h"
 #include "Entrance.h"
 #include "Mosquito.h"
-
-#include <vector>
+#include "DoublyLinked.h"
 
 
 class BreedingGround;
@@ -18,9 +17,9 @@ protected:
     int height;
     int noOfEntrance;
     BreedingGround** breedingplaces;
-    std::vector<Clickable*> myQ;
-    std::vector<Human*> humans;
-    std::vector<Mosquito*> mosquitoes;
+    DLL<Clickable*> myQ;
+    DLL<Human*> humans;
+    DLL<Mosquito*> mosquitoes;
 
     Entrance** entrance;
     int noOfBreedingPlaces;
@@ -31,11 +30,11 @@ public:
     Entrance** GetEntrance(int &);
 
 
-    virtual void AddHuman(Human*){};
+    virtual bool AddHuman(Human*){};
     virtual void LeaveHuman(Human*){};
     virtual void AddMosquito(Mosquito*){};
     virtual void LeaveMosquito(Mosquito*){};
-    std::vector<Human*>& GetHumans(int & );
+    DLL<Human*>& GetHumans(int & );
     int GetWidth();
     int GetHeight();
     ~Scenario(){};

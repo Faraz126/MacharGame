@@ -23,9 +23,9 @@ int Scenario::GetHeight()
     return height;
 }
 
-std::vector<Human*>& Scenario::GetHumans(int & n)
+DLL<Human*>& Scenario::GetHumans(int & n)
 {
-    n = humans.size();
+    n = humans.GetLength();
     return humans;
 }
 

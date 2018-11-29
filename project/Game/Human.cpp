@@ -73,6 +73,14 @@ void Human::BuildHuman()
 
 void Human::HandleEvents(SDL_Event* e, Screens_Node&)
 {
+    int x = e->button.x;
+    int y = e->button.y;
+    if (WithinRegion(x,y) && e->type == SDL_MOUSEBUTTONDOWN)
+    {
+        ownHouse->GetOutdoor()->hospital->AddHuman(this);
+        ChangeState(IN_HOSPITAL);
+    }
+
     return;
 }
 
@@ -105,10 +113,10 @@ bool Human::Collide(SDL_Rect& tempRect)
             return true;
         }
     }
-    std::vector<Human*> humans = currentScenario->GetHumans(n);
+    DLL <Human*> humans = currentScenario->GetHumans(n);
     for (int i = 0; i < n; i++)
     {
-        if (humans[i]->Collides(tempRect, humans[i]->collideRect) && humans[i] != this)
+        if (humans.GiveItem(i)->Collides(tempRect, humans.GiveItem(i)->collideRect) && humans.GiveItem(i) != this)
         {
             return true;
         }
@@ -562,6 +570,10 @@ void Human::Show(SDL_Renderer* renderer)
         Texture::GetInstance()->Render(spriteNum, renderer, &pos);
     }
 
+    else if (activity == IN_HOSPITAL)
+    {
+        Texture::GetInstance()->Render(76, renderer, &pos);
+    }
     SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
     SDL_RenderDrawRect(renderer, &collideRect);
 }
@@ -610,4 +622,11 @@ void Human::SetX(int delta, int direction)
         legs.x -= delta;
     }
     Clickable::SetX(delta, direction);
+}
+
+void Human::SetPos(int x, int y)
+{
+    pos.x = x;
+    pos.y = y;
+    BuildHuman();
 }

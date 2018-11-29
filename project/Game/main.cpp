@@ -12,6 +12,7 @@
 #include <random>
 #include"Outdoor.h"
 #include "GLOBALS.h"
+#include"Hospital.h"
 
 using namespace std;
 
@@ -132,7 +133,7 @@ int main( int argc, char* args[] )
         Screens_Node screen;
 
 
-        screen.cur_screen = new MainMenu; //starting with main menu
+        screen.cur_screen = new Outdoor; //starting with main menu
         int frame = 0;
 
 

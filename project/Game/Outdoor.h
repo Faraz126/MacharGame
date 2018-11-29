@@ -19,6 +19,7 @@
 #include "Score.h"
 #include "Money.h"
 #include "Alert.h"
+#include "Hospital.h"
 
 class Outdoor: public Scenario
 {
@@ -44,8 +45,9 @@ private:
     int totalHumans;
 
 
-    SDL_Rect* houseRect; //rectangle for clickable region of house
+    SDL_Rect* buildingRect; //rectangle for clickable region of houses & hospital
     House* house;
+
 
     //Container** container;
     ShoppingMenu* shop;
@@ -65,8 +67,9 @@ private:
 protected:
 
 public:
+    Hospital* hospital;
     Outdoor();
-    void AddHuman(Human*);
+    bool AddHuman(Human*);
     void LeaveHuman(Human*){};
     //void Click();
     void Show(SDL_Renderer*);

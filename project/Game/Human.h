@@ -15,7 +15,7 @@
 
 
 enum DIRECTION {UP, RIGHT, DOWN, LEFT};
-enum STATES_HUMAN {GOING_TO_BED, WALKING, GOING_TO_DOOR, SITTING, LYING, AVOIDING_COLLISION};
+enum STATES_HUMAN {GOING_TO_BED, WALKING, GOING_TO_DOOR, SITTING, LYING, AVOIDING_COLLISION, IN_HOSPITAL};
 
 class House;
 
@@ -74,7 +74,7 @@ public:
     void HandleEvents(SDL_Event*, Screens_Node&);
     bool GetIndoor();
     void SetX(int, int);
-
+    void SetPos(int,int);
 
 
 };

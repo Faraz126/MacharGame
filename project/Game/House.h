@@ -14,12 +14,14 @@
 #include "Tub.h"
 #include "Human.h"
 #include "Button.h"
-#include <vector>
+#include "DoublyLinked.h"
 #include "ShoppingMenu.h"
 #include "EndMenu.h"
 #include "PauseMenu.h"
 #include "Score.h"
 #include "Money.h"
+
+class Outdoor;
 
 
 
@@ -54,11 +56,11 @@ public:
     House();
     ~House();
     bool GetHasRepellent();
-    void AddHuman(Human*){};
+    bool AddHuman(Human*){};
     void LeaveHuman(Human*){};
-    void SetOutdoor(Scenario*);
-    Scenario* GetOutdoor();
-    Scenario* outdoor;
+    void SetOutdoor(Outdoor*);
+    Outdoor* GetOutdoor();
+    Outdoor* outdoor;
     void Click();
     void Show(SDL_Renderer*);
     void getWindowState();
