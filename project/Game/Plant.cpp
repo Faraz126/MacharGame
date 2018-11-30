@@ -67,6 +67,17 @@ Mosquito* Plant::Breed()
     return factory->GetMosquito(0);
 
 }
+void Plant::Write(std::ofstream& file)
+{
+    file<< pos.x << '\n';
+    file<< pos.y << '\n';
+    file<< pos.w << '\n';
+    file <<pos.h << '\n';
+    file << GetCovered() << '\n';
+//    if (!GetCovered())
+//        water->write(file);
+
+}
 
 void Plant::Update(int)
 {

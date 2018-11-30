@@ -25,7 +25,7 @@ void ExitMenu::Show(SDL_Renderer* gRenderer)
     texture = Texture::GetInstance(gRenderer);
     texture->Render(59,gRenderer,exitPos);
     Menu::Show(gRenderer);
-    for(int i=0; i<1; i++)      //rendering all words i.e settings,volume,brightness
+    for(int i=0; i<1; i++)
     {
          word[i].Show(gRenderer);
     }

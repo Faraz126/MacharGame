@@ -7,6 +7,8 @@
 #include "Slider.h"
 #include "Closing.h"
 #include "CancelButton.h"
+#include "SaveScreen.h"
+#include "Outdoor.h"
 
 
 class PauseMenu :public Menu
@@ -18,11 +20,12 @@ class PauseMenu :public Menu
     CancelButton *cancelBtn;
     Word* word;
     std::string buttonText[4];
+    Outdoor* outdoor;
 
 protected:
 
 public:
-    PauseMenu();
+    PauseMenu(Outdoor*);
     void HoverClick(SDL_Event*);
     void Show(SDL_Renderer*);
     void Update(int);

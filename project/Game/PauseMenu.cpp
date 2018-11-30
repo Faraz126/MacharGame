@@ -1,11 +1,11 @@
 #include "PauseMenu.h"
 
-PauseMenu::PauseMenu():Menu(4,150,230,false)
+PauseMenu::PauseMenu(Outdoor* outPtr):Menu(4,80,230,false)
 {
     pausePos = new SDL_Rect;
     pausePos->x= 0;
     pausePos->y= 0;
-    pausePos->w= 1240;
+    pausePos->w= 1024;
     pausePos->h= 786;
 
     pauseCancelPos.x = 950;
@@ -24,8 +24,10 @@ PauseMenu::PauseMenu():Menu(4,150,230,false)
     word = new Word[1];
 
     word[0].SetText("P A U S E D");
-    word[0].SetPosition(pausePos->x+270,pausePos->y+100);
-    word[0].ReduceSize(2);
+    word[0].SetPosition(pausePos->x+80,pausePos->y+100);
+    word[0].ReduceSize(1.5);
+
+    outdoor = outPtr;
 
 }
 
@@ -47,8 +49,8 @@ void PauseMenu::HoverClick(SDL_Event* e)
 
 void PauseMenu::Show(SDL_Renderer* gRenderer)
 {
-    SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 0.9);
-    SDL_RenderFillRect(gRenderer,pausePos);
+    texture = Texture::GetInstance(gRenderer);
+    texture->Render(78,gRenderer,pausePos);
     cancelBtn->Show(gRenderer);
     Menu::Show(gRenderer);
     for(int i=0; i<1; i++)
@@ -76,6 +78,14 @@ void PauseMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
             if (btn[0].WithinRegion(mouseX,mouseY)==true)
             {
                 node.cur_screen = node.prev_screen;
+
+            }
+            if (btn[1].WithinRegion(mouseX,mouseY)==true)
+            {
+                node.cur_screen = new SaveMenu(outdoor);
+                node.prev_screen = this;
+                node.prev_updatable = false;
+                node.prev_backable = true;
 
             }
 

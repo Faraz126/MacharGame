@@ -969,6 +969,19 @@ void Texture::SetRect(char c)
         clipFromTexture.w = 73;
     }
 
+//    else if(ascii == 46)
+//    {
+//        clipFromTexture.x = 1356+73;
+//        clipFromTexture.y = 184+73;
+//        clipFromTexture.w = 73;
+//        clipFromTexture.h = 73;
+//    }
+
+}
+
+void Texture::ChangeOpactiy(int val)
+{
+    SDL_SetTextureAlphaMod( this->texture, val);
 }
 
 

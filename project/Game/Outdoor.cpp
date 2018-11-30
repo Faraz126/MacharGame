@@ -27,20 +27,17 @@ Outdoor:: Outdoor()
     pos1.w = 1024;
     pos1.h = 786;
 
-
-    cartPos = new SDL_Rect;
-    cartPos->x = 970;
-    cartPos->y = 730;
-    cartPos->w = 20;
-    cartPos->h = 20;
-
-
     entrance = new Entrance*[12];
     house = new House[5]; //house count is 4 & 1 hospital
 
     for (int i = 0; i < 4; i++)
     {
         // Setting outdoor pointer in every house. To be used by mosquitoes and humans.
+        house[i].SetOutdoor(this);
+    }
+
+    for (int i = 0; i < 4; i ++)
+    {
         house[i].SetOutdoor(this);
     }
 
@@ -105,11 +102,6 @@ void Outdoor::Show(SDL_Renderer* renderer)
     }
 
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
-    SDL_RenderFillRect(renderer,cartPos);
-
-    if(shop->shopShow)
-        shop->Show(renderer);
-
     for (int i = 0; i < 12; i++)
     {
         if (entrance[i]!=NULL)
@@ -242,15 +234,11 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
                 node.prev_updatable = true;
             }
 
-        if(e->button.button ==  SDL_BUTTON_LEFT)
-        {
-            if( ( x > cartPos->x ) && ( x < (cartPos->x+cartPos->w) ) && ( y > cartPos->y ) && (y< (cartPos->y+cartPos->h) ) )
-                shop->shopShow = true;
-        }
+
     }
     if(e->key.keysym.sym == SDLK_ESCAPE)  //will open pause menu
     {
-        node.cur_screen = new PauseMenu;
+        node.cur_screen = new PauseMenu(this);
         node.prev_screen = this;
         node.prev_updatable = false;
         node.prev_backable = true;
@@ -441,6 +429,52 @@ void Outdoor:: PlaceContainers()
 
         i++;
     }
+}
+
+
+
+void Outdoor::Save(ofstream& file)
+{
+	file << noOfBreedingPlaces << '\n';
+	file << countPlants << '\n';
+
+	int i =0;
+	for (int place = 0; place < countPlants; place++)
+    {
+        breedingplaces[i]->Write(file);
+        i++;
+    }
+
+    file << countTrashcan << '\n';
+	for (int place=0 ; place < countTrashcan; place++)
+    {
+        breedingplaces[i]->Write(file);
+        i++;
+    }
+
+    file << countManhole << '\n';
+	for (int place = 0; place < countManhole; place++)
+    {
+        breedingplaces[i]->Write(file);
+        i++;
+    }
+
+    file << countManhole << '\n';
+	for (int place = 0; place < countManhole; place++)
+    {
+        breedingplaces[i]->Write(file);
+        i++;
+    }
+
+    file << countCleanWater << '\n';
+	for (int place = 0; place < countCleanWater; place++)
+    {
+        breedingplaces[i]->Write(file);
+        i++;
+    }
+
+
+
 }
 
 Outdoor :: ~Outdoor()

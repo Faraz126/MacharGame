@@ -59,3 +59,7 @@ CleanWater::~CleanWater()
     //dtor
 }
 
+void CleanWater::Write(std::ofstream&)
+{
+
+}

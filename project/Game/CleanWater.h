@@ -25,6 +25,7 @@ public:
     ~CleanWater();
     void SetCovered(bool);
     void HandleEvents(SDL_Event*,Screens_Node&);
+    void Write(std::ofstream&);
 };
 
 

@@ -117,12 +117,6 @@ House::House()
     houseShop->shopShow = false;
 
     cartPos = new SDL_Rect;
-    cartPos->x = 970;
-    cartPos->y = 730;
-    cartPos->w = 20;
-    cartPos->h = 20;
-
-
     Mosquito* mosquito;
     for (int i = 0; i < 4; i++)
     {
@@ -130,6 +124,12 @@ House::House()
         mosquitoes.Append(mosquito);
     }
     SetUpScenarios();
+
+
+    cartPos->x = 960;
+    cartPos->y = 720;
+    cartPos->w = 193 *0.3;
+    cartPos->h = 193 *0.3;
 }
 
 void House::SetOutdoor(Outdoor* outdoorPtr)
@@ -143,6 +143,8 @@ void House::SetOutdoor(Outdoor* outdoorPtr)
 void House::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->Render(9, renderer, &pos);
+    texture = Texture::GetInstance(renderer);
+    texture->Render(115,renderer,cartPos);
 
     //SDL_SetRenderDrawColor(renderer, 30,30,30,0); //wall feature
     //SDL_RenderFillRect(renderer, &wall);
@@ -206,8 +208,7 @@ void House::Show(SDL_Renderer* renderer)
     }
 
     btn->Show(renderer);
-    SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
-    SDL_RenderFillRect(renderer,cartPos);
+
     if(houseShop->shopShow)
         houseShop->Show(renderer);
     points->Show(renderer);
@@ -226,7 +227,7 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
 
         if(e->key.keysym.sym == SDLK_ESCAPE)    //will open pause menu
         {
-            node.cur_screen = new PauseMenu;
+            node.cur_screen = new PauseMenu(outdoor);
             node.prev_screen = this;
             node.prev_updatable = false;
             node.prev_backable = true;
@@ -241,6 +242,10 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
         if( ( mousePosX >cartPos->x ) && ( mousePosX < (cartPos->x+cartPos->w) ) && ( mousePosY > cartPos->y ) && (mousePosY< (cartPos->y+cartPos->h) ) )
             houseShop->shopShow = true;
 
+        if( ( mousePosX >houseShop->GetShoppingExitPosX() ) && ( mousePosX < (houseShop->GetShoppingExitPosX()+houseShop->GetShoppingExitPosW()) ) && ( mousePosY > houseShop->GetShoppingExitPosY() ) && (mousePosY< (houseShop->GetShoppingExitPosY()+houseShop->GetShoppingExitPosH()) ) )
+            houseShop->shopShow = false;
+
+
         for (int i = 0; i < noOfEntrance; i++)
         {
             if (entrance[i]->WithinRegion(mousePosX, mousePosY))
@@ -250,10 +255,10 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
         }
          if (btn->WithinRegion(mousePosX,mousePosY))  //for outdoor button in house
         {
-            node.cur_screen = node.prev_screen;
+            node.cur_screen = new Manual;
             node.prev_screen = this;
-            node.prev_backable = true;
-            node.prev_updatable = true;
+            node.prev_updatable = false;
+            node.prev_backable = false;
         }
 
     }
@@ -325,6 +330,7 @@ House::~House()
     delete[] entrance;
     delete breedingplaces;
     delete[] showpieces;
+    delete cartPos;
 }
 
 

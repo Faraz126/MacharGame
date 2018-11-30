@@ -11,7 +11,6 @@
 #include"Manhole.h"
 #include"House.h"
 #include "Clickable.h"
-#include "ShoppingMenu.h"
 #include "Human.h"
 #include "DirtyWater.h"
 #include "CleanWater.h"
@@ -20,6 +19,9 @@
 #include "Money.h"
 #include "Alert.h"
 #include "Hospital.h"
+
+#include <fstream>
+
 
 class Outdoor: public Scenario
 {
@@ -82,6 +84,11 @@ public:
     void Show(SDL_Renderer*);
     void Update(int);
     void HandleEvents(SDL_Event*, Screens_Node&);
+    void Save(ofstream&);
     //Entrance* getCurrentState();
     ~Outdoor();
 };
+
+
+
+

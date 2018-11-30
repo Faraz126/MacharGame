@@ -22,8 +22,9 @@
 #include "Money.h"
 #include "Scenario.h"
 #include "AedesMosquito.h"
-
+#include "Manual.h"
 class Outdoor;
+
 
 
 class House: public Scenario
@@ -47,7 +48,8 @@ private:
 
     Money money;
     void SetUpScenarios();
-
+    Outdoor* outdoor;
+    Manual* manual;
 
     //Outdoor* outdoor;
     //Door* door;
@@ -68,7 +70,6 @@ public:
 */
     void SetOutdoor(Outdoor*);
     Outdoor* GetOutdoor();
-    Outdoor* outdoor;
     void Click();
     void Show(SDL_Renderer*);
     void getWindowState();
@@ -79,6 +80,5 @@ public:
     Bed* GetClosestBed(int,int);
     Door* GetDoor();
     Bed* GetBeds(int&);
-
 
 };
