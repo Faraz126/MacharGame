@@ -4,12 +4,12 @@ ShoppingMenu::ShoppingMenu():Menu()
 {
     shoppingPos = new SDL_Rect();
     shoppingPos->x = 80;
-    shoppingPos->y = 700;
+    shoppingPos->y = 680;
     shoppingPos->w = 855;
-    shoppingPos->h = 150;
+    shoppingPos->h = 90;
 
     shoppingExitPos.x = 900;
-    shoppingExitPos.y = 710;
+    shoppingExitPos.y = 690;
     shoppingExitPos.w = 25;
     shoppingExitPos.h = 25;
 
@@ -100,6 +100,26 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
     }
 
 
+}
+
+int ShoppingMenu::GetShoppingExitPosX()
+{
+    return shoppingExitPos.x;
+}
+
+int ShoppingMenu::GetShoppingExitPosY()
+{
+    return shoppingExitPos.y;
+}
+
+int ShoppingMenu::GetShoppingExitPosW()
+{
+    return shoppingExitPos.w;
+}
+
+int ShoppingMenu::GetShoppingExitPosH()
+{
+    return shoppingExitPos.h;
 }
 
 ShoppingMenu::~ShoppingMenu()

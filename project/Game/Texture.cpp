@@ -778,6 +778,31 @@ void Texture::SetRect(int n)
         clipFromTexture.w = 177;
         clipFromTexture.h = 250;
         break;
+    case 113:
+        clipFromTexture.x = 1676;
+        clipFromTexture.y = 3880;
+        clipFromTexture.w = 1024;
+        clipFromTexture.h = 786;
+        break;
+    case 114:
+        clipFromTexture.x = 1908;
+        clipFromTexture.y = 4786;
+        clipFromTexture.w = 147;
+        clipFromTexture.h = 222;
+        break;
+    case 115:
+        clipFromTexture.x = 2132;
+        clipFromTexture.y = 4786;
+        clipFromTexture.w = 193;
+        clipFromTexture.h = 193;
+        break;
+    case 116:
+        clipFromTexture.x = 2373;
+        clipFromTexture.y = 4836;
+        clipFromTexture.w = 240;
+        clipFromTexture.h = 118;
+        break;
+
 
     }
 
@@ -833,6 +858,19 @@ void Texture::SetRect(char c)
         clipFromTexture.w = 73;
     }
 
+//    else if(ascii == 46)
+//    {
+//        clipFromTexture.x = 1356+73;
+//        clipFromTexture.y = 184+73;
+//        clipFromTexture.w = 73;
+//        clipFromTexture.h = 73;
+//    }
+
+}
+
+void Texture::ChangeOpactiy(int val)
+{
+    SDL_SetTextureAlphaMod( this->texture, val);
 }
 
 

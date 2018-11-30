@@ -20,6 +20,8 @@
 #include "PauseMenu.h"
 #include "Score.h"
 #include "Money.h"
+#include "Manual.h"
+class Outdoor;
 
 
 
@@ -46,7 +48,8 @@ private:
     SDL_Rect* cartPos;
     Score points;
     Money money;
-
+    Outdoor* outdoor;
+    Manual* manual;
 
     //Outdoor* outdoor;
     //Door* door;
@@ -71,4 +74,6 @@ public:
     Human** GetHumans(int & );
     int GetWidth();
     int GetHeight();
+    void SetOutdoor(Outdoor*);
+    Outdoor* GetOutdoor();
 };

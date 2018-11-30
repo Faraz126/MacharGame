@@ -12,6 +12,10 @@
 #include <random>
 #include"Outdoor.h"
 #include "GLOBALS.h"
+#include "Plant.h"
+#include <fstream>
+#include <sstream>
+#include "SplashScreen.h"
 
 using namespace std;
 
@@ -131,6 +135,8 @@ int main( int argc, char* args[] )
         Texture::GetInstance(gRenderer);
         Screens_Node screen;
 
+        SplashScreen splash;
+        splash.Show(gRenderer);
 
         screen.cur_screen = new MainMenu; //starting with main menu
         int frame = 0;
@@ -154,7 +160,6 @@ int main( int argc, char* args[] )
                 screen.prev_screen = 0;
             }
             else if (screen.prev_backable != 0 && screen.prev_screen != 0)
-
             {
                 screen.prev_screen->Show(gRenderer);
                 if (screen.prev_updatable)
@@ -168,7 +173,6 @@ int main( int argc, char* args[] )
             frame++;
         }
 	}
-
 	close();
 
 	return 0;

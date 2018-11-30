@@ -9,6 +9,8 @@
 #include <random>
 #include "Mosquito.h"
 #include "Texture.h"
+#include <fstream>
+#include <sstream>
 
 
 const int PLANT_WIDTH = 80;
@@ -25,6 +27,7 @@ class Plant : public Container
         void HandleEvents(SDL_Event*, Screens_Node&){};
         void Update(int){};
         Mosquito* Breed();
+        void Write(std::ofstream&);
 
         ~Plant();
 };

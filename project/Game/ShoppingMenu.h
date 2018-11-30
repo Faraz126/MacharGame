@@ -37,6 +37,10 @@ public:
     void SetPosition(int,int);
     void Update(int);
     void HandleEvents(SDL_Event*, Screens_Node&);
+    int GetShoppingExitPosX();
+    int GetShoppingExitPosY();
+    int GetShoppingExitPosW();
+    int GetShoppingExitPosH();
 
     ~ShoppingMenu();
 };

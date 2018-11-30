@@ -20,4 +20,5 @@ public:
     virtual Mosquito* Breed() = 0;
     virtual ~BreedingGround();
     void UpdatePos(int,int);
+    virtual void Write(std::ofstream&){};
 };
