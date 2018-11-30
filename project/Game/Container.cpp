@@ -26,18 +26,20 @@ void Container:: SetX(int delta, int direction)
     if ( direction == 0)
     {
         pos.x+=delta;
+        correctLidPos.x += delta;
 
     }
     if ( direction == 1)
     {
         pos.x-=delta;
+        correctLidPos.x -= delta;
     }
 }
 
 bool Container::Collides(const Clickable& obj)
 {
 
-    if (lid != 0)
+    if (!isCovered && lid != 0 && &obj != lid)
     {
         return lid->Collides(obj) || Clickable::Collides(obj);
     }

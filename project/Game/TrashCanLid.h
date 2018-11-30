@@ -19,7 +19,6 @@ class TrashCanLid: public Lids
         bool CorrectContainer();
         void Show(SDL_Renderer*);
         void Update(int){};
-        void HandleEvents(SDL_Event*){};
         ~TrashCanLid();
 };
 

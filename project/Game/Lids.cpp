@@ -20,13 +20,13 @@ void Lids::HandleEvents(SDL_Event* e, Screens_Node& node)
         mouseClick = true;
     }
 
-    if ((e->type == SDL_MOUSEBUTTONUP))
+    else if ((e->type == SDL_MOUSEBUTTONUP))
     {
         mouseClick = false;
     }
 
 
-    if (mouseClick == true)
+    else if (mouseClick == true)
     {
         pos.x = x;
         pos.y = y;
@@ -43,6 +43,7 @@ void Lids::SetPosition(int x, int y)
 {
     pos.x = x;
     pos.y = y;
+    mouseClick = false;
 }
 
 void Lids:: SetX(int delta, int direction)

@@ -11,6 +11,7 @@ class Lids: public Clickable
         int spriteNum;
 
     public:
+
         Lids(int,int,int,int);
         virtual ~Lids();
         virtual void Show(SDL_Renderer*) = 0;

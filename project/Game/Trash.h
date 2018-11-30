@@ -1,6 +1,6 @@
 #pragma once
 
-class Bucket : public Container
+class Trash : public Container
 {
 private:
 
@@ -11,4 +11,5 @@ public:
     Mosquito* breedType(int);
     void Show(SDl_Render*);
     ~Trash();
+
 };

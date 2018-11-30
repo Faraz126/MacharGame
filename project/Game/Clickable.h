@@ -26,6 +26,7 @@ class Clickable
         virtual void HandleEvents(SDL_Event*, Screens_Node&) = 0;
         int GetX();
         int GetY();
+        virtual void Collision(){};
 
         void SetScenario(Scenario*);
         Scenario* GetScenario();

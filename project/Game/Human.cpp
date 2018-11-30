@@ -127,6 +127,7 @@ bool Human::Collide(SDL_Rect& tempRect)
     {
         if (myQ[i]->Collides(tempRect) && myQ[i] != this)
         {
+            myQ[i]->Collision();
             return true;
         }
     }

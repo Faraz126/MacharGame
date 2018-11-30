@@ -119,7 +119,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
     {
         humans[i]->Show(renderer);
     }
-    /*
+    */
     for (int i = 0; i < mosquitoes.size(); i++)
     {
         mosquitoes[i]->Show(renderer);

@@ -35,7 +35,6 @@ House::House()
         entrance[0] = new Door(100, 300);
         entrance[0]->SetScenario(this);
         breedingplaces[0] = new TrashCan(10,450);
-
         myQ.push_back(breedingplaces[0]);
     }
     else
@@ -93,6 +92,8 @@ House::House()
         }
         y += 70;
     }
+
+
     btn = new Button;
     myQ.push_back(btn);
     btn->setPosition(800,10);

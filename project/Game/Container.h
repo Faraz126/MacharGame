@@ -21,6 +21,7 @@ class Container : public BreedingGround
         virtual void SetCovered(bool);
         void SetX(int,int);
     protected:
+        SDL_Rect correctLidPos;
         Lids* lid;
     private:
         bool isCovered;
