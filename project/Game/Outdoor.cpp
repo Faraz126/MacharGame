@@ -182,6 +182,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
     }
 
     shop->HandleEvents(e,node);
+
     if (e->type == SDL_MOUSEBUTTONDOWN)
 
     {
@@ -209,7 +210,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
         if(e->button.button ==  SDL_BUTTON_LEFT)
         {
-            if( ( x >cartPos->x ) && ( x < (cartPos->x+cartPos->w) ) && ( y > cartPos->y ) && (y< (cartPos->y+cartPos->h) ) )
+            if( ( x > cartPos->x ) && ( x < (cartPos->x+cartPos->w) ) && ( y > cartPos->y ) && (y< (cartPos->y+cartPos->h) ) )
                 shop->shopShow = true;
         }
     }

@@ -12,7 +12,9 @@ void CleanWater::SetCovered(bool status)
     if (status)
     {
         lid->SetPosition(pos.x-6,pos.y-14); //set to right ahead of trashcan.
+
     }
+
     Container::SetCovered(status);
 }
 

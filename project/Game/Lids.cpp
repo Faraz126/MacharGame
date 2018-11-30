@@ -17,25 +17,24 @@ void Lids::HandleEvents(SDL_Event* e, Screens_Node& node)
     int y = e->button.y;
     if ((e->type == SDL_MOUSEBUTTONDOWN) && (e->button.button == SDL_BUTTON_LEFT) && WithinRegion(x,y))
     {
+        lidOrignalPosX = pos.x;
+        lidOrignalPosY = pos.y;
         mouseClick = true;
     }
 
-    if ((e->type == SDL_MOUSEBUTTONUP))
+    if ((e->type == SDL_MOUSEBUTTONUP) && mouseClick)
     {
         mouseClick = false;
+        pos.x = lidOrignalPosX;
+        pos.y = lidOrignalPosY;
     }
-
 
     if (mouseClick == true)
     {
         pos.x = x;
         pos.y = y;
     }
-//
-//        if ((e->type == SDL_MOUSEBUTTONUP) && (e->button.button == SDL_BUTTON_LEFT))
-//        {
-//            mouseClick = false;
-//        }
+
 }
 
 

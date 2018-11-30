@@ -30,7 +30,7 @@ public:
     Entrance** GetEntrance(int &);
 
 
-    virtual bool AddHuman(Human*){};
+    virtual bool AddHuman(Human*);
     virtual void LeaveHuman(Human*){};
     virtual void AddMosquito(Mosquito*){};
     virtual void LeaveMosquito(Mosquito*){};

@@ -76,6 +76,7 @@
 		<Unit filename="Disease.h" />
 		<Unit filename="Door.cpp" />
 		<Unit filename="Door.h" />
+		<Unit filename="DoublyLinked.h" />
 		<Unit filename="EndMenu.cpp" />
 		<Unit filename="EndMenu.h" />
 		<Unit filename="Entrance.cpp" />

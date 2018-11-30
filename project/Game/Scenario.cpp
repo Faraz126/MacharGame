@@ -29,4 +29,9 @@ DLL<Human*>& Scenario::GetHumans(int & n)
     return humans;
 }
 
+bool Scenario :: AddHuman(Human* human)
+{
+
+}
+
 
