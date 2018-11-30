@@ -1,6 +1,7 @@
 #pragma once
 #include "Texture.h"
 #include "Window.h"
+#include "DoublyLinked.h"
 #include <vector>
 
 class Scenario;
@@ -24,7 +25,7 @@ protected:
     bool IsFollowingHuman;
     bool IsFollowingEntrance;
     Scenario* screen;
-    std::vector<Human*> humans;
+    DLL<Human*> humans;
     Entrance* entrance;
 //    bool indoor;
     int timer;

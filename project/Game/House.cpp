@@ -35,7 +35,7 @@ House::House()
         entrance[0] = new Door(100, 300);
         entrance[0]->SetScenario(this);
         breedingplaces[0] = new TrashCan(10,450);
-        myQ.push_back(breedingplaces[0]);
+        myQ.Append(breedingplaces[0]);
     }
     else
     {
@@ -43,13 +43,13 @@ House::House()
         entrance[0] = new Door(750, 300);
         entrance[0]->SetScenario(this);
         breedingplaces[0] = new TrashCan(925,450);
-        myQ.push_back(breedingplaces[0]);
+        myQ.Append(breedingplaces[0]);
     }
 
     for (int i = 0; i<noOfHumans; i++)
     {
         bed[i].SetPos(x, 365);
-        myQ.push_back(&bed[i]);
+        myQ.Append(&bed[i]);
         x += 150;
     }
     if (noOfEntrance == 3)
@@ -85,8 +85,7 @@ House::House()
             {
                 breedingplaces[noOfBreedingPlaces] = new Tub(900, y);
             }
-            breedingplaces[noOfBreedingPlaces]->SetScenario(this);
-            myQ.push_back(breedingplaces[noOfBreedingPlaces]);
+            myQ.Append(breedingplaces[noOfBreedingPlaces]);
             breedingplaces[noOfBreedingPlaces++]->ReduceSize(float(y)/1600);
 
         }
@@ -95,7 +94,7 @@ House::House()
 
 
     btn = new Button;
-    myQ.push_back(btn);
+    myQ.Append(btn);
     btn->setPosition(800,10);
     btn->SetWidth(200,55);
     btn->setText("OUTDOOR");
@@ -110,8 +109,8 @@ House::House()
         {
             humanPtr->UpdatePos(++x,y);
         }
-        myQ.push_back(humanPtr);
-        humans.push_back(humanPtr);
+        myQ.Append(humanPtr);
+        humans.Append(humanPtr);
     }
 
 
@@ -128,7 +127,7 @@ House::House()
     for (int i = 0; i < 4; i++)
     {
         mosquito = new AedesMosquito(this);
-        mosquitoes.push_back(mosquito);
+        mosquitoes.Append(mosquito);
     }
     SetUpScenarios();
 }
@@ -156,9 +155,9 @@ void House::Show(SDL_Renderer* renderer)
         entrance[i]->Show(renderer);
     }
 
-    for (int i = 0; i < mosquitoes.size(); i++)
+    for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
-        mosquitoes[i]->Show(renderer);
+        mosquitoes.GiveItem(i)->Show(renderer);
     }
 
     /*
@@ -191,9 +190,9 @@ void House::Show(SDL_Renderer* renderer)
     /*
     for (int i = 0; i < noOfHumans; i++)
     {
-        if (humans[i]->GetIndoor())
+        if (humans.GiveItem(i)->GetIndoor())
         {
-            humans[i]->Show(renderer);
+            humans.GiveItem(i)->Show(renderer);
         }
     }
     */
@@ -201,9 +200,9 @@ void House::Show(SDL_Renderer* renderer)
 
 
 
-    for (int i = 0; i < myQ.size(); i++)
+    for (int i = 0; i < myQ.GetLength(); i++)
     {
-        myQ[i]->Show(renderer);
+        myQ.GiveItem(i)->Show(renderer);
     }
 
     btn->Show(renderer);
@@ -253,12 +252,14 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
         {
             node.cur_screen = node.prev_screen;
             node.prev_screen = this;
+            node.prev_backable = true;
+            node.prev_updatable = true;
         }
 
     }
-    for (int i = 0; i <myQ.size(); i++)
+    for (int i = 0; i <myQ.GetLength(); i++)
     {
-        myQ[i]->HandleEvents(e, node);
+        myQ.GiveItem(i)->HandleEvents(e, node);
     }
 
 }
@@ -273,17 +274,17 @@ void House::Update(int frame)
     /*
     for (int i = 0; i < noOfHumans; i++)
     {
-        humans[i]->Update(frame);
+        humans.GiveItem(i)->Update(frame);
     }
     */
-    for (int i = 0; i < myQ.size(); i++)
+    for (int i = 0; i < myQ.GetLength(); i++)
     {
-        myQ[i]->Update(frame);
+        myQ.GiveItem(i)->Update(frame);
     }
 
-    for (int i = 0; i < mosquitoes.size();i++)
+    for (int i = 0; i < mosquitoes.GetLength();i++)
     {
-        mosquitoes[i]->Update(frame);
+        mosquitoes.GiveItem(i)->Update(frame);
     }
 
 }

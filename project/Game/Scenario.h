@@ -9,6 +9,7 @@
 #include "Score.h"
 
 #include <vector>
+#include "DoublyLinked.h"
 
 
 class BreedingGround;
@@ -24,9 +25,9 @@ protected:
     void SetUpScenarios();
     int noOfEntrance;
     BreedingGround** breedingplaces;
-    std::vector<Clickable*> myQ;
-    std::vector<Human*> humans;
-    std::vector<Mosquito*> mosquitoes;
+    DLL<Clickable*> myQ;
+    DLL<Human*> humans;
+    DLL<Mosquito*> mosquitoes;
 
     Entrance** entrance;
     int noOfBreedingPlaces;
@@ -39,13 +40,12 @@ public:
     Entrance** GetEntrance(int &);
 
     Scenario();
-    virtual void AddHuman(Human*);
+    virtual bool AddHuman(Human*);
     virtual void LeaveHuman(Human*);
     virtual void AddMosquito(Mosquito*);
     virtual void LeaveMosquito(Mosquito*);
-    std::vector<Clickable*>& GetQ();
-    std::vector<Human*>& GetHumans(int & );
-    std::vector<Mosquito*>& GetMosquitoes(int &);
+    DLL<Clickable*>& GetQ();
+    DLL<Mosquito*>& GetMosquitoes(int &);
     int GetEndHeight();
     int GetStartHeight();
     int GetEndWidth();
@@ -53,6 +53,7 @@ public:
     bool Collides(Clickable*);
     bool Collides(SDL_Rect&);
     int GetCode();
+    DLL<Human*>& GetHumans(int & );
     ~Scenario(){};
 
 };

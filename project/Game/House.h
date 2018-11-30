@@ -14,7 +14,7 @@
 #include "Tub.h"
 #include "Human.h"
 #include "Button.h"
-#include <vector>
+#include "DoublyLinked.h"
 #include "ShoppingMenu.h"
 #include "EndMenu.h"
 #include "PauseMenu.h"
@@ -57,8 +57,15 @@ public:
     House();
     ~House();
     bool GetHasRepellent();
+    /*
+<<<<<<< HEAD
     //void AddHuman(Human*){};
     //void LeaveHuman(Human*);
+=======
+    bool AddHuman(Human*){};
+    void LeaveHuman(Human*){};
+>>>>>>> daba5613d1af045bdabb1b8193ff17be11eceb82
+*/
     void SetOutdoor(Outdoor*);
     Outdoor* GetOutdoor();
     Outdoor* outdoor;

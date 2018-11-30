@@ -186,8 +186,8 @@ void MalariaMosquito::DetectOrFollow()
     }
     else if(IsFollowingHuman == true)
     {
-        Follow(humans[human]);
-        Bite(humans[human]);
+        Follow(humans.GiveItem(human));
+        Bite(humans.GiveItem(human));
     }
 }
 
@@ -218,14 +218,14 @@ void MalariaMosquito::DetectAHuman()
 {
     int n;
     humans = screen->GetHumans(n);
-    for(int i = 0;i < humans.size();i++)
+    for(int i = 0;i < humans.GetLength();i++)
     {
-        humans[i]->GetDistance(position.x,position.y);
+        humans.GiveItem(i)->GetDistance(position.x,position.y);
 
-        if(abs(position.x - humans[i] -> GetX() < 100) &&
-           abs(position.y - humans[i] -> GetY() < 100) &&
+        if(abs(position.x - humans.GiveItem(i) -> GetX() < 100) &&
+           abs(position.y - humans.GiveItem(i) -> GetY() < 100) &&
           (IsFollowingEntrance == false &&
-           humans[i]->GetInfected() == 0)
+           humans.GiveItem(i)->GetInfected() == 0)
           )
         {
             IsFollowingHuman = true;

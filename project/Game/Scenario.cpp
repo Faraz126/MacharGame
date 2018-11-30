@@ -40,16 +40,17 @@ int Scenario::GetEndHeight()
     return endHeight;
 }
 
-std::vector<Human*>& Scenario::GetHumans(int & n)
+DLL<Human*>& Scenario::GetHumans(int & n)
 {
-    n = humans.size();
+    n = humans.GetLength();
     return humans;
 }
 
 
-std::vector<Mosquito*>& Scenario::GetMosquitoes(int& n)
+
+DLL<Mosquito*>& Scenario::GetMosquitoes(int& n)
 {
-    n = mosquitoes.size();
+    n = mosquitoes.GetLength();
     return mosquitoes;
 }
 
@@ -69,32 +70,33 @@ void Scenario::SetUpScenarios()
 
 void Scenario::AddMosquito(Mosquito* mosquito)
 {
-    mosquitoes.push_back(mosquito);
+    mosquitoes.Append(mosquito);
 }
 
 void Scenario::LeaveMosquito(Mosquito* mosquito)
 {
-    mosquitoes.erase(std::remove(mosquitoes.begin(), mosquitoes.end(), mosquito), mosquitoes.end());
+    mosquitoes.RemoveItem(mosquito);
 }
 
 
-void Scenario::AddHuman(Human* human)
+bool Scenario::AddHuman(Human* human)
 {
-    humans.push_back(human);
-    myQ.push_back(human);
+    humans.Append(human);
+    myQ.Append(human);
+    return true;
 }
 
 void Scenario::LeaveHuman(Human* human)
 {
-    humans.erase(std::remove(humans.begin(), humans.end(), human), humans.end());
-    myQ.erase(std::remove(myQ.begin(), myQ.end(), human), myQ.end());
+    humans.RemoveItem(human);
+    myQ.RemoveItem(human);
 }
 
 bool Scenario::Collides(Clickable* obj)
 {
-    for (int i = 0; i < myQ.size(); i++)
+    for (int i = 0; i < myQ.GetLength(); i++)
     {
-        if (myQ[i]->Collides(*obj) && myQ[i] != obj)
+        if (myQ.GiveItem(i)->Collides(*obj) && myQ.GiveItem(i) != obj)
         {
             return true;
         }
@@ -104,9 +106,9 @@ bool Scenario::Collides(Clickable* obj)
 
 bool Scenario::Collides(SDL_Rect& rect)
 {
-    for (int i = 0; i < myQ.size(); i++)
+    for (int i = 0; i < myQ.GetLength(); i++)
     {
-        if (myQ[i]->Collides(rect))
+        if (myQ.GiveItem(i)->Collides(rect))
         {
             return true;
         }
@@ -114,7 +116,7 @@ bool Scenario::Collides(SDL_Rect& rect)
     return false;
 }
 
-std::vector<Clickable*>& Scenario::GetQ()
+DLL<Clickable*>& Scenario::GetQ()
 {
     return myQ;
 }

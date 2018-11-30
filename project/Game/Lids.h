@@ -6,6 +6,8 @@
 class Lids: public Clickable
 {
     private:
+        int lidOrignalPosX;
+        int lidOrignalPosY;
         bool mouseClick;
     protected:
         int spriteNum;

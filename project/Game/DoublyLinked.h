@@ -237,6 +237,7 @@ public:
             }
             delete c_node;
             len--;
+            return;
         }
 
         if(tail->data == val)
