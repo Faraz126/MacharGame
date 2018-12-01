@@ -12,9 +12,23 @@ MosquitoFactory::~MosquitoFactory()
 
 Mosquito* MosquitoFactory::GetMosquito(int n)
 {
-    if (n == 0)
+    switch (n)
     {
-        mosquito = new NormalMosquito();
+        case MALARIA:
+        {
+            mosquito = new MalariaMosquito();
+            break;
+        }
+        case AEDES:
+        {
+            mosquito = new AedesMosquito();
+            break;
+        }
+        case NORMAL:
+        {
+            mosquito = new NormalMosquito();
+            break;
+        }
     }
     return mosquito;
 }

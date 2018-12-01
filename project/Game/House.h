@@ -14,15 +14,16 @@
 #include "Tub.h"
 #include "Human.h"
 #include "Button.h"
-#include <vector>
+#include "DoublyLinked.h"
 #include "ShoppingMenu.h"
 #include "EndMenu.h"
 #include "PauseMenu.h"
 #include "Score.h"
 #include "Money.h"
+#include "Scenario.h"
+#include "AedesMosquito.h"
 #include "Manual.h"
 class Outdoor;
-
 
 
 
@@ -31,23 +32,22 @@ class House: public Scenario
 {
 private:
     //Money money;
-    int width;
-    int height;
+
     bool hasRepellent;
     int noOfHumans;
-
 
     Bed* bed;
     SDL_Rect pos;
     Texture* texture;
     Showpiece* showpieces;
     SDL_Rect wall;
-    Human** humans;
+    //Human** humans;
     Button* btn;
     ShoppingMenu* houseShop;
     SDL_Rect* cartPos;
-    Score points;
+
     Money money;
+    void SetUpScenarios();
     Outdoor* outdoor;
     Manual* manual;
 
@@ -59,8 +59,17 @@ public:
     House();
     ~House();
     bool GetHasRepellent();
-    void AddHuman();
-    void LeaveHuman(Human*);
+    /*
+<<<<<<< HEAD
+    //void AddHuman(Human*){};
+    //void LeaveHuman(Human*);
+=======
+    bool AddHuman(Human*){};
+    void LeaveHuman(Human*){};
+>>>>>>> daba5613d1af045bdabb1b8193ff17be11eceb82
+*/
+    void SetOutdoor(Outdoor*);
+    Outdoor* GetOutdoor();
     void Click();
     void Show(SDL_Renderer*);
     void getWindowState();
@@ -71,9 +80,5 @@ public:
     Bed* GetClosestBed(int,int);
     Door* GetDoor();
     Bed* GetBeds(int&);
-    Human** GetHumans(int & );
-    int GetWidth();
-    int GetHeight();
-    void SetOutdoor(Outdoor*);
-    Outdoor* GetOutdoor();
+
 };

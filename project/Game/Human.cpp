@@ -2,6 +2,8 @@
 #include <random>
 #include <cmath>
 #include "House.h"
+#include "Scenario.h"
+#include "Bed.h"
 
 
 Human::Human(): Clickable(0,0,197, 575)
@@ -12,15 +14,12 @@ Human::Human(): Clickable(0,0,197, 575)
 
 Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
 {
+
     spriteNum = 74;
     ownHouse  =  house;
     currentScenario = house;
     sizeFactor = 0.3;
     ReduceSize(sizeFactor);
-    collideRect.x = pos.x + 10;
-    collideRect.y = pos.y + pos.h - 10;
-    collideRect.w = pos.w-10;
-    collideRect.h = 10;
     isIndoor = true;
     faceDirection = RIGHT;
     isGoingToBed = true;
@@ -31,14 +30,16 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     activity = WALKING;
     timeSince = 0;
     step = 1;
-    slowDownFactor = 3;
+    slowDownFactor = 2;
     isInfected = false;
     door = ownHouse->GetDoor();
     faceSprite = 86;
     bodySprite = 83;
     legSprite = 103;
+    disease = 0;
     walker = 0;
     BuildHuman();
+    bedToGoTo = 0;
 
 
 }
@@ -59,19 +60,31 @@ void Human::BuildHuman()
     face.h = 124*sizeFactor;
 
     body.x = pos.x;
-    body.y = face.y + face.h-10;
+    body.y = face.y + face.h - (10*(3*sizeFactor));
     body.w = 193 * sizeFactor;
     body.h = 268 * sizeFactor;
 
     legs.x = pos.x+10;
-    legs.y = body.y + body.h-15;
+    legs.y = body.y + body.h - (10*(3*sizeFactor));
     legs.w = 177*sizeFactor;
     legs.h = 250*sizeFactor;
+    collideRect.x = pos.x + (10*(3*sizeFactor));
+    collideRect.y = legs.y + legs.h - 10;
+    collideRect.w = legs.w;
+    collideRect.h = 10;
 
 }
 
 void Human::HandleEvents(SDL_Event* e, Screens_Node&)
 {
+    int x = e->button.x;
+    int y = e->button.y;
+    if (WithinRegion(x,y) && e->type == SDL_MOUSEBUTTONDOWN)
+    {
+        ownHouse->GetOutdoor()->hospital->AddHuman(this);
+        ChangeState(IN_HOSPITAL);
+    }
+
     return;
 }
 
@@ -83,10 +96,11 @@ Human::Human(House* house): Human(0,0, house)
 
 bool Human::Collide(SDL_Rect& tempRect)
 {
-
+    /*
+    int n;
     if (isIndoor)
     {
-        int n;
+
         Bed* bed = ownHouse->GetBeds(n);
         for (int i = 0; i <n; i++)
         {
@@ -95,25 +109,46 @@ bool Human::Collide(SDL_Rect& tempRect)
                 return true;
             }
         }
-        BreedingGround** breedingGrounds = ownHouse->GetBreedingGrounds(n);
-        for (int i = 0; i < n; i++)
+    }
+
+    BreedingGround** breedingGrounds = currentScenario->GetBreedingGrounds(n);
+    for (int i = 0; i < n; i++)
+    {
+        if (breedingGrounds[i]->Collides(tempRect))
         {
-            if (breedingGrounds[i]->Collides(tempRect))
-            {
-                return true;
-            }
+            return true;
         }
-        Human** humans = ownHouse->GetHumans(n);
-        for (int i = 0; i < n; i++)
+    }
+    DLL <Human*> humans = currentScenario->GetHumans(n);
+    for (int i = 0; i < n; i++)
+    {
+        if (humans.GiveItem(i)->Collides(tempRect, humans.GiveItem(i)->collideRect) && humans.GiveItem(i) != this)
         {
-            if (humans[i]->Collides(tempRect, humans[i]->collideRect) && humans[i] != this)
-            {
-                return true;
-            }
+            return true;
+        }
+    }
+    */
+
+    DLL<Clickable*> myQ = currentScenario->GetQ();
+
+    for (int i = 0; i < myQ.GetLength(); i++)
+    {
+        if (myQ.GiveItem(i)->Collides(tempRect) && myQ.GiveItem(i) != this)
+        {
+            myQ.GiveItem(i)->Collision();
+            return true;
         }
     }
     return false;
 }
+
+
+bool Human::Collides(const SDL_Rect& rect)
+{
+    return Clickable::Collides(collideRect, rect);
+}
+
+
 
 void Human::Update(int frame)
 {
@@ -144,14 +179,19 @@ void Human::Update(int frame)
                 if (timeSince > 2000)
                 {
                     bedToGoTo->SetOccupied(false);
+                    while (!myStack.IsEmpty())
+                    {
+                        myStack.Pop();
+                    }
                     ChangeState();
+                    isInfected = false;
                 }
                 break;
             }
 
             case GOING_TO_BED:
             {
-                if (!bedToGoTo->GetOccupied())
+                if (bedToGoTo != 0 && !bedToGoTo->GetOccupied())
                 {
                     if (toFollowX > collideRect.x && isHorizontal)
                     {
@@ -175,18 +215,23 @@ void Human::Update(int frame)
                     {
                         isHorizontal = true;
                         spriteNum = 75;
-                        bedToGoTo->SetOccupied(true);
+                        bedToGoTo->SetOccupied(true, this);
                         if (!isInfected)
                         {
                             ChangeState(SITTING);
                         }
+                        else
+                        {
+                            ChangeState(SITTING);
+                        }
                     }
-                    Move();
+
                 }
                 else
                 {
                     ChangeBedToFollow();
                 }
+                Move();
                 break;
             }
             case GOING_TO_DOOR:
@@ -209,11 +254,21 @@ void Human::Update(int frame)
                         faceDirection = UP;
 
                     }
-                    if (door->Collides(collideRect) || door->Collides(legs))
+                    if (true)
                     {
-                        spriteNum = 76;
-                        ChangeState(LYING);
-                        isHorizontal = true;
+
+                        if (!isIndoor && (Clickable::Collides(door->GetOutdoorRect(), legs) || Clickable::Collides(door->GetOutdoorRect(), collideRect)))
+                        {
+
+                            GoIndoor();
+                        }
+                        else if (isIndoor && (door->Collides(collideRect) || door->Collides(legs)))
+                        {
+                            spriteNum = 76;
+                            isHorizontal = true;
+                            GoOutdoor();
+                        }
+
                     }
                 Move();
                 break;
@@ -222,15 +277,15 @@ void Human::Update(int frame)
 
             case WALKING:
             {
-                if (timeSince*step > (ownHouse->GetWidth())*2)
+                if (timeSince*step > ((currentScenario->GetEndWidth()-currentScenario->GetStartWidth())*2))
                 {
                     ChangeState();
                 }
-                if (collideRect.x >= ownHouse->GetWidth())
+                if (collideRect.x >= currentScenario->GetEndWidth())
                 {
                     faceDirection = LEFT;
                 }
-                else if (collideRect.x <= 0)
+                else if (collideRect.x <= currentScenario->GetStartWidth())
                 {
                     faceDirection = RIGHT;
                 }
@@ -381,34 +436,19 @@ void Human::ChangeState(int n)
     else
     {
         activity = rand()%3;
-        switch (activity)
-        {
-            case (WALKING):
-            {
-                break;
-            }
-            case (GOING_TO_BED):
-            {
-                if (!isIndoor)
-                {
-                    myStack.Append(GOING_TO_BED);
-                    activity = GOING_TO_DOOR;
-                }
-            }
-            case (GOING_TO_DOOR):
-            {
-                break;
-            }
-        }
     }
 
     if (activity == GOING_TO_BED)
     {
+        if (!isIndoor)
+        {
+            myStack.Append(GOING_TO_BED);
+            activity = GOING_TO_DOOR;
+        }
         ChooseBed();
     }
     else if (activity == GOING_TO_DOOR)
     {
-
         ChooseDoor();
     }
 
@@ -443,7 +483,7 @@ bool Human::MoveAllowed()
         case (RIGHT):
         {
             tempRect.x++;
-            if (tempRect.x > 1024)
+            if (tempRect.x > currentScenario->GetEndWidth())
             {
                 return false;
             }
@@ -452,7 +492,7 @@ bool Human::MoveAllowed()
         case (LEFT):
         {
             tempRect.x--;
-            if (tempRect.x < 0)
+            if (tempRect.x < currentScenario->GetStartWidth())
             {
                 return false;
             }
@@ -461,7 +501,7 @@ bool Human::MoveAllowed()
         case (UP):
         {
             tempRect.y--;
-            if (tempRect.y <= 488)
+            if (tempRect.y <= currentScenario->GetStartHeight())
             {
                 return false;
             }
@@ -470,7 +510,7 @@ bool Human::MoveAllowed()
         case (DOWN):
         {
             tempRect.y++;
-            if (tempRect.y >= 786)
+            if (tempRect.y >= currentScenario->GetEndHeight())
             {
                 return false;
             }
@@ -487,7 +527,15 @@ bool Human::MoveAllowed()
 
 void Human::ChooseDoor()
 {
-    door->GetCenter(toFollowX, toFollowY);
+    if (isIndoor)
+    {
+        door->GetCenter(toFollowX, toFollowY);
+    }
+    else
+    {
+        door->OutdoorPosCenter(toFollowX, toFollowY);
+    }
+
 }
 
 void Human::Show(SDL_Renderer* renderer)
@@ -525,6 +573,16 @@ void Human::Show(SDL_Renderer* renderer)
             leg = 93;
             body = 81;
         }
+
+        if (isInfected)
+        {
+            face += 3;
+        }
+        else
+        {
+            face += 6;
+        }
+
         if (!flipped)
         {
             Texture::GetInstance()->Render(face,renderer, &this->face);
@@ -544,6 +602,108 @@ void Human::Show(SDL_Renderer* renderer)
         Texture::GetInstance()->Render(spriteNum, renderer, &pos);
     }
 
+    else if (activity == IN_HOSPITAL)
+    {
+        Texture::GetInstance()->Render(76, renderer, &pos);
+    }
     SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
     SDL_RenderDrawRect(renderer, &collideRect);
+}
+
+
+void Human::GoIndoor()
+{
+    isIndoor = true;
+    ownHouse->GetOutdoor()->LeaveHuman(this);
+    ownHouse->AddHuman(this);
+    ChangeScenario(ownHouse);
+    door->GetCenter(pos.x, pos.y);
+    sizeFactor = 0.3;
+    ReduceSize(sizeFactor);
+    BuildHuman();
+    ChangeState();
+
+
+}
+
+void Human::GoOutdoor()
+{
+    isIndoor = false;
+    ownHouse->GetOutdoor()->AddHuman(this);
+    ownHouse->LeaveHuman(this);
+    ChangeScenario(ownHouse->GetOutdoor());
+    door->OutdoorPosCenter(pos.x, pos.y);
+    sizeFactor = 0.2;
+    ReduceSize(sizeFactor);
+    BuildHuman();
+
+    ChangeState(WALKING);
+
+}
+
+bool Human::GetIndoor()
+{
+    return isIndoor;
+}
+
+void Human::UpdatePos(int x, int y)
+{
+    Clickable::UpdatePos(x,y);
+    BuildHuman();
+}
+
+
+void Human::SetX(int delta, int direction)
+{
+    if ( direction == 0)
+    {
+        collideRect.x+=delta;
+        face.x += delta;
+        body.x += delta;
+        legs.x += delta;
+    }
+    if ( direction == 1)
+    {
+        collideRect.x -=delta;
+        face.x -= delta;
+        body.x -= delta;
+        legs.x -= delta;
+    }
+    Clickable::SetX(delta, direction);
+}
+
+
+void Human::SetInfected(int code)
+{
+    /*
+    if (activity != SITTING && activity != LYING)
+    {
+
+        this -> disease = code;
+        if (code)
+        {
+            isInfected = true;
+            while (!myStack.IsEmpty())
+            {
+                myStack.Pop();
+            }
+
+            ChangeState(GOING_TO_BED);
+        }
+        else
+        {
+            isInfected = false;
+        }
+
+
+    }
+    */
+    //std::cout << disease << std::endl;
+
+}
+
+int Human::GetInfected()
+{
+    return isInfected;
+
 }

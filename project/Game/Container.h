@@ -16,9 +16,12 @@ class Container : public BreedingGround
         bool GetCovered();
         //virtual Mosquito* Breed();
         //virtual void HandleEvents(SDL_Event*) = 0;
+        bool Collides(const Clickable&);
+        bool Collides(const SDL_Rect&);
         virtual void SetCovered(bool);
         void SetX(int,int);
     protected:
+        SDL_Rect correctLidPos;
         Lids* lid;
     private:
         bool isCovered;

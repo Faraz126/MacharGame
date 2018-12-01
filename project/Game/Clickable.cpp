@@ -1,6 +1,7 @@
 #include "Clickable.h"
 #include <cstdlib>
 #include <cmath>
+#include "Scenario.h"
 
 Clickable::Clickable(int x, int y, int w, int h)
 {
@@ -14,6 +15,20 @@ Clickable::~Clickable()
 {
 
 }
+
+
+
+int Clickable::GetX()
+{
+    return pos.x;
+}
+
+int Clickable::GetY()
+{
+    return pos.y;
+}
+
+
 
 bool Clickable::WithinRegion(int x, int y)
 {
@@ -56,6 +71,9 @@ void Clickable::ReduceSize(double n)
     pos.w = pos.w * n;
     pos.h = pos.h * n;
 }
+
+
+
 
 
 bool Clickable::Collides(const Clickable& obj)
@@ -112,4 +130,16 @@ void Clickable:: SetX(int delta, int direction)
     {
         pos.x-=delta;
     }
+}
+
+
+void Clickable::SetScenario(Scenario* scenario)
+{
+    currentScenario = scenario;
+}
+
+
+Scenario* Clickable::GetScenario()
+{
+    return currentScenario;
 }

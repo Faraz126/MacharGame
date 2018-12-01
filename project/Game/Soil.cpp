@@ -3,7 +3,7 @@
 Soil:: Soil(int x, int y): Lids(x,y, SOIL_WIDTH, SOIL_HEIGHT)
 {
     spriteNum = 73;
-    ReduceSize(0.1);
+    ReduceSize(0.25);
 }
 
 Soil:: ~Soil()

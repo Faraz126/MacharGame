@@ -1,4 +1,6 @@
 #include "Entrance.h"
+#include <cstdlib>
+#include <cmath>
 
 Entrance::Entrance(int x,int y, int w, int h): Clickable(x,y,w,h)
 {
@@ -10,24 +12,32 @@ void Entrance::Show(SDL_Renderer* renderer)
 
 }
 
+
+SDL_Rect& Entrance::GetOutdoorRect()
+{
+    return outdoorPos;
+}
+
+void Entrance::GetOutdoorPos(int& x, int& y)
+{
+    x = outdoorPos.x + outdoorPos.w/2;
+    y = outdoorPos.y + outdoorPos.h/2;
+}
+
 void Entrance::SetOutdoorPos(int x, int y,int w, int h)
 {
-    OutdoorPos.x = x;
-    OutdoorPos.y = y;
-    OutdoorPos.w = w;
-    OutdoorPos.h = h;
+    outdoorPos.x = x;
+    outdoorPos.y = y;
+    outdoorPos.w = w;
+    outdoorPos.h = h;
 }
 
 
-int Entrance::GetX()
+int Entrance::GetDistanceOutside(int x, int y)
 {
-    return pos.x;
+    return sqrt((abs(outdoorPos.x - x)*abs(outdoorPos.x - x))+(abs(outdoorPos.y - y)*abs(outdoorPos.y - y)));
 }
 
-int Entrance::GetY()
-{
-    return pos.y;
-}
 
 int Entrance::GetHeight()
 {
@@ -45,16 +55,46 @@ void Entrance:: SetOutdoorX(int delta, int direction)
 
     if ( direction == 0)
     {
-        OutdoorPos.x+=delta;
+        outdoorPos.x+=delta;
 
     }
     if ( direction == 1)
     {
-        OutdoorPos.x-=delta;
+        outdoorPos.x-=delta;
     }
 }
 
 Entrance::~Entrance()
 {
 
+}
+
+
+int Entrance::GetX(bool indoor)
+{
+    if (indoor)
+    {
+        return pos.x;
+    }
+    return outdoorPos.x;
+}
+
+int Entrance::GetY(bool indoor)
+{
+    if (indoor)
+    {
+        return pos.y;
+    }
+    return outdoorPos.y;
+}
+
+
+void Entrance::SetOutdoor(Scenario* outdoor)
+{
+    outdoorPtr = outdoor;
+}
+
+Scenario* Entrance::GetOutdoor()
+{
+    return outdoorPtr;
 }

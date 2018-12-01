@@ -1,5 +1,17 @@
 #include "Score.h"
 
+Score* Score::instance = 0;
+
+Score* Score::GetInstance()
+{
+    if (instance == 0)
+    {
+        instance = new Score();
+    }
+    return instance;
+}
+
+
 Score::Score()
 {
     scr = 0;

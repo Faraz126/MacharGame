@@ -1,10 +1,29 @@
 #pragma once
+#include "Mosquito.h"
+#include "Window.h"
+#include "Disease.h"
+
+class Human;
 
 class MalariaMosquito : public Mosquito
 {
 private:
+    double clip;
+    Disease* Malaria;
+    int human;
 
 public:
-    void bite(Human*);
+    MalariaMosquito();
+    MalariaMosquito(Scenario*);
+    void Update(int);
+    void Bite(Human*);
+    void Fly();
+    void Follow(Human*);
+    void Show(SDL_Renderer*);
+    void DetectAnEntrance();
+    void DetectAHuman();
+    void DetectOrFollow();
+    void Follow(Entrance*);
+    void ReachedEntrance();
+    ~MalariaMosquito();
 };
-

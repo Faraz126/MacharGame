@@ -22,7 +22,7 @@ public:
     void Show(SDL_Renderer*);
     void SetCovered(bool);
     void HandleEvents(SDL_Event*, Screens_Node&){};
-    void Update(int){};
+    void Update(int);
     ~Tub();
 };
 

@@ -15,7 +15,7 @@ protected:
 public:
     Door(int,int);
     void Show(SDL_Renderer*);
-
+    void OutdoorPosCenter(int&, int&);
     void Update(int);
     void HandleEvents(SDL_Event*, Screens_Node&){};
     void ShowOutside(SDL_Renderer*);

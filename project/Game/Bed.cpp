@@ -38,9 +38,10 @@ bool Bed::GetOccupied()
     return occupied;
 }
 
-void Bed::SetOccupied(bool status)
+void Bed::SetOccupied(bool status, Human* human)
 {
     occupied = status;
+    bedOccupied = human;
 }
 
 int Bed::GetX()

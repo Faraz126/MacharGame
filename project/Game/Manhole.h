@@ -23,7 +23,7 @@ public:
     void SetCovered(bool);
     ~Manhole();
     void HandleEvents(SDL_Event*, Screens_Node&);
-    void Update(int){};
+    void Update(int);
 
 };
 

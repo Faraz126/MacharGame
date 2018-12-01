@@ -12,10 +12,13 @@
 #include <random>
 #include"Outdoor.h"
 #include "GLOBALS.h"
+#include"Hospital.h"
+
 #include "Plant.h"
 #include <fstream>
 #include <sstream>
 #include "SplashScreen.h"
+
 
 using namespace std;
 

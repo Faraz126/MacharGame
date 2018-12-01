@@ -6,11 +6,14 @@
 class Lids: public Clickable
 {
     private:
+        int lidOrignalPosX;
+        int lidOrignalPosY;
         bool mouseClick;
     protected:
         int spriteNum;
 
     public:
+
         Lids(int,int,int,int);
         virtual ~Lids();
         virtual void Show(SDL_Renderer*) = 0;
