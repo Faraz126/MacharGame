@@ -95,7 +95,7 @@ House::House()
 
     btn = new Button;
     myQ.Append(btn);
-    btn->setPosition(800,10);
+    btn->setPosition(800,60);
     btn->SetWidth(200,55);
     btn->setText("OUTDOOR");
     btn->word->ReduceSize(0.8);
@@ -130,6 +130,13 @@ House::House()
     cartPos->y = 720;
     cartPos->w = 193 *0.3;
     cartPos->h = 193 *0.3;
+
+    upperRect = new SDL_Rect;
+
+    upperRect->x = 0;
+    upperRect-> y =0;
+    upperRect->x = 1240;
+    upperRect->h = 55;
 }
 
 void House::SetOutdoor(Outdoor* outdoorPtr)
@@ -211,6 +218,10 @@ void House::Show(SDL_Renderer* renderer)
 
     if(houseShop->shopShow)
         houseShop->Show(renderer);
+
+    SDL_SetRenderDrawColor( renderer, 2,85,89,0 );
+    SDL_RenderDrawRect(renderer,upperRect);
+    SDL_RenderFillRect(renderer,upperRect);
     points->Show(renderer);
     money.Show(renderer);
 

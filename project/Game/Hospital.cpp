@@ -16,13 +16,16 @@ Hospital:: Hospital()
     pos.y  = 0;
     pos.w  = 1024;
     pos.h = 786;
-    manual = new Manual;
+    //manual = new Manual(235,70);
+    //manual->SetPosition(235,70);
 
     btn = new Button;
-    btn->setText("SEE PATIENT");
+    //myQ.Append(btn);
     btn->SetButtonSprite(false);
-    btn->setPosition(300,80);
+    btn->setPosition(280,80);
     btn->SetWidth(315*1.5,70*0.8);
+    btn->setText("SEE PATIENT");
+    btn->word->ReduceSize(0.8);
 
 
 
@@ -41,11 +44,33 @@ void Hospital::Show(SDL_Renderer* renderer)
      {
          humans.GiveItem(i)->Show(renderer);
      }
-     btn->Show(renderer);
+
+     if(!manualShow)
+     {
+         btn->Show(renderer);
+     }
 }
 
 void Hospital::HandleEvents(SDL_Event* e,Screens_Node& node)
 {
+    int hoverX = e->button.x;
+    int hoverY = e->button.y;
+    if( btn->WithinRegion(hoverX,hoverY)==true)
+    {
+        btn->Hover();
+        if (e->type == SDL_MOUSEBUTTONDOWN && e->button.button == SDL_BUTTON_LEFT)
+        {
+            node.cur_screen = new Manual(235,70);
+            node.prev_screen = this;
+            node.prev_backable = true;
+            node.prev_updatable = true;
+            manualShow = true;
+        }
+    }
+    else
+    {
+        btn->SetSprite2(123);
+    }
 
 }
 

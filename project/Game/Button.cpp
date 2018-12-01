@@ -63,7 +63,7 @@ void Button::Hover()
 
     if(!buttonSprite)
     {
-        sprite2 = 124;
+        sprite2 = 122;
     }
 }
 
@@ -75,6 +75,10 @@ void Button::Click()
 void Button::SetButtonSprite(bool sprite)
 {
     buttonSprite = sprite;
+}
+void Button::SetSprite2(int a)
+{
+    sprite2 = a;
 }
 
 Button::~Button()

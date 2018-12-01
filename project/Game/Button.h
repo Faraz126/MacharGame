@@ -30,6 +30,7 @@ class Button : public Clickable
     void SetWidth(int,int);
     ~Button();
     void SetButtonSprite(bool);
+    void SetSprite2(int);
 
 };
 

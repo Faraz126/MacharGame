@@ -36,6 +36,7 @@ private:
 
     SDL_Rect pos, pos1, shoppingPos;
     SDL_Rect* cartPos;
+    SDL_Rect* upperRect;
     Texture* texture;
 
     int countContainer;

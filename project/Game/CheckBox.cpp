@@ -31,9 +31,9 @@ void CheckBox::Show(SDL_Renderer* gRenderer)
 {
     texture = Texture::GetInstance(gRenderer);
     if(status)
-        texture->Render(84,gRenderer,&pos);
+        texture->Render(121,gRenderer,&pos);
     else
-        texture->Render(85,gRenderer,&pos);
+        texture->Render(120,gRenderer,&pos);
 }
 
 void CheckBox::Update(int a)

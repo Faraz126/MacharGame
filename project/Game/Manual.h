@@ -39,12 +39,11 @@ class Manual: public Menu
     bool buttonShow;
 
  public:
-     Manual();
+     Manual(int,int);
      void Show(SDL_Renderer*);
      void HandleEvents(SDL_Event*, Screens_Node&);
      void Update(int);
      void IntializeScreen2();
      void IntializeScreen3();
-     void SetPosition(int, int);
      ~Manual();
 };

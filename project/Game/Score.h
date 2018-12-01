@@ -12,6 +12,8 @@ class Score
     Word* word;
     static Score* instance;
     int scr;
+    SDL_Rect* scorePos;
+    Texture* texture;
     //SDL_Renderer* gRenderer;
 public:
 

@@ -16,13 +16,20 @@ Score::Score()
 {
     scr = 0;
     word = new Word[2];
+    scorePos = new SDL_Rect;
+    scorePos->x = 10;
+    scorePos->y = 4;
+    scorePos->w = 147*0.2;
+    scorePos->h = 222*0.2;
 }
 
 void Score::Show(SDL_Renderer* gRenderer)
 {
+    texture = Texture::GetInstance(gRenderer);
+    texture->Render(114, gRenderer, scorePos);
     std::string strSrc = std::to_string(scr);
     word[0].SetText("SCORE");
-    word[0].SetPosition(10,4);
+    word[0].SetPosition(40,6);
     word[0].ReduceSize(0.8);
     word[1].SetText(strSrc);
     word[1].SetPosition(150,4);
@@ -113,4 +120,5 @@ bool Score::operator==(int a)
 Score::~Score()
 {
     delete[]word;
+    delete scorePos;
 }

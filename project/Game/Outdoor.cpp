@@ -75,6 +75,14 @@ Outdoor:: Outdoor()
     shop = new ShoppingMenu;
     SetUpScenarios();
 
+    upperRect = new SDL_Rect;
+
+    upperRect->x = 0;
+    upperRect-> y =0;
+    upperRect->x = 1240;
+    upperRect->h = 55;
+
+
 //    points = new Score;
 
 }
@@ -110,8 +118,11 @@ void Outdoor::Show(SDL_Renderer* renderer)
         }
     }
 
+    SDL_SetRenderDrawColor( renderer, 2,85,89,0 );
+    SDL_RenderDrawRect(renderer,upperRect);
+    SDL_RenderFillRect(renderer,upperRect);
     points->Show(renderer);
-    money.Show(renderer);
+    alert.Show(renderer);
     /*
 
     for (int i = 0; i < humans.GetLength(); i++)
@@ -163,12 +174,12 @@ int Outdoor::CountHumans()
 
 void Outdoor::Update(int frame)
 {
-    (*points)++;
+    //(*points)++;
     for (int i = 0; i < 4; i++)
     {
         house[i].Update(frame);
     }
-
+    alert.Update(27);
 /*
     for (int i = 0; i < humans.GetLength(); i++)
     {
@@ -202,6 +213,7 @@ void Outdoor::Update(int frame)
 void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
 {
+    alert.HandleEvents(e,node);
     for (int i = 0; i<noOfBreedingPlaces; i++ ) ///to drag & drop lids on breeding places
     {
         breedingplaces[i]->HandleEvents(e,node);
@@ -481,6 +493,7 @@ Outdoor :: ~Outdoor()
 {
     delete[] buildingRect;
     delete[] house;
+    delete upperRect;
 }
 
 
