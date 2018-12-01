@@ -291,6 +291,10 @@ public:
                 c_node = c_node->next;
                 i++;
             }
+            if(c_node ==0)
+            {
+                return val;
+            }
             val = c_node->data;
         }
         //delete c_node;

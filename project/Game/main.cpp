@@ -139,7 +139,7 @@ int main( int argc, char* args[] )
         Screens_Node screen;
 
         SplashScreen splash;
-        splash.Show(gRenderer);
+        //splash.Show(gRenderer);
 
         screen.cur_screen = new MainMenu; //starting with main menu
         int frame = 0;

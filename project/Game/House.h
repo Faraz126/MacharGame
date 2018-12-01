@@ -22,7 +22,7 @@
 #include "Money.h"
 #include "Scenario.h"
 #include "AedesMosquito.h"
-#include "Manual.h"
+
 class Outdoor;
 
 
@@ -49,7 +49,6 @@ private:
     Money money;
     void SetUpScenarios();
     Outdoor* outdoor;
-    Manual* manual;
 
     //Outdoor* outdoor;
     //Door* door;

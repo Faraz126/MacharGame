@@ -3,6 +3,8 @@
 #include <SDL_image.h>
 #include "Human.h"
 #include "Scenario.h"
+#include "Manual.h"
+#include "Button.h"
 
 class Outdoor;
 
@@ -17,6 +19,9 @@ private:
     SDL_Rect pos;
     Texture* texture;
     int humanPos[8];
+    Manual* manual;
+    bool manualShow;
+    Button* btn;
 //    Outdoor* outdoor;
 protected:
 

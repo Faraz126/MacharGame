@@ -16,6 +16,18 @@ Hospital:: Hospital()
     pos.y  = 0;
     pos.w  = 1024;
     pos.h = 786;
+    manual = new Manual;
+
+    btn = new Button;
+    btn->setText("SEE PATIENT");
+    btn->SetButtonSprite(false);
+    btn->setPosition(300,80);
+    btn->SetWidth(315*1.5,70*0.8);
+
+
+
+    manualShow = false;
+
 
     //Human* humanPtr;
 //    humanPtr = new Human(340,570);
@@ -24,11 +36,12 @@ Hospital:: Hospital()
 
 void Hospital::Show(SDL_Renderer* renderer)
 {
-    Texture::GetInstance()->Render(3, renderer, &pos);
+    Texture::GetInstance()->Render(113, renderer, &pos);
     for(int i = 0; i<humans.GetLength(); i++)
      {
          humans.GiveItem(i)->Show(renderer);
      }
+     btn->Show(renderer);
 }
 
 void Hospital::HandleEvents(SDL_Event* e,Screens_Node& node)

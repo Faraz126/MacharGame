@@ -45,5 +45,6 @@ class Manual: public Menu
      void Update(int);
      void IntializeScreen2();
      void IntializeScreen3();
+     void SetPosition(int, int);
      ~Manual();
 };
