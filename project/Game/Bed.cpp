@@ -38,7 +38,7 @@ void Bed::Show(SDL_Renderer* renderer)
         }
         else
         {
-           Texture::GetInstance()->Render(123, renderer, &pos);
+           Texture::GetInstance()->Render(126, renderer, &pos);
         }
     }
     else
@@ -71,16 +71,36 @@ void Bed::SetOccupied(bool status, Human* human)
     bedOccupied = human;
     if (status)
     {
-        sitting = new SDL_Rect(pos.x + 10, pos.y+ 10, pos.w - 10, pos.h- 10);
-        lying = new SDL_Rect(pos.x + 10, pos.y+ 10, pos.w - 10, pos.h- 10);
+        sitting = new SDL_Rect;
+        sitting->x = pos.x +35;
+        sitting->y = pos.y +25;
+        sitting->w = pos.w -75;
+        sitting->h = pos.h -75;
+
     }
     else
     {
         delete sitting;
-        delete lying;
-        delete human;
     }
 }
+
+
+void Bed::HandleEvents(SDL_Event* e, Screens_Node& node)
+{
+    if (occupied && state != SITTING)
+    {
+        int x = e->button.x;
+        int y = e->button.y;
+        if (WithinRegion(x,y) && e->type == SDL_MOUSEBUTTONDOWN)
+        {
+            bedOccupied->GoToHospital();
+        }
+    }
+
+
+
+}
+
 
 int Bed::GetX()
 {

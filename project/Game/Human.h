@@ -84,6 +84,7 @@ public:
     int GetInfected();
     void UpdatePos(int x, int y);
     bool Collides(const SDL_Rect&);
+    void GoToHospital();
 
 
 

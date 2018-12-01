@@ -245,14 +245,6 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
         if( ( mousePosX >houseShop->GetShoppingExitPosX() ) && ( mousePosX < (houseShop->GetShoppingExitPosX()+houseShop->GetShoppingExitPosW()) ) && ( mousePosY > houseShop->GetShoppingExitPosY() ) && (mousePosY< (houseShop->GetShoppingExitPosY()+houseShop->GetShoppingExitPosH()) ) )
             houseShop->shopShow = false;
 
-
-        for (int i = 0; i < noOfEntrance; i++)
-        {
-            if (entrance[i]->WithinRegion(mousePosX, mousePosY))
-            {
-                entrance[i]->ChangeState();
-            }
-        }
          if (btn->WithinRegion(mousePosX,mousePosY))  //for outdoor button in house
         {
             node.cur_screen = node.prev_screen;

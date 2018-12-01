@@ -69,7 +69,7 @@ void Human::BuildHuman()
     legs.y = body.y + body.h - (20*(3*sizeFactor));
     legs.w = 133*(sizeFactor)*2;
     legs.h = 166*(sizeFactor)*2;
-    collideRect.x = pos.x + (10*(3*sizeFactor));
+    collideRect.x = pos.x;
     collideRect.y = legs.y + legs.h - 20;
     collideRect.w = legs.w;
     collideRect.h = 10;
@@ -78,14 +78,6 @@ void Human::BuildHuman()
 
 void Human::HandleEvents(SDL_Event* e, Screens_Node&)
 {
-    int x = e->button.x;
-    int y = e->button.y;
-    if (WithinRegion(x,y) && e->type == SDL_MOUSEBUTTONDOWN)
-    {
-        ownHouse->GetOutdoor()->hospital->AddHuman(this);
-        ChangeState(IN_HOSPITAL);
-    }
-
     return;
 }
 
@@ -183,7 +175,6 @@ void Human::Update(int frame)
                 if (timeSince > 2000)
                 {
                     bedToGoTo->SetOccupied(false);
-
                     ChangeState();
                 }
                 break;
@@ -235,12 +226,12 @@ void Human::Update(int frame)
                         if (!isInfected)
                         {
                             ChangeState(SITTING);
-                            bedToGoTo->HumanState(SITTING)
+                            bedToGoTo->HumanState(SITTING);
                         }
                         else
                         {
                             ChangeState(LYING);
-                            bedToGoTo->HumanState(LYING)
+                            bedToGoTo->HumanState(SITTING);
                         }
                     }
 
@@ -768,4 +759,13 @@ int Human::GetInfected()
 {
     return isInfected;
 
+}
+
+void Human::GoToHospital()
+{
+    isIndoor = false;
+    ownHouse->LeaveHuman(this);
+    ChangeScenario(ownHouse->GetOutdoor()->hospital);
+    ownHouse->GetOutdoor()->hospital->AddHuman(this);
+    ChangeState(IN_HOSPITAL);
 }
