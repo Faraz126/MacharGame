@@ -232,7 +232,7 @@ void NormalMosquito::DetectAHuman()
             IsFollowingHuman = true;
             DetectHuman = true;
             human = i;
-            std::cout << "Break!" << std::endl;
+            //std::cout << "Break!" << std::endl;
             break;
         }
         else

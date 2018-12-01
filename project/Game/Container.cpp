@@ -13,6 +13,10 @@ bool Container::GetCovered()
 
 void Container::SetCovered(bool status)
 {
+    if (status)
+    {
+        (*Score::GetInstance())++;
+    }
     isCovered = status;
 }
 

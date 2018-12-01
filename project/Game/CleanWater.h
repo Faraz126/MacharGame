@@ -14,12 +14,14 @@ const int C_WATER_WIDTH = 507;
 class CleanWater : public Container
 {
 private:
-
+    int delay;
 protected:
 
 public:
     CleanWater(int, int);
     Mosquito* Breed();
+    bool IsActive();
+    int DelayLidTime();
     void Show(SDL_Renderer*);
     void Update(int);
     ~CleanWater();

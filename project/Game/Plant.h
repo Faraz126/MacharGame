@@ -11,7 +11,7 @@
 #include "Texture.h"
 #include <fstream>
 #include <sstream>
-
+#include"Score.h"
 
 const int PLANT_WIDTH = 80;
 const int PLANT_HEIGHT = 150.588;
@@ -19,7 +19,6 @@ const int PLANT_HEIGHT = 150.588;
 class Plant : public Container
 {
     int type;
-    CleanWater* water;
     public:
         Plant(int, int);
         void SetCovered(bool);

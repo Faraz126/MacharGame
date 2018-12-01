@@ -138,8 +138,17 @@ void Clickable::SetScenario(Scenario* scenario)
     currentScenario = scenario;
 }
 
+bool Clickable::IsActive()
+{
+    return false;
+}
 
 Scenario* Clickable::GetScenario()
 {
     return currentScenario;
+}
+
+int Clickable :: DelayLidTime()
+{
+    return 0;
 }

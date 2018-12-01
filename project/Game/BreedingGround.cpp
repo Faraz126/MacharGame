@@ -12,7 +12,6 @@ void BreedingGround::UpdatePos(int x, int y)
     pos.y = y;
 }
 
-
 void BreedingGround::AddMosquito(Mosquito* produced)
 {
     int n;

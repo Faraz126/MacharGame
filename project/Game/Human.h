@@ -33,6 +33,7 @@ private:
     SDL_Rect collideRect;
     double sizeFactor;
     int faceSprite,bodySprite,legSprite;
+    int health;
     double walker;
     bool isIndoor;
     bool isGoingToBed;
@@ -57,6 +58,7 @@ private:
     void GoIndoor();
     void ChangeScenario(Scenario*);
     int disease;
+    int CoveredInRepellant;
 
 
 
@@ -68,6 +70,8 @@ public:
     void Update(int);
     Human(int,int, House*);
     void Show(SDL_Renderer*);
+    void Damage();
+    void SetCoveredInRepellant();
     void ChangeState(int = -1);
     bool Collide(SDL_Rect&);
     void ChangeBedToFollow();

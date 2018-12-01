@@ -6,7 +6,7 @@ using namespace std;
 
 Hospital:: Hospital()
 {
-    int humanPos[8] = {340,427,523,610,705,792,885,972};
+    int humanPos[8] = {310,400,495,580,675,760,860,945};
 
     for (int i = 0; i < 8; i++)
     {
@@ -17,14 +17,11 @@ Hospital:: Hospital()
     pos.w  = 1024;
     pos.h = 786;
 
-    //Human* humanPtr;
-//    humanPtr = new Human(340,570);
-  //  humans.push_back(humanPtr);
 }
 
 void Hospital::Show(SDL_Renderer* renderer)
 {
-    Texture::GetInstance()->Render(3, renderer, &pos);
+    Texture::GetInstance()->Render(113, renderer, &pos);
     for(int i = 0; i<humans.GetLength(); i++)
      {
          humans.GiveItem(i)->Show(renderer);
@@ -59,7 +56,7 @@ Hospital :: ~Hospital()
 
          for(int i = 0; i<humans.GetLength(); i++)
          {
-             humans.GiveItem(i)->UpdatePos(humanPos[i],570);
+             humans.GiveItem(i)->UpdatePos(humanPos[i],460);
          }
      }
      return allowAppend;
@@ -70,7 +67,7 @@ void Hospital :: LeaveHuman(Human* human)
       humans.Pop();
       for(int i = 0; i<humans.GetLength(); i++)
      {
-         humans.GiveItem(i)->UpdatePos(humanPos[i],570);
+         humans.GiveItem(i)->UpdatePos(humanPos[i],460);
      }
 }
 

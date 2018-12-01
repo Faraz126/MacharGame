@@ -27,6 +27,8 @@ class Clickable
         int GetX();
         int GetY();
         virtual void Collision(){};
+        virtual bool IsActive();
+        virtual int DelayLidTime();
 
         void SetScenario(Scenario*);
         Scenario* GetScenario();

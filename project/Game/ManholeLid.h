@@ -5,8 +5,8 @@
 #include "Texture.h"
 #include "Lids.h"
 
-const int MANHOLELID_WIDTH = 80;
-const int MANHOLELID_HEIGHT = 18.694;
+const int MANHOLELID_WIDTH = 125;
+const int MANHOLELID_HEIGHT = 108;
 
 class ManholeLid: public Lids
 {

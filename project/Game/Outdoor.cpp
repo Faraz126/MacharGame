@@ -163,28 +163,20 @@ int Outdoor::CountHumans()
 
 void Outdoor::Update(int frame)
 {
-    (*points)++;
+    //(*points)++;
     for (int i = 0; i < 4; i++)
     {
         house[i].Update(frame);
     }
 
-/*
-    for (int i = 0; i < humans.GetLength(); i++)
-    {
-        humans.GiveItem(i)->Update(frame);
-    }
-
-     //JUST ADD SCENARIO
-    for (int i = 0; i < noOfBreedingPlaces; i++)
-    {
-        breedingplaces[i]->Update(frame);
-    }
-*/
 
     for (int i = 0; i < myQ.GetLength(); i++)
     {
         myQ.GiveItem(i)->Update(frame);
+        if(myQ.GiveItem(i)->IsActive() && myQ.GiveItem(i)->DelayLidTime()>1000)
+        {
+            myQ.Pop(i);
+        }
     }
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {

@@ -9,6 +9,8 @@
 Human::Human(): Clickable(0,0,197, 575)
 {
     ownHouse = 0;
+    health = 1000;
+    CoveredInRepellant = 0;
 }
 
 
@@ -30,7 +32,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     activity = WALKING;
     timeSince = 0;
     step = 1;
-    slowDownFactor = 2;
+    slowDownFactor = 15;
     isInfected = false;
     door = ownHouse->GetDoor();
     faceSprite = 86;
@@ -93,42 +95,13 @@ Human::Human(House* house): Human(0,0, house)
 
 }
 
+void Human::Damage()
+{
+    health -= 250;
+}
 
 bool Human::Collide(SDL_Rect& tempRect)
 {
-    /*
-    int n;
-    if (isIndoor)
-    {
-
-        Bed* bed = ownHouse->GetBeds(n);
-        for (int i = 0; i <n; i++)
-        {
-            if (bed[i].Collides(tempRect))
-            {
-                return true;
-            }
-        }
-    }
-
-    BreedingGround** breedingGrounds = currentScenario->GetBreedingGrounds(n);
-    for (int i = 0; i < n; i++)
-    {
-        if (breedingGrounds[i]->Collides(tempRect))
-        {
-            return true;
-        }
-    }
-    DLL <Human*> humans = currentScenario->GetHumans(n);
-    for (int i = 0; i < n; i++)
-    {
-        if (humans.GiveItem(i)->Collides(tempRect, humans.GiveItem(i)->collideRect) && humans.GiveItem(i) != this)
-        {
-            return true;
-        }
-    }
-    */
-
     DLL<Clickable*> myQ = currentScenario->GetQ();
 
     for (int i = 0; i < myQ.GetLength(); i++)
@@ -308,6 +281,10 @@ void Human::Update(int frame)
 
 }
 
+void Human::SetCoveredInRepellant()
+{
+    CoveredInRepellant += 1000;
+}
 
 void Human::ChangeDirection()
 {
@@ -607,7 +584,7 @@ void Human::Show(SDL_Renderer* renderer)
 
     else if (activity == IN_HOSPITAL)
     {
-        Texture::GetInstance()->Render(76, renderer, &pos);
+        Texture::GetInstance()->Render(134, renderer, &pos);
     }
     SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
     SDL_RenderDrawRect(renderer, &collideRect);
