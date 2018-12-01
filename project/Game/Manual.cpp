@@ -110,9 +110,7 @@ void Manual::Show(SDL_Renderer* gRenderer)
 {
 
 
-    SDL_SetRenderDrawColor(gRenderer,0,0,0,0);
-    SDL_RenderDrawRect(gRenderer,manualPos);
-    SDL_RenderFillRect(gRenderer,manualPos);
+    Texture::GetInstance()->Render(129, gRenderer, manualPos);
     word[0].Show(gRenderer);
     word[1].Show(gRenderer);
 
@@ -350,6 +348,12 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
             }
         }
     }
+}
+
+void Manual::SetPosition(int x , int y)
+{
+    manualPos->x = x;
+    manualPos->y = y;
 }
 
 Manual::~Manual()

@@ -257,8 +257,6 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
         {
             node.cur_screen = node.prev_screen;
             node.prev_screen = this;
-            node.prev_updatable = true;
-            node.prev_backable = true;
         }
 
     }

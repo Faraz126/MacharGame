@@ -5,6 +5,8 @@ Button::Button() : Clickable(354,506,314,64)
 
     intHover = 0;  //which state of button
     word = 0;
+    buttonSprite = true;
+    sprite2 = 123;
 
 }
 Button::Button( std::string str , int x, int y) : Button()  //after overloaded call that constructor too
@@ -17,7 +19,15 @@ Button::Button( std::string str , int x, int y) : Button()  //after overloaded c
 void Button::Show( SDL_Renderer * gRenderer )
 {
     texture = Texture::GetInstance(gRenderer); //singelton here, static method
-    texture->Render(intHover, gRenderer, &pos);
+    if(buttonSprite)
+    {
+        texture->Render(intHover, gRenderer, &pos);
+    }
+    if(!buttonSprite)
+    {
+        texture->Render(sprite2, gRenderer, &pos);
+    }
+
     word->Show(gRenderer);
 
 
@@ -50,6 +60,11 @@ void Button::setText ( std::string str )
 void Button::Hover()
 {
     intHover=1;     // if hovered sprite changed
+
+    if(!buttonSprite)
+    {
+        sprite2 = 124;
+    }
 }
 
 void Button::Click()
@@ -57,6 +72,10 @@ void Button::Click()
     intHover=2;   // if clicked sprite changed
 }
 
+void Button::SetButtonSprite(bool sprite)
+{
+    buttonSprite = sprite;
+}
 
 Button::~Button()
 {

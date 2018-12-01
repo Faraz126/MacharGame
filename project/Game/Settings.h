@@ -15,11 +15,17 @@
 class Setting : public Menu
 {
 private:
-    SDL_Rect settingPos;
+    SDL_Rect* settingPos;
+    SDL_Rect* settingSliderPos;
+    SDL_Rect* settingSliderPos1;
+    SDL_Rect* sliderPos;
     SDL_Rect settingscancelPos;
-    SDL_Rect settingSliderPos;
-    SDL_Rect settingSliderPos1;
-    SDL_Rect sliderPos;
+    SDL_Rect* noVolumePos;
+    SDL_Rect* noVolumePos1;
+    SDL_Rect* fullVolumePos;
+    SDL_Rect* noBrightnessPos;
+    SDL_Rect* noBrightnessPos1;
+    SDL_Rect* fullBrightnessPos;
     Texture* texture;
     CancelButton *cancelBtn;
     Slider* slider;
