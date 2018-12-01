@@ -255,10 +255,10 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
         }
          if (btn->WithinRegion(mousePosX,mousePosY))  //for outdoor button in house
         {
-            node.cur_screen = new Manual;
+            node.cur_screen = node.prev_screen;
             node.prev_screen = this;
-            node.prev_updatable = false;
-            node.prev_backable = false;
+            node.prev_updatable = true;
+            node.prev_backable = true;
         }
 
     }

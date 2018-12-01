@@ -445,9 +445,12 @@ void Human::ChangeState(int n)
             myStack.Append(GOING_TO_BED);
             activity = GOING_TO_DOOR;
         }
-        ChooseBed();
+        else
+        {
+            ChooseBed();
+        }
     }
-    else if (activity == GOING_TO_DOOR)
+    if (activity == GOING_TO_DOOR)
     {
         ChooseDoor();
     }
@@ -675,7 +678,7 @@ void Human::SetX(int delta, int direction)
 
 void Human::SetInfected(int code)
 {
-    /*
+/*
     if (activity != SITTING && activity != LYING)
     {
 
@@ -697,9 +700,9 @@ void Human::SetInfected(int code)
 
 
     }
-    */
-    //std::cout << disease << std::endl;
 
+    //std::cout << disease << std::endl;
+*/
 }
 
 int Human::GetInfected()

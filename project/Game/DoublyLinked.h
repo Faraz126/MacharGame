@@ -132,9 +132,10 @@ public:
     Type Pop()
     {
         Type val = 0;
-        if (len == 0)
+        if (len == 0 || tail == NULL)
         {
             cout<<"Can not pop. List is empty"<<endl;
+            len = 0;
             return val;
         }
 
@@ -234,6 +235,7 @@ public:
             else
             {
                 head = head->next;
+                head->prev = NULL;
             }
             delete c_node;
             len--;
@@ -290,6 +292,10 @@ public:
             {
                 c_node = c_node->next;
                 i++;
+            }
+            if (c_node == 0)
+            {
+                return val;
             }
             val = c_node->data;
         }

@@ -181,8 +181,15 @@ void NormalMosquito::DetectOrFollow()
     }
     else if(IsFollowingHuman == true)
     {
-        Follow(humans.GiveItem(human));
-        Bite(humans.GiveItem(human));
+        if (humans.GiveItem(human) != 0)
+        {
+            Follow(humans.GiveItem(human));
+            Bite(humans.GiveItem(human));
+        }
+        else
+        {
+            IsFollowingHuman = false;
+        }
     }
 }
 
