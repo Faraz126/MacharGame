@@ -1,6 +1,6 @@
 #include "ExitMenu.h"
 
-ExitMenu::ExitMenu():Menu(2,175,520,true)  //calling menus constructor that is constructing 2 buttons horizontally
+ExitMenu::ExitMenu(Screens* prevScreen, bool back, bool show, bool update, int factor):Menu(2,175,520,true, prevScreen, back, show, update, factor)  //calling menus constructor that is constructing 2 buttons horizontally
 {
     exitPos = new SDL_Rect;
     exitPos->x= 135;

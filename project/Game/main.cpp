@@ -133,30 +133,38 @@ int main( int argc, char* args[] )
 
         Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
 
+        Screens* curScreen;
+
 
         SDL_Event e;
         Texture::GetInstance(gRenderer);
+
         Screens_Node screen;
 
         SplashScreen splash;
         splash.Show(gRenderer);
 
-        screen.cur_screen = new MainMenu; //starting with main menu
+        //screen.cur_screen = new MainMenu; //starting with main menu
+        curScreen = new MainMenu(0, false)
+        Screens::SetCurrent(curScreen);
         int frame = 0;
 
 
         while (!GAME_QUIT)
         {
-            screen.cur_screen->Update(frame);
+            //screen.cur_screen->Update(frame);
+            Screens::GetCurrent()->Update(frame);
             while (SDL_PollEvent(&e))
             {
                 if( e.type == SDL_QUIT ) GAME_QUIT = true;
-                screen.cur_screen->HandleEvents(&e,screen);
+                //screen.cur_screen->HandleEvents(&e,screen);
+                Screens::GetCurrent()->HandleEvents(&e, screen);
             }
 
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 
+            /*
             if (screen.prev_screen != 0 && !screen.prev_backable)
             {
                 delete screen.prev_screen;
@@ -170,8 +178,12 @@ int main( int argc, char* args[] )
                     screen.prev_screen->Update(frame);
                 }
             }
+            */
+
+            Screens::GetCurrent()->Update(&e, screen);
+
             //screen.cur_screen->Update(&e,screen);
-            screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
+            ///screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
             SDL_RenderPresent( gRenderer );
             frame++;
         }

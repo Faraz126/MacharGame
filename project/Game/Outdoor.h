@@ -70,7 +70,7 @@ protected:
 
 public:
     Hospital* hospital;
-    Outdoor();
+    Outdoor(Screens*, bool);
     /*
 <<<<<<< HEAD
     //void AddHuman(Human*);

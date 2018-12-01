@@ -57,6 +57,7 @@ private:
     void ChangeScenario(Scenario*);
     int disease;
     bool isIndoor;
+    bool sentToBed;
 
 
 

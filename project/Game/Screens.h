@@ -23,9 +23,17 @@ struct Screens_Node
 
 class Screens
 {
+protected:
+    static Screens* curScreen;
+    Screens* prevScreen;
+    bool prevShowable;
+    bool prevUpdateable;
+    int prevUpdateFactor;
 
 public:
-    Screens();
+    Screens(Screens*, bool, bool = false, bool = false, int = 1);
+    static Screens* GetCurrent(){return curScreen;}
+    static void SetCurrent(Screens* scr){curScreen = scr;}
     //virtual void Click(SDL_Renderer*) = 0;
     virtual void Show(SDL_Renderer*) = 0;
     virtual void Update(int) = 0;

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Outdoor:: Outdoor()
+Outdoor:: Outdoor(Screens* screen, bool back): Screens(screen, back)
 {
     //screen dimensions
     code = 0;

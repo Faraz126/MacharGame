@@ -77,26 +77,34 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
             SetMouseClicked(true);
             if (btn[0].WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = new Outdoor;
                 node.prev_screen = this;
                 node.prev_backable = false;  //outdoor screen will open
-
+                */
+                curScreen = new Outdoor(this, false)
             }
 
             if (btn[2].WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = new Setting;
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = false;
+                */
+                curScreen = new Setting(this, true, true, false, 1);
             }
 
             if( cancelBtn->WithinRegion(mouseX, mouseY))
             {
+                /*
                 node.cur_screen = new ExitMenu;
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = false;
+                */
+                curScreen = new ExitMenu(this, true, true, false, 1);
 
             }
 

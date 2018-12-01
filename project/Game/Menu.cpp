@@ -1,6 +1,6 @@
 #include "Menu.h"
 
-Menu::Menu()
+Menu::Menu(Screens* prevScreen, bool back, bool show, bool update, int factor): Screens(prevScreen, back, show,update, factor)
 {
     w = h = x = y = noOfButton =0;
     menu =0;
@@ -10,7 +10,7 @@ Menu::Menu()
 
 }
 
-Menu::Menu(int noOfButton, int x, int y, bool horizontal)
+Menu::Menu(int noOfButton, int x, int y, bool horizontal, Screens* prevScreen, bool back, bool show, bool update, int factor):Screens (prevScreen, back,show, update, factor)
 {
     this->noOfButton =noOfButton;
     btn = new Button[noOfButton];  //an array of buttons with given number of buttons to be made

@@ -1,6 +1,6 @@
 #include "Settings.h"
 
-Setting::Setting():Menu(2,185,640,true)  //calling menus constructor that is constructing 2 buttons horizontally
+Setting::Setting(Screens* prevScreen, bool back, bool show, bool update, int factor):Menu(2,185,640,true, prevScreen, back, show, update, factor)  //calling menus constructor that is constructing 2 buttons horizontally
 {
     settingPos.x= 110;
     settingPos.y= 390;

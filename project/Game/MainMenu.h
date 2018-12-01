@@ -24,7 +24,7 @@ class MainMenu: public Menu
 
 public:
 
-    MainMenu();
+    MainMenu(Screens*, bool);
     void HoverClick(SDL_Event*);
     void Show(SDL_Renderer*);
     void Update(int);

@@ -40,6 +40,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     walker = 0;
     BuildHuman();
     bedToGoTo = 0;
+    sentToBed = false;
 
 
 
@@ -145,7 +146,7 @@ bool Human::Collides(const SDL_Rect& rect)
 
 void Human::Update(int frame)
 {
-    if (isInfected)
+    if (isInfected && !sentToBed)
     {
         if (activity != SITTING && activity != LYING)
         {
@@ -155,17 +156,14 @@ void Human::Update(int frame)
                 myStack.Pop();
             }
             ChangeState(GOING_TO_BED);
+            sentToBed = true;
         }
     }
 
     if (frame % slowDownFactor == 0)
     {
 
-        walker += 0.02;
-        if (walker > 10)
-        {
-            walker = 0;
-        }
+
         switch (activity)
         {
 
@@ -175,6 +173,8 @@ void Human::Update(int frame)
                 if (timeSince > 2000)
                 {
                     bedToGoTo->SetOccupied(false);
+                    isInfected = false;
+                    sentToBed = false;
                     ChangeState();
                 }
                 break;
@@ -231,7 +231,7 @@ void Human::Update(int frame)
                         else
                         {
                             ChangeState(LYING);
-                            bedToGoTo->HumanState(SITTING);
+                            bedToGoTo->HumanState(LYING);
                         }
                     }
 
@@ -328,6 +328,13 @@ void Human::ChangeDirection()
             if( rand()%2 == 0)
             {
                 faceDirection = RIGHT;
+                if (activity == AVOIDING_COLLISION)
+                {
+                    if(!MoveAllowed())
+                    {
+                        faceDirection = LEFT;
+                    }
+                }
             }
             else
             {
@@ -340,6 +347,13 @@ void Human::ChangeDirection()
             if (rand()%2 == 0)
             {
                 faceDirection = DOWN;
+                if (activity == AVOIDING_COLLISION)
+                {
+                    if(!MoveAllowed())
+                    {
+                        faceDirection = UP;
+                    }
+                }
             }
             else
             {
@@ -352,6 +366,13 @@ void Human::ChangeDirection()
             if (rand()%2 == 0)
             {
                 faceDirection = DOWN;
+                if (activity == AVOIDING_COLLISION)
+                {
+                    if(!MoveAllowed())
+                    {
+                        faceDirection = RIGHT;
+                    }
+                }
             }
             else
             {
@@ -364,6 +385,13 @@ void Human::ChangeDirection()
             if (rand()%2 == 0)
             {
                 faceDirection = UP;
+                if (activity == AVOIDING_COLLISION)
+                {
+                    if(!MoveAllowed())
+                    {
+                        faceDirection = DOWN;
+                    }
+                }
             }
             else
             {
@@ -380,6 +408,7 @@ void Human::Move()
     {
         if (activity != AVOIDING_COLLISION)
         {
+
             myStack.Append(activity);
         }
         ChangeDirection();
@@ -388,6 +417,11 @@ void Human::Move()
     }
     else
     {
+        walker += 0.02;
+        if (walker > 10)
+        {
+            walker = 0;
+        }
 
         if (faceDirection == RIGHT)
         {
@@ -490,41 +524,57 @@ void Human::ChooseBed()
 bool Human::MoveAllowed()
 {
     SDL_Rect tempRect = collideRect;
+
     switch (faceDirection)
     {
         case (RIGHT):
         {
-            tempRect.x++;
-            if (tempRect.x > currentScenario->GetEndWidth())
+
+            if (tempRect.x +1> currentScenario->GetEndWidth())
             {
                 return false;
+            }
+            else
+            {
+                tempRect.x += 10;
             }
             break;
         }
         case (LEFT):
         {
-            tempRect.x--;
-            if (tempRect.x < currentScenario->GetStartWidth())
+
+            if (tempRect.x -1 < currentScenario->GetStartWidth())
             {
                 return false;
+            }
+            else
+            {
+                tempRect.x -= 10;
             }
             break;
         }
         case (UP):
         {
-            tempRect.y--;
-            if (tempRect.y <= currentScenario->GetStartHeight())
+
+            if (tempRect.y -1 <= currentScenario->GetStartHeight())
             {
                 return false;
+            }
+            else
+            {
+                tempRect.y -= 10;
             }
             break;
         }
         case (DOWN):
         {
-            tempRect.y++;
-            if (tempRect.y >= currentScenario->GetEndHeight())
+            if (tempRect.y + 1>= currentScenario->GetEndHeight())
             {
                 return false;
+            }
+            else
+            {
+                tempRect.y += 10;
             }
             break;
         }
@@ -553,7 +603,7 @@ void Human::ChooseDoor()
 void Human::Show(SDL_Renderer* renderer)
 {
     SDL_Rect leg;
-    if (activity == WALKING || activity == GOING_TO_BED || activity == GOING_TO_DOOR)
+    if (activity == WALKING || activity == GOING_TO_BED || activity == GOING_TO_DOOR || activity == AVOIDING_COLLISION)
     {
         int face = 0;
         int body = 0;
@@ -742,6 +792,7 @@ void Human::SetInfected(int code)
 
     }
     */
+
     this->disease = code;
 
     if (code == 0)
@@ -751,7 +802,9 @@ void Human::SetInfected(int code)
     if (code)
     {
         isInfected = true;
+
     }
+
     //std::cout << disease << std::endl;
 }
 
@@ -765,6 +818,7 @@ void Human::GoToHospital()
 {
     isIndoor = false;
     ownHouse->LeaveHuman(this);
+    bedToGoTo->SetOccupied(false);
     ChangeScenario(ownHouse->GetOutdoor()->hospital);
     ownHouse->GetOutdoor()->hospital->AddHuman(this);
     ChangeState(IN_HOSPITAL);
