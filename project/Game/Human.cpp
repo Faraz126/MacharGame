@@ -639,7 +639,6 @@ void Human::GoOutdoor()
     sizeFactor = 0.2;
     ReduceSize(sizeFactor);
     BuildHuman();
-
     ChangeState(WALKING);
 
 }
@@ -678,7 +677,7 @@ void Human::SetX(int delta, int direction)
 
 void Human::SetInfected(int code)
 {
-/*
+
     if (activity != SITTING && activity != LYING)
     {
 
@@ -702,7 +701,6 @@ void Human::SetInfected(int code)
     }
 
     //std::cout << disease << std::endl;
-*/
 }
 
 int Human::GetInfected()

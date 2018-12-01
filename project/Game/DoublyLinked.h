@@ -136,6 +136,7 @@ public:
         {
             cout<<"Can not pop. List is empty"<<endl;
             len = 0;
+            head = 0;
             return val;
         }
 
