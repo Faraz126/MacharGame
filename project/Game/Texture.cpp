@@ -85,10 +85,18 @@ void Texture::Render(char character, SDL_Renderer* gRenderer, SDL_Rect * clip) /
     SDL_RenderCopy(gRenderer, this->texture, &clipFromTexture, clip);
 }
 
-void Texture::RenderBack(int serial, SDL_Renderer* renderer, SDL_Rect* clip1, SDL_Rect* clip2)
+void Texture::RenderBack(int serial, SDL_Renderer* renderer, SDL_Rect* clip1, SDL_Rect* clip2, bool flipped)
 {
     SetRect(serial);
-    SDL_RenderCopyEx(renderer, this->texture, clip1, clip2,0.0,0,SDL_FLIP_NONE);
+    if (!flipped)
+    {
+        SDL_RenderCopyEx(renderer, this->texture, clip1, clip2,0.0,0,SDL_FLIP_NONE);
+    }
+
+    if (flipped)
+    {
+        SDL_RenderCopyEx(renderer, this->texture, clip1, clip2,0.0,0,SDL_FLIP_HORIZONTAL);
+    }
 }
 
 void Texture::SetRect(int n)

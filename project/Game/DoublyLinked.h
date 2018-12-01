@@ -218,7 +218,7 @@ public:
         return val;
     }
 
-     void RemoveItem(Type val)
+     void RemoveItem(Type& val)
     {
         if (len == 0)
         {
@@ -289,7 +289,7 @@ public:
         else
         {
             int i = 0;
-            while(i!=index)
+            while(i!=index && c_node != 0)
             {
                 c_node = c_node->next;
                 i++;

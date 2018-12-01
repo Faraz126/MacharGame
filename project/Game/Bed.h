@@ -10,6 +10,8 @@ class Bed : public Clickable
 {
     bool occupied;
     Human* bedOccupied;
+    int state;
+    SDL_Rect* sitting, lying;
 
 public:
     Bed();
@@ -23,5 +25,6 @@ public:
     void SetOccupied(bool, Human* = 0);
     int GetX();
     int GetY();
+    void HumanState(int);
     ~Bed();
 };

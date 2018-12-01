@@ -43,8 +43,6 @@ void Alert::Update(double a)
     if (timerSprite>26 && timerSprite<34)
         timerSprite += 0.001;
 
-
-
 }
 double Alert::GetTimerSprite()
 {

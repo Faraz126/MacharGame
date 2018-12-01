@@ -88,8 +88,34 @@ bool Scenario::AddHuman(Human* human)
 
 void Scenario::LeaveHuman(Human* human)
 {
-    humans.RemoveItem(human);
-    myQ.RemoveItem(human);
+    int to_remove = -1;
+    for (int i = 0; i < humans.GetLength(); i++)
+    {
+        if (humans.GiveItem(i) == human)
+        {
+            to_remove = i;
+            break;
+        }
+    }
+    if (to_remove != -1)
+    {
+        humans.Pop(to_remove);
+        to_remove = -1;
+    }
+
+    for (int i = 0; i < myQ.GetLength(); i++)
+    {
+        if (myQ.GiveItem(i) == human)
+        {
+            to_remove = i;
+            break;
+        }
+    }
+    if (to_remove != -1)
+    {
+        myQ.Pop(to_remove);
+        to_remove = -1;
+    }
 }
 
 bool Scenario::Collides(Clickable* obj)

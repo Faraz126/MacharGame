@@ -34,7 +34,6 @@ private:
     double sizeFactor;
     int faceSprite,bodySprite,legSprite;
     double walker;
-    bool isIndoor;
     bool isGoingToBed;
     bool isGoingOut;
     bool isWalking;
@@ -57,6 +56,8 @@ private:
     void GoIndoor();
     void ChangeScenario(Scenario*);
     int disease;
+    bool isIndoor;
+
 
 
 

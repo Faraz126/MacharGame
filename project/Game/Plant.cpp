@@ -4,6 +4,7 @@ Plant::Plant(int x, int y): Container(x,y, PLANT_WIDTH, PLANT_HEIGHT)
 {
     spriteNum = rand()%4 + 27; //to choose if plant is watered or not
 /*
+
 <<<<<<< HEAD
     water = 0;
     SetCovered((bool)(rand()%2));
@@ -12,7 +13,9 @@ Plant::Plant(int x, int y): Container(x,y, PLANT_WIDTH, PLANT_HEIGHT)
     //lid = 0;
 >>>>>>> daba5613d1af045bdabb1b8193ff17be11eceb82
 */
+    SetCovered(false);
     lid = new Soil(pos.x, pos.y + 300);
+
     //SetCovered((bool)(rand()%2));
         //plant image proportion with which image will be rendered
 
@@ -48,7 +51,7 @@ void Plant::HandleEvents(SDL_Event* e, Screens_Node& node)
     {
         lid->HandleEvents(e,node);
     }
-    if (Collides(*lid))
+    if (lid->Collides(pos))
     {
         SetCovered(true);
     }
