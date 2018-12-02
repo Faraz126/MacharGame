@@ -2,6 +2,7 @@
 #include <random>
 #include <iostream>
 #include <algorithm>
+#include "Hospital.h"
 
 
 using namespace std;

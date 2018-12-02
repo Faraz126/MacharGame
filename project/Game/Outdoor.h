@@ -18,7 +18,7 @@
 #include "Score.h"
 #include "Money.h"
 #include "Alert.h"
-#include "Hospital.h"
+class Hospital;
 
 #include <fstream>
 

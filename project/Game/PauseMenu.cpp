@@ -117,4 +117,3 @@ PauseMenu::~PauseMenu()
     delete cancelBtn;
     delete [] word;
 }
-

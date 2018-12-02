@@ -4,6 +4,7 @@
 #include "House.h"
 #include "Scenario.h"
 #include "Bed.h"
+#include "Hospital.h"
 
 
 Human::Human(): Clickable(0,0,197, 575)

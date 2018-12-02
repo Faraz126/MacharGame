@@ -17,12 +17,16 @@ Hospital:: Hospital()
     pos.w  = 1024;
     pos.h = 786;
 
-    btn = new Button;
-    btn->SetButtonSprite(false);
-    btn->setPosition(280,80);
-    btn->SetWidth(315*1.5,70*0.8);
-    btn->setText("SEE PATIENT");
-    btn->word->ReduceSize(0.8);
+    btn = new Button[2];
+    btn[0].SetButtonSprite(false);
+    btn[0].setPosition(280,80);
+    btn[0].SetWidth(315*1.5,70*0.8);
+    btn[0].setText("SEE PATIENT");
+    btn[0].word->ReduceSize(0.8);
+
+    btn[1].setPosition(800,60);
+    btn[1].SetWidth(200,55);
+    btn[1].setText("OUTDOOR");
 
     upperRect = new SDL_Rect;
 
@@ -45,8 +49,9 @@ void Hospital::Show(SDL_Renderer* renderer)
 
      if(!manualShow)
      {
-         btn->Show(renderer);
+         btn[0].Show(renderer);
      }
+     btn[1].Show(renderer);
      SDL_SetRenderDrawColor( renderer, 2,85,89,0 );
     SDL_RenderDrawRect(renderer,upperRect);
     SDL_RenderFillRect(renderer,upperRect);
@@ -57,9 +62,25 @@ void Hospital::HandleEvents(SDL_Event* e,Screens_Node& node)
 {
     int hoverX = e->button.x;
     int hoverY = e->button.y;
-    if( btn->WithinRegion(hoverX,hoverY)==true)
+    if (e->type == SDL_QUIT)
     {
-        btn->Hover();
+        SDL_Quit();
+    }
+    if( e->type == SDL_KEYDOWN )
+    {
+
+        if(e->key.keysym.sym == SDLK_ESCAPE)    //will open pause menu
+        {
+//            node.cur_screen = new PauseMenu(outdoor);  //EVENT TO BE DEALT
+//            node.prev_screen = this;
+//            node.prev_updatable = false;
+//            node.prev_backable = true;
+
+        }
+    }
+    if( btn[0].WithinRegion(hoverX,hoverY)==true)
+    {
+        btn[0].Hover();
         if (e->type == SDL_MOUSEBUTTONDOWN && e->button.button == SDL_BUTTON_LEFT)
         {
             node.cur_screen = new Manual(235,70);
@@ -68,10 +89,21 @@ void Hospital::HandleEvents(SDL_Event* e,Screens_Node& node)
             node.prev_updatable = true;
             manualShow = true;
         }
+
     }
+
     else
     {
-        btn->SetSprite2(123);
+        btn[0].SetSprite2(123);
+    }
+
+    if (btn[1].WithinRegion(hoverX,hoverY))  //for outdoor button in house
+    {
+        if (e->type == SDL_MOUSEBUTTONDOWN && e->button.button == SDL_BUTTON_LEFT)
+        {
+            node.cur_screen = node.prev_screen;
+            node.prev_screen = this;
+        }
     }
 
 }
@@ -83,7 +115,7 @@ void Hospital::Update(int frame)
 
 Hospital :: ~Hospital()
 {
-
+    delete[] btn;
 }
 
  bool Hospital :: AddHuman(Human* human)

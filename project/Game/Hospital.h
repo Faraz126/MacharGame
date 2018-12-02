@@ -5,8 +5,9 @@
 #include "Scenario.h"
 #include "Manual.h"
 #include "Button.h"
+#include "PauseMenu.h"
 
-class Outdoor;
+
 
 class Hospital: public Scenario
 {
@@ -23,6 +24,7 @@ private:
     bool manualShow;
     Button* btn;
     SDL_Rect* upperRect;
+
 //    Outdoor* outdoor;
 protected:
 
@@ -37,4 +39,5 @@ public:
     void Show(SDL_Renderer*);
     void ShowManual();
     void CheckHumanDisease(Human*);
+
 };
