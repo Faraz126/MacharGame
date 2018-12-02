@@ -4,6 +4,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 #include "Screens.h"
 #include "MainMenu.h"
 #include "Texture.h"
@@ -41,13 +42,18 @@ SDL_Window* gWindow = NULL;
 //The window renderer
 SDL_Renderer* gRenderer = NULL;
 
+
+
+//The sound effects that will be used
+
+
 bool init()
 {
 	//Initialization mouseClicked
 	bool success = true;
 
 	//Initialize SDL
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+	if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO ) < 0 )
 	{
 		printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
 		success = false;
@@ -61,7 +67,7 @@ bool init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( "Rook Thaam", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
         if( gWindow == NULL )
         {
             printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -88,6 +94,15 @@ bool init()
                     printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
                     success = false;
                 }
+
+/*
+                if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+                {
+                    printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+                    success = false;
+                }
+                */
+
             }
         }
 
@@ -133,20 +148,18 @@ int main( int argc, char* args[] )
 
         Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
 
-        Screens* curScreen;
 
 
         SDL_Event e;
-        Texture::GetInstance(gRenderer);
 
         Screens_Node screen;
 
         SplashScreen splash;
         splash.Show(gRenderer);
 
+
         //screen.cur_screen = new MainMenu; //starting with main menu
-        curScreen = new MainMenu(0, false)
-        Screens::SetCurrent(curScreen);
+        Screens::Initiate();
         int frame = 0;
 
 
@@ -180,13 +193,14 @@ int main( int argc, char* args[] )
             }
             */
 
-            Screens::GetCurrent()->Update(&e, screen);
+            Screens::GetCurrent()->Show(gRenderer);
 
             //screen.cur_screen->Update(&e,screen);
             ///screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
             SDL_RenderPresent( gRenderer );
             frame++;
         }
+        delete Texture::GetInstance(gRenderer);
 	}
 	close();
 

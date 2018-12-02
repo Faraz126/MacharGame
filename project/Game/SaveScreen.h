@@ -27,7 +27,7 @@ class SaveMenu :public Menu
 protected:
 
 public:
-    SaveMenu(Outdoor*);
+    SaveMenu(Outdoor*,Screens*, bool, bool = false, bool = false, int = 1);
     void Click(SDL_Event*);
     void Hover (SDL_Event*);
     void Show(SDL_Renderer*);

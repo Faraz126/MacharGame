@@ -49,6 +49,7 @@ public:
     Entrance* GetClosestEntrance();
     void SetX(int delta, int direction);
 
+
     //virtual ~Mosquito();
 };
 

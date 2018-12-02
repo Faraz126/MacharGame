@@ -1,12 +1,18 @@
 #include "Outdoor.h"
 #include <random>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <ostream>
+#include <istream>
 #include <iostream>
-#include <algorithm>
+
+
 
 
 using namespace std;
 
-Outdoor:: Outdoor(Screens* screen, bool back): Screens(screen, back)
+Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
 {
     //screen dimensions
     code = 0;
@@ -42,8 +48,9 @@ Outdoor:: Outdoor(Screens* screen, bool back): Screens(screen, back)
     }
 
     PlaceContainers();
+    //Load(file);
 
-    buildingRect= new SDL_Rect[4]; //clickable region for all 4 houses
+    buildingRect =  new SDL_Rect[4]; //clickable region for all 4 houses
     buildingRect[0].x=45;
     buildingRect[0].y=140;
     buildingRect[0].w=280;
@@ -70,9 +77,9 @@ Outdoor:: Outdoor(Screens* screen, bool back): Screens(screen, back)
     buildingRect[4].h = 350;
     //humans = GenerateHumans();
     //noOfEntrance = 0;
-    hospital = new Hospital();
+    hospital = new Hospital(this);
     GetHouseEntrance();
-    shop = new ShoppingMenu;
+//    shop = new ShoppingMenu;
     SetUpScenarios();
 
 //    points = new Score;
@@ -91,6 +98,77 @@ Human** Outdoor::GenerateHumans()
     return temp;
 }
 */
+
+Outdoor::Outdoor(fstream* file, Screens* screen, bool back):Scenario(screen, false)
+{
+    //screen dimensions
+    code = 0;
+    startWidth = 0;
+    endWidth = 1024*2.5;
+    startHeight = 460;
+    endHeight = 786;
+
+    pos.x = 0;
+    pos.y = 0;
+    pos.w = 1024;
+    pos.h = 786;
+
+
+    //part of sprite clipped from spritesheet
+    pos1.x = 0;
+    pos1.y = 1805;
+    pos1.w = 1024;
+    pos1.h = 786;
+
+    entrance = new Entrance*[12];
+    house = new House[5]; //house count is 4 & 1 hospital
+
+
+    for (int i = 0; i < 4; i++)
+    {
+        // Setting outdoor pointer in every house. To be used by mosquitoes and humans.
+        house[i].SetOutdoor(this);
+    }
+
+    //PlaceContainers();
+    Load(file);
+
+    buildingRect =  new SDL_Rect[4]; //clickable region for all 4 houses
+    buildingRect[0].x=45;
+    buildingRect[0].y=140;
+    buildingRect[0].w=280;
+    buildingRect[0].h=320;
+
+    buildingRect[1].x=515;
+    buildingRect[1].y=140;
+    buildingRect[1].w=280;
+    buildingRect[1].h=320;
+
+    buildingRect[2].x=1138;
+    buildingRect[2].y=140;
+    buildingRect[2].w=280;
+    buildingRect[2].h=320;
+
+    buildingRect[3].x=1710;
+    buildingRect[3].y=140;
+    buildingRect[3].w=290;
+    buildingRect[3].h=320;
+
+    buildingRect[4].x = 2190;
+    buildingRect[4].y = 130;
+    buildingRect[4].w = 350;
+    buildingRect[4].h = 350;
+    //humans = GenerateHumans();
+    //noOfEntrance = 0;
+    hospital = new Hospital(this);
+    GetHouseEntrance();
+//    shop = new ShoppingMenu;
+    SetUpScenarios();
+
+//    points = new Score;
+
+}
+
 
 void Outdoor::Show(SDL_Renderer* renderer)
 {
@@ -164,10 +242,16 @@ int Outdoor::CountHumans()
 void Outdoor::Update(int frame)
 {
     (*points)++;
+    /*
     for (int i = 0; i < 4; i++)
     {
-        house[i].Update(frame);
+        if (curScreen != &house[i])
+        {
+            house[i].Update(frame);
+        }
+
     }
+    */
 
 /*
     for (int i = 0; i < humans.GetLength(); i++)
@@ -207,7 +291,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
         breedingplaces[i]->HandleEvents(e,node);
     }
 
-    shop->HandleEvents(e,node);
+//    shop->HandleEvents(e,node);
 
     if (e->type == SDL_MOUSEBUTTONDOWN)
 
@@ -219,29 +303,40 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
         {
             if (x >= buildingRect[i].x && y >= buildingRect[i].y && x < buildingRect[i].x + buildingRect[i].w && y < buildingRect[i].y + buildingRect[i].h)
             {
+                /*
                 node.cur_screen = &house[i];
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = true;
+                */
+                curScreen = &house[i];
+
+                //speed
             }
         }
 
         if (x >= buildingRect[4].x && y >= buildingRect[4].y && x < buildingRect[4].x + buildingRect[4].w && y < buildingRect[4].y + buildingRect[4].h)
             {
+                /*
                 node.cur_screen = hospital;
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = true;
+                */
+                curScreen = hospital;
             }
 
 
     }
     if(e->key.keysym.sym == SDLK_ESCAPE)  //will open pause menu
     {
+        /*
         node.cur_screen = new PauseMenu(this);
         node.prev_screen = this;
         node.prev_updatable = false;
         node.prev_backable = true;
+        */
+        curScreen = new PauseMenu(this, this, true);
     }
 
     HandleScrolling(e);
@@ -432,8 +527,34 @@ void Outdoor:: PlaceContainers()
 }
 
 
+void Outdoor::Load(fstream* file)
+{
+    std::string myString;
 
-void Outdoor::Save(ofstream& file)
+
+    fstream filenew("ss.txt", ios::in);
+    getline(filenew, myString);
+    noOfBreedingPlaces = stoi(myString);
+    /*
+    getline(file, myString);
+    countPlants = stoi(myString);
+    breedingplaces = new BreedingGround*[noOfBreedingPlaces];
+    int i = 0;
+    for (int place = 0; place < countPlants; place++)
+    {
+        breedingplaces[i] = new Plant();
+//        breedingplaces[i]->Read(file);
+        myQ.Append(breedingplaces[i]);
+    }
+    */
+
+
+
+}
+
+
+
+void Outdoor::Save(fstream& file)
 {
 	file << noOfBreedingPlaces << '\n';
 	file << countPlants << '\n';
@@ -473,14 +594,31 @@ void Outdoor::Save(ofstream& file)
         i++;
     }
 
+    file.close();
 
+}
 
+void Outdoor::Delete()
+{
+    delete this;
 }
 
 Outdoor :: ~Outdoor()
 {
-    delete[] buildingRect;
+    //delete[] buildingRect;
+    for (int i = 0; i < myQ.GetLength(); i++)
+    {
+        delete myQ.GiveItem(i);
+    }
+
+    for (int i = 0; i < mosquitoes.GetLength(); i++)
+    {
+        delete mosquitoes.GiveItem(i);
+    }
+
     delete[] house;
+    delete hospital;
+
 }
 
 

@@ -1,6 +1,6 @@
 #include "PauseMenu.h"
 
-PauseMenu::PauseMenu(Outdoor* outPtr):Menu(4,80,230,false)
+PauseMenu::PauseMenu(Outdoor* outPtr, Screens* scr, bool back):Menu(4,80,230,false, scr, back)
 {
     pausePos = new SDL_Rect;
     pausePos->x= 0;
@@ -77,32 +77,52 @@ void PauseMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
             SetMouseClicked(true);
             if (btn[0].WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = node.prev_screen;
+                */
+                curScreen = prevScreen;
+                delete this;
 
             }
-            if (btn[1].WithinRegion(mouseX,mouseY)==true)
+            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = new SaveMenu(outdoor);
                 node.prev_screen = this;
                 node.prev_updatable = false;
                 node.prev_backable = true;
+                */
+
+                curScreen = new SaveMenu(outdoor, this, true);
 
             }
 
-            if (btn[3].WithinRegion(mouseX,mouseY)==true)
+            else if (btn[3].WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = new MainMenu;
                 node.prev_screen = this;
                 node.prev_backable = false;
                 node.prev_updatable = false;
+                */
+
+                curScreen = new MainMenu(this, false);
+
+
+
             }
 
-            if( cancelBtn->WithinRegion(mouseX, mouseY))
+            else if( cancelBtn->WithinRegion(mouseX, mouseY))
             {
+                /*
                 node.cur_screen = new ExitMenu;
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = false;
+                */
+                curScreen = new ExitMenu(this, true);
+
+
 
             }
 
@@ -113,8 +133,13 @@ void PauseMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 
 PauseMenu::~PauseMenu()
 {
+
     delete pausePos;
     delete cancelBtn;
     delete [] word;
+    if (curScreen != prevScreen)
+    {
+        outdoor->Delete();
+    }
 }
 

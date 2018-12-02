@@ -21,7 +21,7 @@ private:
 protected:
 
 public:
-    Hospital();
+    Hospital(Screens*);
     ~Hospital();
     void Update(int);
     void HandleEvents(SDL_Event*, Screens_Node&);

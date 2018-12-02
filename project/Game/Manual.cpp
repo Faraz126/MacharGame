@@ -1,6 +1,6 @@
 #include "Manual.h"
 
-Manual::Manual()
+Manual::Manual(Screens* prevScreen , bool back): Menu(prevScreen, back)
 {
     screenNumber =1;
 

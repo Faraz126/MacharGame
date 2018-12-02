@@ -86,3 +86,5 @@ void Mosquito::SetX(int delta, int direction)
         position.x-=delta;
     }
 }
+
+

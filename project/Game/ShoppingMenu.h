@@ -30,7 +30,7 @@ protected:
 
 public:
     bool shopShow;
-    ShoppingMenu();
+    ShoppingMenu(Screens*, bool, bool, bool, int);
     void Click(SDL_Event*);
     void Hover (SDL_Event*);
     void Show(SDL_Renderer*);

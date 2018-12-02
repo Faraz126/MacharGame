@@ -19,7 +19,7 @@ class Closing:public Menu
 protected:
 
 public:
-    Closing(Screens* prevScreen, bool back, bool show, bool update, int factor);
+    Closing(Screens* , bool, bool = false, bool = false, int = 1);
     void Show(SDL_Renderer*);
     void Update(int);
     void HandleEvents(SDL_Event*, Screens_Node&);

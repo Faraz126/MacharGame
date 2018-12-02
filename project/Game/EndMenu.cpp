@@ -1,7 +1,7 @@
 #include "EndMenu.h"
 
 
-EndMenu::EndMenu():Menu(3,80,250,false)
+EndMenu::EndMenu(Screens* prevScreen, bool back, bool show, bool update, int factor):Menu(3,80,250,false, prevScreen, back, show, update, factor)
 {
     pos0 = new SDL_Rect;
     pos0->x= 0;
@@ -69,26 +69,35 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
             SetMouseClicked(true);
             if (btn[0].WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = new Outdoor;
                 node.prev_screen = this;
                 node.prev_backable = false;  //outdoor screen will open
-
+                */
+                curScreen = new Outdoor(this, false);
             }
 
             if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = new MainMenu;
                 node.prev_screen = this;
                 node.prev_backable = false;
                 node.prev_updatable = false;
+                */
+                curScreen = new MainMenu(this, false);
             }
 
             if( cancelBtn->WithinRegion(mouseX, mouseY))
             {
+                /*
                 node.cur_screen = new ExitMenu;
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = false;
+                */
+
+                curScreen = new ExitMenu(this, false);
 
             }
 
@@ -98,9 +107,16 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 }
 
 
+
+
 EndMenu::~EndMenu()
 {
     delete cancelBtn;
     delete pos0;
+
+    if (prevScreen != 0)
+    {
+        delete prevScreen;
+    }
 }
 

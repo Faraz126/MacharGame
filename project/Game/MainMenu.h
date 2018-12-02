@@ -3,11 +3,17 @@
 #include "SDL_image.h"
 #include "Menu.h"
 #include "CancelButton.h"
-#include <iostream>
+
 #include "string"
 #include "Outdoor.h"
 #include "Settings.h"
 #include "ExitMenu.h"
+#include <fstream>
+#include <sstream>
+#include <ostream>
+#include <istream>
+#include <iostream>
+
 
 
 class MainMenu: public Menu
@@ -21,6 +27,7 @@ class MainMenu: public Menu
     double mosquitoIterator;
     bool iteratorr;
     std::string buttonText[3];
+
 
 public:
 

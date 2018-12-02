@@ -63,8 +63,10 @@ bool Container::Collides(const SDL_Rect& rect)
 
 Container::~Container()
 {
-
+    delete lid;
 }
+
+
 
 
 

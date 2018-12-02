@@ -15,6 +15,7 @@ private:
 protected:
 
 public:
+    Soil(){};
     Soil(int, int);
     bool CorrectContainer();
     void Show(SDL_Renderer*);

@@ -13,6 +13,7 @@ private:
 protected:
     int spriteNum;
     SDL_Rect outdoorPos;
+    void SetState();
 
 
 public:
@@ -23,12 +24,11 @@ public:
     virtual void Show(SDL_Renderer*) = 0;
     virtual void ShowOutside(SDL_Renderer*) = 0;
     virtual bool IsOpen() = 0;
-    void SetState();
     void MosquitoEnter();
-    void SetOutdoorX(int,int);
+    void SetOutdoorX(int,int); //to set position from outside.
     //bool WithinEntrance(int, int); //returns true if the given x,y co-ordinate is within the entrance.
-    int GetDistanceOutside(int, int);
-    int GetX(bool);
+    int GetDistanceOutside(int, int); //to get its distance from outside
+    int GetX(bool); //bool to determine whether to return indoor or outdoor x co-ordinate
     int GetY(bool);
     int GetHeight();
     int GetWidth();

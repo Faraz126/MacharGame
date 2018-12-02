@@ -1,6 +1,6 @@
 #include "ShoppingMenu.h"
 
-ShoppingMenu::ShoppingMenu():Menu()
+ShoppingMenu::ShoppingMenu(Screens* prevScreen, bool back, bool show, bool update, int frame):Menu(prevScreen, back, show, update, frame)
 {
     shoppingPos = new SDL_Rect();
     shoppingPos->x = 80;

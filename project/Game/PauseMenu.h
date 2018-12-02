@@ -25,7 +25,7 @@ class PauseMenu :public Menu
 protected:
 
 public:
-    PauseMenu(Outdoor*);
+    PauseMenu(Outdoor*, Screens*, bool);
     void HoverClick(SDL_Event*);
     void Show(SDL_Renderer*);
     void Update(int);

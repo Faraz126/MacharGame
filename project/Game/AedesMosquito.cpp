@@ -17,8 +17,6 @@ AedesMosquito::AedesMosquito()
     IsFollowingEntrance = false;
     speed_x = 0;
     speed_y = 0;
-    Dengue = new Disease();
-    Chikengunya = new Disease();
     timer = 0;
     diseaseCode = DENGUE;
 

@@ -23,7 +23,7 @@ public:
 
     DLL()
     {
-        Node<Type>* head = tail = NULL;
+        head = tail = NULL;
         len = 0;
     }
 

@@ -12,15 +12,14 @@ const int MANHOLE_HEIGHT = 18.006;
 class Manhole : public Container
 {
 private:
-
-protected:
+    void SetCovered(bool);
 
 public:
 
     Manhole(int,int);
     Mosquito* Breed();
     void Show(SDL_Renderer*);
-    void SetCovered(bool);
+
     ~Manhole();
     void HandleEvents(SDL_Event*, Screens_Node&);
     void Update(int);

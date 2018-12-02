@@ -6,22 +6,22 @@
 #include "Mosquito.h"
 #include "BreedingGround.h"
 #include "Lids.h"
+#include "fstream"
 
 class Container : public BreedingGround
 {
     public:
+        Container(){};
         Container(int, int, int, int, bool = false);
         virtual ~Container();
-        //virtual void Show(SDL_Renderer*) = 0;
         bool GetCovered();
-        //virtual Mosquito* Breed();
-        //virtual void HandleEvents(SDL_Event*) = 0;
-        bool Collides(const Clickable&);
+        bool Collides(const Clickable&); //overwriding base class method, to include collision for lids as well.
         bool Collides(const SDL_Rect&);
-        virtual void SetCovered(bool);
         void SetX(int,int);
+
     protected:
         SDL_Rect correctLidPos;
+        virtual void SetCovered(bool);
         Lids* lid;
     private:
         bool isCovered;

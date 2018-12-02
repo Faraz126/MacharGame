@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Hospital:: Hospital()
+Hospital::Hospital(Screens* prev): Scenario(prev, true, false, true, 1)
 {
     int humanPos[8] = {340,427,523,610,705,792,885,972};
 

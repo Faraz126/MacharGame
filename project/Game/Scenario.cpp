@@ -1,11 +1,12 @@
 #include "Scenario.h"
 #include "BreedingGround.h"
-#include <algorithm>
 
-Scenario::Scenario()
+Scenario::Scenario(Screens* prevScreen, bool back, bool show, bool update, int factor): Screens(prevScreen, back, show, update, factor)
 {
-    points = Score::GetInstance();
+    points = Score::GetInstance(); //getting singleton
 }
+
+
 
 
 Entrance** Scenario::GetEntrance(int & n)
@@ -120,6 +121,7 @@ void Scenario::LeaveHuman(Human* human)
 
 bool Scenario::Collides(Clickable* obj)
 {
+    ///returns if the obj collides with any object in the scenario.
     for (int i = 0; i < myQ.GetLength(); i++)
     {
         if (myQ.GiveItem(i)->Collides(*obj) && myQ.GiveItem(i) != obj)
@@ -146,3 +148,12 @@ DLL<Clickable*>& Scenario::GetQ()
 {
     return myQ;
 }
+
+Scenario::~Scenario()
+{
+
+
+
+
+}
+

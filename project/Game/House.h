@@ -23,6 +23,7 @@
 #include "Scenario.h"
 #include "AedesMosquito.h"
 #include "Manual.h"
+#include "Alert.h"
 class Outdoor;
 
 
@@ -33,41 +34,36 @@ class House: public Scenario
 private:
     //Money money;
 
-    bool hasRepellent;
+    bool hasRepellent; //if the house has repellent
     int noOfHumans;
 
-    Bed* bed;
+    Bed* bed; //array of beds
     SDL_Rect pos;
     Texture* texture;
     Showpiece* showpieces;
     SDL_Rect wall;
     //Human** humans;
     Button* btn;
-    ShoppingMenu* houseShop;
+    ShoppingMenu* houseShop; //shopping card
     SDL_Rect* cartPos;
 
     Money money;
     void SetUpScenarios();
-    Outdoor* outdoor;
-    Manual* manual;
+    Outdoor* outdoor; //pointer to outdoor
+    int dyingIndex;
+    bool toShow;
+    Alert alert;
 
     //Outdoor* outdoor;
     //Door* door;
 protected:
+    void SetUpEntrancesAndShowPieces();
+    void GenerateHumans();
 
 public:
     House();
     ~House();
     bool GetHasRepellent();
-    /*
-<<<<<<< HEAD
-    //void AddHuman(Human*){};
-    //void LeaveHuman(Human*);
-=======
-    bool AddHuman(Human*){};
-    void LeaveHuman(Human*){};
->>>>>>> daba5613d1af045bdabb1b8193ff17be11eceb82
-*/
     void SetOutdoor(Outdoor*);
     Outdoor* GetOutdoor();
     void Click();
@@ -77,8 +73,8 @@ public:
     void Update(int);
     void HandleEvents(SDL_Event* e, Screens_Node&);
     int NoOfHumans();
-    Bed* GetClosestBed(int,int);
     Door* GetDoor();
     Bed* GetBeds(int&);
+
 
 };

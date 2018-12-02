@@ -21,7 +21,7 @@ Bed::Bed(int x, int y): Clickable(x,y,153,174)
     occupied = false;
     state= 0;
     sitting = 0;
-    lying = 0;
+
 }
 
 void Bed::Show(SDL_Renderer* renderer)

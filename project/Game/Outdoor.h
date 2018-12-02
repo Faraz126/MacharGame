@@ -20,7 +20,13 @@
 #include "Alert.h"
 #include "Hospital.h"
 
+#include <string>
 #include <fstream>
+#include <sstream>
+#include <ostream>
+#include <istream>
+#include <iostream>
+
 
 
 class Outdoor: public Scenario
@@ -46,9 +52,9 @@ private:
     bool shopShow;
     int totalHumans;
 
-
-    SDL_Rect* buildingRect; //rectangle for clickable region of houses & hospital
     House* house;
+    SDL_Rect* buildingRect; //rectangle for clickable region of houses & hospital
+
 
 
     //Container** container;
@@ -71,21 +77,15 @@ protected:
 public:
     Hospital* hospital;
     Outdoor(Screens*, bool);
-    /*
-<<<<<<< HEAD
-    //void AddHuman(Human*);
-    //void LeaveHuman(Human*);
-=======
-    bool AddHuman(Human*);
-    void LeaveHuman(Human*){};
->>>>>>> daba5613d1af045bdabb1b8193ff17be11eceb82
-*/
-    //void Click();
+    Outdoor(fstream*, Screens*, bool);
+
     void Show(SDL_Renderer*);
     void Update(int);
     void HandleEvents(SDL_Event*, Screens_Node&);
-    void Save(ofstream&);
+    void Save(fstream&);
+    void Load(fstream*);
     //Entrance* getCurrentState();
+    void Delete();
     ~Outdoor();
 };
 

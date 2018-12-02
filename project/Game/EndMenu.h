@@ -20,7 +20,7 @@ class EndMenu: public Menu
 
 public:
 
-    EndMenu();
+    EndMenu(Screens*, bool, bool = false, bool = false, int = 1);
     void HoverClick(SDL_Event*);
     void Show(SDL_Renderer*);
     void Update(int);

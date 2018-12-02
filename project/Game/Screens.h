@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 
 class Screens;
+class MainMenu;
 
 
 struct Screens_Node
@@ -32,8 +33,9 @@ protected:
 
 public:
     Screens(Screens*, bool, bool = false, bool = false, int = 1);
-    static Screens* GetCurrent(){return curScreen;}
+    static Screens*& GetCurrent(){return curScreen;}
     static void SetCurrent(Screens* scr){curScreen = scr;}
+    static void Initiate();
     //virtual void Click(SDL_Renderer*) = 0;
     virtual void Show(SDL_Renderer*) = 0;
     virtual void Update(int) = 0;

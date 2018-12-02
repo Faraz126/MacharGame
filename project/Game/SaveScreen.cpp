@@ -1,7 +1,8 @@
 #include "SaveScreen.h"
 #include "PauseMenu.h"
 #include "Outdoor.h"
-SaveMenu::SaveMenu(Outdoor* outPtr):Menu(2,175,520,true)  //calling menus constructor that is constructing 2 buttons horizontally
+
+SaveMenu::SaveMenu(Outdoor* outPtr, Screens* prevScreen, bool back, bool show, bool update, int factor):Menu(2,175,520,true, prevScreen, back, show, update, factor)  //calling menus constructor that is constructing 2 buttons horizontally
 {
     SDL_StartTextInput();
 
@@ -32,7 +33,7 @@ SaveMenu::SaveMenu(Outdoor* outPtr):Menu(2,175,520,true)  //calling menus constr
     word[1].SetPosition(savePos->x+200,savePos->y+125);
 
     outdoorPtr = outPtr;
-    pauseMenu = new PauseMenu(outdoorPtr);
+    //pauseMenu = new PauseMenu(outdoorPtr);
 
 }
 
@@ -74,19 +75,24 @@ void SaveMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 //                node.prev_screen = this;
 //                node.prev_backable = false;
 //                node.prev_updatable = false;
+                  SaveGame();
             }
 
             if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = node.prev_screen;
                 node.prev_screen = this;
                 node.prev_backable = false;
                 node.prev_updatable = false;
+                */
+                curScreen = prevScreen;
                 SDL_StopTextInput();
+                delete this;
             }
         }
     }
-    if( e->type == SDL_KEYDOWN )
+    else if( e->type == SDL_KEYDOWN )
     {
         //Handle backspace
         if( e->key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0 )
@@ -131,8 +137,8 @@ void SaveMenu::Update(int frame)
 
 void SaveMenu::SaveGame()
 {
-    ofstream file;
-    file.open(inputText);
+    fstream file;
+    file.open(inputText+ ".txt", ios::out);
     outdoorPtr->Save(file);
     file.close();
 
@@ -142,7 +148,11 @@ SaveMenu::~SaveMenu()
 {
     delete savePos;
     delete [] word;
-    delete pauseMenu;
+    //delete pauseMenu;
+    if (prevScreen != curScreen)
+    {
+        delete prevScreen;
+    }
 }
 
 

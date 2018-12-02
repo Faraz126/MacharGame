@@ -18,6 +18,7 @@ ExitMenu::ExitMenu(Screens* prevScreen, bool back, bool show, bool update, int f
     word[0].SetText("DO YOU REALLY WANT TO QUIT ?");
     word[0].SetPosition(exitPos->x+40,exitPos->y+15);
 
+
 }
 
 void ExitMenu::Show(SDL_Renderer* gRenderer)
@@ -47,19 +48,27 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 
             if (btn[0].WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = new Closing;
                 node.prev_screen = this;
                 node.prev_backable = false;
                 node.prev_updatable = false;
+                */
+
+                curScreen = new Closing(this, false);
             }
 
-            if (btn[1].WithinRegion(mouseX,mouseY)==true)
+            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = node.prev_screen;
                 node.prev_screen = this;
                 node.prev_backable = false;
                 node.prev_updatable = false;
                 SDL_Delay(1);
+                */
+                curScreen = prevScreen;
+                delete this;
             }
         }
     }
@@ -75,7 +84,13 @@ void ExitMenu::Update(int frame)
 
 ExitMenu::~ExitMenu()
 {
+
     delete exitPos;
     delete cancelBtn;
     delete [] word;
+    if( prevScreen != curScreen)
+    {
+        delete prevScreen;
+    }
+
 }

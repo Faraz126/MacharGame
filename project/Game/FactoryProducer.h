@@ -8,7 +8,7 @@ class FactoryProducer
 {
     public:
         FactoryProducer();
-        static AbstractFactory* GetFactory(int);
+        static AbstractFactory* GetFactory(int); ///methods that allows factory to produce without making an object.
         virtual ~FactoryProducer();
 
     protected:

@@ -12,7 +12,7 @@ class Bed : public Clickable
     Human* bedOccupied;
     int state;
     SDL_Rect* sitting;
-    SDL_Rect* lying;
+
 
 public:
     Bed();

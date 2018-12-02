@@ -9,18 +9,20 @@ class EndMenu;
 
 class Alert
 {
-    SDL_Rect* alertPos;
+    SDL_Rect* alert;
     SDL_Rect* timerPos;
     Texture* texture;
     Word* word;
     double timerSprite;
     int newScreenIter;
 
+    bool show;
+
 public:
     Alert();
     double GetTimerSprite();
-    void Show(SDL_Renderer*);
-    void Update(double);
+    void Show(SDL_Renderer*, int);
+    //void Update(double);
     void HandleEvents(SDL_Event*, Screens_Node&);
     ~Alert();
 };

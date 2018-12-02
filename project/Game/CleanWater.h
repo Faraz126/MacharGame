@@ -14,16 +14,13 @@ const int C_WATER_WIDTH = 507;
 class CleanWater : public Container
 {
 private:
-
-protected:
-
+    Mosquito* Breed();
+    void SetCovered(bool);
 public:
     CleanWater(int, int);
-    Mosquito* Breed();
     void Show(SDL_Renderer*);
     void Update(int);
     ~CleanWater();
-    void SetCovered(bool);
     void HandleEvents(SDL_Event*,Screens_Node&);
     void Write(std::ofstream&);
 };

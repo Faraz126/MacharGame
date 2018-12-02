@@ -7,12 +7,6 @@ Entrance::Entrance(int x,int y, int w, int h): Clickable(x,y,w,h)
 
 }
 
-void Entrance::Show(SDL_Renderer* renderer)
-{
-
-}
-
-
 SDL_Rect& Entrance::GetOutdoorRect()
 {
     return outdoorPos;

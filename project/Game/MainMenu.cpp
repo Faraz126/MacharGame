@@ -1,7 +1,10 @@
 #include "MainMenu.h"
+#include <fstream>
 
 
-MainMenu::MainMenu():Menu(3,354,506,false)
+using namespace std;
+
+MainMenu::MainMenu(Screens* prevScreen, bool back):Menu(3,354,506,false, prevScreen, back, false, false, 1)
 {
     pos0.x= 0;
     pos0.y = 0;
@@ -82,10 +85,23 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_screen = this;
                 node.prev_backable = false;  //outdoor screen will open
                 */
-                curScreen = new Outdoor(this, false)
+                curScreen = new Outdoor(this, false);
+            }
+            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
+            {
+
+                fstream* file;
+                file = new fstream("ss.txt", ios::in);
+                //file.open(fullpath + "/ss.txt", ios::in);
+                if (file)
+                {
+                    curScreen = new Outdoor(file, this, false);
+                }
+
             }
 
-            if (btn[2].WithinRegion(mouseX,mouseY)==true)
+
+            else if (btn[2].WithinRegion(mouseX,mouseY)==true)
             {
                 /*
                 node.cur_screen = new Setting;
@@ -96,7 +112,7 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 curScreen = new Setting(this, true, true, false, 1);
             }
 
-            if( cancelBtn->WithinRegion(mouseX, mouseY))
+            else if( cancelBtn->WithinRegion(mouseX, mouseY))
             {
                 /*
                 node.cur_screen = new ExitMenu;
@@ -117,4 +133,8 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 MainMenu::~MainMenu()
 {
     delete cancelBtn;
+    if (prevScreen != 0)
+    {
+        delete prevScreen;
+    }
 }

@@ -39,7 +39,7 @@ class Manual: public Menu
     bool buttonShow;
 
  public:
-     Manual();
+     Manual(Screens*, bool);
      void Show(SDL_Renderer*);
      void HandleEvents(SDL_Event*, Screens_Node&);
      void Update(int);

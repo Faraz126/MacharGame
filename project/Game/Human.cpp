@@ -22,11 +22,8 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     ReduceSize(sizeFactor);
     isIndoor = true;
     faceDirection = RIGHT;
-    isGoingToBed = true;
-    isGoingOut = false;
     isVertical = false;
     isHorizontal = true;
-    isWalking = false;
     activity = WALKING;
     timeSince = 0;
     step = 1;
@@ -41,6 +38,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     BuildHuman();
     bedToGoTo = 0;
     sentToBed = false;
+    timeToDie = 200000;
 
 
 
@@ -170,11 +168,10 @@ void Human::Update(int frame)
             case (LYING):
             {
                 timeSince++;
-                if (timeSince > 2000)
+                timeToDie -= 30;
+                if (timeSince > 200000)
                 {
-                    bedToGoTo->SetOccupied(false);
-                    isInfected = false;
-                    sentToBed = false;
+                    dead = true;
                     ChangeState();
                 }
                 break;
@@ -816,6 +813,8 @@ int Human::GetInfected()
 
 void Human::GoToHospital()
 {
+    timeToDie = 20000;
+    isInfected = false;
     isIndoor = false;
     ownHouse->LeaveHuman(this);
     bedToGoTo->SetOccupied(false);

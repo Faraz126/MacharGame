@@ -45,6 +45,7 @@ Setting::Setting(Screens* prevScreen, bool back, bool show, bool update, int fac
 
 void Setting::Show(SDL_Renderer* gRenderer)
 {
+    Screens::Show(gRenderer);
     texture = Texture::GetInstance(gRenderer);
     texture->Render(59,gRenderer,&settingPos);
     texture->Render(60,gRenderer,&settingSliderPos);
@@ -66,7 +67,7 @@ void Setting::Show(SDL_Renderer* gRenderer)
 
 void Setting::Update(int frame)
 {
-
+    Screens::Update(frame);
 }
 
 
@@ -86,12 +87,16 @@ void Setting::HandleEvents(SDL_Event* e, Screens_Node& node)
             SetMouseClicked(true);
             if (cancelBtn->WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = node.prev_screen;
                 node.prev_screen = this;
                 node.prev_backable = false;  //cancel screen will close and main menu  screen will open
+                */
+                curScreen = prevScreen;
+                delete this;
             }
 
-            if (btn[1].WithinRegion(mouseX,mouseY)==true)
+            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
                 slider[0].SetSliderPosX(500);
             }

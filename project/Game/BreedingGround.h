@@ -13,17 +13,18 @@ class BreedingGround :public Clickable
 private:
 
 protected:
-    AbstractFactory* factory;
-
+    AbstractFactory* factory; //factory
     int spriteNum;
     int percentage;
+    void AddMosquito(Mosquito*);
 public:
+    BreedingGround(){};
     BreedingGround(int, int, int, int);
    // virtual void Show(SDL_Renderer*) = 0;
     virtual Mosquito* Breed() = 0;
-    void AddMosquito(Mosquito*);
     virtual ~BreedingGround();
     void UpdatePos(int,int);
-    virtual void Write(std::ofstream&){};
+    virtual void Write(std::fstream&){};
+    virtual void Read(std::fstream&){};
 
 };

@@ -26,7 +26,6 @@ void Plant::SetCovered(bool status)
     if (status)
     {
         //delete water;
-        water = 0;
         if (lid != 0)
         {
             lid->SetPosition(pos.x-6,pos.y-14);
@@ -70,21 +69,42 @@ Mosquito* Plant::Breed()
     return factory->GetMosquito(0);
 
 }
-void Plant::Write(std::ofstream& file)
+void Plant::Write(std::fstream& file)
 {
     file<< pos.x << '\n';
     file<< pos.y << '\n';
     file<< pos.w << '\n';
     file <<pos.h << '\n';
     file << GetCovered() << '\n';
-//    if (!GetCovered())
-//        water->write(file);
+    if (GetCovered())
+        lid->Write(file);
+
+}
+
+void Plant::Read(std::fstream& file)
+{
+    std::string myString;
+    getline(file, myString);
+    pos.x = std::stoi(myString);
+    getline(file, myString);
+    pos.y = std::stoi(myString);
+    getline(file, myString);
+    pos.w = std::stoi(myString);
+    getline(file, myString);
+    pos.h = std::stoi(myString);
+    getline(file,myString);
+    bool cover = stoi(myString);
+    if (cover)
+    {
+        lid = new Soil();
+        lid->Read(file);
+    }
 
 }
 
 void Plant::Update(int)
 {
-    if (!GetCovered() && water != 0)
+    if (!GetCovered())
     {
         if ((rand()%10000) < percentage)
         {
