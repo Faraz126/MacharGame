@@ -16,8 +16,6 @@ Clickable::~Clickable()
 
 }
 
-
-
 int Clickable::GetX()
 {
     return pos.x;
@@ -30,12 +28,12 @@ int Clickable::GetY()
 
 
 
-bool Clickable::WithinRegion(int x, int y)
+bool Clickable::WithinRegion(int x, int y) //to know if mouse will be in region
 {
     return (x >= pos.x && y >= pos.y && x <= pos.x + pos.w && y <= pos.y + pos.h);
 }
 
-bool Clickable::Collides(const SDL_Rect& rect)
+bool Clickable::Collides(const SDL_Rect& rect)  //collision detection
 {
     if (pos.y + pos.h <= rect.y)
     {
@@ -71,9 +69,6 @@ void Clickable::ReduceSize(double n)
     pos.w = pos.w * n;
     pos.h = pos.h * n;
 }
-
-
-
 
 
 bool Clickable::Collides(const Clickable& obj)

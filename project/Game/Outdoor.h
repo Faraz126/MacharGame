@@ -44,20 +44,11 @@ private:
     int countCleanWater;
     int countTrashcan;
     int countManhole;
-    bool shopShow;
     int totalHumans;
 
 
     SDL_Rect* buildingRect; //rectangle for clickable region of houses & hospital
     House* house;
-
-
-    //Container** container;
-    ShoppingMenu* shop;
-    //Human** humans;
-    //Entrance** entrance;
-
-    //Human** GenerateHumans();
     int CountHumans();
     void GetHouseEntrance();
     void HandleScrolling(SDL_Event*);

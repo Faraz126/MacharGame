@@ -36,7 +36,6 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     int mouseX = e->button.x;
     int mouseY = e->button.y;
-    //Menu::Hover(e);  //for button
     Menu::HoverClick(e);   //for button
 
     if(e->type == SDL_MOUSEBUTTONDOWN)
@@ -47,7 +46,7 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 
             if (btn[0].WithinRegion(mouseX,mouseY)==true)
             {
-                node.cur_screen = new Closing;
+                node.cur_screen = new Closing; //will call closing
                 node.prev_screen = this;
                 node.prev_backable = false;
                 node.prev_updatable = false;
@@ -55,7 +54,7 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 
             if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
-                node.cur_screen = node.prev_screen;
+                node.cur_screen = node.prev_screen; //back to main menu/pre screen
                 node.prev_screen = this;
                 node.prev_backable = false;
                 node.prev_updatable = false;

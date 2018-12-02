@@ -49,7 +49,7 @@ private:
     Money money;
     void SetUpScenarios();
     Outdoor* outdoor;
-    SDL_Rect* upperRect;
+    SDL_Rect* upperRect0;
 
     //Outdoor* outdoor;
     //Door* door;

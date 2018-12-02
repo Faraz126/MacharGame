@@ -1,7 +1,7 @@
 #pragma once
 #include "Mosquito.h"
 #include "Window.h"
-#include "Disease.h"
+
 
 class Human;
 
@@ -9,7 +9,6 @@ class MalariaMosquito : public Mosquito
 {
 private:
     double clip;
-    Disease* Malaria;
     int human;
 
 public:

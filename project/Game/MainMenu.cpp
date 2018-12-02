@@ -1,5 +1,5 @@
 #include "MainMenu.h"
-
+#include "HighscoreMenu.h"
 
 MainMenu::MainMenu():Menu(3,354,506,false)
 {
@@ -26,6 +26,12 @@ MainMenu::MainMenu():Menu(3,354,506,false)
     cancelBtn = new CancelButton(pos2);
 
     Menu::SetText(buttonText);
+
+    highscorePos0 = new SDL_Rect;
+    highscorePos0->x = 30;
+    highscorePos0->y = 20;
+    highscorePos0->w = 30;
+    highscorePos0->h = 30;
 
 }
 
@@ -55,6 +61,9 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
     texture->Render(int(mosquitoIterator),gRenderer,&pos1);
     cancelBtn->Show(gRenderer);
     Menu::Show(gRenderer);
+    SDL_SetRenderDrawColor( gRenderer, 2,85,89,0 );
+    SDL_RenderDrawRect(gRenderer,highscorePos0);
+    SDL_RenderFillRect(gRenderer,highscorePos0);
 }
 
 
@@ -74,6 +83,16 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 
         if(e->button.button ==  SDL_BUTTON_LEFT)
         {
+            if( ( mouseX >highscorePos0->x ) && ( mouseX < (highscorePos0->x+highscorePos0->w) ) && ( mouseY > highscorePos0->y ) && (mouseY< (highscorePos0->y+highscorePos0->h) ) )
+            {
+                node.cur_screen = new Highscore; //highscore menu
+                node.prev_screen = this;
+                node.prev_backable = true;
+                node.prev_updatable = false;
+            }
+
+
+
             SetMouseClicked(true);
             if (btn[0].WithinRegion(mouseX,mouseY)==true)
             {
@@ -83,9 +102,10 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 
             }
 
+
             if (btn[2].WithinRegion(mouseX,mouseY)==true)
             {
-                node.cur_screen = new Setting;
+                node.cur_screen = new Setting;  //setting screen will open
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = false;
@@ -93,7 +113,7 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 
             if( cancelBtn->WithinRegion(mouseX, mouseY))
             {
-                node.cur_screen = new ExitMenu;
+                node.cur_screen = new ExitMenu; //Exit screen will open
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = false;
@@ -109,4 +129,5 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 MainMenu::~MainMenu()
 {
     delete cancelBtn;
+    delete highscorePos0;
 }

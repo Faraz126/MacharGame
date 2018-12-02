@@ -88,13 +88,13 @@ Manual::Manual(int x, int y)
     bullet3->w = 15;
     bullet3->h = 15;
 
-    correctOption = 1;
+    correctOption = 2;
 
     screenChange = false;
     screen3WordShow =false;
 
     btn = new Button;
-    btn->setPosition(600,300);
+    btn->setPosition(600,350);
     btn->SetWidth(571*0.7,102*0.7);
     btn->setText("Give Medication");
 
@@ -169,17 +169,17 @@ void Manual::IntializeScreen2()
     option2 = "Severe abdominal pain";
     word[0].SetText(question1);
     word[0].SetPosition(manualPos->x+330,manualPos->y+10);
-    word[0].ReduceSize(0.8);
+    word[0].ReduceSize(0.6);
 
     word[1].SetText(question2);
-    word[1].SetPosition(manualPos->x+300,manualPos->y+50);
-    word[1].ReduceSize(0.8);
+    word[1].SetPosition(manualPos->x+330,manualPos->y+50);
+    word[1].ReduceSize(0.6);
 
     word[2].SetText(option1);
     word[2].SetPosition(manualPos->x+400,manualPos->y+110);
 
     word[3].SetText(option2);
-    word[3].SetPosition(manualPos->x+400,manualPos->y+170);
+    word[3].SetPosition(manualPos->x+400,manualPos->y+190);
 
     word[4].SetText(option3);
     word[4].SetPosition(manualPos->x+400,manualPos->y+270);
@@ -221,13 +221,13 @@ void Manual::IntializeScreen3()
     {
         str2 = " malaria parasite test";
     }
+    else if(correctOption==1)
+    {
+        str2 = " antibodies test";
+    }
     else if(correctOption==2)
     {
-        str2 = " chickengyuenya test";
-    }
-    else if(correctOption==3)
-    {
-        str2 = " dengue test";
+        str2 = " dengue PCR";
     }
     word[0].SetText(str1 + str2);
     word[0].SetPosition(manualPos->x+330,manualPos->y+20);
@@ -243,11 +243,11 @@ void Manual::IntializeScreen3()
     {
         str4 = " malaria";
     }
-    else if(correctOption==2)
+    else if(correctOption==1)
     {
         str4 = " chikungunya";
     }
-    else if(correctOption==3)
+    else if(correctOption==2)
     {
         str4 = " dengue test";
     }
@@ -315,6 +315,7 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                         {
                             screenNumber++;
                             screenChange = false;
+                            SDL_Delay(10);
 
                         }
 
@@ -333,8 +334,10 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                         node.prev_screen = this;
                         node.prev_updatable = false;
                         node.prev_backable = true;
+                        screenNumber++;
 
                     }
+                    break;
 
                 }
 

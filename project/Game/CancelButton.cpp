@@ -2,18 +2,10 @@
 
 CancelButton::CancelButton(SDL_Rect rect): Clickable(rect.x,rect.y, rect.w,rect.h)
 {
-    diffStateBtn= 53;
-
-
+    diffStateBtn= 53;  //cancel button sprite number
 
 }
-/*
-CancelButton::CancelButton(int x, int y)   //after overloaded call that constructor too
-{
-    x = y = 0;
 
-}
-*/
 
 void CancelButton::Show( SDL_Renderer * gRenderer )
 {

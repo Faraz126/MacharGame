@@ -1,7 +1,7 @@
 #pragma once
 #include "Mosquito.h"
 #include "Window.h"
-#include "Disease.h"
+
 
 class Human;
 
@@ -9,7 +9,7 @@ class NormalMosquito : public Mosquito
 {
 private:
     double clip;
-    Disease* None;
+
     int human;
     int frames;
 

@@ -72,7 +72,6 @@ Outdoor:: Outdoor()
     //noOfEntrance = 0;
     hospital = new Hospital();
     GetHouseEntrance();
-    shop = new ShoppingMenu;
     SetUpScenarios();
 
     upperRect = new SDL_Rect;
@@ -122,7 +121,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
     SDL_RenderDrawRect(renderer,upperRect);
     SDL_RenderFillRect(renderer,upperRect);
     points->Show(renderer);
-    alert.Show(renderer);
+   // alert.Show(renderer);
     /*
 
     for (int i = 0; i < humans.GetLength(); i++)
@@ -135,7 +134,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
         mosquitoes.GiveItem(i)->Show(renderer);
     }
 
-    //alert.Show(renderer);
+
 
 
 
@@ -179,7 +178,7 @@ void Outdoor::Update(int frame)
     {
         house[i].Update(frame);
     }
-    alert.Update(27);
+   // alert.Update(27);
 /*
     for (int i = 0; i < humans.GetLength(); i++)
     {
@@ -213,13 +212,12 @@ void Outdoor::Update(int frame)
 void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
 {
-    alert.HandleEvents(e,node);
+   // alert.HandleEvents(e,node);
     for (int i = 0; i<noOfBreedingPlaces; i++ ) ///to drag & drop lids on breeding places
     {
         breedingplaces[i]->HandleEvents(e,node);
     }
 
-    shop->HandleEvents(e,node);
 
     if (e->type == SDL_MOUSEBUTTONDOWN)
 

@@ -3,6 +3,7 @@
 CheckBox::CheckBox():Clickable(0,0,50,50) //inhering from clickable
 {
     status = false;
+    clickSprite = 84;
 }
 
 void CheckBox::ChangeState()
@@ -19,7 +20,7 @@ void CheckBox::HandleEvents(SDL_Event* e, Screens_Node& node)
         {
             if (WithinRegion(mouseX,mouseY))
             {
-                ChangeState();
+                ChangeState();  //if checkbox is clicked it status/sprite will change
 
 
             }

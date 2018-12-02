@@ -48,7 +48,7 @@ void Button::setText ( std::string str )
 {
     if (word == 0)
     {
-        word = new Word(str, pos.x +(pos.w-(25*str.length()))/2, pos.y+15);
+        word = new Word(str, pos.x +(pos.w-(25*str.length()))/2, pos.y+15);  //to centralize the text on button
     }
     else
     {

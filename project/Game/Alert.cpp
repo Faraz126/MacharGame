@@ -67,7 +67,6 @@ Alert::Alert()
 
     screenEnd = false;
 
-
 }
 void Alert::Show(SDL_Renderer* gRenderer)
 {
@@ -113,9 +112,6 @@ void Alert::HandleEvents(SDL_Event* e, Screens_Node& node)
         node.prev_backable = true;
         node.prev_updatable = false;
     }
-
-
-
 }
 
 Alert::~Alert()

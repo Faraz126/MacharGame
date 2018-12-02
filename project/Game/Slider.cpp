@@ -11,7 +11,7 @@ Slider::Slider()
 
 void Slider::Show( SDL_Renderer * gRenderer )
 {
-    texture = Texture::GetInstance(gRenderer); //singelton here, static method
+    texture = Texture::GetInstance(gRenderer);
     texture->Render(61, gRenderer, &sliderPos);
 }
 

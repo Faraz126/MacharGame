@@ -77,7 +77,7 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 
             if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
-                node.cur_screen = new MainMenu;
+                node.cur_screen = new MainMenu;  //main menu will open
                 node.prev_screen = this;
                 node.prev_backable = false;
                 node.prev_updatable = false;
@@ -85,7 +85,7 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 
             if( cancelBtn->WithinRegion(mouseX, mouseY))
             {
-                node.cur_screen = new ExitMenu;
+                node.cur_screen = new ExitMenu;  //exit menu will open
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = false;

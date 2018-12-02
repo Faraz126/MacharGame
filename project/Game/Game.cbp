@@ -89,6 +89,8 @@
 		<Unit filename="ExitMenu.h" />
 		<Unit filename="FactoryProducer.cpp" />
 		<Unit filename="FactoryProducer.h" />
+		<Unit filename="HighscoreMenu.cpp" />
+		<Unit filename="HighscoreMenu.h" />
 		<Unit filename="Hospital.cpp" />
 		<Unit filename="Hospital.h" />
 		<Unit filename="House.cpp" />

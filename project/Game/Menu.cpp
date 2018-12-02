@@ -8,6 +8,7 @@ Menu::Menu()
     mouseClicked = false;
     horizontal = false;
 
+
 }
 
 Menu::Menu(int noOfButton, int x, int y, bool horizontal)
@@ -31,6 +32,7 @@ Menu::Menu(int noOfButton, int x, int y, bool horizontal)
         }
 
     }
+
 }
 
 Menu::~Menu()
@@ -88,7 +90,7 @@ void Menu::SetText(std::string* buttonText)
     for (int i=0; i < noOfButton; i++)
     {
 
-        btn[i].setText(buttonText[i]);
+        btn[i].setText(buttonText[i]);  //setting text on button
     }
 }
 

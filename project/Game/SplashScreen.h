@@ -4,11 +4,13 @@
 #include "Texture.h"
 #include <iostream>
 
+
 class SplashScreen
 {
     Texture* texture;
     SDL_Rect* pos;
     SDL_Texture* sdTexture;
+    SDL_Event* e;
 
 public:
     SplashScreen();

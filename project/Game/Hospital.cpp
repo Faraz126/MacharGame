@@ -16,25 +16,23 @@ Hospital:: Hospital()
     pos.y  = 0;
     pos.w  = 1024;
     pos.h = 786;
-    //manual = new Manual(235,70);
-    //manual->SetPosition(235,70);
 
     btn = new Button;
-    //myQ.Append(btn);
     btn->SetButtonSprite(false);
     btn->setPosition(280,80);
     btn->SetWidth(315*1.5,70*0.8);
     btn->setText("SEE PATIENT");
     btn->word->ReduceSize(0.8);
 
+    upperRect = new SDL_Rect;
 
+    upperRect->x = 0;
+    upperRect-> y =0;
+    upperRect->x = 1240;
+    upperRect->h = 55;
 
     manualShow = false;
 
-
-    //Human* humanPtr;
-//    humanPtr = new Human(340,570);
-  //  humans.push_back(humanPtr);
 }
 
 void Hospital::Show(SDL_Renderer* renderer)
@@ -49,6 +47,10 @@ void Hospital::Show(SDL_Renderer* renderer)
      {
          btn->Show(renderer);
      }
+     SDL_SetRenderDrawColor( renderer, 2,85,89,0 );
+    SDL_RenderDrawRect(renderer,upperRect);
+    SDL_RenderFillRect(renderer,upperRect);
+    points->Show(renderer);
 }
 
 void Hospital::HandleEvents(SDL_Event* e,Screens_Node& node)

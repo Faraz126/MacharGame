@@ -114,7 +114,7 @@ House::House()
     }
 
 
-    houseShop->shopShow = false;
+    houseShop->SetShopShow(false);
 
     cartPos = new SDL_Rect;
     Mosquito* mosquito;
@@ -131,12 +131,12 @@ House::House()
     cartPos->w = 193 *0.3;
     cartPos->h = 193 *0.3;
 
-    upperRect = new SDL_Rect;
+    upperRect0 = new SDL_Rect;
 
-    upperRect->x = 0;
-    upperRect-> y =0;
-    upperRect->x = 1240;
-    upperRect->h = 55;
+    upperRect0->x = 0;
+    upperRect0->y = 0;
+    upperRect0->x = 1240;
+    upperRect0->h = 55;
 }
 
 void House::SetOutdoor(Outdoor* outdoorPtr)
@@ -153,12 +153,6 @@ void House::Show(SDL_Renderer* renderer)
     texture = Texture::GetInstance(renderer);
     texture->Render(115,renderer,cartPos);
 
-    //SDL_SetRenderDrawColor(renderer, 30,30,30,0); //wall feature
-    //SDL_RenderFillRect(renderer, &wall);
-
-
-
-
     for(int i=0; i < noOfEntrance; i++)
     {
         entrance[i]->Show(renderer);
@@ -169,43 +163,7 @@ void House::Show(SDL_Renderer* renderer)
         mosquitoes.GiveItem(i)->Show(renderer);
     }
 
-    /*
-    for(int i=0; i<noOfHumans; i++)
-    {
-        bed[i].Show(renderer);
-    }
-    if (noOfEntrance == 3)
-    {
-        showpieces[0].Show(renderer);
-        showpieces[1].Show(renderer);
-    }
-    else
-    {
-        showpieces[0].Show(renderer);
-        showpieces[1].Show(renderer);
-        showpieces[2].Show(renderer);
-    }
-    for (int i = 0; i < 3; i++)
-    {
-        if (breedingplaces[i] != 0)
-        {
-            breedingplaces[i]->Show(renderer);
-        }
-    }
 
-    btn->Show(renderer);
-    */
-
-    /*
-    for (int i = 0; i < noOfHumans; i++)
-    {
-        if (humans.GiveItem(i)->GetIndoor())
-        {
-            humans.GiveItem(i)->Show(renderer);
-        }
-    }
-    */
-//    humans->Show(renderer);
 
 
 
@@ -216,12 +174,12 @@ void House::Show(SDL_Renderer* renderer)
 
     btn->Show(renderer);
 
-    if(houseShop->shopShow)
+    if(houseShop->GetShopShow())
         houseShop->Show(renderer);
 
     SDL_SetRenderDrawColor( renderer, 2,85,89,0 );
-    SDL_RenderDrawRect(renderer,upperRect);
-    SDL_RenderFillRect(renderer,upperRect);
+    SDL_RenderDrawRect(renderer,upperRect0);
+    SDL_RenderFillRect(renderer,upperRect0);
     points->Show(renderer);
     money.Show(renderer);
 
@@ -251,11 +209,10 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
         int mousePosY = e->button.y;
 
         if( ( mousePosX >cartPos->x ) && ( mousePosX < (cartPos->x+cartPos->w) ) && ( mousePosY > cartPos->y ) && (mousePosY< (cartPos->y+cartPos->h) ) )
-            houseShop->shopShow = true;
+            houseShop->SetShopShow(true);
 
         if( ( mousePosX >houseShop->GetShoppingExitPosX() ) && ( mousePosX < (houseShop->GetShoppingExitPosX()+houseShop->GetShoppingExitPosW()) ) && ( mousePosY > houseShop->GetShoppingExitPosY() ) && (mousePosY< (houseShop->GetShoppingExitPosY()+houseShop->GetShoppingExitPosH()) ) )
-            houseShop->shopShow = false;
-
+            houseShop->SetShopShow(false);
 
         for (int i = 0; i < noOfEntrance; i++)
         {
@@ -275,6 +232,7 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
     {
         myQ.GiveItem(i)->HandleEvents(e, node);
     }
+    houseShop->HandleEvents(e,node);
 
 }
 
@@ -300,6 +258,7 @@ void House::Update(int frame)
     {
         mosquitoes.GiveItem(i)->Update(frame);
     }
+
 
 }
 

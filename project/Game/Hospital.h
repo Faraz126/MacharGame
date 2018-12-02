@@ -22,6 +22,7 @@ private:
     Manual* manual;
     bool manualShow;
     Button* btn;
+    SDL_Rect* upperRect;
 //    Outdoor* outdoor;
 protected:
 

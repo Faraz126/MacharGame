@@ -31,7 +31,7 @@ void Score::Show(SDL_Renderer* gRenderer)
     word[0].SetText("SCORE");
     word[0].SetPosition(40,6);
     word[0].ReduceSize(0.8);
-    word[1].SetText(strSrc);
+    word[1].SetText(strSrc);  //score by converting int to string
     word[1].SetPosition(150,4);
     for(int i=0; i<2; i++)
         word[i].Show(gRenderer);

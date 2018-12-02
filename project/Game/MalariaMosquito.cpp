@@ -16,7 +16,6 @@ MalariaMosquito::MalariaMosquito()
     IsFollowingEntrance = false;
     speed_x = 0;
     speed_y = 0;
-    Malaria = new Disease();
     timer = 0;
     diseaseCode = DISEASE_MALARIA;
 }

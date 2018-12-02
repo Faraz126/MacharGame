@@ -9,18 +9,22 @@
 #include "Settings.h"
 #include "ExitMenu.h"
 
+class Highscore;
+
 
 class MainMenu: public Menu
 {
     SDL_Rect pos0;
     SDL_Rect pos1;
     SDL_Rect pos2;
+
     //SDL_Renderer* gRenderer;
     Texture* texture;
     CancelButton* cancelBtn;
     double mosquitoIterator;
     bool iteratorr;
     std::string buttonText[3];
+    SDL_Rect* highscorePos0;
 
 public:
 

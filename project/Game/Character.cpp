@@ -7,7 +7,7 @@ Character::Character( char c ) : Clickable(0,0,30,30)
 {
     this -> shownChar = c;
     int ascii = c;
-    if (ascii >= 97)
+    if (ascii >= 97) //if a
     {
         this->pos.h = 101;
     }

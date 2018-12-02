@@ -18,7 +18,6 @@ NormalMosquito::NormalMosquito()
     IsFollowingEntrance = false;
     speed_x = 0;
     speed_y = 0;
-    None = new Disease();
     timer = 0;
     diseaseCode = BITEN;
 }
