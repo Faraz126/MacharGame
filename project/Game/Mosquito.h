@@ -64,4 +64,3 @@ public:
     void UpdatePositiion(int,int);
     virtual void Bite() = 0;
 };
-

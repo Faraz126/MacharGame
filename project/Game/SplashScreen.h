@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include <iostream>
 
+
 class SplashScreen
 {
     Texture* texture;

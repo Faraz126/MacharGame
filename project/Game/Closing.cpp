@@ -15,7 +15,7 @@ Closing::Closing(Screens* prevScreen, bool back, bool show, bool update, int fac
     closingWordPos->h= 786;
 
 
-    word = new Word[8];
+    word = new Word[8];  //setting word text and position
 
     word[0].SetText("DEVELOPERS");
     word[0].SetPosition(closingPos->x +(closingPos->w-(25*10))/2 -75,closingWordPos->y+15);
@@ -58,10 +58,10 @@ void Closing::Show(SDL_Renderer* gRenderer)
 
     for(int i=0; i<8; i++)
     {
-         word[i].AddPosition((int)counter);
+         word[i].AddPosition((int)counter);  //to slide the text
          word[i].Show(gRenderer);
     }
-    counter += 0.0008;
+    counter += 0.0008;  //to delay  the quit
     if(counter>1.75)
 
         SDL_Quit();

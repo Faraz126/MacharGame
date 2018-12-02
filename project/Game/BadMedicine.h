@@ -1,5 +1,5 @@
+#pragma once
 #include "BuyableItems.h"
-#include "House.h"
 
 class BadMedicine : public BuyableItems
 {
@@ -9,6 +9,6 @@ protected:
 
 public:
     BadMedicine();
-    void Apply(Scenario*);
+    void Apply(House*);
     ~BadMedicine();
 };

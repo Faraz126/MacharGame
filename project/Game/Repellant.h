@@ -1,6 +1,5 @@
+#pragma once
 #include "BuyableItems.h"
-#include "Scenario.h"
-
 
 class Repellant : public BuyableItems
 {
@@ -11,6 +10,6 @@ protected:
 
 public:
     Repellant();
-    void Apply(Scenario*);
+    void Apply(House*);
     ~Repellant();
 };

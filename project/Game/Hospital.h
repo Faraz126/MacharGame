@@ -8,6 +8,8 @@
 class Outdoor;
 class Manual;
 
+#include "PauseMenu.h"
+
 class Hospital: public Scenario
 {
 private:
@@ -17,7 +19,10 @@ private:
     Manual* manual;
     Button* btn;
     Human* popped;
+    bool manualShow;
+    SDL_Rect* upperRect;
 
+//    Outdoor* outdoor;
 protected:
 
 public:
@@ -33,4 +38,6 @@ public:
     void ShowManual();
     Human* GetPopped();
     int CheckHumanDisease();
+    void CheckHumanDisease(Human*);
+
 };

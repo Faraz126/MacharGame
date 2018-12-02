@@ -4,6 +4,7 @@
 #include "House.h"
 #include "Scenario.h"
 #include "Bed.h"
+#include "Hospital.h"
 
 
 Human::Human(): Clickable(0,0,197, 575)
@@ -41,10 +42,6 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     bedToGoTo = 0;
     sentToBed = false;
     timeToDie = 200000;
-
-
-
-
 
 }
 
@@ -89,42 +86,13 @@ Human::Human(House* house): Human(0,0, house)
 
 }
 
+void Human::Damage()
+{
+    health -= 250;
+}
 
 bool Human::Collide(SDL_Rect& tempRect)
 {
-    /*
-    int n;
-    if (isIndoor)
-    {
-
-        Bed* bed = ownHouse->GetBeds(n);
-        for (int i = 0; i <n; i++)
-        {
-            if (bed[i].Collides(tempRect))
-            {
-                return true;
-            }
-        }
-    }
-
-    BreedingGround** breedingGrounds = currentScenario->GetBreedingGrounds(n);
-    for (int i = 0; i < n; i++)
-    {
-        if (breedingGrounds[i]->Collides(tempRect))
-        {
-            return true;
-        }
-    }
-    DLL <Human*> humans = currentScenario->GetHumans(n);
-    for (int i = 0; i < n; i++)
-    {
-        if (humans.GiveItem(i)->Collides(tempRect, humans.GiveItem(i)->collideRect) && humans.GiveItem(i) != this)
-        {
-            return true;
-        }
-    }
-    */
-
     DLL<Clickable*> myQ = currentScenario->GetQ();
 
     for (int i = 0; i < myQ.GetLength(); i++)
@@ -419,7 +387,7 @@ void Human::Move()
     else
     {
         walker += 0.02;
-        if (walker > 10)
+        if (walker >= 10)
         {
             walker = 0;
         }
@@ -715,7 +683,6 @@ void Human::Show(SDL_Renderer* renderer)
         {
             Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
         }
-
     }
     SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
     SDL_RenderDrawRect(renderer, &collideRect);
@@ -747,6 +714,7 @@ void Human::GoOutdoor()
     sizeFactor = 0.2;
     ReduceSize(sizeFactor);
     BuildHuman();
+
     ChangeState(WALKING);
 }
 
@@ -819,6 +787,7 @@ void Human::SetInfected(int code)
     }
 
     //std::cout << disease << std::endl;
+
 }
 
 int Human::GetInfected()
@@ -841,10 +810,6 @@ void Human::GoToHospital()
     ChangeState(IN_HOSPITAL);
 }
 
-void Human::Damage()
-{
-    timeToDie -= 10000;
-}
 
 int Human::GetDisease()
 {

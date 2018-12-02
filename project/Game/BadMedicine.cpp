@@ -1,15 +1,17 @@
 #include "BadMedicine.h"
 #include "Human.h"
-#include "House.h"
 #include <random>
+#include "House.h"
 
 
 BadMedicine::BadMedicine()
 {
-    price = 100;
+    price.SetPaisa(15);
+    name = "Paracetamol";
+    spriteNum = 38;
 }
 
-void BadMedicine::Apply(Scenario* house)
+void BadMedicine::Apply(House* house)
 {
     int n;
     DLL<Human*> humans =  house->GetHumans(n);

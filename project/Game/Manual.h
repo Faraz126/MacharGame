@@ -5,9 +5,10 @@
 #include "Menu.h"
 #include "CheckBox.h"
 #include "Button.h"
-#include "Hospital.h"
 #include "Human.h"
 
+
+class Hospital;
 class Manual: public Menu
 {
     Word*word;

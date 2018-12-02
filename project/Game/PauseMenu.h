@@ -32,4 +32,3 @@ public:
     void HandleEvents(SDL_Event*, Screens_Node&);
     ~PauseMenu();
 };
-

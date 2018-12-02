@@ -2,6 +2,7 @@
 #include <random>
 #include <iostream>
 #include "House.h"
+
 NormalMosquito::NormalMosquito()  : Mosquito()
 {
     diseaseCode = BITEN;

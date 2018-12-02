@@ -1,6 +1,5 @@
 #include "BuyableItems.h"
-#include "House.h"
-#include "Scenario.h"
+#include "Money.h"
 
 
 class Nets : public BuyableItems
@@ -12,6 +11,6 @@ protected:
 
 public:
     Nets();
-    void Apply(Scenario*);
+    void Apply(House*);
     ~Nets();
 };

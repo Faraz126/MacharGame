@@ -11,10 +11,16 @@ class Alert
 {
     SDL_Rect* alert;
     SDL_Rect* timerPos;
+    SDL_Rect* wordRect;
     Texture* texture;
     Word* word;
     double timerSprite;
     int newScreenIter;
+    bool screenEnd;
+    std::string str1;
+    std::string str2;
+    std::string str3;
+    int randStr3;
 
     bool show;
 

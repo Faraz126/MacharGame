@@ -12,7 +12,7 @@
 #include "Door.h"
 //#include "Scenario.h"
 #include "DoublyLinked.h"
-#include "Disease.h"
+
 
 
 
@@ -34,11 +34,11 @@ private:
     SDL_Rect collideRect;
     double sizeFactor;
     int faceSprite,bodySprite,legSprite;
+    int health;
     double walker;
     Bed* bedToGoTo;
     int toFollowX;
     int toFollowY;
-    int health;
     int faceDirection;
     bool isVertical;
     bool isHorizontal;
@@ -88,9 +88,6 @@ public:
     void Damage();
     int GetDisease();
     bool GetCoveredInRepellant(){return hasRepeppant;}
-
-
-
 };
 
 

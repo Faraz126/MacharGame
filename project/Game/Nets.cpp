@@ -1,13 +1,14 @@
 #include "Nets.h"
-#include "House.h"
-#include "Entrance.h"
+
 
 Nets::Nets()
 {
-    price = 200;
+    price.SetPaisa(250);
+    name = "Window Repair";
+    spriteNum = 13;
 }
 
-void Nets::Apply(Scenario* house)
+void Nets::Apply(House* house)
 {
 //    int n;
 //    Entrance** windows = house->GetEntrance(n);

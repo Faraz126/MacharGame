@@ -1,13 +1,5 @@
 #include "Outdoor.h"
-#include <random>
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <ostream>
-#include <istream>
-#include <iostream>
-
-
+#include "Hospital.h"
 
 
 using namespace std;
@@ -80,8 +72,18 @@ Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
     //noOfEntrance = 0;
     hospital = new Hospital(this);
     GetHouseEntrance();
-//    shop = new ShoppingMenu;
     SetUpScenarios();
+
+    upperRect = new SDL_Rect;
+
+    upperRect->x = 0;
+    upperRect-> y =0;
+    upperRect->x = 1240;
+    upperRect->h = 55;
+
+
+//    points = new Score;
+
 }
 
 
@@ -104,15 +106,45 @@ void Outdoor::Show(SDL_Renderer* renderer)
         }
     }
 
+    SDL_SetRenderDrawColor( renderer, 2,85,89,0 );
+    SDL_RenderDrawRect(renderer,upperRect);
+    SDL_RenderFillRect(renderer,upperRect);
     points->Show(renderer);
-    money.Show(renderer);
+
+   // alert.Show(renderer);
+
+
 
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
         mosquitoes.GiveItem(i)->Show(renderer);
     }
 
-    //alert.Show(renderer);
+
+
+
+
+//    for(int i = 0; i<4; i++)
+//    {
+//        SDL_RenderFillRect(renderer,&buildingRect[i]);
+//    }
+
+//
+//    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0);
+//
+//    for(int i = 0; i<4; i++)
+//    {
+//        SDL_RenderFillRect(renderer,&entranceRect[i]);
+//    }
+
+
+
+//    for(int i = 0; i<5; i++)
+//    {
+//        SDL_RenderFillRect(renderer,&buildingRect[i]);
+//    }
+
+
 }
 
 int Outdoor::CountHumans()
@@ -127,6 +159,7 @@ int Outdoor::CountHumans()
 
 void Outdoor::Update(int frame) ///to update all objects
 {
+
     /*
 =======
 >>>>>>> 28dba0e1338eb9674dfff18f312099576e5725aa
@@ -136,6 +169,19 @@ void Outdoor::Update(int frame) ///to update all objects
         {
             house[i].Update(frame);
         }
+=======
+    //(*points)++;
+    for (int i = 0; i < 4; i++)
+    {
+        house[i].Update(frame);
+    }
+   // alert.Update(27);
+/*
+    for (int i = 0; i < humans.GetLength(); i++)
+    {
+        humans.GiveItem(i)->Update(frame);
+    }
+>>>>>>> 692f00a398e6175f2de9c44eb3d6848d8f926627
 
     }
     */
@@ -145,7 +191,7 @@ void Outdoor::Update(int frame) ///to update all objects
         myQ.GiveItem(i)->Update(frame);
         if(myQ.GiveItem(i)->IsActive() && myQ.GiveItem(i)->DelayLidTime()>1000) //if container is covered and alloted time has passed
         {
-            myQ.Pop(i);
+            delete myQ.Pop(i);
         }
     }
     for (int i = 0; i < mosquitoes.GetLength(); i++)
@@ -164,12 +210,11 @@ void Outdoor::Update(int frame) ///to update all objects
 void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
 {
-    for (int i = 0; i<noOfBreedingPlaces; i++ ) ///to drag & drop lids on breeding places
+   // alert.HandleEvents(e,node);
+    for (int i = 0; i < myQ.GetLength(); i++)
     {
-        breedingplaces[i]->HandleEvents(e,node);
+        myQ.GiveItem(i)->HandleEvents(e, node);
     }
-
-//    shop->HandleEvents(e,node);
 
     if (e->type == SDL_MOUSEBUTTONDOWN)
 
@@ -495,6 +540,7 @@ Outdoor :: ~Outdoor()
 
     delete[] house;
     delete hospital;
+    delete upperRect;
 }
 
 

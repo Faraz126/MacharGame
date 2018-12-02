@@ -54,7 +54,7 @@ House::House(): Scenario(0, true, false, true, 1)
     btn->word->ReduceSize(0.8);
 
 
-    houseShop->shopShow = false;
+    //houseShop->shopShow = false;
     cartPos = new SDL_Rect;
     SetUpScenarios();
     GenerateHumans();
@@ -63,6 +63,13 @@ House::House(): Scenario(0, true, false, true, 1)
     cartPos->y = 720;
     cartPos->w = 193 *0.3;
     cartPos->h = 193 *0.3;
+
+    upperRect0 = new SDL_Rect;
+
+    upperRect0->x = 0;
+    upperRect0->y = 0;
+    upperRect0->x = 1240;
+    upperRect0->h = 55;
 }
 
 void House::GenerateHumans()
@@ -137,7 +144,6 @@ void House::SetUpEntrancesAndShowPieces()
         entrance[1] = new Window(412,125);
     }
 
-
 }
 
 void House::SetOutdoor(Outdoor* outdoorPtr)
@@ -172,7 +178,6 @@ void House::Show(SDL_Renderer* renderer)
     }
 
 
-
     for (int i = 0; i < myQ.GetLength(); i++)
     {
         myQ.GiveItem(i)->Show(renderer);
@@ -202,8 +207,12 @@ void House::Show(SDL_Renderer* renderer)
     if (toShow)
     alert.Show(renderer, (int)(humans.GiveItem(dyingIndex)->GetTimeToDie()/22225));
 
-    if(houseShop->shopShow)
+    if(houseShop->GetShopShow())
         houseShop->Show(renderer);
+
+    SDL_SetRenderDrawColor( renderer, 2,85,89,0 );
+    SDL_RenderDrawRect(renderer,upperRect0);
+    SDL_RenderFillRect(renderer,upperRect0);
     points->Show(renderer);
     money.Show(renderer);
 
@@ -236,20 +245,22 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
         int mousePosY = e->button.y;
 
         if( ( mousePosX >cartPos->x ) && ( mousePosX < (cartPos->x+cartPos->w) ) && ( mousePosY > cartPos->y ) && (mousePosY< (cartPos->y+cartPos->h) ) )
-            houseShop->shopShow = true;
+            houseShop->SetShopShow(true);
 
         if( ( mousePosX >houseShop->GetShoppingExitPosX() ) && ( mousePosX < (houseShop->GetShoppingExitPosX()+houseShop->GetShoppingExitPosW()) ) && ( mousePosY > houseShop->GetShoppingExitPosY() ) && (mousePosY< (houseShop->GetShoppingExitPosY()+houseShop->GetShoppingExitPosH()) ) )
-            houseShop->shopShow = false;
+            houseShop->SetShopShow(false);
 
          if (btn->WithinRegion(mousePosX,mousePosY))  //for outdoor button in house
         {
             /*
             node.cur_screen = node.prev_screen;
             node.prev_screen = this;
+<<<<<<< HEAD
             node.prev_updatable = true;
             node.prev_backable = true;
             */
             curScreen = prevScreen;
+
         }
 
     }
@@ -257,6 +268,7 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
     {
         myQ.GiveItem(i)->HandleEvents(e, node);
     }
+    houseShop->HandleEvents(e,node);
 
 }
 
@@ -283,8 +295,6 @@ void House::Update(int frame)
     {
         mosquitoes.GiveItem(i)->Update(frame);
     }
-
-
 
 }
 

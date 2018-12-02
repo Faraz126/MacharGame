@@ -24,6 +24,7 @@
 #include "AedesMosquito.h"
 #include "Manual.h"
 #include "Alert.h"
+
 class Outdoor;
 
 
@@ -53,6 +54,8 @@ private:
     int dyingIndex;
     bool toShow;
     Alert alert;
+    SDL_Rect* upperRect0;
+
 
     //Outdoor* outdoor;
     //Door* door;

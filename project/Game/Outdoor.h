@@ -18,7 +18,7 @@
 #include "Score.h"
 #include "Money.h"
 #include "Alert.h"
-#include "Hospital.h"
+class Hospital;
 
 #include <string>
 #include <fstream>
@@ -34,6 +34,7 @@ class Outdoor: public Scenario
 private:
     SDL_Rect pos, pos1, shoppingPos;
     SDL_Rect* cartPos;
+    SDL_Rect* upperRect;
     Texture* texture;
     SDL_Rect* buildingRect; //rectangle for clickable region of houses & hospital
     House* house;
@@ -44,10 +45,8 @@ private:
     int countCleanWater;
     int countTrashcan;
     int countManhole;
-    bool shopShow;
     int totalHumans;
     Money money;
-
     int CountHumans();
     void GetHouseEntrance();
     void HandleScrolling(SDL_Event*);

@@ -17,6 +17,8 @@ public:
 
     Money();
     ~Money();
+    void SetPaisa(int);
+    int GetPaisa();
     void Show(SDL_Renderer*);
     Money operator+(const Money&);
     Money operator-(const Money&);

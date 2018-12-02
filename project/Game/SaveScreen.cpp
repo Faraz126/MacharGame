@@ -53,7 +53,7 @@ void SaveMenu::Show(SDL_Renderer* gRenderer)
     }
 
     SDL_SetRenderDrawColor(gRenderer,0,0,0,0);
-    SDL_RenderDrawLine(gRenderer,(savePos->x)+200 + (20*inputText.length()),savePos->y+155,(savePos->x)+220 + (20*inputText.length()),savePos->y+155);
+    SDL_RenderDrawLine(gRenderer,(savePos->x)+200 + (20*inputText.length()),savePos->y+155,(savePos->x)+220 + (20*inputText.length()),savePos->y+155);   //the line will move forward with more text
 
 }
 
@@ -121,7 +121,6 @@ void SaveMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
             //Append character
             if (inputText.length()<10)
                 inputText += e->text.text;
-//              renderText = true;
         }
     }
 

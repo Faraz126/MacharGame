@@ -1,7 +1,6 @@
 #pragma once
 #include "Mosquito.h"
 #include "Window.h"
-#include "Disease.h"
 
 class Human;
 

@@ -20,7 +20,7 @@ void CheckBox::HandleEvents(SDL_Event* e, Screens_Node& node)
         {
             if (WithinRegion(mouseX,mouseY))
             {
-                ChangeState();
+                ChangeState();  //if checkbox is clicked it status/sprite will change
 
 
             }

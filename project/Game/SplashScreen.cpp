@@ -19,7 +19,8 @@ void SplashScreen::Show(SDL_Renderer* gRenderer)
     texture = Texture::GetInstance(gRenderer);
     SDL_Event e;
     double iterFadeIn = 0;
-    while(iterFadeIn<255)
+
+    while(iterFadeIn<255)  //fading in and out of the splash screen
     {
         while(SDL_PollEvent(&e))
         {
@@ -38,7 +39,6 @@ void SplashScreen::Show(SDL_Renderer* gRenderer)
     }
      while(iterFadeIn<5000 && iterFadeIn>0)
     {
-
         while(SDL_PollEvent(&e))
         {
             if (e.type == SDL_QUIT)
@@ -47,14 +47,13 @@ void SplashScreen::Show(SDL_Renderer* gRenderer)
             }
         }
 
-
         SDL_RenderClear( gRenderer );
         texture->ChangeOpactiy((int)iterFadeIn);
         texture->RenderBack(1, gRenderer,&pos2, &pos);
         iterFadeIn -= 0.1;
         SDL_RenderPresent( gRenderer );
     }
-    texture->ChangeOpactiy(255);
+    texture->ChangeOpactiy(255);  //changing opacity back to normal
 
 
 

@@ -142,4 +142,3 @@ PauseMenu::~PauseMenu()
         outdoor->Delete();
     }
 }
-

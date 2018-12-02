@@ -1,9 +1,13 @@
 #include "DDT.h"
 #include "Mosquito.h"
+#include "House.h"
 
 DDT::DDT()
 {
-    price = 1000;
+    name = "DDT";
+    price.SetPaisa(230);
+    spriteNum = 76;
+
 }
 
 void DDT::Apply(House* house)

@@ -1,5 +1,5 @@
 #include "Manual.h"
-
+#include "Hospital.h"
 
 Manual::Manual(Screens* prevScreen , bool back): Menu(prevScreen, back)
 {
@@ -37,7 +37,9 @@ Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true)
     option2 = "Rashes";
     option3 = "Fever";
 
+
     word[0].SetText(question1); //setting questions and options for initial screen
+
     word[0].SetPosition(manualPos->x+330,manualPos->y+10);
     word[0].ReduceSize(0.8);
 
@@ -112,6 +114,7 @@ Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true)
     screenChange = false;
     screen3WordShow =false;
 
+
     btn = new Button;  //give medication button in screen3
     btn->setPosition(600,350);
     btn->SetWidth(571*0.7,102*0.7);
@@ -120,10 +123,12 @@ Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true)
 }
 void Manual::Show(SDL_Renderer* gRenderer)
 {
+
     Texture::GetInstance()->Render(129, gRenderer, manualPos);
     word[0].Show(gRenderer);
     word[1].Show(gRenderer);
 //displaying all options
+
 
     if (optionsToShow[0])
     {
@@ -248,7 +253,7 @@ void Manual::IntializeScreen3()
     word[0].SetPosition(manualPos->x+330,manualPos->y+20);
     word[0].ReduceSize(0.7);
 
-    word[1].SetText("it was confirmed that the ");
+    word[1].SetText("It was confirmed that the ");
     word[1].SetPosition(manualPos->x+330,manualPos->y+70);
     word[1].ReduceSize(0.7);
 
@@ -258,7 +263,7 @@ void Manual::IntializeScreen3()
     {
         str4 = " malaria";
     }
-    else if(correctOption==2)
+    else if(correctOption==1)
     {
         str4 = " chikungunya";
     }
@@ -346,11 +351,15 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                     {
                         btn->Click();
                         hsp->LeaveHuman(); //if give medication button will be clicked human will hospital screen and human will leave hospital
+                        /*
                         node.cur_screen = node.prev_screen;
                         node.prev_screen = this;
                         node.prev_updatable = false;
                         node.prev_backable = true;
+                        */
+                        Screens::SetCurrent(hsp);
                         screenNumber++;
+                        delete this;
 
                     }
                     break;

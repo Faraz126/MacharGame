@@ -14,7 +14,6 @@ class CancelButton : public Clickable
 
     public:
     int diffStateBtn;
-    //CancelButton (int , int );
     CancelButton(SDL_Rect);
     void Hover();
     void Click();

@@ -1,7 +1,8 @@
 #include "MalariaMosquito.h"
 #include <random>
 #include <iostream>
-#include "House.h"
+#include "Scenario.h"
+
 
 MalariaMosquito::MalariaMosquito()  : Mosquito()
 {
@@ -25,7 +26,7 @@ void MalariaMosquito::Bite()
         humans.GiveItem(human) -> SetInfected(diseaseCode);
         DetectHuman = false;
         IsFollowingHuman = false;
-        //std::cout << "BITE!" << std::endl;
+        std::cout << "BITE!" << std::endl;
         Heal();
     }
 }

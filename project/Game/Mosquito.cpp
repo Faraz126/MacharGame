@@ -1,6 +1,6 @@
+
 #include "Scenario.h"
 #include "Mosquito.h"
-
 
 
 Mosquito::Mosquito()
