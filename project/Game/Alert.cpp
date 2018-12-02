@@ -141,63 +141,19 @@ void Alert::Show(SDL_Renderer* gRenderer, int timerSprite)
 
 
 }
-/*
-void Alert::Update(int frame)
-{
-    if (humanPtr->GetInfected() && humanPtr->GetTimeToDie > 0)
-    {
-        show = true;
-        timerSprite = humanPtr->GetTimeToDie();
 
-=======
-void Alert::Update(double a)
-{
-    //this->timerSprite = a;
-
-    if (timerSprite>26 && timerSprite<34)
-    {
-        timerSprite += 0.001;
->>>>>>> 692f00a398e6175f2de9c44eb3d6848d8f926627
-    }
-
-}
-*/
 double Alert::GetTimerSprite()
 {
     return timerSprite;
 }
 void Alert::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
-    /*
-<<<<<<< HEAD
-    SDL_Delay(4000);
-    /*
-    node.cur_screen = new EndMenu;
-    node.prev_screen = node.cur_screen;
-    node.prev_backable = false;
-    node.prev_updatable = false;
 
-
-
-    //Screens::GetCurrent() = new EndMenu(this, back);
-
-
-
-=======
-    if(screenEnd==true)
-    {
-        node.cur_screen = new EndMenu;
-        node.prev_screen = node.cur_screen;
-        node.prev_backable = true;
-        node.prev_updatable = false;
-    }
->>>>>>> 692f00a398e6175f2de9c44eb3d6848d8f92662
-*/
 }
 
 Alert::~Alert()
 {
-//    delete alertPos;
+
     delete timerPos;
     delete[] word;
 }

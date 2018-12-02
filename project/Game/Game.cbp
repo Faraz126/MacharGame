@@ -90,11 +90,6 @@
 		<Unit filename="DDT.h" />
 		<Unit filename="DirtyWater.cpp" />
 		<Unit filename="DirtyWater.h" />
-<<<<<<< HEAD
-		<Unit filename="Disease.h" />
-=======
-		<Unit filename="Disease.cpp" />
->>>>>>> 28dba0e1338eb9674dfff18f312099576e5725aa
 		<Unit filename="Door.cpp" />
 		<Unit filename="Door.h" />
 		<Unit filename="DoublyLinked.h" />
@@ -106,8 +101,6 @@
 		<Unit filename="ExitMenu.h" />
 		<Unit filename="FactoryProducer.cpp" />
 		<Unit filename="FactoryProducer.h" />
-		<Unit filename="HighscoreMenu.cpp" />
-		<Unit filename="HighscoreMenu.h" />
 		<Unit filename="Hospital.cpp" />
 		<Unit filename="Hospital.h" />
 		<Unit filename="House.cpp" />

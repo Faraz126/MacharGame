@@ -14,5 +14,5 @@ public:
     MalariaMosquito();
     MalariaMosquito(Scenario*);
     void Bite();
-    ~MalariaMosquito();
+    ~MalariaMosquito(){};
 };

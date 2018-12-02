@@ -14,5 +14,5 @@ public:
     AedesMosquito();
     AedesMosquito(Scenario*);
     void Bite();
-    ~AedesMosquito();
+    ~AedesMosquito(){};
 };

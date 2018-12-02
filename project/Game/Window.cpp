@@ -36,13 +36,11 @@ void Window::Show(SDL_Renderer* renderer)
     }
     if (state == HALF_OPEN)
     {
-        SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
-        SDL_RenderFillRect(renderer, rect);
+       Texture::GetInstance()->Render(124, renderer, rect);
     }
     else if (state == OPEN)
     {
-        SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0);
-        SDL_RenderFillRect(renderer, rect);
+        Texture::GetInstance()->Render(125, renderer, rect);
     }
     else
     {

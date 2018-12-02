@@ -160,32 +160,6 @@ int Outdoor::CountHumans()
 void Outdoor::Update(int frame) ///to update all objects
 {
 
-    /*
-=======
->>>>>>> 28dba0e1338eb9674dfff18f312099576e5725aa
-    for (int i = 0; i < 4; i++)
-    {
-        if (curScreen != &house[i])
-        {
-            house[i].Update(frame);
-        }
-=======
-    //(*points)++;
-    for (int i = 0; i < 4; i++)
-    {
-        house[i].Update(frame);
-    }
-   // alert.Update(27);
-/*
-    for (int i = 0; i < humans.GetLength(); i++)
-    {
-        humans.GiveItem(i)->Update(frame);
-    }
->>>>>>> 692f00a398e6175f2de9c44eb3d6848d8f926627
-
-    }
-    */
-
     for (int i = 0; i < myQ.GetLength(); i++)
     {
         myQ.GiveItem(i)->Update(frame);
@@ -353,10 +327,7 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                     startWidth -= 20;
                     endWidth -= 20;
                     pos1.x += 20;
-                    for(int i = 0; i<noOfBreedingPlaces; i++ )
-                    {
-                        breedingplaces[i]->SetX(20,1);
-                    }
+
                     for(int i = 0; i<noOfEntrance; i++ )
                     {
                         entrance[i]->SetOutdoorX(20,1);
@@ -366,9 +337,9 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                     {
                         buildingRect[i].x-=20;
                     }
-                    for (int i = 0; i < humans.GetLength(); i++)
+                    for (int i = 0; i < myQ.GetLength(); i++)
                     {
-                        humans.GiveItem(i)->SetX(20,1);
+                        myQ.GiveItem(i)->SetX(20,1);
                     }
                     for (int i = 0; i < mosquitoes.GetLength(); i++)
                     {
@@ -449,77 +420,6 @@ void Outdoor:: PlaceContainers()
     }
 }
 
-/*
-void Outdoor::Load(fstream* file)
-{
-    std::string myString;
-
-
-    fstream filenew("ss.txt", ios::in);
-    getline(filenew, myString);
-    noOfBreedingPlaces = stoi(myString);
-    /*
-    getline(file, myString);
-    countPlants = stoi(myString);
-    breedingplaces = new BreedingGround*[noOfBreedingPlaces];
-    int i = 0;
-    for (int place = 0; place < countPlants; place++)
-    {
-        breedingplaces[i] = new Plant();
-//        breedingplaces[i]->Read(file);
-        myQ.Append(breedingplaces[i]);
-    }
-
-
-
-
-}
-
-
-
-void Outdoor::Save(fstream& file)
-{
-	file << noOfBreedingPlaces << '\n';
-	file << countPlants << '\n';
-
-	int i =0;
-	for (int place = 0; place < countPlants; place++)
-    {
-        breedingplaces[i]->Write(file);
-        i++;
-    }
-
-    file << countTrashcan << '\n';
-	for (int place=0 ; place < countTrashcan; place++)
-    {
-        breedingplaces[i]->Write(file);
-        i++;
-    }
-
-    file << countManhole << '\n';
-	for (int place = 0; place < countManhole; place++)
-    {
-        breedingplaces[i]->Write(file);
-        i++;
-    }
-
-    file << countManhole << '\n';
-	for (int place = 0; place < countManhole; place++)
-    {
-        breedingplaces[i]->Write(file);
-        i++;
-    }
-
-    file << countCleanWater << '\n';
-	for (int place = 0; place < countCleanWater; place++)
-    {
-        breedingplaces[i]->Write(file);
-        i++;
-    }
-    file.close();
-
-}
-*/
 void Outdoor::Delete()
 {
     delete this;

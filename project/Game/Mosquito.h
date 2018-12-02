@@ -63,4 +63,5 @@ public:
     void SetScenario(Scenario*);        // helps to put mosquito inside and outside
     void UpdatePositiion(int,int);
     virtual void Bite() = 0;
+    virtual ~Mosquito();
 };

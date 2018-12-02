@@ -28,6 +28,7 @@ bool DirtyWater :: IsActive()
     {
         return true;
     }
+    return false;
 }
 
 void DirtyWater::HandleEvents(SDL_Event* e, Screens_Node& node)

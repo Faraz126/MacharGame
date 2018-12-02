@@ -387,7 +387,7 @@ void Human::Move()
     else
     {
         walker += 0.02;
-        if (walker >= 10)
+        if (walker >= 9)
         {
             walker = 0;
         }
@@ -684,8 +684,8 @@ void Human::Show(SDL_Renderer* renderer)
             Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
         }
     }
-    SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
-    SDL_RenderDrawRect(renderer, &collideRect);
+    //SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
+    //SDL_RenderDrawRect(renderer, &collideRect);
 }
 
 
@@ -801,7 +801,6 @@ void Human::GoToHospital()
 
     timeToDie = 20000;
     isInfected = false;
-
     isIndoor = false;
     ownHouse->LeaveHuman(this);
     bedToGoTo->SetOccupied(false);

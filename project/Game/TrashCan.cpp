@@ -67,7 +67,7 @@ void TrashCan::HandleEvents(SDL_Event* e, Screens_Node& node)
 void TrashCan::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->Render(spriteNum,renderer, &ownRect);
-    SDL_RenderDrawRect(renderer, &pos);
+    //SDL_RenderDrawRect(renderer, &pos);
     lid->Show(renderer);
 }
 

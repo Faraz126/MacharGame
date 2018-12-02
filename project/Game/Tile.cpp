@@ -75,7 +75,7 @@ void Tile::Show(SDL_Renderer* renderer)
    word[0].Show(renderer);
    word[1].Show(renderer);
    texture = Texture::GetInstance(renderer);
-   int a=buy->GetSpriteNum();
+
    texture->Render(buy->GetSpriteNum(),renderer,&iconPos);
 }
 

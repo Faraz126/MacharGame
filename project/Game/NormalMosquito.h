@@ -13,6 +13,6 @@ public:
     NormalMosquito();
     NormalMosquito(Scenario*);
     void Bite();
-    ~NormalMosquito();
+    ~NormalMosquito(){};
 };
 

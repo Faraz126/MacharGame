@@ -2,6 +2,7 @@
 #include <random>
 #include "Scenario.h"
 #include "Outdoor.h"
+#include "EndMenu.h"
 
 House::House(): Scenario(0, true, false, true, 1)
 {
@@ -48,7 +49,7 @@ House::House(): Scenario(0, true, false, true, 1)
 
     btn = new Button;
     myQ.Append(btn);
-    btn->setPosition(800,10);
+    btn->setPosition(800,40);
     btn->SetWidth(200,55);
     btn->setText("OUTDOOR");
     btn->word->ReduceSize(0.8);
@@ -70,6 +71,8 @@ House::House(): Scenario(0, true, false, true, 1)
     upperRect0->y = 0;
     upperRect0->x = 1240;
     upperRect0->h = 55;
+
+    money.SetPaisa(10000);
 }
 
 void House::GenerateHumans()
@@ -191,9 +194,9 @@ void House::Show(SDL_Renderer* renderer)
 
         if (humans.GiveItem(i)->GetInfected() && humans.GiveItem(i)->GetTimeToDie() < max)
         {
-            if (humans.GiveItem(i)->GetTimeToDie() < 0)
+            if (humans.GiveItem(i)->IsDead())
             {
-
+                curScreen = new EndMenu(outdoor, false);
             }
             else
             {

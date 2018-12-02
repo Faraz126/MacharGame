@@ -25,6 +25,7 @@
 #include "Manual.h"
 #include "Alert.h"
 
+class EndMenu;
 class Outdoor;
 
 
