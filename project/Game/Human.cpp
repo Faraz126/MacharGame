@@ -9,6 +9,7 @@
 Human::Human(): Clickable(0,0,197, 575)
 {
     ownHouse = 0;
+    health = 1000;
 }
 
 
@@ -27,7 +28,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     activity = WALKING;
     timeSince = 0;
     step = 1;
-    slowDownFactor = 2;
+    slowDownFactor = 5;
     isInfected = false;
     door = ownHouse->GetDoor();
     faceSprite = 86;
@@ -39,6 +40,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     bedToGoTo = 0;
     sentToBed = false;
     timeToDie = 200000;
+
 
 
 
@@ -699,7 +701,19 @@ void Human::Show(SDL_Renderer* renderer)
 
     else if (activity == IN_HOSPITAL)
     {
-        Texture::GetInstance()->Render(76, renderer, &pos);
+        if(disease==2)
+        {
+            Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
+        }
+        if(disease==3)
+        {
+            Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
+        }
+        if(disease==4)
+        {
+            Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
+        }
+
     }
     SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
     SDL_RenderDrawRect(renderer, &collideRect);
@@ -813,8 +827,10 @@ int Human::GetInfected()
 
 void Human::GoToHospital()
 {
+
     timeToDie = 20000;
     isInfected = false;
+
     isIndoor = false;
     ownHouse->LeaveHuman(this);
     bedToGoTo->SetOccupied(false);
@@ -822,3 +838,14 @@ void Human::GoToHospital()
     ownHouse->GetOutdoor()->hospital->AddHuman(this);
     ChangeState(IN_HOSPITAL);
 }
+
+void Human::Damage()
+{
+    timeToDie -= 10000;
+}
+
+int Human::GetDisease()
+{
+    return disease;
+}
+

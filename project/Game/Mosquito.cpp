@@ -6,6 +6,7 @@
 Mosquito::Mosquito()
 {
     indoor = true;
+    IsDead = false;
 }
 
 void Mosquito::SetIndoor(bool status)
@@ -39,6 +40,11 @@ void Mosquito::SetScenario(Scenario* cScenario)
 {
     screen = cScenario;
     indoor = screen->GetCode();
+}
+
+void Mosquito::SetIsDead(bool dead)
+{
+    IsDead = true;
 }
 
 Entrance* Mosquito::GetClosestEntrance()

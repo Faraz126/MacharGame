@@ -5,8 +5,8 @@
 #include "Texture.h"
 #include "Lids.h"
 
-const int TRASHCANLID_WIDTH = 80;
-const int TRASHCANLID_HEIGHT = 18.694;
+const int TRASHCANLID_WIDTH = 223;
+const int TRASHCANLID_HEIGHT = 45;
 
 class TrashCanLid: public Lids
 {

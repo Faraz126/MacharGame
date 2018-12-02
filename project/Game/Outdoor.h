@@ -32,17 +32,12 @@
 class Outdoor: public Scenario
 {
 private:
-//    Mosquito* mosquito;
-//    House* house;
-//    DirtyWater* dirtywater;
-//    CleanWater* cleanwater;
-//    Manhole* manhole;
-    //Outdoor* outdoor;
-
-
     SDL_Rect pos, pos1, shoppingPos;
     SDL_Rect* cartPos;
     Texture* texture;
+    SDL_Rect* buildingRect; //rectangle for clickable region of houses & hospital
+    House* house;
+    ShoppingMenu* shop;
 
     int countContainer;
     int countPlants;
@@ -51,39 +46,26 @@ private:
     int countManhole;
     bool shopShow;
     int totalHumans;
+    Money money;
 
-    House* house;
-    SDL_Rect* buildingRect; //rectangle for clickable region of houses & hospital
-
-
-
-    //Container** container;
-    ShoppingMenu* shop;
-    //Human** humans;
-    //Entrance** entrance;
-
-    //Human** GenerateHumans();
     int CountHumans();
     void GetHouseEntrance();
     void HandleScrolling(SDL_Event*);
     void PlaceContainers();
-
-
-    Money money;
-    Alert alert;
 
 protected:
 
 public:
     Hospital* hospital;
     Outdoor(Screens*, bool);
-    Outdoor(fstream*, Screens*, bool);
 
     void Show(SDL_Renderer*);
     void Update(int);
     void HandleEvents(SDL_Event*, Screens_Node&);
+    /*
     void Save(fstream&);
     void Load(fstream*);
+    */
     //Entrance* getCurrentState();
     void Delete();
     ~Outdoor();

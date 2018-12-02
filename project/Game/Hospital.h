@@ -3,21 +3,21 @@
 #include <SDL_image.h>
 #include "Human.h"
 #include "Scenario.h"
+#include "Button.h"
 
 class Outdoor;
+class Manual;
 
 class Hospital: public Scenario
 {
 private:
-/*    Chair* chair;
-    Manual* manual;
-    Medicine* medicine;
-    Outdoor* outdoor;
-    */
     SDL_Rect pos;
     Texture* texture;
     int humanPos[8];
-//    Outdoor* outdoor;
+    Manual* manual;
+    Button* btn;
+    Human* popped;
+
 protected:
 
 public:
@@ -27,8 +27,10 @@ public:
     void HandleEvents(SDL_Event*, Screens_Node&);
     bool AddHuman(Human*);
     void LeaveHuman(Human*);
+    void LeaveHuman();
     void Click();
     void Show(SDL_Renderer*);
     void ShowManual();
-    void CheckHumanDisease(Human*);
+    Human* GetPopped();
+    int CheckHumanDisease();
 };

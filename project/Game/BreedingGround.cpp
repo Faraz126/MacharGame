@@ -12,13 +12,17 @@ void BreedingGround::UpdatePos(int x, int y)
     pos.y = y;
 }
 
-
 void BreedingGround::AddMosquito(Mosquito* produced)
 {
     int n;
     produced->SetScenario(currentScenario); //sets the scenario of the mosquito
     produced->UpdatePositiion(pos.x, pos.y);
     currentScenario->GetMosquitoes(n).Append(produced); //appends the recently produced mosquito to the list of mosquitoes.
+}
+
+int BreedingGround :: GetBreedCount()
+{
+    return 0;
 }
 
 BreedingGround::~BreedingGround()

@@ -139,7 +139,7 @@ void SaveMenu::SaveGame()
 {
     fstream file;
     file.open(inputText+ ".txt", ios::out);
-    outdoorPtr->Save(file);
+    //outdoorPtr->Save(file);
     file.close();
 
 }

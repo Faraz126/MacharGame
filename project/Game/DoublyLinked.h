@@ -289,7 +289,7 @@ public:
         else
         {
             int i = 0;
-            while(i!=index && c_node != 0)
+            while (i!= index && c_node !=NULL )
             {
                 c_node = c_node->next;
                 i++;

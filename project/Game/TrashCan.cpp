@@ -9,6 +9,7 @@ TrashCan::TrashCan(int x, int y): Container(x,y,CAN_WIDTH, CAN_HEIGHT)
     pos.h = 20;
     lid = new TrashCanLid(ownRect.x, ownRect.y + 100); //creating trash can lid at the given point
     percentage = 5;
+    breedCount = 0;
 }
 
 
@@ -77,6 +78,7 @@ TrashCan::~TrashCan()
 
 Mosquito* TrashCan::Breed()
 {
+    breedCount++;
     return factory->GetMosquito(NORMAL);
 }
 
@@ -89,4 +91,9 @@ void TrashCan::Update(int)
             AddMosquito(Breed());
         }
     }
+}
+
+int TrashCan :: GetBreedCount()
+{
+    return breedCount;
 }

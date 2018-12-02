@@ -50,7 +50,8 @@ Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
     PlaceContainers();
     //Load(file);
 
-    buildingRect =  new SDL_Rect[4]; //clickable region for all 4 houses
+
+    buildingRect= new SDL_Rect[4]; //clickable region for all 4 houses & hospital
     buildingRect[0].x=45;
     buildingRect[0].y=140;
     buildingRect[0].w=280;
@@ -81,93 +82,8 @@ Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
     GetHouseEntrance();
 //    shop = new ShoppingMenu;
     SetUpScenarios();
-
-//    points = new Score;
-
 }
 
-/*
-Human** Outdoor::GenerateHumans()
-{
-    int n = CountHumans();
-    Human** temp = new Human*[n];
-    for (int i = 0; i < n; i++)
-    {
-        temp[i] = 0;
-    }
-    return temp;
-}
-*/
-
-Outdoor::Outdoor(fstream* file, Screens* screen, bool back):Scenario(screen, false)
-{
-    //screen dimensions
-    code = 0;
-    startWidth = 0;
-    endWidth = 1024*2.5;
-    startHeight = 460;
-    endHeight = 786;
-
-    pos.x = 0;
-    pos.y = 0;
-    pos.w = 1024;
-    pos.h = 786;
-
-
-    //part of sprite clipped from spritesheet
-    pos1.x = 0;
-    pos1.y = 1805;
-    pos1.w = 1024;
-    pos1.h = 786;
-
-    entrance = new Entrance*[12];
-    house = new House[5]; //house count is 4 & 1 hospital
-
-
-    for (int i = 0; i < 4; i++)
-    {
-        // Setting outdoor pointer in every house. To be used by mosquitoes and humans.
-        house[i].SetOutdoor(this);
-    }
-
-    //PlaceContainers();
-    Load(file);
-
-    buildingRect =  new SDL_Rect[4]; //clickable region for all 4 houses
-    buildingRect[0].x=45;
-    buildingRect[0].y=140;
-    buildingRect[0].w=280;
-    buildingRect[0].h=320;
-
-    buildingRect[1].x=515;
-    buildingRect[1].y=140;
-    buildingRect[1].w=280;
-    buildingRect[1].h=320;
-
-    buildingRect[2].x=1138;
-    buildingRect[2].y=140;
-    buildingRect[2].w=280;
-    buildingRect[2].h=320;
-
-    buildingRect[3].x=1710;
-    buildingRect[3].y=140;
-    buildingRect[3].w=290;
-    buildingRect[3].h=320;
-
-    buildingRect[4].x = 2190;
-    buildingRect[4].y = 130;
-    buildingRect[4].w = 350;
-    buildingRect[4].h = 350;
-    //humans = GenerateHumans();
-    //noOfEntrance = 0;
-    hospital = new Hospital(this);
-    GetHouseEntrance();
-//    shop = new ShoppingMenu;
-    SetUpScenarios();
-
-//    points = new Score;
-
-}
 
 
 void Outdoor::Show(SDL_Renderer* renderer)
@@ -190,43 +106,13 @@ void Outdoor::Show(SDL_Renderer* renderer)
 
     points->Show(renderer);
     money.Show(renderer);
-    /*
 
-    for (int i = 0; i < humans.GetLength(); i++)
-    {
-        humans.GiveItem(i)->Show(renderer);
-    }
-    */
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
         mosquitoes.GiveItem(i)->Show(renderer);
     }
 
     //alert.Show(renderer);
-
-
-
-//    for(int i = 0; i<4; i++)
-//    {
-//        SDL_RenderFillRect(renderer,&buildingRect[i]);
-//    }
-
-//
-//    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0);
-//
-//    for(int i = 0; i<4; i++)
-//    {
-//        SDL_RenderFillRect(renderer,&entranceRect[i]);
-//    }
-
-
-
-//    for(int i = 0; i<5; i++)
-//    {
-//        SDL_RenderFillRect(renderer,&buildingRect[i]);
-//    }
-
-
 }
 
 int Outdoor::CountHumans()
@@ -239,10 +125,11 @@ int Outdoor::CountHumans()
     return sum;
 }
 
-void Outdoor::Update(int frame)
+void Outdoor::Update(int frame) ///to update all objects
 {
-    (*points)++;
     /*
+=======
+>>>>>>> 28dba0e1338eb9674dfff18f312099576e5725aa
     for (int i = 0; i < 4; i++)
     {
         if (curScreen != &house[i])
@@ -253,22 +140,13 @@ void Outdoor::Update(int frame)
     }
     */
 
-/*
-    for (int i = 0; i < humans.GetLength(); i++)
-    {
-        humans.GiveItem(i)->Update(frame);
-    }
-
-     //JUST ADD SCENARIO
-    for (int i = 0; i < noOfBreedingPlaces; i++)
-    {
-        breedingplaces[i]->Update(frame);
-    }
-*/
-
     for (int i = 0; i < myQ.GetLength(); i++)
     {
         myQ.GiveItem(i)->Update(frame);
+        if(myQ.GiveItem(i)->IsActive() && myQ.GiveItem(i)->DelayLidTime()>1000) //if container is covered and alloted time has passed
+        {
+            myQ.Pop(i);
+        }
     }
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
@@ -314,7 +192,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
                 //speed
             }
         }
-
+            //for hospital
         if (x >= buildingRect[4].x && y >= buildingRect[4].y && x < buildingRect[4].x + buildingRect[4].w && y < buildingRect[4].y + buildingRect[4].h)
             {
                 /*
@@ -526,7 +404,7 @@ void Outdoor:: PlaceContainers()
     }
 }
 
-
+/*
 void Outdoor::Load(fstream* file)
 {
     std::string myString;
@@ -546,7 +424,7 @@ void Outdoor::Load(fstream* file)
 //        breedingplaces[i]->Read(file);
         myQ.Append(breedingplaces[i]);
     }
-    */
+
 
 
 
@@ -593,11 +471,10 @@ void Outdoor::Save(fstream& file)
         breedingplaces[i]->Write(file);
         i++;
     }
-
     file.close();
 
 }
-
+*/
 void Outdoor::Delete()
 {
     delete this;
@@ -618,7 +495,6 @@ Outdoor :: ~Outdoor()
 
     delete[] house;
     delete hospital;
-
 }
 
 

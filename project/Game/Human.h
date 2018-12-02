@@ -37,6 +37,7 @@ private:
     Bed* bedToGoTo;
     int toFollowX;
     int toFollowY;
+    int health;
     int faceDirection;
     bool isVertical;
     bool isHorizontal;
@@ -65,6 +66,7 @@ private:
     int timeToDie;
     bool dead;
 
+
 public:
     bool IsDead(){return dead;}
     int GetTimeToDie(){return timeToDie;}
@@ -82,6 +84,8 @@ public:
     void UpdatePos(int x, int y);
     bool Collides(const SDL_Rect&);
     void GoToHospital();
+    void Damage();
+    int GetDisease();
 
 
 

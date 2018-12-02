@@ -90,13 +90,7 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
             else if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
 
-                fstream* file;
-                file = new fstream("ss.txt", ios::in);
-                //file.open(fullpath + "/ss.txt", ios::in);
-                if (file)
-                {
-                    curScreen = new Outdoor(file, this, false);
-                }
+                //supposed to be file loading here.
 
             }
 

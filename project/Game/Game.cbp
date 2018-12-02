@@ -59,6 +59,8 @@
 		<Unit filename="AedesMosquito.h" />
 		<Unit filename="Alert.cpp" />
 		<Unit filename="Alert.h" />
+		<Unit filename="BadMedicine.cpp" />
+		<Unit filename="BadMedicine.h" />
 		<Unit filename="Bed.cpp" />
 		<Unit filename="Bed.h" />
 		<Unit filename="BreedingGround.cpp" />
@@ -67,13 +69,14 @@
 		<Unit filename="BucketLid.h" />
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.h" />
+		<Unit filename="BuyableItems.cpp" />
+		<Unit filename="BuyableItems.h" />
 		<Unit filename="CancelButton.cpp" />
 		<Unit filename="CancelButton.h" />
 		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
 		<Unit filename="CheckBox.cpp" />
 		<Unit filename="CheckBox.h" />
-		<Unit filename="ChickengunyaMosquito.h" />
 		<Unit filename="CleanWater.cpp" />
 		<Unit filename="CleanWater.h" />
 		<Unit filename="Clickable.cpp" />
@@ -83,11 +86,18 @@
 		<Unit filename="Color.h" />
 		<Unit filename="Container.cpp" />
 		<Unit filename="Container.h" />
+		<Unit filename="DDT.cpp" />
+		<Unit filename="DDT.h" />
 		<Unit filename="DirtyWater.cpp" />
 		<Unit filename="DirtyWater.h" />
+<<<<<<< HEAD
 		<Unit filename="Disease.h" />
+=======
+		<Unit filename="Disease.cpp" />
+>>>>>>> 28dba0e1338eb9674dfff18f312099576e5725aa
 		<Unit filename="Door.cpp" />
 		<Unit filename="Door.h" />
+		<Unit filename="DoublyLinked.h" />
 		<Unit filename="EndMenu.cpp" />
 		<Unit filename="EndMenu.h" />
 		<Unit filename="Entrance.cpp" />
@@ -125,6 +135,8 @@
 		<Unit filename="Mosquito.h" />
 		<Unit filename="MosquitoFactory.cpp" />
 		<Unit filename="MosquitoFactory.h" />
+		<Unit filename="Nets.cpp" />
+		<Unit filename="Nets.h" />
 		<Unit filename="Node.h" />
 		<Unit filename="NormalMosquito.cpp" />
 		<Unit filename="NormalMosquito.h" />
@@ -136,6 +148,8 @@
 		<Unit filename="Plant.h" />
 		<Unit filename="Point.h" />
 		<Unit filename="Queue.h" />
+		<Unit filename="Repellant.cpp" />
+		<Unit filename="Repellant.h" />
 		<Unit filename="SaveScreen.cpp" />
 		<Unit filename="SaveScreen.h" />
 		<Unit filename="Saving.txt" />
@@ -168,6 +182,7 @@
 		<Unit filename="TrashCanLid.h" />
 		<Unit filename="Tub.cpp" />
 		<Unit filename="Tub.h" />
+		<Unit filename="TubLid.cpp" />
 		<Unit filename="TubLid.h" />
 		<Unit filename="Window.cpp" />
 		<Unit filename="Window.h" />

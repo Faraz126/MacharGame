@@ -24,6 +24,7 @@ protected:
     SDL_Rect position;
     bool IsFollowingHuman;
     bool IsFollowingEntrance;
+    bool IsDead;
     Scenario* screen;
     DLL<Human*> humans;
     Entrance* entrance;
@@ -46,6 +47,7 @@ public:
     virtual void ReachedEntrance() = 0;
     virtual void Show(SDL_Renderer*) = 0;
     void SetIndoor(bool);
+    void SetIsDead(bool);
     Entrance* GetClosestEntrance();
     void SetX(int delta, int direction);
 
