@@ -3,26 +3,33 @@
 #define PLANT_H
 
 #include "Container.h"
-#include "Water.h"
+#include "CleanWater.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <random>
 #include "Mosquito.h"
 #include "Texture.h"
+#include <fstream>
+#include <sstream>
+#include"Score.h"
 
-
-const int PLANT_WIDTH = 102;
-const int PLANT_HEIGHT = 192;
+const int PLANT_WIDTH = 80;
+const int PLANT_HEIGHT = 150.588;
 
 class Plant : public Container
 {
     int type;
-    int spriteNum;
     public:
+        Plant(){};
         Plant(int, int);
         void SetCovered(bool);
         void Show(SDL_Renderer*);
-        Mosquito* Breed(int);
+        void Update(int);
+        void HandleEvents(SDL_Event*, Screens_Node&);
+        Mosquito* Breed();
+        void Write(std::fstream&);
+        void Read(std::fstream&);
+
         ~Plant();
 };
 

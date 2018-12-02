@@ -4,6 +4,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 #include "Screens.h"
 #include "MainMenu.h"
 #include "Texture.h"
@@ -11,6 +12,13 @@
 #include "time.h"
 #include <random>
 #include"Outdoor.h"
+#include "GLOBALS.h"
+#include"Hospital.h"
+
+#include "Plant.h"
+#include <fstream>
+#include <sstream>
+#include "SplashScreen.h"
 
 
 using namespace std;
@@ -34,13 +42,18 @@ SDL_Window* gWindow = NULL;
 //The window renderer
 SDL_Renderer* gRenderer = NULL;
 
+
+
+//The sound effects that will be used
+
+
 bool init()
 {
 	//Initialization mouseClicked
 	bool success = true;
 
 	//Initialize SDL
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+	if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO ) < 0 )
 	{
 		printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
 		success = false;
@@ -54,7 +67,7 @@ bool init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( "Rook Thaam", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
         if( gWindow == NULL )
         {
             printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -78,9 +91,18 @@ bool init()
                 int imgFlags = IMG_INIT_PNG;
                 if( !( IMG_Init( imgFlags ) & imgFlags ) )
                 {
-                    printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+                    printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
                     success = false;
                 }
+
+/*
+                if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+                {
+                    printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+                    success = false;
+                }
+                */
+
             }
         }
 
@@ -123,47 +145,64 @@ int main( int argc, char* args[] )
 	}
 	else
 	{
-        bool quit = false;
 
         Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
 
 
+
         SDL_Event e;
-        Texture::GetInstance(gRenderer);
+
         Screens_Node screen;
 
-        screen.cur_screen = new MainMenu;//starting with main menu
+        SplashScreen splash;
+        splash.Show(gRenderer);
 
 
 
-        while (!quit)
+        //screen.cur_screen = new MainMenu; //starting with main menu
+        Screens::Initiate();
+        int frame = 0;
+
+
+        while (!GAME_QUIT)
         {
+            //screen.cur_screen->Update(frame);
+            Screens::GetCurrent()->Update(frame);
             while (SDL_PollEvent(&e))
             {
-                if( e.type == SDL_QUIT ) quit = true;
-                screen.cur_screen->Update(&e,screen);
-             }
+                if( e.type == SDL_QUIT ) GAME_QUIT = true;
+                //screen.cur_screen->HandleEvents(&e,screen);
+                Screens::GetCurrent()->HandleEvents(&e, screen);
+            }
+
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
 
-            if (!screen.prev_backable)
+            /*
+            if (screen.prev_screen != 0 && !screen.prev_backable)
             {
                 delete screen.prev_screen;
+                screen.prev_screen = 0;
             }
-            else if (screen.prev_backable != 0)
+            else if (screen.prev_backable != 0 && screen.prev_screen != 0)
             {
                 screen.prev_screen->Show(gRenderer);
                 if (screen.prev_updatable)
                 {
-                    screen.prev_screen->Update(&e, screen);
+                    screen.prev_screen->Update(frame);
                 }
             }
+            */
 
-            screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
+            Screens::GetCurrent()->Show(gRenderer);
+
+            //screen.cur_screen->Update(&e,screen);
+            ///screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
             SDL_RenderPresent( gRenderer );
+            frame++;
         }
+        delete Texture::GetInstance(gRenderer);
 	}
-
 	close();
 
 	return 0;

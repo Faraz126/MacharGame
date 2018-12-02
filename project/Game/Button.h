@@ -3,26 +3,34 @@
 #include "Texture.h"
 #include "Word.h"
 #include "SDL.h"
+#include "Clickable.h"
 #include <string>
 #include <iostream>
 
-class Button
+class Button : public Clickable
 {
-    Word * word ;
+
     void Click(SDL_Rect*);
     Texture * texture ;
-    SDL_Event e;
+    bool buttonSprite;
+    int sprite2;
 
     public:
+    Word * word ; //public as will be used to decrease size
     int intHover;
-    SDL_Rect pos;
     Button (std::string str , int x, int y);
     void setText ( std::string str );
     Button();
     void Hover();
     void Click();
-    void Render ( SDL_Renderer * gRenderer );
-    void setPosition ( int x, int y);
+    void Show( SDL_Renderer * );
+    void HandleEvents(SDL_Event*, Screens_Node&){};
+    void Update(int){};
+    void setPosition ( int , int );
+    void SetWidth(int,int);
+    ~Button();
+    void SetButtonSprite(bool);
+    void SetSprite2(int);
 
 };
 

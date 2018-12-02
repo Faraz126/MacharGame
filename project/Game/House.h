@@ -10,35 +10,75 @@
 #include "Showpiece.h"
 #include "Plant.h"
 #include "TrashCan.h"
+#include "Manhole.h"
+#include "Tub.h"
+#include "Human.h"
+#include "Button.h"
+#include "DoublyLinked.h"
+#include "ShoppingMenu.h"
+#include "EndMenu.h"
+#include "PauseMenu.h"
+#include "Score.h"
+#include "Money.h"
+#include "Scenario.h"
+#include "AedesMosquito.h"
+#include "Manual.h"
+#include "Alert.h"
 
-class House: public Screens
+class EndMenu;
+class Outdoor;
+
+
+
+class House: public Scenario
 
 {
 private:
     //Money money;
-    bool hasRepellent;
+
+    bool hasRepellent; //if the house has repellent
     int noOfHumans;
-    int noOfEntrance;
-    Entrance** entrance;
-    Bed* bed;
+
+    Bed* bed; //array of beds
     SDL_Rect pos;
     Texture* texture;
     Showpiece* showpieces;
-    BreedingGround* breedingplaces;
     SDL_Rect wall;
+    //Human** humans;
+    Button* btn;
+    ShoppingMenu* houseShop; //shopping card
+    SDL_Rect* cartPos;
+
+    Money money;
+    void SetUpScenarios();
+    Outdoor* outdoor; //pointer to outdoor
+    int dyingIndex;
+    bool toShow;
+    Alert alert;
+    SDL_Rect* upperRect0;
+
+
     //Outdoor* outdoor;
     //Door* door;
 protected:
+    void SetUpEntrancesAndShowPieces();
+    void GenerateHumans();
 
 public:
     House();
     ~House();
     bool GetHasRepellent();
-    void AddHuman();
-    void LeaveHuman();
+    void SetOutdoor(Outdoor*);
+    Outdoor* GetOutdoor();
     void Click();
     void Show(SDL_Renderer*);
     void getWindowState();
     void getEntranceState();
-    void Update(SDL_Event* e, Screens_Node&);
+    void Update(int);
+    void HandleEvents(SDL_Event* e, Screens_Node&);
+    int NoOfHumans();
+    Door* GetDoor();
+    Bed* GetBeds(int&);
+
+
 };

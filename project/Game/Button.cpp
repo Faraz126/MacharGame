@@ -1,13 +1,12 @@
 #include "Button.h"
 
-Button::Button()
+Button::Button() : Clickable(354,506,314,64)
 {
-    pos.x = 354;
-    pos.y = 506;
-    pos.w = 314;
-    pos.h = 64;
-    intHover = 0;
+
+    intHover = 0;  //which state of button
     word = 0;
+    buttonSprite = true;
+    sprite2 = 123;
 
 }
 Button::Button( std::string str , int x, int y) : Button()  //after overloaded call that constructor too
@@ -17,10 +16,18 @@ Button::Button( std::string str , int x, int y) : Button()  //after overloaded c
 
 }
 
-void Button::Render ( SDL_Renderer * gRenderer )
+void Button::Show( SDL_Renderer * gRenderer )
 {
     texture = Texture::GetInstance(gRenderer); //singelton here, static method
-    texture->Render(intHover, gRenderer, &pos);
+    if(buttonSprite)
+    {
+        texture->Render(intHover, gRenderer, &pos);
+    }
+    if(!buttonSprite)
+    {
+        texture->Render(sprite2, gRenderer, &pos);
+    }
+
     word->Show(gRenderer);
 
 
@@ -31,13 +38,17 @@ void Button::setPosition ( int x, int y)
     pos.x = x;              //setting position of buttons on the screen
     pos.y = y;
 }
+void Button::SetWidth(int w,int h)
+{
+    pos.w = w;
+    pos.h = h;
+}
+
 void Button::setText ( std::string str )
 {
-    std::cout << str;
-    std::cout << str.length();
     if (word == 0)
     {
-        word = new Word(str, pos.x +(pos.w-(25*str.length()))/2, pos.y+15);
+        word = new Word(str, pos.x +(pos.w-(25*str.length()))/2, pos.y+15);  //to centralize the text on button
     }
     else
     {
@@ -49,6 +60,11 @@ void Button::setText ( std::string str )
 void Button::Hover()
 {
     intHover=1;     // if hovered sprite changed
+
+    if(!buttonSprite)
+    {
+        sprite2 = 122;
+    }
 }
 
 void Button::Click()
@@ -56,4 +72,16 @@ void Button::Click()
     intHover=2;   // if clicked sprite changed
 }
 
+void Button::SetButtonSprite(bool sprite)
+{
+    buttonSprite = sprite;
+}
+void Button::SetSprite2(int a)
+{
+    sprite2 = a;
+}
 
+Button::~Button()
+{
+    delete word;
+}

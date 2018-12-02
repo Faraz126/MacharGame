@@ -2,33 +2,30 @@
 #include "Screens.h"
 #include "Button.h"
 #include "Texture.h"
-#include <iostream>
+//#include <iostream>
 #include <string>
 #include "string.h"
 
 class Menu: public Screens
 {
 private:
-    int w;
-    int h;
-    int x;
-    int y;
+    int x,y,w,h;
     SDL_Rect* menu;
-    Button* btn;
     int noOfButton;
     Texture* texture;
     bool mouseClicked;
+    bool horizontal;
 protected:
-
+    Button* btn;
 
 public:
     int state=0;
-    Menu();
-    Menu(int noOfButton, int x, int y);
+    Menu(Screens*, bool, bool = false, bool = false, int = 1);
+    Menu(int,int,int,bool,Screens*, bool, bool = false, bool = false, int = 1);
     ~Menu();
     void Show(SDL_Renderer*);
-    void Hover(SDL_Event*);
-    void Click(SDL_Event*);
+    //void Hover(SDL_Event*);
+    void HoverClick(SDL_Event*);
     void SetNoOfButton(int);
     int GetNoOfButton();
     void SetMouseClicked(bool);

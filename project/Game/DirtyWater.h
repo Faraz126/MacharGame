@@ -1,14 +1,33 @@
 #pragma once
+#include "Container.h"
+#include <SDL.h>
+#include <SDL_image.h>
+#include "Texture.h"
+#include "Mosquito.h"
+#include "Soil.h"
 
-class DirtyWater : public BreedingGround
+const int WATER_HEIGHT = 136;
+const int WATER_WIDTH = 509;
+
+class DirtyWater : public Container
 {
 private:
-
+    int delay;
+    int breedCount;
 protected:
 
 public:
-    DirtyWater();
-    Mosquito* breedType(int);
-    void Show(SDl_Render*);
+    DirtyWater(int, int);
+    Mosquito* Breed();
+    void Show(SDL_Renderer*);
+    void Update(int);
+    int DelayLidTime();
     ~DirtyWater();
+    void SetCovered(bool);
+    int GetBreedCount();
+    bool IsActive();
+    void HandleEvents(SDL_Event*, Screens_Node&);
+
 };
+
+

@@ -1,7 +1,10 @@
 #include "MainMenu.h"
 
+#include "HighscoreMenu.h"
 
-MainMenu::MainMenu():Menu(3,354,506)
+using namespace std;
+
+MainMenu::MainMenu(Screens* prevScreen, bool back):Menu(3,354,506,false, prevScreen, back, false, false, 1)
 {
     pos0.x= 0;
     pos0.y = 0;
@@ -16,98 +19,147 @@ MainMenu::MainMenu():Menu(3,354,506)
     pos2.x = 950;
     pos2.y = 10;
     pos2.w = 35;
-    pos2.h = 35;
+    pos2.h = 35;    //for cancel button
 
     mosquitoIterator=43;
-    iteratorr = true;
     buttonText[0]= "NEW GAME";
     buttonText[1] = "LOAD GAME";
     buttonText[2] = "SETTINGS";
 
-    cancelBtn = new CancelButton();
+    cancelBtn = new CancelButton(pos2);
 
     Menu::SetText(buttonText);
 
+    highscorePos0 = new SDL_Rect;
+    highscorePos0->x = 30;
+    highscorePos0->y = 20;
+    highscorePos0->w = 30;
+    highscorePos0->h = 30;
+
 }
 
-void MainMenu::Click(SDL_Event* e)
+void MainMenu::HoverClick(SDL_Event* e)
 {
-    int hoverX = e->button.x;
+    int hoverX = e->button.x;  //for cancel button click
     int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN)
-    {
-        if(e->button.button ==  SDL_BUTTON_LEFT)
-        {
-            SetMouseClicked(true);
-            if( ( hoverX > pos2.x ) && ( hoverX < (pos2.x+pos2.w) ) && ( hoverY > pos2.y ) && (hoverY< (pos2.y+pos2.h) ) )
-            {
-                std::cout<<"before click";
-                cancelBtn->Click();
 
-            }
-            else
-            {
-                cancelBtn->diffStateBtn=4;
-            }
-        }
+    if( cancelBtn->WithinRegion(hoverX,hoverY)==true)
+    {
+        cancelBtn->Hover();
+    }
+    else
+    {
+        cancelBtn->diffStateBtn=53;
     }
 
 }
-
-void MainMenu::Hover(SDL_Event* e)
-{
-    int hoverX = e->button.x;
-    int hoverY = e->button.y;
-    if(e->type == SDL_MOUSEMOTION)
-    {
-        if( ( hoverX > pos2.x ) && ( hoverX < (pos2.x+pos2.w) ) && ( hoverY > pos2.y ) && (hoverY< (pos2.y+pos2.h) ) )
-        {
-            std::cout<<"hover";
-            cancelBtn->Hover();
-        }
-        else
-        {
-            cancelBtn->diffStateBtn=4;
-        }
-
-    }
-
-}
-
-
 
 void MainMenu::Show(SDL_Renderer* gRenderer)
 {
-    if (iteratorr)
-    mosquitoIterator +=0.07;
-    else
-        mosquitoIterator -= 0.07;
-    if (mosquitoIterator>52 || mosquitoIterator < 43)
-    {
-        iteratorr = !iteratorr;
-    }
-
-
+    mosquitoIterator +=0.02;
+     if (mosquitoIterator>=52)
+        mosquitoIterator=43;
     texture = Texture::GetInstance(gRenderer);
     texture->Render(3,gRenderer,&pos0);
     texture->Render(int(mosquitoIterator),gRenderer,&pos1);
-    cancelBtn->Render(gRenderer);
-
-
+    cancelBtn->Show(gRenderer);
     Menu::Show(gRenderer);
+    SDL_SetRenderDrawColor( gRenderer, 2,85,89,0 );
+    SDL_RenderDrawRect(gRenderer,highscorePos0);
+    SDL_RenderFillRect(gRenderer,highscorePos0);
 }
 
 
-void MainMenu::Update(SDL_Event* e, Screens_Node& node)
+void MainMenu::Update(int frame)
 {
-    Menu::Hover(e);
-    Click(e);
-    Hover(e);
-    if(e->type == SDL_MOUSEBUTTONUP || e->type == SDL_MOUSEBUTTONDOWN)
-        Menu::Click(e);
+
 }
+
+void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
+{
+    int mouseX = e->button.x;
+    int mouseY = e->button.y;
+    Menu::HoverClick(e);
+    HoverClick(e);
+    if(e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
+    {
+
+        if(e->button.button ==  SDL_BUTTON_LEFT)
+        {
+            if( ( mouseX >highscorePos0->x ) && ( mouseX < (highscorePos0->x+highscorePos0->w) ) && ( mouseY > highscorePos0->y ) && (mouseY< (highscorePos0->y+highscorePos0->h) ) )
+            {
+                /*
+                node.cur_screen = new Highscore; //highscore menu
+                node.prev_screen = this;
+                node.prev_backable = true;
+                node.prev_updatable = false;
+                */
+            }
+
+
+
+            SetMouseClicked(true);
+            if (btn[0].WithinRegion(mouseX,mouseY)==true)
+            {
+                /*
+                node.cur_screen = new Outdoor;
+                node.prev_screen = this;
+                node.prev_backable = false;  //outdoor screen will open
+                */
+                curScreen = new Outdoor(this, false);
+            }
+            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
+            {
+
+                //supposed to be file loading here.
+
+            }
+
+            else if (btn[2].WithinRegion(mouseX,mouseY)==true)
+            {
+                /*
+                node.cur_screen = new Setting;
+=======
+            if (btn[2].WithinRegion(mouseX,mouseY)==true)
+            {
+                node.cur_screen = new Setting;  //setting screen will open
+>>>>>>> 692f00a398e6175f2de9c44eb3d6848d8f926627
+                node.prev_screen = this;
+                node.prev_backable = true;
+                node.prev_updatable = false;
+                */
+                curScreen = new Setting(this, true, true, false, 1);
+            }
+
+            else if( cancelBtn->WithinRegion(mouseX, mouseY))
+            {
+
+                /*
+                node.cur_screen = new ExitMenu;
+=======
+                node.cur_screen = new ExitMenu; //Exit screen will open
+>>>>>>> 692f00a398e6175f2de9c44eb3d6848d8f926627
+                node.prev_screen = this;
+                node.prev_backable = true;
+                node.prev_updatable = false;
+                */
+                curScreen = new ExitMenu(this, true, true, false, 1);
+
+            }
+
+        }
+
+    }
+}
+
 
 MainMenu::~MainMenu()
 {
+    delete cancelBtn;
+    if (prevScreen != 0)
+    {
+        delete prevScreen;
+    }
+    delete highscorePos0;
 
 }

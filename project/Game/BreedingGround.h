@@ -1,17 +1,32 @@
 #pragma once
 #include <SDL.h>
 #include <SDL_image.h>
-#include "Mosquito.h"
+#include "FactoryProducer.h"
+#include "AbstractFactory.h"
+#include "Clickable.h"
+#include "Scenario.h"
+//#include "Mosquito.h"
 
-class BreedingGround
+
+class BreedingGround :public Clickable
 {
 private:
+
 protected:
-    SDL_Rect pos;
+    AbstractFactory* factory; //factory
+    int spriteNum;
+    int percentage;
+    void AddMosquito(Mosquito*);
 public:
+    BreedingGround(){};
     BreedingGround(int, int, int, int);
-    virtual void Show(SDL_Renderer*) = 0;
-    virtual Mosquito* Breed(int) = 0;
+   // virtual void Show(SDL_Renderer*) = 0;
+    virtual Mosquito* Breed() = 0;
     virtual ~BreedingGround();
     void UpdatePos(int,int);
+
+    virtual int GetBreedCount();
+    virtual void Write(std::ofstream&){};
+
+
 };

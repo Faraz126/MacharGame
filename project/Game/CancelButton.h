@@ -5,22 +5,21 @@
 #include "SDL.h"
 #include <string>
 #include <iostream>
+#include "Clickable.h"
 
-class CancelButton
+class CancelButton : public Clickable
 {
     void Click(SDL_Rect*);
     Texture * texture ;
-    SDL_Event e;
 
     public:
     int diffStateBtn;
-    SDL_Rect pos;
-    CancelButton (int x, int y);
-    CancelButton();
+    CancelButton(SDL_Rect);
     void Hover();
     void Click();
-    void Render ( SDL_Renderer * gRenderer );
-    void setPosition ( int x, int y);
+    void Update(int){};
+    void HandleEvents(SDL_Event*, Screens_Node&){};
+    void Show ( SDL_Renderer * );
 
 };
 
