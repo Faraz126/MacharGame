@@ -16,6 +16,7 @@ Human::Human(): Clickable(0,0,197, 575)
 Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
 {
 
+    hasRepeppant = false;
     spriteNum = 74;
     ownHouse  =  house;
     currentScenario = house;
@@ -28,7 +29,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     activity = WALKING;
     timeSince = 0;
     step = 1;
-    slowDownFactor = 5;
+    slowDownFactor = 2;
     isInfected = false;
     door = ownHouse->GetDoor();
     faceSprite = 86;
@@ -40,6 +41,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     bedToGoTo = 0;
     sentToBed = false;
     timeToDie = 200000;
+
 
 
 

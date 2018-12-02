@@ -27,6 +27,7 @@ class Bed;
 class Human: public Clickable
 {
 private:
+    bool hasRepeppant;
     SDL_Rect face, body, legs;
     House* ownHouse;
     Scenario* currentScenario;
@@ -86,6 +87,7 @@ public:
     void GoToHospital();
     void Damage();
     int GetDisease();
+    bool GetCoveredInRepellant(){return hasRepeppant;}
 
 
 
