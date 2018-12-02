@@ -81,7 +81,7 @@ void Tile::Show(SDL_Renderer* renderer)
 
 Tile::~Tile()
 {
-    delete[] word;
+    //delete[] word;
 }
 
 void Tile::UpdatePos(int x, int y)

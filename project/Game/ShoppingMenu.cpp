@@ -32,8 +32,6 @@ ShoppingMenu::ShoppingMenu():Menu()
     tile[3].SetValues(3);
     tile[3].SetTileText();
 
-    house = new House;
-
 }
 
 
@@ -88,8 +86,11 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
             {
                 SetMouseClicked(true);
                 if(e->button.button == SDL_BUTTON_LEFT)
+                {
                     tile[i].tileState =200;
-                    //tile[i].buy->Apply(house);
+
+                }
+
             }
             else
             {
