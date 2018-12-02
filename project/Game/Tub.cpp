@@ -20,7 +20,7 @@ void Tub::SetCovered(bool status)
 {
     if (status)
     {
-        lid->SetPosition(pos.x+5,pos.y-20); //set to right ahead of trashcan.
+        lid->SetPosition(pos.x,pos.y-12); //set to right ahead of trashcan.
     }
     Container::SetCovered(status);
 }

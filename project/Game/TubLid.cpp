@@ -2,7 +2,8 @@
 
 TubLid:: TubLid(int x, int y): Lids(x,y, TubLid_WIDTH, TubLid_HEIGHT)
 {
-    spriteNum = 70;
+    spriteNum = 131;
+    ReduceSize(0.4);
 }
 
 TubLid:: ~TubLid()

@@ -19,7 +19,7 @@ Manual::Manual(int x, int y, Hospital* hsp)
     manualPos->h = 359 *1.1;
 
     word = new Word[7];
-    checkbox = new CheckBox[3];
+    checkbox = new CheckBox[3];  //checkboxes position
     checkbox[0].SetPosition(manualPos->x+700,manualPos->y+90);
     checkbox[1].SetPosition(manualPos->x+700,manualPos->y+170);
     checkbox[2].SetPosition(manualPos->x+700,manualPos->y+250);
@@ -30,7 +30,7 @@ Manual::Manual(int x, int y, Hospital* hsp)
     option2 = "Rashes";
     option3 = "Fever";
 
-    word[0].SetText(question1);
+    word[0].SetText(question1); //setting questions and options for initial screen
     word[0].SetPosition(manualPos->x+330,manualPos->y+10);
     word[0].ReduceSize(0.8);
 
@@ -105,7 +105,7 @@ Manual::Manual(int x, int y, Hospital* hsp)
     screenChange = false;
     screen3WordShow =false;
 
-    btn = new Button;
+    btn = new Button;  //give medication button in screen3
     btn->setPosition(600,350);
     btn->SetWidth(571*0.7,102*0.7);
     btn->setText("Give Medication");
@@ -116,7 +116,7 @@ void Manual::Show(SDL_Renderer* gRenderer)
     Texture::GetInstance()->Render(129, gRenderer, manualPos);
     word[0].Show(gRenderer);
     word[1].Show(gRenderer);
-
+//displaying all options
 
     if (optionsToShow[0])
     {
@@ -169,7 +169,7 @@ void Manual::Update(int a)
 }
 void Manual::IntializeScreen2()
 {
-    wordAnswerShow = false;
+    wordAnswerShow = false;  //screen 2 questions and options based on screen one
     question1= "What are the other symptoms";
     question2="which are not visible?";
     option1 = "bloody stools";
@@ -201,7 +201,7 @@ void Manual::IntializeScreen2()
         checkbox[i].status= false;
     }
 
-    if(correctOption==0)
+    if(correctOption==0)  //correct option will change as options will
     {
         correctOption =0;
     }
@@ -218,7 +218,7 @@ void Manual::IntializeScreen2()
 }
 void Manual::IntializeScreen3()
 {
-    wordAnswerShow = false;
+    wordAnswerShow = false; //statement for screen3
     for (int i=0; i<3; i++)
     {
         optionsToShow[i]=false;
@@ -290,12 +290,12 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                         {
                             if(i != correctOption)
                             {
-                                optionsToShow[i] = false;
+                                optionsToShow[i] = false; //if wrong answer option will be removed and a wrong answer message will be displayed
                                 wordAnswerShow = true;
                             }
                             if(i == correctOption)
                             {
-                                screenNumber++;
+                                screenNumber++;  //if correct answer screen change
                                 screenChange = true;
 
                             }
@@ -308,7 +308,7 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                 {
                     if (screenChange)
                     {
-                        IntializeScreen2();
+                        IntializeScreen2(); //screen2
                         screenChange = false;
 
                     }
@@ -316,12 +316,12 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                     {
                         if(i != correctOption)
                         {
-                            optionsToShow[i] = false;
+                            optionsToShow[i] = false;  //if wrong answer option will be removed and a wrong answer message will be displayed
                             wordAnswerShow = true;
                         }
                         if(i == correctOption)
                         {
-                            screenNumber++;
+                            screenNumber++; //if correct option new screen
                             screenChange = false;
                             SDL_Delay(10);
 
@@ -338,7 +338,7 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                     if(btn->WithinRegion(mouseX,mouseY))
                     {
                         btn->Click();
-                        hsp->LeaveHuman();
+                        hsp->LeaveHuman(); //if give medication button will be clicked human will hospital screen and human will leave hospital
                         node.cur_screen = node.prev_screen;
                         node.prev_screen = this;
                         node.prev_updatable = false;

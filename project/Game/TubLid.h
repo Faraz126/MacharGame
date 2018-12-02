@@ -5,8 +5,8 @@
 #include "Texture.h"
 #include "Lids.h"
 
-const int TubLid_WIDTH = 80;
-const int TubLid_HEIGHT = 18.694;
+const int TubLid_WIDTH = 300;
+const int TubLid_HEIGHT = 96;
 
 class TubLid: public Lids
 {
