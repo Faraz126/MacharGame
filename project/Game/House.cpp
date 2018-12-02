@@ -71,19 +71,19 @@ House::House()
     }
 
     noOfBreedingPlaces = 1;
-    int y = 600;
+    int y = 550;
     while (noOfBreedingPlaces < 3 && y < 740)
     {
         if (rand()%3 == 1)
         {
             if (rand()%2 == 1)
             {
-                breedingplaces[noOfBreedingPlaces] = new Tub(15, y);
+                breedingplaces[noOfBreedingPlaces] = new Tub(15, y=600);
 
             }
             else
             {
-                breedingplaces[noOfBreedingPlaces] = new Tub(900, y);
+                breedingplaces[noOfBreedingPlaces] = new Tub(900, y=600);
             }
             myQ.Append(breedingplaces[noOfBreedingPlaces]);
             breedingplaces[noOfBreedingPlaces++]->ReduceSize(float(y)/1600);

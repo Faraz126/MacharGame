@@ -13,9 +13,16 @@ bool Container::GetCovered()
 
 void Container::SetCovered(bool status)
 {
-    if (status)
+    if (status && isCovered==false)
     {
-        (*Score::GetInstance())++;
+        for(int i = 0; i<20; i++)
+        {
+            (*Score::GetInstance())++;
+        }
+        for(int i = 0; i<GetBreedCount(); i++)
+        {
+            (*Score::GetInstance())--;
+        }
     }
     isCovered = status;
 }

@@ -7,6 +7,7 @@ CleanWater::CleanWater(int x, int y): Container(x,y, C_WATER_WIDTH, C_WATER_HEIG
     lid = new Soil(pos.x, pos.y - 100);
     percentage = 5;
     delay = 0;
+    breedCount = 0;
 }
 
 void CleanWater::SetCovered(bool status)
@@ -61,6 +62,7 @@ bool CleanWater :: IsActive()
 
 Mosquito* CleanWater::Breed()
 {
+    breedCount++;
     return factory->GetMosquito(AEDES);
 }
 
@@ -78,4 +80,9 @@ int CleanWater:: DelayLidTime()
 {
     delay ++;
     return delay;
+}
+
+int CleanWater :: GetBreedCount()
+{
+    return breedCount;
 }

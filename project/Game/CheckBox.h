@@ -9,7 +9,7 @@
 class CheckBox : public Clickable
 {
     Texture* texture;
-    int clickSprite = 84;
+    int clickSprite;
 
 
 public:

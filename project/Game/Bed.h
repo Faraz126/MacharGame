@@ -10,6 +10,9 @@ class Bed : public Clickable
 {
     bool occupied;
     Human* bedOccupied;
+    int state;
+    SDL_Rect* sitting;
+
 
 public:
     Bed();
@@ -17,11 +20,12 @@ public:
     void SetPos(int,int);
     void Show(SDL_Renderer*);
     void Update(int){};
-    void HandleEvents(SDL_Event*, Screens_Node&){};
+    void HandleEvents(SDL_Event*, Screens_Node&);
     //passing on players x co-ordinate only
     bool GetOccupied();
     void SetOccupied(bool, Human* = 0);
     int GetX();
     int GetY();
+    void HumanState(int);
     ~Bed();
 };

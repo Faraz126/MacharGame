@@ -33,15 +33,11 @@ private:
     SDL_Rect collideRect;
     double sizeFactor;
     int faceSprite,bodySprite,legSprite;
-    int health;
     double walker;
-    bool isIndoor;
-    bool isGoingToBed;
-    bool isGoingOut;
-    bool isWalking;
     Bed* bedToGoTo;
     int toFollowX;
     int toFollowY;
+    int health;
     int faceDirection;
     bool isVertical;
     bool isHorizontal;
@@ -52,17 +48,21 @@ private:
     int timeSince;
     int slowDownFactor;
     int spriteNum;
-    Door* door;
-    DLL<int> myStack;
+    Door* door; //pointer to ownHouses door
+    DLL<int> myStack; //activities to do.
     void GoOutdoor();
     void GoIndoor();
     void ChangeScenario(Scenario*);
     int disease;
-    int CoveredInRepellant;
-
-
-
-protected:
+    bool isIndoor;
+    bool sentToBed;
+    void BuildHuman();
+    void ChangeState(int = -1);
+    void ChangeBedToFollow();
+    void ChooseBed();
+    void ChooseDoor();
+    bool MoveAllowed();
+    void ChangeDirection();
 
 public:
     Human();
@@ -70,24 +70,17 @@ public:
     void Update(int);
     Human(int,int, House*);
     void Show(SDL_Renderer*);
-    void Damage();
-    void SetCoveredInRepellant();
-    void ChangeState(int = -1);
     bool Collide(SDL_Rect&);
-    void ChangeBedToFollow();
-    void ChooseBed();
-    void ChooseDoor();
-    bool MoveAllowed();
-    void ChangeDirection();
-    void BuildHuman();
     void HandleEvents(SDL_Event*, Screens_Node&);
     bool GetIndoor();
     void SetX(int, int);
-    void SetInfected(int);
+    void SetInfected(int); //for mosquito
     int GetInfected();
     void UpdatePos(int x, int y);
     bool Collides(const SDL_Rect&);
-
+    void GoToHospital();
+    void Damage();
+    int GetDisease();
 
 
 };

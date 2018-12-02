@@ -20,6 +20,11 @@ void BreedingGround::AddMosquito(Mosquito* produced)
     currentScenario->GetMosquitoes(n).Append(produced);
 }
 
+int BreedingGround :: GetBreedCount()
+{
+    return 0;
+}
+
 BreedingGround::~BreedingGround()
 {
 

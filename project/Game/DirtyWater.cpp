@@ -7,6 +7,7 @@ DirtyWater::DirtyWater(int x, int y): Container(x,y, WATER_WIDTH, WATER_HEIGHT)
     lid = new Soil(pos.x, pos.y - 100);
     percentage = 5;
     delay = 0;
+    breedCount = 0;
 
 }
 
@@ -52,6 +53,7 @@ void DirtyWater::Show(SDL_Renderer* renderer)
 
 Mosquito* DirtyWater::Breed()
 {
+    breedCount++;
     return factory->GetMosquito(MALARIA);
 }
 
@@ -71,6 +73,11 @@ int DirtyWater:: DelayLidTime()
 {
     delay ++;
     return delay;
+}
+
+int DirtyWater :: GetBreedCount()
+{
+    return breedCount;
 }
 
 DirtyWater::~DirtyWater()

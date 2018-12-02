@@ -12,6 +12,7 @@ const int MANHOLE_HEIGHT = 18.006;
 class Manhole : public Container
 {
 private:
+    int breedCount;
 
 protected:
 
@@ -23,6 +24,7 @@ public:
     void SetCovered(bool);
     ~Manhole();
     void HandleEvents(SDL_Event*, Screens_Node&);
+    int GetBreedCount();
     void Update(int);
 
 };

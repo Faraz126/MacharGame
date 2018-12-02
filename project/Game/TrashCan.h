@@ -17,11 +17,8 @@ const int CAN_HEIGHT = 73.234;
 
 class TrashCan : public Container
 {
-    static DLL<TrashCanLid*> lids;
     SDL_Rect ownRect;
-
-    void GenerateLid();
-    static bool first;
+    int breedCount;
     public:
         TrashCan(int,int);
         void Show(SDL_Renderer*);
@@ -30,6 +27,7 @@ class TrashCan : public Container
         void Update(int);
         Mosquito* Breed();
         void Collision();
+        int GetBreedCount();
         ~TrashCan();
         void SetX(int delta, int direction);
 };

@@ -12,6 +12,8 @@ class Button : public Clickable
 
     void Click(SDL_Rect*);
     Texture * texture ;
+    bool buttonSprite;
+    int sprite2;
 
     public:
     Word * word ; //public as will be used to decrease size
@@ -27,6 +29,8 @@ class Button : public Clickable
     void setPosition ( int , int );
     void SetWidth(int,int);
     ~Button();
+    void SetButtonSprite(bool);
+    void SetSprite2(int);
 
 };
 

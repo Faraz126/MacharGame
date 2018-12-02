@@ -5,6 +5,7 @@ Manhole::Manhole(int x, int y) : Container(x, y, MANHOLE_WIDTH, MANHOLE_HEIGHT)
     spriteNum = 62; //need to replace with updated spritesheet.
     lid = new ManholeLid(pos.x+100,pos.y-100);
     percentage = 5;
+    breedCount = 0;
 }
 
 void Manhole::SetCovered(bool status)
@@ -37,6 +38,7 @@ void Manhole::HandleEvents(SDL_Event* e, Screens_Node& node)
 
 Mosquito* Manhole::Breed()
 {
+    breedCount++;
     return factory->GetMosquito(NORMAL);
 }
 
@@ -50,6 +52,11 @@ void Manhole::Update(int)
             AddMosquito(Breed());
         }
     }
+}
+
+int Manhole :: GetBreedCount()
+{
+    return breedCount;
 }
 
 Manhole::~Manhole()

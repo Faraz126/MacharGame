@@ -15,6 +15,7 @@ class CleanWater : public Container
 {
 private:
     int delay;
+    int breedCount;
 protected:
 
 public:
@@ -22,6 +23,7 @@ public:
     Mosquito* Breed();
     bool IsActive();
     int DelayLidTime();
+    int GetBreedCount();
     void Show(SDL_Renderer*);
     void Update(int);
     ~CleanWater();

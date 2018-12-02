@@ -23,7 +23,7 @@ public:
 
     DLL()
     {
-        Node<Type>* head = tail = NULL;
+        head = tail = NULL;
         len = 0;
     }
 
@@ -288,7 +288,7 @@ public:
         else
         {
             int i = 0;
-            while(i!=index)
+            while (i!= index && c_node !=NULL )
             {
                 c_node = c_node->next;
                 i++;

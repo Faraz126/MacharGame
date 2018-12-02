@@ -13,6 +13,7 @@ class DirtyWater : public Container
 {
 private:
     int delay;
+    int breedCount;
 protected:
 
 public:
@@ -23,6 +24,7 @@ public:
     int DelayLidTime();
     ~DirtyWater();
     void SetCovered(bool);
+    int GetBreedCount();
     bool IsActive();
     void HandleEvents(SDL_Event*, Screens_Node&);
 
