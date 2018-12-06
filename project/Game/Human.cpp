@@ -17,6 +17,7 @@ Human::Human(): Clickable(0,0,197, 575)
 Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
 {
 
+    shake = false;
     hasRepeppant = false;
     spriteNum = 74;
     ownHouse  =  house;
@@ -671,18 +672,27 @@ void Human::Show(SDL_Renderer* renderer)
 
     else if (activity == IN_HOSPITAL)
     {
-        if(disease==2)
+        if(disease == MALARIA)
         {
-            Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
+            SDL_Rect newR;
+            newR = pos;
+            newR.x += 10;
+            Texture::GetInstance()->Render(135, renderer, &pos); ///HAVE TO CHANGE
+            Texture::GetInstance()->Render(134, renderer, &newR);
         }
-        if(disease==3)
+        else if(disease == CHICKENGUNYA)
         {
-            Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
+            Texture::GetInstance()->Render(135, renderer, &pos); ///HAVE TO CHANGE
         }
-        if(disease==4)
+        else if(disease == DENGUE)
         {
-            Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
+            Texture::GetInstance()->Render(136, renderer, &pos); ///HAVE TO CHANGE
         }
+        else
+        {
+            Texture::GetInstance()->Render(134, renderer, &pos);
+        }
+
     }
     //SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
     //SDL_RenderDrawRect(renderer, &collideRect);
@@ -714,7 +724,6 @@ void Human::GoOutdoor()
     sizeFactor = 0.2;
     ReduceSize(sizeFactor);
     BuildHuman();
-
     ChangeState(WALKING);
 }
 
@@ -774,15 +783,23 @@ void Human::SetInfected(int code)
     }
     */
 
-    this->disease = code;
+    if (this->disease <= BITEN)
+    {
+       this->disease = code;
+    }
+
 
     if (code == 0)
     {
 
     }
-    if (code)
+    if (code > BITEN)
     {
         isInfected = true;
+        if (code == MALARIA)
+        {
+            shake = true;
+        }
 
     }
 

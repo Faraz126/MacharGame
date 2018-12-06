@@ -5,7 +5,8 @@
 Window::Window(int x, int y): Entrance(x,y, 200,110)
 {
     spriteNum = 13;
-    timeCovered = currentTime = SDL_GetTicks();
+    timeCovered = 0;
+    endTime = currentTime + 10000;
     state = CLOSED;
     rect = 0;
 }
@@ -17,12 +18,12 @@ void Window::ShowOutside(SDL_Renderer* renderer)
 
 void Window::Update(int)
 {
-    currentTime = SDL_GetTicks();
-    if (currentTime > (timeCovered + (10*1000)))
+    timeCovered++;
+    if (timeCovered > endTime)
     {
         state = OPEN;
     }
-    else if(currentTime > (timeCovered + (5*1000)))
+    else if(timeCovered > endTime/2)
     {
         state = HALF_OPEN;
     }
@@ -52,7 +53,8 @@ void Window::Show(SDL_Renderer* renderer)
 void Window::ChangeState()
 {
     state = CLOSED;
-    timeCovered = SDL_GetTicks();
+    timeCovered = 0;
+    endTime = timeCovered + 10000;
 }
 
 bool Window::IsOpen()
@@ -63,7 +65,7 @@ bool Window::IsOpen()
     }
     else if (state == HALF_OPEN)
     {
-        return (rand()%3) == 0;
+        return (rand()%5) == 0;
     }
     return true;
 }

@@ -77,7 +77,7 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 curScreen = new Outdoor(this, false);
             }
 
-            if (btn[1].WithinRegion(mouseX,mouseY)==true)
+            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
 
                 /*
@@ -91,7 +91,7 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 curScreen = new MainMenu(this, false);
             }
 
-            if( cancelBtn->WithinRegion(mouseX, mouseY))
+            else if( cancelBtn->WithinRegion(mouseX, mouseY))
             {
 
                 /*

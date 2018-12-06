@@ -14,7 +14,6 @@
 #include"Outdoor.h"
 #include "GLOBALS.h"
 #include"Hospital.h"
-
 #include "Plant.h"
 #include <fstream>
 #include <sstream>

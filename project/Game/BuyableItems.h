@@ -27,7 +27,7 @@ public:
     virtual void Apply(House*) = 0;
     std::string GetName();
     int GetSpriteNum();
-    int GetPrice();
+    Money& GetPrice();
     ~BuyableItems();
 };
 

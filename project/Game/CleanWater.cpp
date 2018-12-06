@@ -35,7 +35,10 @@ void CleanWater::HandleEvents(SDL_Event* e, Screens_Node& node)
 
 void CleanWater::Show(SDL_Renderer* renderer)
 {
-
+    if (delay > 1000)
+    {
+        return;
+    }
     if (!GetCovered())
     {
         Texture::GetInstance()->Render(spriteNum,renderer, &pos);
@@ -52,9 +55,13 @@ void CleanWater::Update(int)
             AddMosquito(Breed());
         }
     }
+    else
+    {
+        delay ++;
+    }
 }
 
-bool CleanWater :: IsActive()
+bool CleanWater::IsActive()
 {
     if (GetCovered())
     {

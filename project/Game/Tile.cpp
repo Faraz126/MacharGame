@@ -1,5 +1,6 @@
 #include "Tile.h"
 #include "BuyableItems.h"
+#include "House.h"
 
 Tile::Tile(int a): Clickable(0,0, 0, 0)
 {
@@ -30,6 +31,7 @@ Tile::Tile(int a): Clickable(0,0, 0, 0)
     }
 
 
+
 }
 
 Tile::Tile(): Clickable(0,0, 210, 65)
@@ -41,11 +43,20 @@ void Tile::SetTileText()
 {
     word[0].SetText(buy->GetName()); //name of whatever product it  is
     word[0].ReduceSize(0.5);
-    word[1].SetText(std::to_string(buy->GetPrice())); //price of whatever product it  is by converting into string
+    word[1].SetText(std::to_string(buy->GetPrice().GetPaisa())); //price of whatever product it  is by converting into string
     word[1].ReduceSize(0.5);
 }
 
+bool Tile::Buyable(Money& houseMoney)
+{
+    return houseMoney > buy->GetPrice();
+}
 
+void Tile::Buy(House* house)
+{
+    buy->Apply(house);
+    house->GetMoney()-(buy->GetPrice().GetPaisa());
+}
 
 
 void Tile::SetValues(int a)

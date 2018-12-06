@@ -1,5 +1,5 @@
 #include "Nets.h"
-
+#include "House.h"
 
 Nets::Nets()
 {
@@ -10,12 +10,12 @@ Nets::Nets()
 
 void Nets::Apply(House* house)
 {
-//    int n;
-//    Entrance** windows = house->GetEntrance(n);
-//    for(int i = 0;i < n;i++)
-//    {
-//        windows[i]->SetTimeCovered();   // Window State should be an int so that it keeps being updated when net is applied
-//    }
+    int n;
+    Entrance** windows = house->GetEntrance(n);
+    for(int i = 1;i < n;i++)
+    {
+        windows[i]->ChangeState();   // Window State should be an int so that it keeps being updated when net is applied
+    }
 }
 
 

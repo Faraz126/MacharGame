@@ -18,9 +18,9 @@ string BuyableItems::GetName()
     return name;
 }
 
-int BuyableItems::GetPrice()
+Money& BuyableItems::GetPrice()
 {
-    return price.GetPaisa();
+    return price;
 }
 
 int BuyableItems::GetSpriteNum()

@@ -138,6 +138,7 @@ Hospital :: ~Hospital()
 
  bool Hospital :: AddHuman(Human* human)
  {
+
      bool allowAppend = false;
      if(humans.GetLength()<=8) //only 8 humans allowed in hospital
      {
@@ -171,7 +172,8 @@ void Hospital :: LeaveHuman(Human* human)
 
 void Hospital :: LeaveHuman()
 {
-      humans.Pop();
+    manualShow = false;
+      humans.Pop()->GoIndoor();
       for(int i = 0; i<humans.GetLength(); i++)
      {
          humans.GiveItem(i)->UpdatePos(humanPos[i],465);

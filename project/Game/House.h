@@ -77,6 +77,7 @@ public:
     void Update(int);
     void HandleEvents(SDL_Event* e, Screens_Node&);
     int NoOfHumans();
+    Money& GetMoney();
     Door* GetDoor();
     Bed* GetBeds(int&);
 
