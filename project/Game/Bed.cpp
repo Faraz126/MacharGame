@@ -26,9 +26,10 @@ Bed::Bed(int x, int y): Clickable(x,y,153,174)
 
 void Bed::Show(SDL_Renderer* renderer)
 {
-
+    /*
     SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
     SDL_RenderDrawRect(renderer, &pos);
+    */
     if (occupied)
     {
         if (state == SITTING)
