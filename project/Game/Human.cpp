@@ -94,13 +94,13 @@ void Human::Damage()
 
 bool Human::Collide(SDL_Rect& tempRect)
 {
-    DLL<Clickable*> myQ = currentScenario->GetQ();
+    DLL<Clickable*>* myQ = &currentScenario->GetQ();
 
-    for (int i = 0; i < myQ.GetLength(); i++)
+    for (int i = 0; i < myQ->GetLength(); i++)
     {
-        if (myQ.GiveItem(i)->Collides(tempRect) && myQ.GiveItem(i) != this)
+        if (myQ->GiveItem(i)->Collides(tempRect) && myQ->GiveItem(i) != this)
         {
-            myQ.GiveItem(i)->Collision();
+            myQ->GiveItem(i)->Collision();
             return true;
         }
     }
@@ -647,7 +647,7 @@ void Human::Show(SDL_Renderer* renderer)
             face += 6;
         }
 
-        leg.x = leg.x + (((int)walker)*leg.w);
+        leg.x =  leg.x + (((int)walker)*leg.w);
 
         if (!flipped)
         {
@@ -672,7 +672,7 @@ void Human::Show(SDL_Renderer* renderer)
 
     else if (activity == IN_HOSPITAL)
     {
-        if(disease == MALARIA)
+        if(disease == DISEASE_MALARIA)
         {
             SDL_Rect newR;
             newR = pos;
@@ -682,15 +682,15 @@ void Human::Show(SDL_Renderer* renderer)
         }
         else if(disease == CHICKENGUNYA)
         {
-            Texture::GetInstance()->Render(135, renderer, &pos); ///HAVE TO CHANGE
+            Texture::GetInstance()->Render(87, renderer, &pos); ///HAVE TO CHANGE
         }
         else if(disease == DENGUE)
         {
-            Texture::GetInstance()->Render(136, renderer, &pos); ///HAVE TO CHANGE
+            Texture::GetInstance()->Render(90, renderer, &pos); ///HAVE TO CHANGE
         }
         else
         {
-            Texture::GetInstance()->Render(134, renderer, &pos);
+            //Texture::GetInstance()->Render(134, renderer, &pos);
         }
 
     }
@@ -708,7 +708,7 @@ void Human::GoIndoor()
     door = ownHouse->GetDoor();
     door->GetCenter(pos.x, pos.y);
     sizeFactor = 0.3;
-    ReduceSize(sizeFactor);
+    //ReduceSize(sizeFactor);
     BuildHuman();
     ChangeState();
 }
@@ -722,7 +722,7 @@ void Human::GoOutdoor()
     door = ownHouse->GetDoor();
     door->OutdoorPosCenter(pos.x, pos.y);
     sizeFactor = 0.2;
-    ReduceSize(sizeFactor);
+    //ReduceSize(sizeFactor);
     BuildHuman();
     ChangeState(WALKING);
 }
@@ -791,10 +791,11 @@ void Human::SetInfected(int code)
 
     if (code == 0)
     {
-
+        isInfected  = false;
     }
     if (code > BITEN)
     {
+        Alert::Add(this);
         isInfected = true;
         if (code == MALARIA)
         {
@@ -815,7 +816,7 @@ int Human::GetInfected()
 
 void Human::GoToHospital()
 {
-
+    Alert::Remove(this);
     timeToDie = 20000;
     isInfected = false;
     isIndoor = false;

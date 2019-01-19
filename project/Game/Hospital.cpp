@@ -168,16 +168,20 @@ void Hospital :: LeaveHuman(Human* human)
      {
          humans.GiveItem(i)->UpdatePos(humanPos[i],465);
      }
+     popped = humans.GiveItem(0);
 }
 
 void Hospital :: LeaveHuman()
 {
     manualShow = false;
-      humans.Pop()->GoIndoor();
-      for(int i = 0; i<humans.GetLength(); i++)
-     {
-         humans.GiveItem(i)->UpdatePos(humanPos[i],465);
-     }
+    Human* ptr = humans.Pop();
+    ptr->SetInfected(0);
+    ptr->GoIndoor();
+    for(int i = 0; i<humans.GetLength(); i++)
+    {
+        humans.GiveItem(i)->UpdatePos(humanPos[i],465);
+    }
+    popped = humans.GiveItem(0);
 }
 
 Human* Hospital :: GetPopped() ///to display the first human on manual

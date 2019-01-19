@@ -323,7 +323,6 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                     {
                         IntializeScreen2(); //screen2
                         screenChange = false;
-
                     }
                     if(checkbox[i].status)
                     {
@@ -337,9 +336,7 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                             screenNumber++; //if correct option new screen
                             screenChange = false;
                             SDL_Delay(10);
-
                         }
-
                     }
                     break;
 

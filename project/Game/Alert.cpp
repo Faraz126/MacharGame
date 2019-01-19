@@ -2,6 +2,8 @@
 #include "EndMenu.h"
 #include <random>
 
+DLL<Human*>* Alert::humans = new DLL<Human*>;
+
 Alert::Alert()
 {
 
@@ -118,12 +120,32 @@ Alert::Alert()
 
 }
 
+void Alert::Add(Human* human)
+{
+    humans->Append(human);
+}
+
+
+void Alert::Remove(Human* human)
+{
+    humans->RemoveItem(human);
+}
+
 void Alert::Show(SDL_Renderer* gRenderer, int timerSprite)
 {
-    texture = Texture::GetInstance(gRenderer);
+
+    if (humans->GetLength() > 0)
+    {
+        texture = Texture::GetInstance(gRenderer);
+        texture->RenderBack(38, gRenderer, &alert[0], timerPos);
+    }
+
+
+    /*
+
     if (show)
     {
-        texture->RenderBack(38, gRenderer, &alert[timerSprite], timerPos);
+
     }
 
     if(int(timerSprite)==34)
@@ -137,6 +159,7 @@ void Alert::Show(SDL_Renderer* gRenderer, int timerSprite)
         }
         screenEnd = true;
     }
+    */
 
 
 

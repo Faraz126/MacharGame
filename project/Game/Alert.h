@@ -5,6 +5,9 @@
 #include "Texture.h"
 #include "Word.h"
 #include "Screens.h"
+#include "DoublyLinked.h"
+#include "Human.h"
+
 class EndMenu;
 
 class Alert
@@ -21,6 +24,8 @@ class Alert
     std::string str2;
     std::string str3;
     int randStr3;
+    static DLL<Human*>* humans;
+
 
     bool show;
 
@@ -28,6 +33,8 @@ public:
     Alert();
     double GetTimerSprite();
     void Show(SDL_Renderer*, int);
+    static void Add(Human*);
+    static void Remove(Human*);
     //void Update(double);
     void HandleEvents(SDL_Event*, Screens_Node&);
     ~Alert();
