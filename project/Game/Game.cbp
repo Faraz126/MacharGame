@@ -16,10 +16,13 @@
 					<Add option="-g" />
 					<Add directory="../SDL2_image-devel-2.0.3-mingw/SDL2_image-2.0.3/i686-w64-mingw32/include/SDL2" />
 					<Add directory="../SDL2-devel-2.0.8-mingw/SDL2-2.0.8/i686-w64-mingw32/include/SDL2" />
+					<Add directory="../SDL2_mixer-2.0.4/i686-w64-mingw32/include/SDL2" />
 				</Compiler>
 				<Linker>
+					<Add option="-lSDL2_mixer" />
 					<Add directory="../SDL2_image-devel-2.0.3-mingw/SDL2_image-2.0.3/i686-w64-mingw32/lib" />
 					<Add directory="../SDL2-devel-2.0.8-mingw/SDL2-2.0.8/i686-w64-mingw32/lib" />
+					<Add directory="../SDL2_mixer-2.0.4/i686-w64-mingw32/lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -39,18 +42,25 @@
 			<Add option="-Wall" />
 			<Add directory="../SDL2-devel-2.0.8-mingw/SDL2-2.0.8/i686-w64-mingw32/include/SDL2" />
 			<Add directory="../SDL2_image-devel-2.0.3-mingw/SDL2_image-2.0.3/i686-w64-mingw32/include/SDL2" />
+			<Add directory="../SDL2_mixer-2.0.4/x86_64-w64-mingw32/include/SDL2" />
 		</Compiler>
 		<Linker>
 			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_image" />
+			<Add option="-lSDL2_mixer" />
 			<Add directory="../SDL2_image-devel-2.0.3-mingw/SDL2_image-2.0.3/i686-w64-mingw32/lib" />
 			<Add directory="../SDL2-devel-2.0.8-mingw/SDL2-2.0.8/i686-w64-mingw32/lib" />
+			<Add directory="../SDL2_mixer-2.0.4/x86_64-w64-mingw32/lib" />
 		</Linker>
+		<Unit filename=" ss.txt" />
+		<Unit filename=" ssgsg.txt" />
 		<Unit filename="AbstractFactory.cpp" />
 		<Unit filename="AbstractFactory.h" />
 		<Unit filename="AedesMosquito.cpp" />
 		<Unit filename="AedesMosquito.h" />
 		<Unit filename="Alert.cpp" />
 		<Unit filename="Alert.h" />
+		<Unit filename="BadMedicine.cpp" />
+		<Unit filename="BadMedicine.h" />
 		<Unit filename="Bed.cpp" />
 		<Unit filename="Bed.h" />
 		<Unit filename="BreedingGround.cpp" />
@@ -59,13 +69,14 @@
 		<Unit filename="BucketLid.h" />
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.h" />
+		<Unit filename="BuyableItems.cpp" />
+		<Unit filename="BuyableItems.h" />
 		<Unit filename="CancelButton.cpp" />
 		<Unit filename="CancelButton.h" />
 		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
 		<Unit filename="CheckBox.cpp" />
 		<Unit filename="CheckBox.h" />
-		<Unit filename="ChickengunyaMosquito.h" />
 		<Unit filename="CleanWater.cpp" />
 		<Unit filename="CleanWater.h" />
 		<Unit filename="Clickable.cpp" />
@@ -75,12 +86,13 @@
 		<Unit filename="Color.h" />
 		<Unit filename="Container.cpp" />
 		<Unit filename="Container.h" />
+		<Unit filename="DDT.cpp" />
+		<Unit filename="DDT.h" />
 		<Unit filename="DirtyWater.cpp" />
 		<Unit filename="DirtyWater.h" />
-		<Unit filename="Disease.cpp" />
-		<Unit filename="Disease.h" />
 		<Unit filename="Door.cpp" />
 		<Unit filename="Door.h" />
+		<Unit filename="DoublyLinked.h" />
 		<Unit filename="EndMenu.cpp" />
 		<Unit filename="EndMenu.h" />
 		<Unit filename="Entrance.cpp" />
@@ -89,8 +101,6 @@
 		<Unit filename="ExitMenu.h" />
 		<Unit filename="FactoryProducer.cpp" />
 		<Unit filename="FactoryProducer.h" />
-		<Unit filename="HighscoreMenu.cpp" />
-		<Unit filename="HighscoreMenu.h" />
 		<Unit filename="Hospital.cpp" />
 		<Unit filename="Hospital.h" />
 		<Unit filename="House.cpp" />
@@ -120,6 +130,8 @@
 		<Unit filename="Mosquito.h" />
 		<Unit filename="MosquitoFactory.cpp" />
 		<Unit filename="MosquitoFactory.h" />
+		<Unit filename="Nets.cpp" />
+		<Unit filename="Nets.h" />
 		<Unit filename="Node.h" />
 		<Unit filename="NormalMosquito.cpp" />
 		<Unit filename="NormalMosquito.h" />
@@ -131,8 +143,11 @@
 		<Unit filename="Plant.h" />
 		<Unit filename="Point.h" />
 		<Unit filename="Queue.h" />
+		<Unit filename="Repellant.cpp" />
+		<Unit filename="Repellant.h" />
 		<Unit filename="SaveScreen.cpp" />
 		<Unit filename="SaveScreen.h" />
+		<Unit filename="Saving.txt" />
 		<Unit filename="Scenario.cpp" />
 		<Unit filename="Scenario.h" />
 		<Unit filename="Score.cpp" />
@@ -162,6 +177,7 @@
 		<Unit filename="TrashCanLid.h" />
 		<Unit filename="Tub.cpp" />
 		<Unit filename="Tub.h" />
+		<Unit filename="TubLid.cpp" />
 		<Unit filename="TubLid.h" />
 		<Unit filename="Window.cpp" />
 		<Unit filename="Window.h" />

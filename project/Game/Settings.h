@@ -1,6 +1,7 @@
 #pragma once
 #include "Texture.h"
 #include <iostream>
+#include <fstream>
 #include <string>
 #include "string.h"
 #include "CancelButton.h"
@@ -35,7 +36,7 @@ private:
 protected:
 
 public:
-    Setting();
+    Setting(Screens*, bool, bool = false, bool = false, int = 1);
     void Click(SDL_Event*);
     void Hover (SDL_Event*);
     void Show(SDL_Renderer*);

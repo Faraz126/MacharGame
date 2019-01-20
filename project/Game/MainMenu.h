@@ -3,11 +3,17 @@
 #include "SDL_image.h"
 #include "Menu.h"
 #include "CancelButton.h"
-#include <iostream>
+
 #include "string"
 #include "Outdoor.h"
 #include "Settings.h"
 #include "ExitMenu.h"
+#include <fstream>
+#include <sstream>
+#include <ostream>
+#include <istream>
+#include <iostream>
+
 
 class Highscore;
 
@@ -26,9 +32,10 @@ class MainMenu: public Menu
     std::string buttonText[3];
     SDL_Rect* highscorePos0;
 
+
 public:
 
-    MainMenu();
+    MainMenu(Screens*, bool);
     void HoverClick(SDL_Event*);
     void Show(SDL_Renderer*);
     void Update(int);

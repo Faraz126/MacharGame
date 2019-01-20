@@ -19,6 +19,7 @@ void Door::OutdoorPosCenter(int& followX, int& followY)
     followY = outdoorPos.y + (outdoorPos.h/2);
 }
 
+
 void Door::Show(SDL_Renderer* renderer)
 {
     if (rect == 0)

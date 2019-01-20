@@ -1,7 +1,6 @@
 #pragma once
 #include "BuyableItems.h"
 
-
 class BadMedicine : public BuyableItems
 {
 

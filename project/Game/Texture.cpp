@@ -85,10 +85,18 @@ void Texture::Render(char character, SDL_Renderer* gRenderer, SDL_Rect * clip) /
     SDL_RenderCopy(gRenderer, this->texture, &clipFromTexture, clip);
 }
 
-void Texture::RenderBack(int serial, SDL_Renderer* renderer, SDL_Rect* clip1, SDL_Rect* clip2)
+void Texture::RenderBack(int serial, SDL_Renderer* renderer, SDL_Rect* clip1, SDL_Rect* clip2, bool flipped)
 {
     SetRect(serial);
-    SDL_RenderCopyEx(renderer, this->texture, clip1, clip2,0.0,0,SDL_FLIP_NONE);
+    if (!flipped)
+    {
+        SDL_RenderCopyEx(renderer, this->texture, clip1, clip2,0.0,0,SDL_FLIP_NONE);
+    }
+
+    if (flipped)
+    {
+        SDL_RenderCopyEx(renderer, this->texture, clip1, clip2,0.0,0,SDL_FLIP_HORIZONTAL);
+    }
 }
 
 void Texture::SetRect(int n)
@@ -906,6 +914,18 @@ void Texture::SetRect(int n)
         break;
     case 134:
         clipFromTexture.x = 2732;
+        clipFromTexture.y = 4773;
+        clipFromTexture.w = 169;
+        clipFromTexture.h = 350;
+        break;
+    case 135:
+        clipFromTexture.x = 2931;
+        clipFromTexture.y = 4773;
+        clipFromTexture.w = 169;
+        clipFromTexture.h = 350;
+        break;
+    case 136:
+        clipFromTexture.x = 3131;
         clipFromTexture.y = 4773;
         clipFromTexture.w = 169;
         clipFromTexture.h = 350;

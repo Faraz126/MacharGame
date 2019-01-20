@@ -1,6 +1,6 @@
 #include "Closing.h"
 
-Closing::Closing()
+Closing::Closing(Screens* prevScreen, bool back, bool show, bool update, int factor): Menu(prevScreen, back, show, update, factor)
 {
     closingPos = new SDL_Rect;
     closingPos->x= 0;

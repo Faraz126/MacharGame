@@ -8,7 +8,9 @@ class Scenario;
 
 class Clickable
 {
+    ///base class for almost every object that is displayed on screen. Contains utility methods.
     public:
+        Clickable(){};
         Clickable(int,int,int,int);
         bool WithinRegion(int, int);
         virtual void UpdatePos(int,int);
@@ -27,7 +29,8 @@ class Clickable
         int GetX();
         int GetY();
         virtual void Collision(){};
-
+        virtual bool IsActive();
+        virtual int DelayLidTime();
         void SetScenario(Scenario*);
         Scenario* GetScenario();
     protected:

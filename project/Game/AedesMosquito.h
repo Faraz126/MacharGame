@@ -9,21 +9,10 @@ class Human;
 class AedesMosquito : public Mosquito
 {
 private:
-    double clip;
-    int human;
-
+    const int diseases[2] = {DENGUE,CHICKENGUNYA};
 public:
     AedesMosquito();
     AedesMosquito(Scenario*);
-    void Update(int);
-    void Bite(Human*);
-    void Fly();
-    void Follow(Human*);
-    void Follow(Entrance*);
-    void Show(SDL_Renderer*);
-    void DetectAnEntrance();
-    void DetectAHuman();
-    void DetectOrFollow();
-    void ReachedEntrance();
-    ~AedesMosquito();
+    void Bite();
+    ~AedesMosquito(){};
 };

@@ -6,8 +6,10 @@
 #include <iostream>
 #include <string>
 #include "string.h"
-class House;
+
 #include "Money.h"
+
+class House;
 
 class BuyableItems
 {
@@ -25,7 +27,7 @@ public:
     virtual void Apply(House*) = 0;
     std::string GetName();
     int GetSpriteNum();
-    int GetPrice();
+    Money& GetPrice();
     ~BuyableItems();
 };
 

@@ -9,6 +9,7 @@ TrashCan::TrashCan(int x, int y): Container(x,y,CAN_WIDTH, CAN_HEIGHT)
     pos.h = 20;
     lid = new TrashCanLid(ownRect.x, ownRect.y + 100); //creating trash can lid at the given point
     percentage = 5;
+    breedCount = 0;
 }
 
 
@@ -66,7 +67,7 @@ void TrashCan::HandleEvents(SDL_Event* e, Screens_Node& node)
 void TrashCan::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->Render(spriteNum,renderer, &ownRect);
-    SDL_RenderDrawRect(renderer, &pos);
+    //SDL_RenderDrawRect(renderer, &pos);
     lid->Show(renderer);
 }
 
@@ -77,6 +78,7 @@ TrashCan::~TrashCan()
 
 Mosquito* TrashCan::Breed()
 {
+    breedCount++;
     return factory->GetMosquito(NORMAL);
 }
 
@@ -89,4 +91,9 @@ void TrashCan::Update(int)
             AddMosquito(Breed());
         }
     }
+}
+
+int TrashCan :: GetBreedCount()
+{
+    return breedCount;
 }

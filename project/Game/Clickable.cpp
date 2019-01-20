@@ -5,6 +5,7 @@
 
 Clickable::Clickable(int x, int y, int w, int h)
 {
+    ///the position on screen
     pos.x = x;
     pos.y = y;
     pos.w = w;
@@ -30,11 +31,12 @@ int Clickable::GetY()
 
 bool Clickable::WithinRegion(int x, int y) //to know if mouse will be in region
 {
-    return (x >= pos.x && y >= pos.y && x <= pos.x + pos.w && y <= pos.y + pos.h);
+    return (x >= pos.x && y >= pos.y && x <= pos.x + pos.w && y <= pos.y + pos.h); //if the given co-ordinates fall within the object
 }
 
 bool Clickable::Collides(const SDL_Rect& rect)  //collision detection
 {
+    ///to determine collision between two rectangles. Logic copied from LazyFoo.
     if (pos.y + pos.h <= rect.y)
     {
         return false;
@@ -130,11 +132,21 @@ void Clickable:: SetX(int delta, int direction)
 
 void Clickable::SetScenario(Scenario* scenario)
 {
+    ///to determine where the object is located, i.e. indoor or outdoor
     currentScenario = scenario;
 }
 
+bool Clickable::IsActive()
+{
+    return false;
+}
 
 Scenario* Clickable::GetScenario()
 {
     return currentScenario;
+}
+
+int Clickable :: DelayLidTime()
+{
+    return 0;
 }

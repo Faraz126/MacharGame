@@ -1,7 +1,10 @@
 #include "MainMenu.h"
+
 #include "HighscoreMenu.h"
 
-MainMenu::MainMenu():Menu(3,354,506,false)
+using namespace std;
+
+MainMenu::MainMenu(Screens* prevScreen, bool back):Menu(3,354,506,false, prevScreen, back, false, false, 1)
 {
     pos0.x= 0;
     pos0.y = 0;
@@ -85,10 +88,12 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
         {
             if( ( mouseX >highscorePos0->x ) && ( mouseX < (highscorePos0->x+highscorePos0->w) ) && ( mouseY > highscorePos0->y ) && (mouseY< (highscorePos0->y+highscorePos0->h) ) )
             {
+                /*
                 node.cur_screen = new Highscore; //highscore menu
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = false;
+                */
             }
 
 
@@ -96,27 +101,49 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
             SetMouseClicked(true);
             if (btn[0].WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = new Outdoor;
                 node.prev_screen = this;
                 node.prev_backable = false;  //outdoor screen will open
+                */
+                curScreen = new Outdoor(this, false);
+            }
+            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
+            {
+
+                //supposed to be file loading here.
 
             }
 
-
+            else if (btn[2].WithinRegion(mouseX,mouseY)==true)
+            {
+                /*
+                node.cur_screen = new Setting;
+=======
             if (btn[2].WithinRegion(mouseX,mouseY)==true)
             {
                 node.cur_screen = new Setting;  //setting screen will open
+>>>>>>> 692f00a398e6175f2de9c44eb3d6848d8f926627
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = false;
+                */
+                curScreen = new Setting(this, true, true, false, 1);
             }
 
-            if( cancelBtn->WithinRegion(mouseX, mouseY))
+            else if( cancelBtn->WithinRegion(mouseX, mouseY))
             {
+
+                /*
+                node.cur_screen = new ExitMenu;
+=======
                 node.cur_screen = new ExitMenu; //Exit screen will open
+>>>>>>> 692f00a398e6175f2de9c44eb3d6848d8f926627
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = false;
+                */
+                curScreen = new ExitMenu(this, true, true, false, 1);
 
             }
 
@@ -129,5 +156,10 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 MainMenu::~MainMenu()
 {
     delete cancelBtn;
+    if (prevScreen != 0)
+    {
+        delete prevScreen;
+    }
     delete highscorePos0;
+
 }

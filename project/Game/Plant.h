@@ -11,7 +11,7 @@
 #include "Texture.h"
 #include <fstream>
 #include <sstream>
-
+#include"Score.h"
 
 const int PLANT_WIDTH = 80;
 const int PLANT_HEIGHT = 150.588;
@@ -19,15 +19,16 @@ const int PLANT_HEIGHT = 150.588;
 class Plant : public Container
 {
     int type;
-    CleanWater* water;
     public:
+        Plant(){};
         Plant(int, int);
         void SetCovered(bool);
         void Show(SDL_Renderer*);
         void Update(int);
         void HandleEvents(SDL_Event*, Screens_Node&);
         Mosquito* Breed();
-        void Write(std::ofstream&);
+        void Write(std::fstream&);
+        void Read(std::fstream&);
 
         ~Plant();
 };

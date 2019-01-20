@@ -1,6 +1,7 @@
+#pragma once
 #include "BuyableItems.h"
 #include "Money.h"
-
+#include "Entrance.h"
 
 class Nets : public BuyableItems
 {

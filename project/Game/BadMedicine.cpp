@@ -17,7 +17,7 @@ void BadMedicine::Apply(House* house)
     DLL<Human*> humans =  house->GetHumans(n);
     for(int i = 0;i < n;i++)
     {
-        if(rand() % 2 == 0 && humans.GiveItem(i)->GetInfected() != NULL)      // this condition is basically for humans to lose health if they're infected
+        if(rand() % 2 == 0 && humans.GiveItem(i)->GetInfected() != 0)      // this condition is basically for humans to lose health if they're infected
         {
             humans.GiveItem(i)->Damage();
         }

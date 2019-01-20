@@ -2,7 +2,8 @@
 
 ManholeLid:: ManholeLid(int x, int y): Lids(x,y, MANHOLELID_WIDTH, MANHOLELID_HEIGHT)
 {
-    spriteNum = 70;
+    ReduceSize(0.5);
+    spriteNum = 117;
 }
 
 ManholeLid:: ~ManholeLid()

@@ -4,9 +4,10 @@
 
 DDT::DDT()
 {
-    name = "DDT";
+    name = "Spray";
     price.SetPaisa(230);
     spriteNum = 76;
+
 }
 
 void DDT::Apply(House* house)

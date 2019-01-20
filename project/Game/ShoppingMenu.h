@@ -31,6 +31,8 @@ private:
 protected:
 
 public:
+
+    ShoppingMenu(Screens*, bool, bool, bool, int);
     void SetShopShow(bool);
     bool GetShopShow();
     ShoppingMenu();

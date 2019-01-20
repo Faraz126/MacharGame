@@ -19,11 +19,14 @@ public:
 
     static Score* GetInstance();
     ~Score();
+    int GetScore();
     void Show(SDL_Renderer*);
     Score operator+(const Score&);
     Score operator-(const Score&);
     Score operator*(const Score&);
+
     void operator++(int);
+    void operator--(int);
     bool operator<(const Score&);
     bool operator>(const Score&);
     bool operator==(const Score&);

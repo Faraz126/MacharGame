@@ -1,14 +1,18 @@
 #pragma once
 #include <iostream>
-
+#include <vector>
 
 using namespace std;
 
 template <typename Type>
 struct Node
 {
+/*
     Type data;
     Node<Type>* next;
+    Node<Type>* prev;
+*/
+
 
 };
 
@@ -16,16 +20,24 @@ template <class Type>
 class DLL
 {
 
+/*
     Node<Type>* head;
     Node<Type>* tail;
     int len;
+*/
+    std::vector<Type> myV;
+
 
 public:
 
     DLL()
     {
+        /*
         head = tail = NULL;
         len = 0;
+        */
+
+
 
     }
 
@@ -34,6 +46,7 @@ public:
 
     DLL(const DLL& list_given)
     {
+        /*
         head = tail = NULL;
         len = 0;
         Node<Type>* temp = list_given.head;
@@ -43,62 +56,223 @@ public:
             temp = temp->next;
         }
         Append(temp->data);
+        */
 
-    }
-    void display()
-    {
-       Node<Type>* ptr;
-       ptr = head;
-       while (ptr != NULL)
+        for (int i = 0; i < list_given.myV.size(); i++)
         {
-            cout<< ptr->data <<" ";
-            ptr = ptr->next;
+            myV.push_back(list_given.myV[i]);
         }
+
     }
 
     void Append(Type data)
     {
-        Node<Type>* temp = new Node<Type>;
-        temp->data = data;
-        temp->next = NULL;
-        if(head == NULL)
+        myV.push_back(data);
+        /*
+
+        if (len == 0)
         {
-            head = tail = temp;
-            tail->next = NULL;
+            head = tail = new Node<Type>;
+            head->data = data;
+            head->next= 0;
+            head->prev = 0;
         }
         else
         {
-            tail->next = temp;
-            tail = temp;
-            tail->next = NULL;
+            tail->next = new Node<Type>;
+            tail->next->data = data;
+            tail->next->prev = tail;
+            tail->next->next = 0;
+            tail = tail->next;
         }
         len++;
+        */
 
 
 
+    }
+
+    void Append(Type data, int index)
+    {
+        /*
+        if(index >= 0 && index <= len )
+        {
+            if (index == 0)
+            {
+                if ( len == 0)
+                {
+                    head = tail = new Node<Type>;
+                    head -> data = data ;
+                }
+                else
+                {
+                    head -> prev = new Node<Type> ;
+                    head ->prev -> next = head ;
+                    head = head -> prev ;
+                    head -> data = data ;
+                }
+            }
+
+            else if (index == len )
+            {
+                tail -> next = new Node<Type>;
+                tail ->next -> prev = tail ;
+                tail = tail -> next ;
+                tail -> data = data ;
+            }
+            else
+            {
+                Node<Type>* temp ;
+                if (index <= len /2)
+                {
+                    temp = head ;
+                    for ( int j = 0; j < index; j ++)
+                    {
+                        temp =temp -> next ;
+                    }
+                }
+                else
+                {
+                    temp = tail ;
+                    for ( int j = 0; j < len -index -1; j ++)
+                    {
+                        temp = temp -> prev ;
+                    }
+                }
+
+                Node<Type>* newNode = new Node<Type> ;
+                newNode -> data = data ;
+                newNode -> prev = temp -> prev ;
+                newNode -> next = temp ;
+                temp ->prev -> next = newNode ;
+                temp -> prev = newNode ;
+
+                }
+            len ++;
+
+
+        }
+
+        else
+        {
+            cout << " Index is out of range " << endl ;
+        }
+        */
+
+        myV.push_back(data);
     }
 
     Type Pop()
     {
+        /*
 
-        Type x = 0;
-        if(head == NULL || len == 0)
+        Type val = 0;
+        if (len == 0 || tail == NULL)
         {
-            cout<<"Queue khaali hai";
+            cout<<"Can not pop. List is empty"<<endl;
+            len = 0;
+            head = 0;
+            return val;
+        }
+
+        val = tail->data;
+        if(head==tail)
+        {
+            Node<Type>* tem = head;
+            head = head->next = head->prev = NULL;
+            tail = tail->next = tail->prev = NULL;
+            delete tem;
         }
         else
         {
-            Node<Type>* temp = head;
-            x = temp->data;
-            head = head->next;
-            delete(temp);
-            return(x);
+            tail = tail->prev;
+            delete tail->next;
+            tail->next = NULL;
         }
         len--;
+        return val;
+        */
+        Type val;
+        val = myV[myV.size()-1];
+        myV.pop_back();
+        return val;
     }
 
-     void RemoveItem(Type val)
+    Type Pop(int index)
     {
+        /*
+        Type val = 0;
+
+        if (index<0 || index>=len)
+        {
+            cout<<"invalid index"<<endl;
+            return val;
+        }
+
+        if (len == 0)
+        {
+            cout<<"Can not pop. List is empty"<<endl;
+            return val;
+        }
+
+        if(index==len-1 && index!=0)
+        {
+            val = tail->data;
+            tail = tail->prev;
+            delete tail->next;
+            tail->next = NULL;
+            len--;
+        }
+
+        else if (index == 0)
+        {
+            Node<Type>* c_node = head;
+            val = head->data;
+            if(head==tail)
+            {
+                head = head->next = head->prev = NULL;
+                tail = tail->next = tail->prev = NULL;
+            }
+            else
+            {
+                head = head->next;
+            }
+            delete c_node;
+            len--;
+        }
+
+        else
+        {
+            Node<Type>* c_node = head;
+            int i=0;
+            while(i!=index)
+            {
+                c_node = c_node->next;
+                i++;
+            }
+            val = c_node->data;
+            c_node->prev->next = c_node->next;
+            c_node->next->prev = c_node->prev;
+            delete c_node;
+            len--;
+        }
+        return val;
+        */
+        Type val;
+        for (int i = 0; i < myV.size(); i++)
+        {
+            if (i == index)
+            {
+                val = myV[i];
+            }
+        }
+        myV.erase(myV.begin() + index);
+        return val;
+    }
+
+     void RemoveItem(Type& val)
+    {
+    /*
         if (len == 0)
         {
             cout<<"Can not pop. List is empty"<<endl;
@@ -109,39 +283,59 @@ public:
             Node<Type>* c_node = head;
             if(head==tail)
             {
-                head = head->next = NULL;
-                tail = tail->next = NULL;
+                head = head->next = head->prev = NULL;
+                tail = tail->next = tail->prev = NULL;
             }
             else
             {
                 head = head->next;
+                head->prev = NULL;
             }
             delete c_node;
             len--;
             return;
         }
-        Node<Type>*ptr = head;
-        while (ptr != NULL)
-        {
-            if (val == ptr->next->data)
-            {
-                ptr->next = ptr->next->next;
-                break;
-            }
 
-        ptr = ptr->next;
-        }
-        if (ptr != NULL)
+        if(tail->data == val)
         {
-            delete ptr;
+            tail = tail->prev;
+            delete tail->next;
+            tail->next = NULL;
             len--;
         }
 
+        else
+        {
+            Node<Type>* c_node = head;
+            while(val!=c_node->data)
+            {
+                c_node = c_node->next;
+                if(c_node->next == NULL)
+                {
+                    cout<<"Item not in list"<<endl;
+                    return;
+                }
+            }
+            c_node->prev->next = c_node->next;
+            c_node->next->prev = c_node->prev;
+            delete c_node;
+            len--;
+        }
+        */
+
+         for (int i; i < myV.size(); i++)
+         {
+             if (myV[i] == val)
+             {
+                 Pop(i);
+             }
+         }
 
     }
 
     Type GiveItem(int index)
     {
+        /*
         Type val = 0;
         Node<Type>* c_node = head;
         if (index<0 || index>=len)
@@ -170,23 +364,45 @@ public:
             }
             val = c_node->data;
         }
-        delete c_node;
+        //delete c_node;
         return val;
-
-
+        */
+        if (index >= myV.size())
+        {
+            return 0;
+        }
+        return myV[index];
 
     }
 
+    void Show()
+    {/*
+        std::cout << endl<<"CURRENT LEN " << len << std::endl;
+        if (len == 0)
+        {
+            return;
+        }
+        Node<Type>* c_node = head;
+        while(c_node != 0)
+        {
+            std::cout << c_node->data << " ";
+            c_node = c_node->next;
+        }
+        std::cout<< std::endl;
+        */
+    }
 
     int GetLength()
     {
-        return len;
+
+        //return len;
+
+       return myV.size();
     }
 
     bool IsEmpty()
     {
-        return len == 0;
+        return myV.size() == 0;
     }
 };
-
 

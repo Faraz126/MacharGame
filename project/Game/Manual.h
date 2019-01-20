@@ -5,10 +5,14 @@
 #include "Menu.h"
 #include "CheckBox.h"
 #include "Button.h"
+#include "Human.h"
 
+
+class Hospital;
 class Manual: public Menu
 {
     Word*word;
+    Hospital* hsp;
     Texture* texture;
     CheckBox* checkbox;
     std::string buttonText[1];
@@ -39,7 +43,8 @@ class Manual: public Menu
     bool buttonShow;
 
  public:
-     Manual(int,int);
+     Manual(Screens*, bool);
+     Manual(int,int,Hospital*);
      void Show(SDL_Renderer*);
      void HandleEvents(SDL_Event*, Screens_Node&);
      void Update(int);

@@ -2,8 +2,9 @@
 #include <random>
 #include "Scenario.h"
 #include "Outdoor.h"
+#include "EndMenu.h"
 
-House::House()
+House::House(): Scenario(0, true, false, true, 1)
 {
     code = 1;
     pos.x = wall.x = 0;
@@ -11,13 +12,88 @@ House::House()
     pos.w = wall.w = 1024;
     pos.h = 786;
     wall.h = 488;
-    houseShop = new ShoppingMenu();
+    houseShop = new ShoppingMenu(this, true, true, true, 1);
 
+    ///defining the walking region
     startWidth = 0;
     endWidth = 1024;
-
     startHeight = 488;
     endHeight = 786;
+
+    SetUpEntrancesAndShowPieces();
+
+    noOfBreedingPlaces = 1;
+    int y = 600;
+    while (noOfBreedingPlaces < 3 && y < 740)
+    {
+        ///putting breeding places at pseudo random positions
+
+        if (rand()%3 == 1)
+        {
+            if (rand()%2 == 1)
+            {
+                breedingplaces[noOfBreedingPlaces] = new Tub(15, y);
+
+            }
+            else
+            {
+                breedingplaces[noOfBreedingPlaces] = new Tub(900, y);
+            }
+            myQ.Append(breedingplaces[noOfBreedingPlaces]);
+            breedingplaces[noOfBreedingPlaces++]->ReduceSize(float(y)/1600);
+
+        }
+        y += 70;
+    }
+
+
+    btn = new Button;
+    myQ.Append(btn);
+    btn->setPosition(800,40);
+    btn->SetWidth(200,55);
+    btn->setText("OUTDOOR");
+    btn->word->ReduceSize(0.8);
+
+
+    //houseShop->shopShow = false;
+    cartPos = new SDL_Rect;
+    SetUpScenarios();
+    GenerateHumans();
+
+    cartPos->x = 960;
+    cartPos->y = 720;
+    cartPos->w = 193 *0.3;
+    cartPos->h = 193 *0.3;
+
+    upperRect0 = new SDL_Rect;
+
+    upperRect0->x = 0;
+    upperRect0->y = 0;
+    upperRect0->x = 1240;
+    upperRect0->h = 55;
+
+    money.SetPaisa(10000);
+}
+
+void House::GenerateHumans()
+{
+    Human* humanPtr;
+    for (int i = 0; i < noOfHumans; i++)
+    {
+        int x = i * 30;
+        int y = 388 + (i*90);
+        humanPtr = new Human((i*30), 388 + (i*90),this);
+        while (Collides(humanPtr))
+        {
+            humanPtr->UpdatePos(++x,y);
+        }
+        myQ.Append(humanPtr);
+        humans.Append(humanPtr);
+    }
+}
+
+void House::SetUpEntrancesAndShowPieces()
+{
 
     noOfEntrance = (rand() % 2) + 2;
     noOfHumans = (rand()%3) + 3;
@@ -46,12 +122,13 @@ House::House()
         myQ.Append(breedingplaces[0]);
     }
 
-    for (int i = 0; i<noOfHumans; i++)
+    for (int i = 0; i<noOfHumans; i++) //setting up beds equal to number of humans
     {
         bed[i].SetPos(x, 365);
         myQ.Append(&bed[i]);
         x += 150;
     }
+
     if (noOfEntrance == 3)
     {
         showpieces = new Showpiece[2];
@@ -70,78 +147,13 @@ House::House()
         entrance[1] = new Window(412,125);
     }
 
-    noOfBreedingPlaces = 1;
-    int y = 600;
-    while (noOfBreedingPlaces < 3 && y < 740)
-    {
-        if (rand()%3 == 1)
-        {
-            if (rand()%2 == 1)
-            {
-                breedingplaces[noOfBreedingPlaces] = new Tub(15, y);
-
-            }
-            else
-            {
-                breedingplaces[noOfBreedingPlaces] = new Tub(900, y);
-            }
-            myQ.Append(breedingplaces[noOfBreedingPlaces]);
-            breedingplaces[noOfBreedingPlaces++]->ReduceSize(float(y)/1600);
-
-        }
-        y += 70;
-    }
-
-
-    btn = new Button;
-    myQ.Append(btn);
-    btn->setPosition(800,60);
-    btn->SetWidth(200,55);
-    btn->setText("OUTDOOR");
-    btn->word->ReduceSize(0.8);
-    Human* humanPtr;
-    for (int i = 0; i < noOfHumans; i++)
-    {
-        int x = i * 30;
-        int y = 388 + (i*90);
-        humanPtr = new Human((i*30), 388 + (i*90),this);
-        while (Collides(humanPtr))
-        {
-            humanPtr->UpdatePos(++x,y);
-        }
-        myQ.Append(humanPtr);
-        humans.Append(humanPtr);
-    }
-
-
-    houseShop->SetShopShow(false);
-
-    cartPos = new SDL_Rect;
-    Mosquito* mosquito;
-    for (int i = 0; i < 4; i++)
-    {
-        mosquito = new AedesMosquito(this);
-        mosquitoes.Append(mosquito);
-    }
-    SetUpScenarios();
-
-
-    cartPos->x = 960;
-    cartPos->y = 720;
-    cartPos->w = 193 *0.3;
-    cartPos->h = 193 *0.3;
-
-    upperRect0 = new SDL_Rect;
-
-    upperRect0->x = 0;
-    upperRect0->y = 0;
-    upperRect0->x = 1240;
-    upperRect0->h = 55;
 }
 
 void House::SetOutdoor(Outdoor* outdoorPtr)
 {
+    ///set house to know the outdoor
     outdoor = outdoorPtr;
+    prevScreen = outdoorPtr;
     SetUpScenarios();
 
 }
@@ -149,30 +161,55 @@ void House::SetOutdoor(Outdoor* outdoorPtr)
 
 void House::Show(SDL_Renderer* renderer)
 {
+
     Texture::GetInstance()->Render(9, renderer, &pos);
     texture = Texture::GetInstance(renderer);
     texture->Render(115,renderer,cartPos);
 
-    for(int i=0; i < noOfEntrance; i++)
+    //SDL_SetRenderDrawColor(renderer, 30,30,30,0); //wall feature
+    //SDL_RenderFillRect(renderer, &wall);
+
+
+    for(int i=0; i < noOfEntrance; i++) //displaying entrances
     {
         entrance[i]->Show(renderer);
     }
 
-    for (int i = 0; i < mosquitoes.GetLength(); i++)
+    for (int i = 0; i < mosquitoes.GetLength(); i++) //displaying mosquitoes
     {
         mosquitoes.GiveItem(i)->Show(renderer);
     }
-
-
-
 
 
     for (int i = 0; i < myQ.GetLength(); i++)
     {
         myQ.GiveItem(i)->Show(renderer);
     }
+    /*
+    int max = 2000000;
 
-    btn->Show(renderer);
+    toShow = false;
+    for (int i = 0; i< humans.GetLength(); i++)
+    {
+        if (humans.GiveItem(i)->GetInfected() && humans.GiveItem(i)->GetTimeToDie() < max)
+        {
+            if (humans.GiveItem(i)->IsDead())
+            {
+                curScreen = new EndMenu(outdoor, true);
+            }
+            else
+            {
+
+            }
+            max = humans.GiveItem(i)->GetTimeToDie();
+            dyingIndex = i;
+            toShow = true;
+
+        }
+    }
+    if (toShow)
+    alert.Show(renderer, (int)(humans.GiveItem(dyingIndex)->GetTimeToDie()/22225));
+    */
 
     if(houseShop->GetShopShow())
         houseShop->Show(renderer);
@@ -196,10 +233,13 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
 
         if(e->key.keysym.sym == SDLK_ESCAPE)    //will open pause menu
         {
+            /*
             node.cur_screen = new PauseMenu(outdoor);
             node.prev_screen = this;
             node.prev_updatable = false;
             node.prev_backable = true;
+            */
+            curScreen = new PauseMenu(outdoor, this, true);
 
         }
     }
@@ -214,17 +254,10 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
         if( ( mousePosX >houseShop->GetShoppingExitPosX() ) && ( mousePosX < (houseShop->GetShoppingExitPosX()+houseShop->GetShoppingExitPosW()) ) && ( mousePosY > houseShop->GetShoppingExitPosY() ) && (mousePosY< (houseShop->GetShoppingExitPosY()+houseShop->GetShoppingExitPosH()) ) )
             houseShop->SetShopShow(false);
 
-        for (int i = 0; i < noOfEntrance; i++)
-        {
-            if (entrance[i]->WithinRegion(mousePosX, mousePosY))
-            {
-                entrance[i]->ChangeState();
-            }
-        }
          if (btn->WithinRegion(mousePosX,mousePosY))  //for outdoor button in house
         {
-            node.cur_screen = node.prev_screen;
-            node.prev_screen = this;
+            curScreen = prevScreen;
+
         }
 
     }
@@ -239,6 +272,11 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
 
 void House::Update(int frame)
 {
+    if (curScreen == this)
+    {
+        Screens::Update(frame);
+    }
+
     for (int i = 0; i <noOfEntrance; i++)
     {
         entrance[i]->Update(frame);
@@ -259,27 +297,12 @@ void House::Update(int frame)
         mosquitoes.GiveItem(i)->Update(frame);
     }
 
-
 }
 
-Bed* House::GetClosestBed(int x, int y) //pass on Human x co-ordinates here
-{
-    Bed* minimum = &bed[0];
-    int dist = bed[0].GetDistance(x,y);
 
-    for (int i = 1; i < noOfHumans; i++)
-    {
-        if (!bed[i].GetOccupied())
-        {
-            int temp = bed[i].GetDistance(x,y);
-            if (temp < dist)
-            {
-                minimum = &bed[i];
-                dist = temp;
-            }
-        }
-    }
-    return minimum;
+Money& House::GetMoney()
+{
+    return money;
 }
 
 Door* House::GetDoor()
@@ -289,16 +312,27 @@ Door* House::GetDoor()
 
 House::~House()
 {
-    delete[] bed;
+    for (int i = 0; i < myQ.GetLength(); i++)
+    {
+        delete myQ.GiveItem(i);
+    }
+
+    for (int i = 0; i < mosquitoes.GetLength(); i++)
+    {
+        delete mosquitoes.GiveItem(i);
+    }
+
+
+//    delete[] bed;
 
     for (int i = 0; i <noOfEntrance; i++)
     {
         delete entrance[i];
     }
     delete[] entrance;
-    delete breedingplaces;
     delete[] showpieces;
     delete cartPos;
+    delete houseShop;
 }
 
 
@@ -309,7 +343,7 @@ int House::NoOfHumans()
 
 Bed* House::GetBeds(int &n)
 {
-    n = noOfHumans;
+    n = noOfHumans; //puts the no of beds in n, since the caller doesnt know the size
     return bed;
 }
 
@@ -327,7 +361,9 @@ void House::SetUpScenarios()
     {
         entrance[i]->SetScenario(this);
         entrance[i]->SetOutdoor(outdoor);
+        //providing outdoor pointer to entrances, since it is associated with both scenarioes.
     }
 }
+
 
 

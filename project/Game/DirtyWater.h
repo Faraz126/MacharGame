@@ -4,6 +4,7 @@
 #include <SDL_image.h>
 #include "Texture.h"
 #include "Mosquito.h"
+#include "Soil.h"
 
 const int WATER_HEIGHT = 136;
 const int WATER_WIDTH = 509;
@@ -11,7 +12,8 @@ const int WATER_WIDTH = 509;
 class DirtyWater : public Container
 {
 private:
-
+    int delay;
+    int breedCount;
 protected:
 
 public:
@@ -19,9 +21,12 @@ public:
     Mosquito* Breed();
     void Show(SDL_Renderer*);
     void Update(int);
+    int DelayLidTime();
     ~DirtyWater();
     void SetCovered(bool);
-    void HandleEvents(SDL_Event*, Screens_Node&){};
+    int GetBreedCount();
+    bool IsActive();
+    void HandleEvents(SDL_Event*, Screens_Node&);
 
 };
 

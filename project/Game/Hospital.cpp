@@ -1,12 +1,14 @@
 #include "Hospital.h"
+#include "Manual.h"
 #include <random>
 #include <iostream>
 
 using namespace std;
 
-Hospital:: Hospital()
+Hospital::Hospital(Screens* prev): Scenario(prev, true, false, true, 1)
 {
-    int humanPos[8] = {340,427,523,610,705,792,885,972};
+    int humanPos[8] = {310,400,495,580,675,760,860,945};// position of humans sitting on chairs
+    popped = NULL;
 
     for (int i = 0; i < 8; i++)
     {
@@ -37,6 +39,7 @@ Hospital:: Hospital()
 
     manualShow = false;
 
+
 }
 
 void Hospital::Show(SDL_Renderer* renderer)
@@ -47,6 +50,10 @@ void Hospital::Show(SDL_Renderer* renderer)
          humans.GiveItem(i)->Show(renderer);
      }
 
+     if(humans.GetLength()>0)
+     {
+         btn->Show(renderer);
+     }
      if(!manualShow)
      {
          btn[0].Show(renderer);
@@ -62,6 +69,7 @@ void Hospital::HandleEvents(SDL_Event* e,Screens_Node& node)
 {
     int hoverX = e->button.x;
     int hoverY = e->button.y;
+
     if (e->type == SDL_QUIT)
     {
         SDL_Quit();
@@ -83,11 +91,18 @@ void Hospital::HandleEvents(SDL_Event* e,Screens_Node& node)
         btn[0].Hover();
         if (e->type == SDL_MOUSEBUTTONDOWN && e->button.button == SDL_BUTTON_LEFT)
         {
+            /*
             node.cur_screen = new Manual(235,70);
             node.prev_screen = this;
             node.prev_backable = true;
             node.prev_updatable = true;
-            manualShow = true;
+            */
+            if (humans.GetLength() > 0)
+            {
+                curScreen = new Manual(235, 70, this);
+                manualShow = true;
+            }
+
         }
 
     }
@@ -101,8 +116,11 @@ void Hospital::HandleEvents(SDL_Event* e,Screens_Node& node)
     {
         if (e->type == SDL_MOUSEBUTTONDOWN && e->button.button == SDL_BUTTON_LEFT)
         {
+            /*
             node.cur_screen = node.prev_screen;
             node.prev_screen = this;
+            */
+            curScreen = prevScreen;
         }
     }
 
@@ -120,6 +138,7 @@ Hospital :: ~Hospital()
 
  bool Hospital :: AddHuman(Human* human)
  {
+
      bool allowAppend = false;
      if(humans.GetLength()<=8) //only 8 humans allowed in hospital
      {
@@ -128,12 +147,17 @@ Hospital :: ~Hospital()
      if(allowAppend==true)
      {
          humans.Append(human);
+         for(int i = 0; i<20; i++)
+        {
+            (*Score::GetInstance())++;
+        }
 
          for(int i = 0; i<humans.GetLength(); i++)
          {
-             humans.GiveItem(i)->UpdatePos(humanPos[i],570);
+             humans.GiveItem(i)->UpdatePos(humanPos[i],465);
          }
      }
+     popped = humans.GiveItem(0);
      return allowAppend;
  }
 
@@ -142,7 +166,31 @@ void Hospital :: LeaveHuman(Human* human)
       humans.Pop();
       for(int i = 0; i<humans.GetLength(); i++)
      {
-         humans.GiveItem(i)->UpdatePos(humanPos[i],570);
+         humans.GiveItem(i)->UpdatePos(humanPos[i],465);
      }
 }
 
+void Hospital :: LeaveHuman()
+{
+    manualShow = false;
+      humans.Pop()->GoIndoor();
+      for(int i = 0; i<humans.GetLength(); i++)
+     {
+         humans.GiveItem(i)->UpdatePos(humanPos[i],465);
+     }
+}
+
+Human* Hospital :: GetPopped() ///to display the first human on manual
+{
+    if (humans.GetLength()==0)
+    {
+        popped = NULL;
+        return popped;
+    }
+    return popped;
+}
+
+int Hospital :: CheckHumanDisease() ///to use for correct option in manual
+{
+    return (humans.GiveItem(0)->GetDisease());
+}

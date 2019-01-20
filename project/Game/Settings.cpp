@@ -1,6 +1,6 @@
 #include "Settings.h"
 
-Setting::Setting():Menu(2,185,640,true)  //calling menus constructor that is constructing 2 buttons horizontally
+Setting::Setting(Screens* prevScreen, bool back, bool show, bool update, int factor):Menu(2,185,640,true, prevScreen, back, show, update, factor)  //calling menus constructor that is constructing 2 buttons horizontally
 {
     settingPos = new SDL_Rect;
     settingSliderPos1 = new SDL_Rect;
@@ -87,8 +87,10 @@ Setting::Setting():Menu(2,185,640,true)  //calling menus constructor that is con
     slider[1].setPosition(500,settingPos->y+160);
 }
 
+
 void Setting::Show(SDL_Renderer* gRenderer)
 {
+    Screens::Show(gRenderer);
     texture = Texture::GetInstance(gRenderer);
     texture->Render(59,gRenderer,settingPos);
     texture->Render(60,gRenderer,settingSliderPos);
@@ -117,7 +119,7 @@ void Setting::Show(SDL_Renderer* gRenderer)
 
 void Setting::Update(int frame)
 {
-
+    Screens::Update(frame);
 }
 
 
@@ -137,12 +139,16 @@ void Setting::HandleEvents(SDL_Event* e, Screens_Node& node)
             SetMouseClicked(true);
             if (cancelBtn->WithinRegion(mouseX,mouseY)==true)
             {
+                /*
                 node.cur_screen = node.prev_screen;
                 node.prev_screen = this;
                 node.prev_backable = false;  //cancel screen will close and main menu  screen will open
+                */
+                curScreen = prevScreen;
+                delete this;
             }
 
-            if (btn[1].WithinRegion(mouseX,mouseY)==true)
+            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
                 slider[0].SetSliderPosX(500);
             }
@@ -224,7 +230,19 @@ void Setting::Click(SDL_Event* e)
 
            }
        }
+       float bright = (slider[1].GetSliderPosX() - settingSliderPos1->x)/285;
+        ofstream myfile;
+        myfile.open ("setting.txt");
+        myfile << bright;
+        cout<<bright<<" ";
+        myfile << "\n";
+        myfile.close();
+
+
     }
+
+
+
 
 }
 Setting::~Setting()

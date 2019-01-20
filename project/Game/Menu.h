@@ -20,8 +20,8 @@ protected:
 
 public:
     int state=0;
-    Menu();
-    Menu(int,int,int,bool);
+    Menu(Screens*, bool, bool = false, bool = false, int = 1);
+    Menu(int,int,int,bool,Screens*, bool, bool = false, bool = false, int = 1);
     ~Menu();
     void Show(SDL_Renderer*);
     //void Hover(SDL_Event*);

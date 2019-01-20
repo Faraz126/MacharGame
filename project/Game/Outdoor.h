@@ -20,24 +20,25 @@
 #include "Alert.h"
 class Hospital;
 
+#include <string>
 #include <fstream>
+#include <sstream>
+#include <ostream>
+#include <istream>
+#include <iostream>
+
 
 
 class Outdoor: public Scenario
 {
 private:
-//    Mosquito* mosquito;
-//    House* house;
-//    DirtyWater* dirtywater;
-//    CleanWater* cleanwater;
-//    Manhole* manhole;
-    //Outdoor* outdoor;
-
-
     SDL_Rect pos, pos1, shoppingPos;
     SDL_Rect* cartPos;
     SDL_Rect* upperRect;
     Texture* texture;
+    SDL_Rect* buildingRect; //rectangle for clickable region of houses & hospital
+    House* house;
+    ShoppingMenu* shop;
 
     int countContainer;
     int countPlants;
@@ -45,39 +46,27 @@ private:
     int countTrashcan;
     int countManhole;
     int totalHumans;
-
-
-    SDL_Rect* buildingRect; //rectangle for clickable region of houses & hospital
-    House* house;
+    Money money;
     int CountHumans();
     void GetHouseEntrance();
     void HandleScrolling(SDL_Event*);
     void PlaceContainers();
 
-
-    Money money;
-    Alert alert;
-
 protected:
 
 public:
     Hospital* hospital;
-    Outdoor();
-    /*
-<<<<<<< HEAD
-    //void AddHuman(Human*);
-    //void LeaveHuman(Human*);
-=======
-    bool AddHuman(Human*);
-    void LeaveHuman(Human*){};
->>>>>>> daba5613d1af045bdabb1b8193ff17be11eceb82
-*/
-    //void Click();
+    Outdoor(Screens*, bool);
+
     void Show(SDL_Renderer*);
     void Update(int);
     void HandleEvents(SDL_Event*, Screens_Node&);
-    void Save(ofstream&);
+    /*
+    void Save(fstream&);
+    void Load(fstream*);
+    */
     //Entrance* getCurrentState();
+    void Delete();
     ~Outdoor();
 };
 

@@ -61,6 +61,11 @@ void Score::operator++(int scr)
     this->scr++;
 }
 
+void Score::operator--(int scr)
+{
+    this->scr--;
+}
+
 bool Score::operator<(const Score& a)
 {
     Score score;
@@ -121,4 +126,9 @@ Score::~Score()
 {
     delete[]word;
     delete scorePos;
+}
+
+int Score :: GetScore()
+{
+    return scr;
 }

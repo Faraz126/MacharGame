@@ -1,6 +1,6 @@
 #include "FactoryProducer.h"
 
-AbstractFactory* FactoryProducer::factory = 0;
+AbstractFactory* FactoryProducer::factory = 0; //static member definition
 
 FactoryProducer::FactoryProducer()
 {

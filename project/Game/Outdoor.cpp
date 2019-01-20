@@ -1,13 +1,10 @@
 #include "Outdoor.h"
-#include <random>
-#include <iostream>
-#include <algorithm>
 #include "Hospital.h"
 
 
 using namespace std;
 
-Outdoor:: Outdoor()
+Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
 {
     //screen dimensions
     code = 0;
@@ -43,8 +40,10 @@ Outdoor:: Outdoor()
     }
 
     PlaceContainers();
+    //Load(file);
 
-    buildingRect= new SDL_Rect[4]; //clickable region for all 4 houses
+
+    buildingRect= new SDL_Rect[4]; //clickable region for all 4 houses & hospital
     buildingRect[0].x=45;
     buildingRect[0].y=140;
     buildingRect[0].w=280;
@@ -71,7 +70,7 @@ Outdoor:: Outdoor()
     buildingRect[4].h = 350;
     //humans = GenerateHumans();
     //noOfEntrance = 0;
-    hospital = new Hospital();
+    hospital = new Hospital(this);
     GetHouseEntrance();
     SetUpScenarios();
 
@@ -87,29 +86,12 @@ Outdoor:: Outdoor()
 
 }
 
-/*
-Human** Outdoor::GenerateHumans()
-{
-    int n = CountHumans();
-    Human** temp = new Human*[n];
-    for (int i = 0; i < n; i++)
-    {
-        temp[i] = 0;
-    }
-    return temp;
-}
-*/
+
 
 void Outdoor::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->RenderBack(35, renderer, &pos1, &pos);
 
-    for(int i = 0; i<myQ.GetLength(); i++ )
-    {
-        myQ.GiveItem(i)->Show(renderer);
-    }
-
-    SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
     for (int i = 0; i < 12; i++)
     {
         if (entrance[i]!=NULL)
@@ -118,18 +100,23 @@ void Outdoor::Show(SDL_Renderer* renderer)
         }
     }
 
+    for(int i = 0; i<myQ.GetLength(); i++ )
+    {
+        myQ.GiveItem(i)->Show(renderer);
+    }
+
+    SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
+
+
     SDL_SetRenderDrawColor( renderer, 2,85,89,0 );
     SDL_RenderDrawRect(renderer,upperRect);
     SDL_RenderFillRect(renderer,upperRect);
     points->Show(renderer);
-   // alert.Show(renderer);
-    /*
 
-    for (int i = 0; i < humans.GetLength(); i++)
-    {
-        humans.GiveItem(i)->Show(renderer);
-    }
-    */
+   // alert.Show(renderer);
+
+
+
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
         mosquitoes.GiveItem(i)->Show(renderer);
@@ -172,30 +159,28 @@ int Outdoor::CountHumans()
     return sum;
 }
 
-void Outdoor::Update(int frame)
+void Outdoor::Update(int frame) ///to update all objects
 {
-    //(*points)++;
+
     for (int i = 0; i < 4; i++)
     {
-        house[i].Update(frame);
-    }
-   // alert.Update(27);
-/*
-    for (int i = 0; i < humans.GetLength(); i++)
-    {
-        humans.GiveItem(i)->Update(frame);
-    }
+        if ( &house[i] != curScreen)
+        {
+            house[i].Update(frame);
+        }
 
-     //JUST ADD SCENARIO
-    for (int i = 0; i < noOfBreedingPlaces; i++)
-    {
-        breedingplaces[i]->Update(frame);
     }
-*/
 
     for (int i = 0; i < myQ.GetLength(); i++)
     {
         myQ.GiveItem(i)->Update(frame);
+        /*
+        if(myQ.GiveItem(i)->IsActive() && myQ.GiveItem(i)->DelayLidTime()>1000) //if container is covered and alloted time has passed
+        {
+            delete myQ.Pop(i);
+        }
+        */
+
     }
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
@@ -214,11 +199,10 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
 {
    // alert.HandleEvents(e,node);
-    for (int i = 0; i<noOfBreedingPlaces; i++ ) ///to drag & drop lids on breeding places
+    for (int i = 0; i < myQ.GetLength(); i++)
     {
-        breedingplaces[i]->HandleEvents(e,node);
+        myQ.GiveItem(i)->HandleEvents(e, node);
     }
-
 
     if (e->type == SDL_MOUSEBUTTONDOWN)
 
@@ -230,29 +214,40 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
         {
             if (x >= buildingRect[i].x && y >= buildingRect[i].y && x < buildingRect[i].x + buildingRect[i].w && y < buildingRect[i].y + buildingRect[i].h)
             {
+                /*
                 node.cur_screen = &house[i];
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = true;
+                */
+                curScreen = &house[i];
+
+                //speed
             }
         }
-
+            //for hospital
         if (x >= buildingRect[4].x && y >= buildingRect[4].y && x < buildingRect[4].x + buildingRect[4].w && y < buildingRect[4].y + buildingRect[4].h)
             {
+                /*
                 node.cur_screen = hospital;
                 node.prev_screen = this;
                 node.prev_backable = true;
                 node.prev_updatable = true;
+                */
+                curScreen = hospital;
             }
 
 
     }
     if(e->key.keysym.sym == SDLK_ESCAPE)  //will open pause menu
     {
+        /*
         node.cur_screen = new PauseMenu(this);
         node.prev_screen = this;
         node.prev_updatable = false;
         node.prev_backable = true;
+        */
+        curScreen = new PauseMenu(this, this, true);
     }
 
     HandleScrolling(e);
@@ -308,9 +303,9 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                     startWidth += 20;
                     endWidth += 20;
                     pos1.x -= 20;
-                    for(int i = 0; i<noOfBreedingPlaces; i++ )
+                    for(int i = 0; i<myQ.GetLength(); i++ )
                     {
-                        breedingplaces[i]->SetX(20,0);
+                        myQ.GiveItem(i)->SetX(20,0);
                     }
                     for(int i = 0; i<noOfEntrance; i++ )
                     {
@@ -321,11 +316,12 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                     {
                         buildingRect[i].x+=20;
                     }
-
+                    /*
                     for (int i = 0; i < humans.GetLength(); i++)
                     {
                         humans.GiveItem(i)->SetX(20,0);
                     }
+                    */
                     for (int i = 0; i < mosquitoes.GetLength(); i++)
                     {
                         mosquitoes.GiveItem(i)->SetX(20,0);
@@ -346,10 +342,7 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                     startWidth -= 20;
                     endWidth -= 20;
                     pos1.x += 20;
-                    for(int i = 0; i<noOfBreedingPlaces; i++ )
-                    {
-                        breedingplaces[i]->SetX(20,1);
-                    }
+
                     for(int i = 0; i<noOfEntrance; i++ )
                     {
                         entrance[i]->SetOutdoorX(20,1);
@@ -359,9 +352,9 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                     {
                         buildingRect[i].x-=20;
                     }
-                    for (int i = 0; i < humans.GetLength(); i++)
+                    for (int i = 0; i < myQ.GetLength(); i++)
                     {
-                        humans.GiveItem(i)->SetX(20,1);
+                        myQ.GiveItem(i)->SetX(20,1);
                     }
                     for (int i = 0; i < mosquitoes.GetLength(); i++)
                     {
@@ -442,56 +435,29 @@ void Outdoor:: PlaceContainers()
     }
 }
 
-
-
-void Outdoor::Save(ofstream& file)
+void Outdoor::Delete()
 {
-	file << noOfBreedingPlaces << '\n';
-	file << countPlants << '\n';
-
-	int i =0;
-	for (int place = 0; place < countPlants; place++)
-    {
-        breedingplaces[i]->Write(file);
-        i++;
-    }
-
-    file << countTrashcan << '\n';
-	for (int place=0 ; place < countTrashcan; place++)
-    {
-        breedingplaces[i]->Write(file);
-        i++;
-    }
-
-    file << countManhole << '\n';
-	for (int place = 0; place < countManhole; place++)
-    {
-        breedingplaces[i]->Write(file);
-        i++;
-    }
-
-    file << countManhole << '\n';
-	for (int place = 0; place < countManhole; place++)
-    {
-        breedingplaces[i]->Write(file);
-        i++;
-    }
-
-    file << countCleanWater << '\n';
-	for (int place = 0; place < countCleanWater; place++)
-    {
-        breedingplaces[i]->Write(file);
-        i++;
-    }
-
-
-
+    delete this;
 }
 
 Outdoor :: ~Outdoor()
 {
-    delete[] buildingRect;
+    //delete[] buildingRect;
+    for (int i = 0; i < myQ.GetLength(); i++)
+    {
+        delete myQ.GiveItem(i);
+    }
+
+    for (int i = 0; i < mosquitoes.GetLength(); i++)
+    {
+        if ((mosquitoes.GiveItem(i)) != 0)
+        {
+            delete mosquitoes.GiveItem(i);
+        }
+    }
+
     delete[] house;
+    delete hospital;
     delete upperRect;
 }
 

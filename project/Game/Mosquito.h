@@ -15,42 +15,53 @@ class Mosquito
 {
 private:
 
-protected:
     bool indoor;
     double speed_x;
     double speed_y;
+    Entrance* entrance;
+    int health;
+    bool IsDead;
+    int ReachingTimer;      //timer starts when mosquito reaches an entrance
+    double clip;            // the mosquito clips from spritesheet
+
+protected:
+
+    int diseaseCode;        // the integer determines which disease mosquito gives
+    DLL<Human*> humans;
+    int human;          // to get the human
+    bool IsFollowingHuman;
+    bool IsFollowingEntrance;
+    int DetectTimer;
+    int MaxSpeedX;
+    int MaxSpeedY;
+    int Vision;     // how far mosquito can see
+    int Range;      // how far mosquito can attack from
     bool DetectHuman;
     bool DetectEntrance;
     SDL_Rect position;
-    bool IsFollowingHuman;
-    bool IsFollowingEntrance;
-    bool IsDead;
     Scenario* screen;
-    DLL<Human*> humans;
-    Entrance* entrance;
-//    bool indoor;
-    int timer;
-    int diseaseCode;
 
 public:
-    Mosquito();         // confused about what to do with this
-    void SetScenario(Scenario*);
-    void UpdatePositiion(int,int);
-    virtual void Fly() = 0;
-    virtual void Bite(Human*) = 0;
-    virtual void Follow(Entrance*) = 0;      // to go in the window
-    virtual void Follow(Human*) = 0;        //to go to human
-    virtual void Update(int) = 0;
-    virtual void DetectAnEntrance() = 0;
-    virtual void DetectAHuman() = 0;
-    virtual void DetectOrFollow() = 0;
-    virtual void ReachedEntrance() = 0;
-    virtual void Show(SDL_Renderer*) = 0;
-    void SetIndoor(bool);
+    Mosquito();
+    Mosquito(Scenario* screen);
+    void Fly();                 // fly randomly
+    void IsFollow(Entrance*);      // to go in the window
+    void IsFollow();        //to go to human
+    void Update(int);       // this is the main function which defines the mosquito movements and behavior
+    void DetectAnEntrance();
+    void DetectAHuman();
+    void Detect();          // this function will basically allow the mosquito to detect if probability coniditon is true
+    void Follow();          // allow the mosquito to follow if it is
+    void ReachedEntrance(); // when it reaches the entrance
+    void Heal();            // when mosquto bites it is healed too
+    void Show(SDL_Renderer*);
     void SetIsDead(bool);
+    void SetIndoor(bool);
+    bool GetIsDead();
     Entrance* GetClosestEntrance();
     void SetX(int delta, int direction);
-
-    //virtual ~Mosquito();
+    void SetScenario(Scenario*);        // helps to put mosquito inside and outside
+    void UpdatePositiion(int,int);
+    virtual void Bite() = 0;
+    virtual ~Mosquito();
 };
-

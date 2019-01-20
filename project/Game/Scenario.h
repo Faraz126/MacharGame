@@ -17,7 +17,6 @@ class BreedingGround;
 class Scenario : public Screens
 {
 protected:
-
     int startHeight;
     int endHeight;
     int startWidth;
@@ -28,23 +27,21 @@ protected:
     DLL<Clickable*> myQ;
     DLL<Human*> humans;
     DLL<Mosquito*> mosquitoes;
-
-    Entrance** entrance;
     int noOfBreedingPlaces;
     int code;
+    Entrance** entrance;
     Score* points;
 
 public:
 
     BreedingGround** GetBreedingGrounds(int&);
     Entrance** GetEntrance(int &);
-
-    Scenario();
+    DLL<Clickable*>& GetQ();
+    Scenario(Screens*, bool, bool = false, bool = false, int = 1);
     virtual bool AddHuman(Human*);
     virtual void LeaveHuman(Human*);
     virtual void AddMosquito(Mosquito*);
     virtual void LeaveMosquito(Mosquito*);
-    DLL<Clickable*>& GetQ();
     DLL<Mosquito*>& GetMosquitoes(int &);
     int GetEndHeight();
     int GetStartHeight();
@@ -54,7 +51,7 @@ public:
     bool Collides(SDL_Rect&);
     int GetCode();
     DLL<Human*>& GetHumans(int & );
-    ~Scenario(){};
+    virtual ~Scenario();
 
 };
 
