@@ -141,7 +141,7 @@ void Human::Update(int frame)
             case (LYING):
             {
                 timeSince++;
-                timeToDie -= 30;
+                timeToDie -= 300;
                 if (timeSince > 200000)
                 {
                     dead = true;
@@ -817,7 +817,7 @@ int Human::GetInfected()
 void Human::GoToHospital()
 {
     Alert::Remove(this);
-    timeToDie = 20000;
+    timeToDie = 200000;
     isInfected = false;
     isIndoor = false;
     ownHouse->LeaveHuman(this);

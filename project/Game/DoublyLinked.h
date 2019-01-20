@@ -69,7 +69,6 @@ public:
     {
         myV.push_back(data);
         /*
-
         if (len == 0)
         {
             head = tail = new Node<Type>;
@@ -112,7 +111,6 @@ public:
                     head -> data = data ;
                 }
             }
-
             else if (index == len )
             {
                 tail -> next = new Node<Type>;
@@ -139,20 +137,15 @@ public:
                         temp = temp -> prev ;
                     }
                 }
-
                 Node<Type>* newNode = new Node<Type> ;
                 newNode -> data = data ;
                 newNode -> prev = temp -> prev ;
                 newNode -> next = temp ;
                 temp ->prev -> next = newNode ;
                 temp -> prev = newNode ;
-
                 }
             len ++;
-
-
         }
-
         else
         {
             cout << " Index is out of range " << endl ;
@@ -165,7 +158,6 @@ public:
     Type Pop()
     {
         /*
-
         Type val = 0;
         if (len == 0 || tail == NULL)
         {
@@ -174,7 +166,6 @@ public:
             head = 0;
             return val;
         }
-
         val = tail->data;
         if(head==tail)
         {
@@ -202,19 +193,16 @@ public:
     {
         /*
         Type val = 0;
-
         if (index<0 || index>=len)
         {
             cout<<"invalid index"<<endl;
             return val;
         }
-
         if (len == 0)
         {
             cout<<"Can not pop. List is empty"<<endl;
             return val;
         }
-
         if(index==len-1 && index!=0)
         {
             val = tail->data;
@@ -223,7 +211,6 @@ public:
             tail->next = NULL;
             len--;
         }
-
         else if (index == 0)
         {
             Node<Type>* c_node = head;
@@ -240,7 +227,6 @@ public:
             delete c_node;
             len--;
         }
-
         else
         {
             Node<Type>* c_node = head;
@@ -277,7 +263,6 @@ public:
         {
             cout<<"Can not pop. List is empty"<<endl;
         }
-
         if(head->data == val)
         {
             Node<Type>* c_node = head;
@@ -295,7 +280,6 @@ public:
             len--;
             return;
         }
-
         if(tail->data == val)
         {
             tail = tail->prev;
@@ -303,7 +287,6 @@ public:
             tail->next = NULL;
             len--;
         }
-
         else
         {
             Node<Type>* c_node = head;
@@ -343,13 +326,11 @@ public:
             cout<<"invalid index"<<endl;
             return val;
         }
-
         if (len == 0)
         {
             cout<<"Can not pop. List is empty"<<endl;
             return val;
         }
-
         else
         {
             int i = 0;
@@ -405,4 +386,3 @@ public:
         return myV.size() == 0;
     }
 };
-

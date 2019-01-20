@@ -7,6 +7,7 @@ using namespace std;
 Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
 {
     //screen dimensions
+    Alert::SetUpRects();
     code = 0;
     startWidth = 0;
     endWidth = 1024*2.5;
@@ -112,7 +113,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
     SDL_RenderDrawRect(renderer,upperRect);
     SDL_RenderFillRect(renderer,upperRect);
     points->Show(renderer);
-
+    Alert::Show(renderer);
    // alert.Show(renderer);
 
 
@@ -190,6 +191,14 @@ void Outdoor::Update(int frame) ///to update all objects
     for (int i = 0; i < noOfEntrance; i++)
     {
         entrance[i]->Update(frame);
+    }
+
+    for (int i = 0; i < Alert::humans->GetLength(); i++)
+    {
+        if (Alert::humans->GiveItem(i)->GetTimeToDie() < 0)
+        {
+            curScreen = new EndMenu(this, true, false);
+        }
     }
 
 }

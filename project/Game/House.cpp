@@ -185,6 +185,9 @@ void House::Show(SDL_Renderer* renderer)
     {
         myQ.GiveItem(i)->Show(renderer);
     }
+
+
+
     /*
     int max = 2000000;
 
@@ -219,6 +222,7 @@ void House::Show(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer,upperRect0);
     points->Show(renderer);
     money.Show(renderer);
+    Alert::Show(renderer);
 
 }
 
@@ -296,6 +300,8 @@ void House::Update(int frame)
     {
         mosquitoes.GiveItem(i)->Update(frame);
     }
+
+
 
 }
 

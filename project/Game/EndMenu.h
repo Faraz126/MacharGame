@@ -18,6 +18,17 @@ class EndMenu: public Menu
     CancelButton* cancelBtn;
     std::string buttonText[3];
 
+    SDL_Rect* wordRect;
+    Word* word;
+
+    bool screenEnd;
+    std::string str1;
+    std::string str2;
+    std::string str3;
+    int randStr3;
+    bool show;
+    int time;
+
 public:
 
     EndMenu(Screens*, bool, bool = false, bool = false, int = 1);

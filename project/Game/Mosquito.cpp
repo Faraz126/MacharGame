@@ -1,4 +1,3 @@
-
 #include "Scenario.h"
 #include "Mosquito.h"
 
@@ -374,5 +373,3 @@ void Mosquito::SetX(int delta, int direction)
         position.x-=delta;
     }
 }
-
-

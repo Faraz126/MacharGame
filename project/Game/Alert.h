@@ -12,30 +12,22 @@ class EndMenu;
 
 class Alert
 {
-    SDL_Rect* alert;
-    SDL_Rect* timerPos;
-    SDL_Rect* wordRect;
-    Texture* texture;
-    Word* word;
+    static SDL_Rect* alert;
+    static SDL_Rect* timerPos;
     double timerSprite;
-    int newScreenIter;
-    bool screenEnd;
-    std::string str1;
-    std::string str2;
-    std::string str3;
-    int randStr3;
-    static DLL<Human*>* humans;
 
 
-    bool show;
+
 
 public:
     Alert();
     double GetTimerSprite();
-    void Show(SDL_Renderer*, int);
+    static void Show(SDL_Renderer*);
     static void Add(Human*);
     static void Remove(Human*);
+    static void SetUpRects();
     //void Update(double);
     void HandleEvents(SDL_Event*, Screens_Node&);
+    static DLL<Human*>* humans;
     ~Alert();
 };
