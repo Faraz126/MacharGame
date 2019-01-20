@@ -176,7 +176,6 @@ int main( int argc, char* args[] )
                 {
                     myfile >> output;
                     SDL_SetWindowBrightness(gWindow,output);
-                    cout<<output;
                 }
             }
             myfile.close();

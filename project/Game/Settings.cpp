@@ -83,8 +83,21 @@ Setting::Setting(Screens* prevScreen, bool back, bool show, bool update, int fac
     word[2].SetText("BRIGHTNESS");
     word[2].SetPosition(settingPos->x+10,settingPos->y+160);
 
+    ifstream myfile;
+    myfile.open("setting.txt");
+    float output;
+    if (myfile.is_open())
+    {
+        while (!myfile.eof())
+        {
+            myfile >> output;
+        }
+    }
+    myfile.close();
+
     slider[0].setPosition(500,settingPos->y+85);
-    slider[1].setPosition(500,settingPos->y+160);
+    cout<<output<<"  ";
+    slider[1].setPosition(output,settingPos->y+160);
 }
 
 
