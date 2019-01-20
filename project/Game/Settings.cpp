@@ -230,11 +230,10 @@ void Setting::Click(SDL_Event* e)
 
            }
        }
-       float bright = (slider[1].GetSliderPosX() - settingSliderPos1->x)/285;
+       float bright = (slider[1].GetSliderPosX() - settingSliderPos1->x)/285.0;
         ofstream myfile;
         myfile.open ("setting.txt");
         myfile << bright;
-        cout<<bright<<" ";
         myfile << "\n";
         myfile.close();
 

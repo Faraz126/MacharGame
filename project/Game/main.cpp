@@ -149,7 +149,7 @@ int main( int argc, char* args[] )
         Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
 
 
-        //SDL_SetWindowBrightness(gWindow,0.0);
+
         SDL_Event e;
 
         Screens_Node screen;
@@ -167,6 +167,20 @@ int main( int argc, char* args[] )
         while (!GAME_QUIT)
         {
             //screen.cur_screen->Update(frame);
+            ifstream myfile;
+            myfile.open("setting.txt");
+            float output;
+            if (myfile.is_open())
+            {
+                while (!myfile.eof())
+                {
+                    myfile >> output;
+                    SDL_SetWindowBrightness(gWindow,output);
+                    cout<<output;
+                }
+            }
+            myfile.close();
+
             Screens::GetCurrent()->Update(frame);
             while (SDL_PollEvent(&e))
             {
