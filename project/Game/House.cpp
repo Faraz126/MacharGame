@@ -370,12 +370,40 @@ void House::SetOutdoorPos(int x, int y,int w, int h)
     outdoorPos.h = h;
 }
 
-void House::ShowOutside(SDL_Renderer* renderer)
+void House::ShowOutside(SDL_Renderer* renderer, int sprt)
 {
-    Texture::GetInstance()->Render(137, renderer, &outdoorPos);
+    if (sprt==0)
+    {
+        Texture::GetInstance()->Render(137, renderer, &outdoorPos);
+    }
+    else if (sprt == 1)
+    {
+        Texture::GetInstance()->Render(138, renderer, &outdoorPos);
+    }
+    else if (sprt == 2)
+    {
+        Texture::GetInstance()->Render(139, renderer, &outdoorPos);
+    }
+    else if (sprt == 3)
+    {
+        Texture::GetInstance()->Render(140, renderer, &outdoorPos);
+    }
+    else if (sprt == 4)
+    {
+        Texture::GetInstance()->Render(141, renderer, &outdoorPos);
+    }
+
 }
 
-int House::GetOutdoorPosx()
+void House:: SetOutdoorX(int delta, int direction)
 {
-    return outdoorPos.x;
+    if ( direction == 0)
+    {
+        outdoorPos.x+=delta;
+
+    }
+    if ( direction == 1)
+    {
+        outdoorPos.x-=delta;
+    }
 }

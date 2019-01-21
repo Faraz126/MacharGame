@@ -43,9 +43,10 @@ Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
     //Load(file);
 
     house[0].SetOutdoorPos(45,140,280,320);
-    house[1].SetOutdoorPos(515,140,280,320);
+    house[1].SetOutdoorPos(525,105,239,340);
     house[2].SetOutdoorPos(1138,140,290,320);
     house[3].SetOutdoorPos(1710,140,290,320);
+    house[4].SetOutdoorPos(2190,130,350,350);
 
     buildingRect= new SDL_Rect[4]; //clickable region for all 4 houses & hospital
     buildingRect[0].x=45;
@@ -102,9 +103,9 @@ void Outdoor::Show(SDL_Renderer* renderer)
     }
 
 
-    for(int i = 0; i<4; i++)
+    for(int i = 0; i<5; i++)
     {
-        house[i].ShowOutside(renderer);
+        house[i].ShowOutside(renderer,i);
     }
 
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
@@ -313,9 +314,9 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                         buildingRect[i].x+=20;
                     }
 
-                    for(int i = 0; i<4; i++)
+                    for(int i = 0; i<5; i++)
                     {
-                        house[i].GetOutdoorPosx()+=20;
+                        house[i].SetOutdoorX(20,0);
                     }
 
                     for (int i = 0; i < humans.GetLength(); i++)
@@ -355,6 +356,10 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                     for (int i = 0; i < myQ.GetLength(); i++)
                     {
                         myQ.GiveItem(i)->SetX(20,1);
+                    }
+                    for(int i = 0; i<5; i++)
+                    {
+                        house[i].SetOutdoorX(20,1);
                     }
                     for (int i = 0; i < mosquitoes.GetLength(); i++)
                     {

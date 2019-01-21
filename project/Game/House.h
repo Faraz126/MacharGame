@@ -68,8 +68,8 @@ public:
     House();
     ~House();
     void SetOutdoorPos(int,int,int, int);
-    void ShowOutside(SDL_Renderer*);
-    int GetOutdoorPosx();
+    void ShowOutside(SDL_Renderer*, int);
+    void SetOutdoorX(int,int);
     bool GetHasRepellent();
     void SetOutdoor(Outdoor*);
     Outdoor* GetOutdoor();
