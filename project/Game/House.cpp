@@ -362,4 +362,20 @@ void House::SetUpScenarios()
     }
 }
 
+void House::SetOutdoorPos(int x, int y,int w, int h)
+{
+    outdoorPos.x = x;
+    outdoorPos.y = y;
+    outdoorPos.w = w;
+    outdoorPos.h = h;
+}
 
+void House::ShowOutside(SDL_Renderer* renderer)
+{
+    Texture::GetInstance()->Render(137, renderer, &outdoorPos);
+}
+
+int House::GetOutdoorPosx()
+{
+    return outdoorPos.x;
+}

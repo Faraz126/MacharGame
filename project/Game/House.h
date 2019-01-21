@@ -35,7 +35,7 @@ class House: public Scenario
 {
 private:
     //Money money;
-
+    SDL_Rect outdoorPos;
     bool hasRepellent; //if the house has repellent
     int noOfHumans;
 
@@ -67,6 +67,9 @@ protected:
 public:
     House();
     ~House();
+    void SetOutdoorPos(int,int,int, int);
+    void ShowOutside(SDL_Renderer*);
+    int GetOutdoorPosx();
     bool GetHasRepellent();
     void SetOutdoor(Outdoor*);
     Outdoor* GetOutdoor();
