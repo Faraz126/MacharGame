@@ -43,9 +43,15 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     bedToGoTo = 0;
     sentToBed = false;
     timeToDie = 200000;
+    timeSinceRepellent = 0;
 
 }
 
+void Human::SetCoveredInRepellant()
+{
+    hasRepeppant = true;
+    timeSinceRepellent = 0;
+}
 
 void Human::ChangeScenario(Scenario* scenario)
 {
@@ -89,7 +95,7 @@ Human::Human(House* house): Human(0,0, house)
 
 void Human::Damage()
 {
-    health -= 250;
+    timeToDie = timeToDie - 10000;
 }
 
 bool Human::Collide(SDL_Rect& tempRect)
@@ -117,6 +123,16 @@ bool Human::Collides(const SDL_Rect& rect)
 
 void Human::Update(int frame)
 {
+    if (hasRepeppant && timeSinceRepellent < 200000)
+    {
+        timeSinceRepellent++;
+    }
+    else if(hasRepeppant)
+    {
+        hasRepeppant = false;
+    }
+
+
     if (isInfected && !sentToBed)
     {
         if (activity != SITTING && activity != LYING)
@@ -141,7 +157,7 @@ void Human::Update(int frame)
             case (LYING):
             {
                 timeSince++;
-                timeToDie -= 300;
+                timeToDie -= 30;
                 if (timeSince > 200000)
                 {
                     dead = true;
@@ -573,6 +589,8 @@ void Human::ChooseDoor()
 void Human::Show(SDL_Renderer* renderer)
 {
     SDL_Rect leg;
+
+
     if (activity == WALKING || activity == GOING_TO_BED || activity == GOING_TO_DOOR || activity == AVOIDING_COLLISION)
     {
         int face = 0;
@@ -651,17 +669,38 @@ void Human::Show(SDL_Renderer* renderer)
 
         if (!flipped)
         {
+            if (hasRepeppant)
+            {
+                Texture::GetInstance()->Render(76,renderer, &this->face);
+                Texture::GetInstance()->RenderBack(76, renderer, &leg , &legs, true);
+                Texture::GetInstance()->Render(76,renderer, &this->body);
+            }
+            else
+            {
+                Texture::GetInstance()->Render(face,renderer, &this->face);
+                Texture::GetInstance()->RenderBack(2, renderer, &leg , &legs, true);
+                Texture::GetInstance()->Render(body,renderer, &this->body);
+            }
 
-            Texture::GetInstance()->Render(face,renderer, &this->face);
-            Texture::GetInstance()->RenderBack(2, renderer, &leg , &legs, true);
-            Texture::GetInstance()->Render(body,renderer, &this->body);
+
         }
         else
         {
-            Texture::GetInstance()->RenderFlipped(face,renderer, &this->face);
-            Texture::GetInstance()->RenderBack(2, renderer, &leg , &legs);
-            //Texture::GetInstance()->RenderFlipped((int)(leg+ walker), renderer, &legs);
-            Texture::GetInstance()->RenderFlipped(body,renderer, &this->body);
+
+            if (hasRepeppant)
+            {
+                Texture::GetInstance()->Render(76,renderer, &this->face);
+                Texture::GetInstance()->RenderBack(76, renderer, &leg , &legs, true);
+                Texture::GetInstance()->Render(76,renderer, &this->body);
+            }
+            else
+            {
+                Texture::GetInstance()->RenderFlipped(face,renderer, &this->face);
+                Texture::GetInstance()->RenderBack(2, renderer, &leg , &legs);
+                //Texture::GetInstance()->RenderFlipped((int)(leg+ walker), renderer, &legs);
+                Texture::GetInstance()->RenderFlipped(body,renderer, &this->body);
+            }
+
         }
 
     }

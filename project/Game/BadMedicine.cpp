@@ -13,13 +13,12 @@ BadMedicine::BadMedicine()
 
 void BadMedicine::Apply(House* house)
 {
-    int n;
-    DLL<Human*> humans =  house->GetHumans(n);
-    for(int i = 0;i < n;i++)
+
+    for(int i = 0;i < Alert::humans->GetLength();i++)
     {
-        if(rand() % 2 == 0 && humans.GiveItem(i)->GetInfected() != 0)      // this condition is basically for humans to lose health if they're infected
+        if(Alert::humans->GiveItem(i)->GetOwnHouse() == house && Alert::humans->GiveItem(i)->GetInfected() != 0)      // this condition is basically for humans to lose health if they're infected
         {
-            humans.GiveItem(i)->Damage();
+            Alert::humans->GiveItem(i)->Damage();
         }
     }
 }

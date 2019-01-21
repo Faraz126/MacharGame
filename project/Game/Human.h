@@ -66,6 +66,7 @@ private:
     bool MoveAllowed();
     void ChangeDirection();
     int timeToDie;
+    int timeSinceRepellent;
     bool dead;
 
 
@@ -90,6 +91,8 @@ public:
     void Damage();
     int GetDisease();
     bool GetCoveredInRepellant(){return hasRepeppant;}
+    void SetCoveredInRepellant();
+    House* GetOwnHouse(){return ownHouse;}
 };
 
 

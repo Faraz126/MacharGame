@@ -371,5 +371,13 @@ void House::SetUpScenarios()
     }
 }
 
+void House::ApplyRepellent()
+{
+    for (int i = 0; i < humans.GetLength(); i++)
+    {
+        humans.GiveItem(i)->SetCoveredInRepellant();
+    }
+}
+
 
 
