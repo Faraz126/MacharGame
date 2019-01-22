@@ -27,6 +27,7 @@ class Bed;
 class Human: public Clickable
 {
 private:
+    bool shake;
     bool hasRepeppant;
     SDL_Rect face, body, legs;
     House* ownHouse;
@@ -52,7 +53,7 @@ private:
     Door* door; //pointer to ownHouses door
     DLL<int> myStack; //activities to do.
     void GoOutdoor();
-    void GoIndoor();
+
     void ChangeScenario(Scenario*);
     int disease;
     bool isIndoor;
@@ -65,10 +66,12 @@ private:
     bool MoveAllowed();
     void ChangeDirection();
     int timeToDie;
+    int timeSinceRepellent;
     bool dead;
 
 
 public:
+    void GoIndoor();
     bool IsDead(){return dead;}
     int GetTimeToDie(){return timeToDie;}
     Human();
@@ -88,6 +91,8 @@ public:
     void Damage();
     int GetDisease();
     bool GetCoveredInRepellant(){return hasRepeppant;}
+    void SetCoveredInRepellant();
+    House* GetOwnHouse(){return ownHouse;}
 };
 
 

@@ -8,7 +8,7 @@ enum STATES {CLOSED, HALF_OPEN, OPEN};
 class Window :public Entrance
 {
 private:
-    int timeCovered, currentTime, state;
+    int timeCovered, currentTime, state, endTime;
     SDL_Rect* rect;
 protected:
 

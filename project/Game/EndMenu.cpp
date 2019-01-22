@@ -23,6 +23,62 @@ EndMenu::EndMenu(Screens* prevScreen, bool back, bool show, bool update, int fac
 
     Menu::SetText(buttonText);
 
+
+
+    word = new Word[1];
+    word[0].SetText("H U M A N   D I E D");
+    word[0].ReduceSize(3);
+    word[0].SetPosition(250,600);
+    show = true;
+    wordRect = new SDL_Rect;
+    wordRect->x = 80;
+    wordRect->y = 570;
+    wordRect->w = 800;
+    wordRect->h  = 200;
+
+
+    int randStr3 = rand()% 7;
+    str1 = "The Human Died As You Were Not Able To ";
+    str2 = "Stop The Mosquito Breeding From ";
+    if (randStr3==0)
+    {
+        str3 = "Tub";
+    }
+    else if (randStr3==1)
+    {
+        str3 = "Bucket";
+    }
+    else if (randStr3==2)
+    {
+        str3 = "Dirty Water";
+    }
+    else if (randStr3==3)
+    {
+        str3 = "Clean Water ";
+    }
+    else if (randStr3==4)
+    {
+        str3 = "Trash";
+    }
+    else if (randStr3==5)
+    {
+        str3 = "Trash Can";
+    }
+    else if (randStr3==6)
+    {
+        str3 = "Manhole";
+    }
+
+    word = new Word[2];
+    word[0].SetText(str1);
+    word[0].SetPosition(100,600);
+    word[0].ReduceSize(0.8);
+    word[1].SetText(str2+str3);
+    word[1].SetPosition(100,650);
+    word[1].ReduceSize(0.8);
+
+    screenEnd = false;
+
 }
 
 void EndMenu::HoverClick(SDL_Event* e)
@@ -43,10 +99,23 @@ void EndMenu::HoverClick(SDL_Event* e)
 
 void EndMenu::Show(SDL_Renderer* gRenderer)
 {
+    if (!screenEnd)
+    {
+        SDL_SetRenderDrawColor( gRenderer, 2,85,89,0 );
+        SDL_RenderDrawRect(gRenderer,wordRect);
+        SDL_RenderFillRect(gRenderer,wordRect);
+        for(int i =0; i<2 ; i++)
+        {
+            word[i].Show(gRenderer);
+        }
+    }
+
+    /*
     texture = Texture::GetInstance(gRenderer);
     texture->Render(78,gRenderer,pos0);
     cancelBtn->Show(gRenderer);
     Menu::Show(gRenderer);
+    */
 }
 
 
@@ -77,7 +146,7 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 curScreen = new Outdoor(this, false);
             }
 
-            if (btn[1].WithinRegion(mouseX,mouseY)==true)
+            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
 
                 /*
@@ -91,7 +160,7 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 curScreen = new MainMenu(this, false);
             }
 
-            if( cancelBtn->WithinRegion(mouseX, mouseY))
+            else if( cancelBtn->WithinRegion(mouseX, mouseY))
             {
 
                 /*

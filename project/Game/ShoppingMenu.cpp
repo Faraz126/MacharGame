@@ -9,6 +9,7 @@ ShoppingMenu::ShoppingMenu(Screens* prevScreen, bool back, bool show, bool updat
     shoppingPos->w = 925;
     shoppingPos->h = 100;
 
+    house = static_cast<House*>(prevScreen);
     shoppingExitPos.x = 910;
     shoppingExitPos.y = 690;
     shoppingExitPos.w = 25;
@@ -88,6 +89,11 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
                 if(e->button.button == SDL_BUTTON_LEFT)
                 {
                     tile[i].tileState =200;
+                    if (tile[i].Buyable(house->GetMoney()))
+                    {
+                        tile[i].Buy(house);
+
+                    }
 
                 }
 

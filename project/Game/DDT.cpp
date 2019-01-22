@@ -4,7 +4,7 @@
 
 DDT::DDT()
 {
-    name = "DDT";
+    name = "Spray";
     price.SetPaisa(230);
     spriteNum = 76;
 

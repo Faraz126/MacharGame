@@ -58,22 +58,19 @@ void Money::operator++(int paisa)
 
 bool Money::operator<(const Money& a)
 {
-    Money Money;
-    if (Money.paisa < a.paisa)
+    if (paisa < a.paisa)
         return true;
     return false;
 }
 bool Money::operator>(const Money& a)
 {
-    Money Money;
-    if (Money.paisa > a.paisa)
+    if (paisa > a.paisa)
         return true;
     return false;
 }
 bool Money::operator==(const Money& a)
 {
-    Money Money;
-    if (Money.paisa == a.paisa)
+    if (paisa == a.paisa)
         return true;
     return false;
 }
@@ -83,6 +80,7 @@ int Money::operator+(int a)
 }
 int Money::operator-(int a)
 {
+    paisa = paisa - a;
     return paisa-a;
 }
 int Money::operator*(int a)

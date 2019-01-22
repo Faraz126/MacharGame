@@ -1,4 +1,3 @@
-
 #include "Scenario.h"
 #include "Mosquito.h"
 
@@ -36,6 +35,7 @@ Mosquito::Mosquito(Scenario* screen): Mosquito()
 void Mosquito::SetIsDead(bool dead)
 {
     IsDead = dead;
+    health = -1;
 }
 
 void Mosquito::SetIndoor(bool status)
@@ -86,6 +86,7 @@ void Mosquito::Update(int frame)
     {
         clip = 43;
         IsDead = true;
+
     }
 }
 
@@ -253,9 +254,8 @@ void Mosquito::DetectAHuman()
 {
     int n;
     humans = screen->GetHumans(n);
-    for(int i = 0;i < n;i++)
+    for(int i = 0;i < humans.GetLength();i++)
     {
-        humans.GiveItem(i)->GetDistance(position.x,position.y);
 
         if(abs(position.x - humans.GiveItem(i) -> GetX() < Vision) &&
            abs(position.y - humans.GiveItem(i) -> GetY() < Vision) &&
@@ -373,5 +373,3 @@ void Mosquito::SetX(int delta, int direction)
         position.x-=delta;
     }
 }
-
-

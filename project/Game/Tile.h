@@ -44,6 +44,8 @@ public:
     void SetTileText();
     void SetTileIcon(int);
     void SetValues(int);
+    bool Buyable(Money& houseMoney);
+    void Buy(House*);
     ~Tile();
 };
 

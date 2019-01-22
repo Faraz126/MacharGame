@@ -6,7 +6,7 @@ Manual::Manual(Screens* prevScreen , bool back): Menu(prevScreen, back)
 
 }
 
-Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true)
+Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true, true, true)
 
 {
     this->hsp = hsp;
@@ -123,7 +123,7 @@ Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true)
 }
 void Manual::Show(SDL_Renderer* gRenderer)
 {
-
+    Screens::Show(gRenderer);
     Texture::GetInstance()->Render(129, gRenderer, manualPos);
     word[0].Show(gRenderer);
     word[1].Show(gRenderer);
@@ -171,6 +171,7 @@ void Manual::Show(SDL_Renderer* gRenderer)
 
     if (hsp->GetPopped()!=NULL)
     {
+        hsp->GetPopped()->UpdatePos(310, 200);
         hsp->GetPopped()->Show(gRenderer);
     }
 }
@@ -322,7 +323,6 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                     {
                         IntializeScreen2(); //screen2
                         screenChange = false;
-
                     }
                     if(checkbox[i].status)
                     {
@@ -336,9 +336,7 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                             screenNumber++; //if correct option new screen
                             screenChange = false;
                             SDL_Delay(10);
-
                         }
-
                     }
                     break;
 
@@ -359,8 +357,6 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                         */
                         Screens::SetCurrent(hsp);
                         screenNumber++;
-                        delete this;
-
                     }
                     break;
 

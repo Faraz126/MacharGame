@@ -7,6 +7,7 @@ using namespace std;
 Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
 {
     //screen dimensions
+    Alert::SetUpRects();
     code = 0;
     startWidth = 0;
     endWidth = 1024*2.5;
@@ -97,18 +98,12 @@ void Outdoor::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->RenderBack(35, renderer, &pos1, &pos);
 
-    for(int i = 0; i<myQ.GetLength(); i++ )
-    {
-        myQ.GiveItem(i)->Show(renderer);
-    }
-
-
     for(int i = 0; i<5; i++)
     {
         house[i].ShowOutside(renderer,i);
     }
 
-    SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
+
     for (int i = 0; i < 12; i++)
     {
         if (entrance[i]!=NULL)
@@ -117,11 +112,19 @@ void Outdoor::Show(SDL_Renderer* renderer)
         }
     }
 
+    for(int i = 0; i<myQ.GetLength(); i++ )
+    {
+        myQ.GiveItem(i)->Show(renderer);
+    }
+
+    SDL_SetRenderDrawColor( renderer, 255, 255, 255, 0);
+
+
     SDL_SetRenderDrawColor( renderer, 2,85,89,0 );
     SDL_RenderDrawRect(renderer,upperRect);
     SDL_RenderFillRect(renderer,upperRect);
     points->Show(renderer);
-
+    Alert::Show(renderer);
    // alert.Show(renderer);
 
 
@@ -171,13 +174,25 @@ int Outdoor::CountHumans()
 void Outdoor::Update(int frame) ///to update all objects
 {
 
+    for (int i = 0; i < 4; i++)
+    {
+        if ( &house[i] != curScreen)
+        {
+            house[i].Update(frame);
+        }
+
+    }
+
     for (int i = 0; i < myQ.GetLength(); i++)
     {
         myQ.GiveItem(i)->Update(frame);
+        /*
         if(myQ.GiveItem(i)->IsActive() && myQ.GiveItem(i)->DelayLidTime()>1000) //if container is covered and alloted time has passed
         {
             delete myQ.Pop(i);
         }
+        */
+
     }
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
@@ -187,6 +202,14 @@ void Outdoor::Update(int frame) ///to update all objects
     for (int i = 0; i < noOfEntrance; i++)
     {
         entrance[i]->Update(frame);
+    }
+
+    for (int i = 0; i < Alert::humans->GetLength(); i++)
+    {
+        if (Alert::humans->GiveItem(i)->GetTimeToDie() < 0)
+        {
+           // curScreen = new EndMenu(this, true, false);
+        }
     }
 
 }
@@ -300,9 +323,9 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                     startWidth += 20;
                     endWidth += 20;
                     pos1.x -= 20;
-                    for(int i = 0; i<noOfBreedingPlaces; i++ )
+                    for(int i = 0; i<myQ.GetLength(); i++ )
                     {
-                        breedingplaces[i]->SetX(20,0);
+                        myQ.GiveItem(i)->SetX(20,0);
                     }
                     for(int i = 0; i<noOfEntrance; i++ )
                     {
@@ -314,15 +337,18 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                         buildingRect[i].x+=20;
                     }
 
+
                     for(int i = 0; i<5; i++)
                     {
                         house[i].SetOutdoorX(20,0);
                     }
 
+                    /*
                     for (int i = 0; i < humans.GetLength(); i++)
                     {
                         humans.GiveItem(i)->SetX(20,0);
                     }
+                    */
                     for (int i = 0; i < mosquitoes.GetLength(); i++)
                     {
                         mosquitoes.GiveItem(i)->SetX(20,0);
@@ -455,7 +481,10 @@ Outdoor :: ~Outdoor()
 
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
-        delete mosquitoes.GiveItem(i);
+        if ((mosquitoes.GiveItem(i)) != 0)
+        {
+            delete mosquitoes.GiveItem(i);
+        }
     }
 
     delete[] house;

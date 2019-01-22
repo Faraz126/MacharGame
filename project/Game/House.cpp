@@ -185,18 +185,20 @@ void House::Show(SDL_Renderer* renderer)
     {
         myQ.GiveItem(i)->Show(renderer);
     }
+
+
+
+    /*
     int max = 2000000;
 
     toShow = false;
     for (int i = 0; i< humans.GetLength(); i++)
     {
-
-
         if (humans.GiveItem(i)->GetInfected() && humans.GiveItem(i)->GetTimeToDie() < max)
         {
             if (humans.GiveItem(i)->IsDead())
             {
-                curScreen = new EndMenu(outdoor, false);
+                curScreen = new EndMenu(outdoor, true);
             }
             else
             {
@@ -205,10 +207,12 @@ void House::Show(SDL_Renderer* renderer)
             max = humans.GiveItem(i)->GetTimeToDie();
             dyingIndex = i;
             toShow = true;
+
         }
     }
     if (toShow)
     alert.Show(renderer, (int)(humans.GiveItem(dyingIndex)->GetTimeToDie()/22225));
+    */
 
     if(houseShop->GetShopShow())
         houseShop->Show(renderer);
@@ -218,6 +222,7 @@ void House::Show(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer,upperRect0);
     points->Show(renderer);
     money.Show(renderer);
+    Alert::Show(renderer);
 
 }
 
@@ -255,13 +260,6 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
 
          if (btn->WithinRegion(mousePosX,mousePosY))  //for outdoor button in house
         {
-            /*
-            node.cur_screen = node.prev_screen;
-            node.prev_screen = this;
-<<<<<<< HEAD
-            node.prev_updatable = true;
-            node.prev_backable = true;
-            */
             curScreen = prevScreen;
 
         }
@@ -278,7 +276,11 @@ void House::HandleEvents(SDL_Event* e, Screens_Node& node)
 
 void House::Update(int frame)
 {
-    Screens::Update(frame);
+    if (curScreen == this)
+    {
+        Screens::Update(frame);
+    }
+
     for (int i = 0; i <noOfEntrance; i++)
     {
         entrance[i]->Update(frame);
@@ -299,8 +301,15 @@ void House::Update(int frame)
         mosquitoes.GiveItem(i)->Update(frame);
     }
 
+
+
 }
 
+
+Money& House::GetMoney()
+{
+    return money;
+}
 
 Door* House::GetDoor()
 {
@@ -362,6 +371,7 @@ void House::SetUpScenarios()
     }
 }
 
+
 void House::SetOutdoorPos(int x, int y,int w, int h)
 {
     outdoorPos.x = x;
@@ -369,6 +379,17 @@ void House::SetOutdoorPos(int x, int y,int w, int h)
     outdoorPos.w = w;
     outdoorPos.h = h;
 }
+
+void House::ApplyRepellent()
+{
+    for (int i = 0; i < humans.GetLength(); i++)
+    {
+        humans.GiveItem(i)->SetCoveredInRepellant();
+    }
+}
+
+
+
 
 void House::ShowOutside(SDL_Renderer* renderer, int sprt)
 {

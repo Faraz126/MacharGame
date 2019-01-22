@@ -138,6 +138,7 @@ Hospital :: ~Hospital()
 
  bool Hospital :: AddHuman(Human* human)
  {
+
      bool allowAppend = false;
      if(humans.GetLength()<=8) //only 8 humans allowed in hospital
      {
@@ -167,15 +168,20 @@ void Hospital :: LeaveHuman(Human* human)
      {
          humans.GiveItem(i)->UpdatePos(humanPos[i],465);
      }
+     popped = humans.GiveItem(0);
 }
 
 void Hospital :: LeaveHuman()
 {
-      humans.Pop();
-      for(int i = 0; i<humans.GetLength(); i++)
-     {
-         humans.GiveItem(i)->UpdatePos(humanPos[i],465);
-     }
+    manualShow = false;
+    Human* ptr = humans.Pop();
+    ptr->SetInfected(0);
+    ptr->GoIndoor();
+    for(int i = 0; i<humans.GetLength(); i++)
+    {
+        humans.GiveItem(i)->UpdatePos(humanPos[i],465);
+    }
+    popped = humans.GiveItem(0);
 }
 
 Human* Hospital :: GetPopped() ///to display the first human on manual

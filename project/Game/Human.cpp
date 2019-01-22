@@ -17,6 +17,7 @@ Human::Human(): Clickable(0,0,197, 575)
 Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
 {
 
+    shake = false;
     hasRepeppant = false;
     spriteNum = 74;
     ownHouse  =  house;
@@ -42,9 +43,15 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     bedToGoTo = 0;
     sentToBed = false;
     timeToDie = 200000;
+    timeSinceRepellent = 0;
 
 }
 
+void Human::SetCoveredInRepellant()
+{
+    hasRepeppant = true;
+    timeSinceRepellent = 0;
+}
 
 void Human::ChangeScenario(Scenario* scenario)
 {
@@ -88,18 +95,18 @@ Human::Human(House* house): Human(0,0, house)
 
 void Human::Damage()
 {
-    health -= 250;
+    timeToDie = timeToDie - 10000;
 }
 
 bool Human::Collide(SDL_Rect& tempRect)
 {
-    DLL<Clickable*> myQ = currentScenario->GetQ();
+    DLL<Clickable*>* myQ = &currentScenario->GetQ();
 
-    for (int i = 0; i < myQ.GetLength(); i++)
+    for (int i = 0; i < myQ->GetLength(); i++)
     {
-        if (myQ.GiveItem(i)->Collides(tempRect) && myQ.GiveItem(i) != this)
+        if (myQ->GiveItem(i)->Collides(tempRect) && myQ->GiveItem(i) != this)
         {
-            myQ.GiveItem(i)->Collision();
+            myQ->GiveItem(i)->Collision();
             return true;
         }
     }
@@ -116,6 +123,16 @@ bool Human::Collides(const SDL_Rect& rect)
 
 void Human::Update(int frame)
 {
+    if (hasRepeppant && timeSinceRepellent < 200000)
+    {
+        timeSinceRepellent++;
+    }
+    else if(hasRepeppant)
+    {
+        hasRepeppant = false;
+    }
+
+
     if (isInfected && !sentToBed)
     {
         if (activity != SITTING && activity != LYING)
@@ -572,6 +589,8 @@ void Human::ChooseDoor()
 void Human::Show(SDL_Renderer* renderer)
 {
     SDL_Rect leg;
+
+
     if (activity == WALKING || activity == GOING_TO_BED || activity == GOING_TO_DOOR || activity == AVOIDING_COLLISION)
     {
         int face = 0;
@@ -646,21 +665,42 @@ void Human::Show(SDL_Renderer* renderer)
             face += 6;
         }
 
-        leg.x = leg.x + (((int)walker)*leg.w);
+        leg.x =  leg.x + (((int)walker)*leg.w);
 
         if (!flipped)
         {
+            if (hasRepeppant)
+            {
+                Texture::GetInstance()->Render(76,renderer, &this->face);
+                Texture::GetInstance()->RenderBack(76, renderer, &leg , &legs, true);
+                Texture::GetInstance()->Render(76,renderer, &this->body);
+            }
+            else
+            {
+                Texture::GetInstance()->Render(face,renderer, &this->face);
+                Texture::GetInstance()->RenderBack(2, renderer, &leg , &legs, true);
+                Texture::GetInstance()->Render(body,renderer, &this->body);
+            }
 
-            Texture::GetInstance()->Render(face,renderer, &this->face);
-            Texture::GetInstance()->RenderBack(2, renderer, &leg , &legs, true);
-            Texture::GetInstance()->Render(body,renderer, &this->body);
+
         }
         else
         {
-            Texture::GetInstance()->RenderFlipped(face,renderer, &this->face);
-            Texture::GetInstance()->RenderBack(2, renderer, &leg , &legs);
-            //Texture::GetInstance()->RenderFlipped((int)(leg+ walker), renderer, &legs);
-            Texture::GetInstance()->RenderFlipped(body,renderer, &this->body);
+
+            if (hasRepeppant)
+            {
+                Texture::GetInstance()->Render(76,renderer, &this->face);
+                Texture::GetInstance()->RenderBack(76, renderer, &leg , &legs, true);
+                Texture::GetInstance()->Render(76,renderer, &this->body);
+            }
+            else
+            {
+                Texture::GetInstance()->RenderFlipped(face,renderer, &this->face);
+                Texture::GetInstance()->RenderBack(2, renderer, &leg , &legs);
+                //Texture::GetInstance()->RenderFlipped((int)(leg+ walker), renderer, &legs);
+                Texture::GetInstance()->RenderFlipped(body,renderer, &this->body);
+            }
+
         }
 
     }
@@ -671,18 +711,27 @@ void Human::Show(SDL_Renderer* renderer)
 
     else if (activity == IN_HOSPITAL)
     {
-        if(disease==2)
+        if(disease == DISEASE_MALARIA)
         {
-            Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
+            SDL_Rect newR;
+            newR = pos;
+            newR.x += 10;
+            Texture::GetInstance()->Render(135, renderer, &pos); ///HAVE TO CHANGE
+            Texture::GetInstance()->Render(134, renderer, &newR);
         }
-        if(disease==3)
+        else if(disease == CHICKENGUNYA)
         {
-            Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
+            Texture::GetInstance()->Render(87, renderer, &pos); ///HAVE TO CHANGE
         }
-        if(disease==4)
+        else if(disease == DENGUE)
         {
-            Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
+            Texture::GetInstance()->Render(90, renderer, &pos); ///HAVE TO CHANGE
         }
+        else
+        {
+            //Texture::GetInstance()->Render(134, renderer, &pos);
+        }
+
     }
     //SDL_SetRenderDrawColor( renderer, 170, 170, 170, 0);
     //SDL_RenderDrawRect(renderer, &collideRect);
@@ -698,7 +747,7 @@ void Human::GoIndoor()
     door = ownHouse->GetDoor();
     door->GetCenter(pos.x, pos.y);
     sizeFactor = 0.3;
-    ReduceSize(sizeFactor);
+    //ReduceSize(sizeFactor);
     BuildHuman();
     ChangeState();
 }
@@ -712,9 +761,8 @@ void Human::GoOutdoor()
     door = ownHouse->GetDoor();
     door->OutdoorPosCenter(pos.x, pos.y);
     sizeFactor = 0.2;
-    ReduceSize(sizeFactor);
+    //ReduceSize(sizeFactor);
     BuildHuman();
-
     ChangeState(WALKING);
 }
 
@@ -774,15 +822,24 @@ void Human::SetInfected(int code)
     }
     */
 
-    this->disease = code;
+    if (this->disease <= BITEN)
+    {
+       this->disease = code;
+    }
+
 
     if (code == 0)
     {
-
+        isInfected  = false;
     }
-    if (code)
+    if (code > BITEN)
     {
+        Alert::Add(this);
         isInfected = true;
+        if (code == MALARIA)
+        {
+            shake = true;
+        }
 
     }
 
@@ -798,8 +855,8 @@ int Human::GetInfected()
 
 void Human::GoToHospital()
 {
-
-    timeToDie = 20000;
+    Alert::Remove(this);
+    timeToDie = 200000;
     isInfected = false;
     isIndoor = false;
     ownHouse->LeaveHuman(this);

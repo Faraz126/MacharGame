@@ -4,7 +4,6 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_mixer.h>
 #include "Screens.h"
 #include "MainMenu.h"
 #include "Texture.h"
@@ -14,7 +13,6 @@
 #include"Outdoor.h"
 #include "GLOBALS.h"
 #include"Hospital.h"
-
 #include "Plant.h"
 #include <fstream>
 #include <sstream>

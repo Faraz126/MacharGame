@@ -89,6 +89,7 @@ bool Scenario::AddHuman(Human* human)
 
 void Scenario::LeaveHuman(Human* human)
 {
+
     int to_remove = -1;
     for (int i = 0; i < humans.GetLength(); i++)
     {
@@ -117,6 +118,7 @@ void Scenario::LeaveHuman(Human* human)
         myQ.Pop(to_remove);
         to_remove = -1;
     }
+
 }
 
 bool Scenario::Collides(Clickable* obj)
