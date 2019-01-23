@@ -113,7 +113,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
     SDL_RenderDrawRect(renderer,upperRect);
     SDL_RenderFillRect(renderer,upperRect);
     points->Show(renderer);
-    Alert::Show(renderer);
+
    // alert.Show(renderer);
 
 
@@ -197,7 +197,7 @@ void Outdoor::Update(int frame) ///to update all objects
     {
         if (Alert::humans->GiveItem(i)->GetTimeToDie() < 0)
         {
-           // curScreen = new EndMenu(this, true, false);
+            curScreen = new EndMenu(this, true, true);
         }
     }
 

@@ -856,11 +856,13 @@ int Human::GetInfected()
 void Human::GoToHospital()
 {
     Alert::Remove(this);
+
     timeToDie = 200000;
     isInfected = false;
     isIndoor = false;
     ownHouse->LeaveHuman(this);
     bedToGoTo->SetOccupied(false);
+    bedToGoTo = 0;
     ChangeScenario(ownHouse->GetOutdoor()->hospital);
     ownHouse->GetOutdoor()->hospital->AddHuman(this);
     ChangeState(IN_HOSPITAL);
@@ -872,3 +874,20 @@ int Human::GetDisease()
     return disease;
 }
 
+
+void Human::ShowAlert(SDL_Renderer* gRenderer, SDL_Rect* sprites, Screens* curHouse)
+{
+    SDL_Rect bedPos;
+    if (bedToGoTo == 0)
+    {
+        return;
+    }
+
+    bedPos.x = bedToGoTo->GetX() + 76/2;
+    bedPos.y = bedToGoTo->GetY() - 50;
+    bedPos.w = 50;
+    bedPos.h = 50;
+
+    if (curHouse == ownHouse)
+    Texture::GetInstance()->RenderBack(1,gRenderer, &sprites[(int)(timeToDie/22225)], &bedPos);
+}

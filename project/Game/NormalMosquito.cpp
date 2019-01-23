@@ -25,7 +25,7 @@ void NormalMosquito::Bite()
         DetectHuman = false;
         IsFollowingHuman = false;       // so that it doesn't keep following human again
         //std::cout << "BITE!" << std::endl;
-        humans.GiveItem(human) -> SetInfected(diseaseCode);
+        //humans.GiveItem(human) -> SetInfected(diseaseCode);
         Heal();
     }
 }

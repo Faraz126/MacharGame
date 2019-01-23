@@ -27,13 +27,13 @@ void AedesMosquito::Bite()
 
         if(rand() % 2 == 0)         // if this is true then infect with Dengue
         {
-            humans.GiveItem(human) -> SetInfected(diseases[0]);
+            humans.GiveItem(human) -> SetInfected(DENGUE);
             Heal();
             //std::cout << "BITE!" << std::endl;
         }
         else    // if this is true then infect with Chikengunya
         {
-            humans.GiveItem(human) -> SetInfected(diseases[1]);
+            humans.GiveItem(human) -> SetInfected(CHICKENGUNYA);
             Heal();
             //std::cout << "BITE!" << std::endl;
         }

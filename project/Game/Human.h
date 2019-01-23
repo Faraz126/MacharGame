@@ -93,6 +93,7 @@ public:
     bool GetCoveredInRepellant(){return hasRepeppant;}
     void SetCoveredInRepellant();
     House* GetOwnHouse(){return ownHouse;}
+    void ShowAlert(SDL_Renderer*, SDL_Rect*, Screens*);
 };
 
 

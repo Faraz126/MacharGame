@@ -99,6 +99,7 @@ void EndMenu::HoverClick(SDL_Event* e)
 
 void EndMenu::Show(SDL_Renderer* gRenderer)
 {
+    Screens::Show(gRenderer);
     if (!screenEnd)
     {
         SDL_SetRenderDrawColor( gRenderer, 2,85,89,0 );
@@ -109,6 +110,7 @@ void EndMenu::Show(SDL_Renderer* gRenderer)
             word[i].Show(gRenderer);
         }
     }
+
 
     /*
     texture = Texture::GetInstance(gRenderer);

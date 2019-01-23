@@ -26,7 +26,7 @@ void MalariaMosquito::Bite()
         humans.GiveItem(human) -> SetInfected(diseaseCode);
         DetectHuman = false;
         IsFollowingHuman = false;
-        std::cout << "BITE!" << std::endl;
+
         Heal();
     }
 }
