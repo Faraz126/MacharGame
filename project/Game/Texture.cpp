@@ -919,13 +919,13 @@ void Texture::SetRect(int n)
         clipFromTexture.h = 350;
         break;
     case 135:
-        clipFromTexture.x = 2931;
+        clipFromTexture.x = 2978;
         clipFromTexture.y = 4773;
         clipFromTexture.w = 169;
         clipFromTexture.h = 350;
         break;
     case 136:
-        clipFromTexture.x = 3131;
+        clipFromTexture.x = 3192;
         clipFromTexture.y = 4773;
         clipFromTexture.w = 169;
         clipFromTexture.h = 350;

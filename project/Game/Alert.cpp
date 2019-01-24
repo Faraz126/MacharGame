@@ -134,7 +134,7 @@ void Alert::Remove(Human* human)
     humans->RemoveItem(human);
 }
 
-void Alert::Show(SDL_Renderer* gRenderer, House* house)
+void Alert::Show(SDL_Renderer* gRenderer, Screens* house)
 {
     for (int i = 0; i < humans->GetLength(); i++)
     {

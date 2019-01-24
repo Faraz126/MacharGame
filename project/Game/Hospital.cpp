@@ -174,7 +174,7 @@ void Hospital :: LeaveHuman(Human* human)
 void Hospital :: LeaveHuman()
 {
     manualShow = false;
-    Human* ptr = humans.Pop();
+    Human* ptr = humans.Pop(0);
     ptr->SetInfected(0);
     ptr->GoIndoor();
     for(int i = 0; i<humans.GetLength(); i++)

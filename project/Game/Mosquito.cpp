@@ -9,9 +9,8 @@ Mosquito::~Mosquito()
 
 Mosquito::Mosquito()
 {
-    clip = 43;
-    position.h = 10;
-    position.w = 20;
+    clip = 0;
+
     DetectHuman = false;
     DetectEntrance = false;
     IsFollowingHuman = false;
@@ -25,6 +24,9 @@ Mosquito::Mosquito()
     ReachingTimer = 0;
     screen = NULL;
     entrance = NULL;
+    sprites = new SDL_Rect[18];
+
+
 }
 
 Mosquito::Mosquito(Scenario* screen): Mosquito()
@@ -97,9 +99,9 @@ void Mosquito::Fly()
     DetectTimer += 1;
 
     clip += 0.1;
-    if(clip >= 52)      // to change the clip after a certain amount the loop runs.
+    if(clip >= 18)      // to change the clip after a certain amount the loop runs.
     {
-        clip = 43;
+        clip = 0;
     }
     speed_x += rand() % 5;
     speed_y += rand() % 5;
@@ -308,7 +310,8 @@ void Mosquito::ReachedEntrance()
 
 void Mosquito::Show(SDL_Renderer* gRenderer)
 {
-    Texture::GetInstance() -> Render(int(clip),gRenderer,&position);
+    //Texture::GetInstance() -> Render(int(clip),gRenderer,&position);
+    Texture::GetInstance()->RenderBack(1,gRenderer, &sprites[int(clip)], &position);
 }
 
 bool Mosquito::GetIsDead()

@@ -222,7 +222,7 @@ void House::Show(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer,upperRect0);
     points->Show(renderer);
     money.Show(renderer);
-    Alert::Show(renderer, this);
+    Alert::Show(renderer, curScreen);
 
 }
 

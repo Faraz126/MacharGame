@@ -40,6 +40,7 @@ protected:
     bool DetectEntrance;
     SDL_Rect position;
     Scenario* screen;
+    SDL_Rect* sprites;
 
 public:
     Mosquito();
