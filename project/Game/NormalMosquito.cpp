@@ -11,8 +11,8 @@ NormalMosquito::NormalMosquito()  : Mosquito()
     MaxSpeedY = 1;
     Range = 10;
 
-    position.h = 231*0.2;
-    position.w = 271*0.2;
+    position.h = 231*sizeFactor;
+    position.w = 271*sizeFactor;
 
     sprites[0].x = 1276 + (231*0);
     sprites[0].y = 5827;

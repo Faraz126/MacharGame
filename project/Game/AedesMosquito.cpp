@@ -12,8 +12,8 @@ AedesMosquito::AedesMosquito() : Mosquito()
 
     //sprites = new SDL_Rect[18];
 
-    position.h = 231*0.2;
-    position.w = 265*0.2;
+    position.h = 231*sizeFactor;
+    position.w = 265*sizeFactor;
 
     sprites[0].x = 1254 + (231*0);
     sprites[0].y = 5582;

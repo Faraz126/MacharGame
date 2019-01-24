@@ -25,6 +25,8 @@ Mosquito::Mosquito()
     screen = NULL;
     entrance = NULL;
     sprites = new SDL_Rect[18];
+    jitter = 3;
+    sizeFactor = 0.07f;
 
 
 }
@@ -107,25 +109,25 @@ void Mosquito::Fly()
     speed_y += rand() % 5;
     if(rand() % 4 == 0 && speed_x  >= MaxSpeedY)    // to move the mosquito right
     {
-        int random = rand() % 13;
+        int random = rand() % jitter;
         position.x += random;
         speed_x = 0;
     }
     else if(rand() % 4 == 1 && speed_x  >= MaxSpeedX) // to move the mosquito left
     {
-        int random = rand() % 13;
+        int random = rand() % jitter;
         position.x -= random;
         speed_x = 0;
     }
     else if(rand() % 4 == 2 && speed_y  >= MaxSpeedY) // to move the mosquito up
     {
-        int random = rand() % 13;
+        int random = rand() % jitter;
         position.y -= random;
         speed_y = 0;
     }
     else if(rand() % 4 == 3 && speed_y  >= MaxSpeedY) // to move the mosquito down
     {
-        int random = rand() % 13;
+        int random = rand() % jitter;
         position.y += random;
         speed_y = 0;
     }
@@ -145,25 +147,25 @@ void Mosquito::IsFollow()
 
     if(humans.GiveItem(human) -> GetX()+ 20 > position.x && rand() % 4 == 0 && speed_x  >= MaxSpeedX)    // to move the mosquito right
     {
-        int random = rand() % 13;
+        int random = rand() % jitter;
         position.x += random;
         speed_x = 0;
     }
     else if(humans.GiveItem(human) -> GetX() - 20 < position.x && rand() % 4 == 1 && speed_x  >= MaxSpeedX) // to move the mosquito left
     {
-        int random = rand() % 13;
+        int random = rand() % jitter;
         position.x -= random;
         speed_x = 0;
     }
     else if(humans.GiveItem(human) -> GetY() + 20 > position.y && rand() % 4 == 2 && speed_y  >= MaxSpeedY) // to move the mosquito up
     {
-        int random = rand() % 13;
+        int random = rand() % jitter;
         position.y += random;
         speed_y = 0;
     }
     else if(humans.GiveItem(human) -> GetY() - 20 < position.y && rand() % 4 == 3 && speed_y  >= MaxSpeedY) // to move the mosquito down
     {
-        int random = rand() % 13;
+        int random = rand() % jitter;
         position.y -= random;
         speed_y = 0;
     }
@@ -189,25 +191,25 @@ void Mosquito::IsFollow(Entrance* entrance)        // Going to entrance
     speed_y += rand() % 5;
     if(entrance -> GetX(indoor) > position.x && rand() % 4 == 0 && speed_x  >= 10)    // to move the mosquito right
     {
-        int random = rand() % 13;
+        int random = rand() % jitter;
         position.x += random;
         speed_x = 0;
     }
     else if(entrance -> GetX(indoor) < position.x && rand() % 4 == 1 && speed_x  >= 10) // to move the mosquito left
     {
-        int random = rand() % 13;
+        int random = rand() % jitter;
         position.x -= random;
         speed_x = 0;
     }
     else if(entrance -> GetY(indoor) > position.y && rand() % 4 == 2 && speed_y  >= 10) // to move the mosquito up
     {
-        int random = rand() % 13;
+        int random = rand() % jitter;
         position.y += random;
         speed_y = 0;
     }
     else if(entrance -> GetY(indoor) < position.y && rand() % 4 == 3 && speed_y  >= 10) // to move the mosquito down
     {
-        int random = rand() % 13;
+        int random = rand() % jitter;
         position.y -= random;
         speed_y = 0;
     }

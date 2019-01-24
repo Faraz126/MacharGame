@@ -12,8 +12,8 @@ MalariaMosquito::MalariaMosquito()  : Mosquito()
     MaxSpeedY = 5;
     Range = 15;
 
-    position.h = 263*0.2;
-    position.w = 308*0.2;
+    position.h = 263*sizeFactor;
+    position.w = 308*sizeFactor;
     sprites[0].x = 3713;
     sprites[0].y = 308*0;
     sprites[0].w = 263;

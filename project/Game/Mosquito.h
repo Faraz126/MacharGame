@@ -41,6 +41,8 @@ protected:
     SDL_Rect position;
     Scenario* screen;
     SDL_Rect* sprites;
+    int jitter;
+    float sizeFactor;
 
 public:
     Mosquito();
