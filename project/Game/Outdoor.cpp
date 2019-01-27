@@ -175,18 +175,18 @@ void Outdoor::Update(int frame) ///to update all objects
     for (int i = 0; i < myQ.GetLength(); i++)
     {
         myQ.GiveItem(i)->Update(frame);
-        /*
+
         if(myQ.GiveItem(i)->IsActive() && myQ.GiveItem(i)->DelayLidTime()>1000) //if container is covered and alloted time has passed
         {
-            delete myQ.Pop(i);
+            Clickable* myM = myQ.GiveItem(i);
+            myQ.RemoveItem(myM);
+            delete myM;
+            break;
         }
-        */
+
 
     }
-    for (int i = 0; i < mosquitoes.GetLength(); i++)
-    {
-        mosquitoes.GiveItem(i)->Update(frame);
-    }
+
 
     for (int i = 0; i < noOfEntrance; i++)
     {
@@ -198,6 +198,22 @@ void Outdoor::Update(int frame) ///to update all objects
         if (Alert::humans->GiveItem(i)->GetTimeToDie() < 0)
         {
             curScreen = new EndMenu(this, true, true);
+        }
+    }
+
+    for (int i = 0; i < mosquitoes.GetLength(); i++)
+    {
+        if (mosquitoes.GiveItem(i)->GetIsDead())
+        {
+            Mosquito* myM = mosquitoes.GiveItem(i);
+            cout << mosquitoes.GetLength();
+            mosquitoes.RemoveItem(myM);
+            delete myM;
+            cout << mosquitoes.GetLength();
+        }
+        else
+        {
+            mosquitoes.GiveItem(i)->Update(frame);
         }
     }
 

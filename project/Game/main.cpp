@@ -17,6 +17,8 @@
 #include <fstream>
 #include <sstream>
 #include "SplashScreen.h"
+#include <SDL_mixer.h>
+
 
 
 using namespace std;
@@ -39,6 +41,8 @@ SDL_Window* gWindow = NULL;
 
 //The window renderer
 SDL_Renderer* gRenderer = NULL;
+Mix_Music *gMusic = NULL;
+
 
 
 
@@ -93,13 +97,13 @@ bool init()
                     success = false;
                 }
 
-/*
+
                 if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
                 {
                     printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
                     success = false;
                 }
-                */
+
 
             }
         }
@@ -112,6 +116,13 @@ bool loadMedia()
 {
 	//Loading success mouseClicked
 	bool success = true;
+
+    gMusic = Mix_LoadMUS( "m.wav" );
+    if( gMusic == NULL )
+    {
+        printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
+        success = false;
+    }
 
 	//Nothing to load
 	return success;
@@ -143,7 +154,7 @@ int main( int argc, char* args[] )
 	}
 	else
 	{
-
+        cout << loadMedia();
         Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
 
 
@@ -174,6 +185,29 @@ int main( int argc, char* args[] )
                 //screen.cur_screen->HandleEvents(&e,screen);
                 Screens::GetCurrent()->HandleEvents(&e, screen);
             }
+            if( Mix_PlayingMusic() == 0 )
+            {
+            //Play the music
+                Mix_PlayMusic( gMusic, -1 );
+            }
+            //If music is being played
+            else
+            {
+
+                //If the music is paused
+                if( Mix_PausedMusic() == 1 )
+                {
+                //Resume the music
+                    //Mix_ResumeMusic();
+                }
+                //If the music is playing
+                else
+                {
+                //Pause the music
+                    //Mix_PauseMusic();
+                }
+            }
+
 
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );

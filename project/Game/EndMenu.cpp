@@ -31,9 +31,9 @@ EndMenu::EndMenu(Screens* prevScreen, bool back, bool show, bool update, int fac
     word[0].SetPosition(250,600);
     show = true;
     wordRect = new SDL_Rect;
-    wordRect->x = 80;
+    wordRect->x = 0;
     wordRect->y = 570;
-    wordRect->w = 800;
+    wordRect->w = 1024;
     wordRect->h  = 200;
 
 
@@ -78,6 +78,7 @@ EndMenu::EndMenu(Screens* prevScreen, bool back, bool show, bool update, int fac
     word[1].ReduceSize(0.8);
 
     screenEnd = false;
+    time = 0;
 
 }
 
@@ -99,6 +100,7 @@ void EndMenu::HoverClick(SDL_Event* e)
 
 void EndMenu::Show(SDL_Renderer* gRenderer)
 {
+
     Screens::Show(gRenderer);
     if (!screenEnd)
     {
@@ -110,14 +112,23 @@ void EndMenu::Show(SDL_Renderer* gRenderer)
             word[i].Show(gRenderer);
         }
     }
+    else
+    {
+        texture = Texture::GetInstance(gRenderer);
+        texture->Render(78,gRenderer,pos0);
+        cancelBtn->Show(gRenderer);
+        Menu::Show(gRenderer);
+    }
+
+    if (time++ > 200)
+    {
+        screenEnd = true;
+    }
 
 
-    /*
-    texture = Texture::GetInstance(gRenderer);
-    texture->Render(78,gRenderer,pos0);
-    cancelBtn->Show(gRenderer);
-    Menu::Show(gRenderer);
-    */
+
+
+
 }
 
 
@@ -145,7 +156,7 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_screen = this;
                 node.prev_backable = false;  //outdoor screen will open
                 */
-                curScreen = new Outdoor(this, false);
+                curScreen = new Outdoor(this, true);
             }
 
             else if (btn[1].WithinRegion(mouseX,mouseY)==true)
@@ -159,7 +170,7 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_backable = false;
                 node.prev_updatable = false;
                 */
-                curScreen = new MainMenu(this, false);
+                curScreen = new MainMenu(this, true);
             }
 
             else if( cancelBtn->WithinRegion(mouseX, mouseY))

@@ -298,7 +298,20 @@ void House::Update(int frame)
 
     for (int i = 0; i < mosquitoes.GetLength();i++)
     {
-        mosquitoes.GiveItem(i)->Update(frame);
+        if (mosquitoes.GiveItem(i)->GetIsDead())
+        {
+            Mosquito* myM = mosquitoes.GiveItem(i);
+            cout << mosquitoes.GetLength();
+            mosquitoes.RemoveItem(myM);
+            delete myM;
+            cout << mosquitoes.GetLength();
+            break;
+
+        }
+        else
+        {
+            mosquitoes.GiveItem(i)->Update(frame);
+        }
     }
 
 

@@ -885,11 +885,30 @@ void Human::ShowAlert(SDL_Renderer* gRenderer, SDL_Rect* sprites, Screens* curHo
         return;
     }
 
-    bedPos.x = bedToGoTo->GetX() + 76/2;
-    bedPos.y = bedToGoTo->GetY() - 50;
-    bedPos.w = 50;
-    bedPos.h = 50;
+    bedPos.x = bedToGoTo->GetX() + 35;
+    bedPos.y = bedToGoTo->GetY() - 30;
+    bedPos.w = 13;
+    bedPos.h = 13;
+
+    SDL_Rect outline;
+    outline.x = bedPos.x + 17;
+    outline.y = bedPos.y;
+    outline.w = 75;
+    outline.h = 10;
+
+    SDL_Rect rect;
+    rect.x = outline.x +2;
+    rect.y = outline.y + 2;
+    rect.w = (timeToDie/200000.0)*70;
+    rect.h = outline.h - 4;
 
     if (curHouse == ownHouse)
-    Texture::GetInstance()->RenderBack(1,gRenderer, &sprites[(int)(timeToDie/22225)], &bedPos);
+    {
+        SDL_SetRenderDrawColor( gRenderer, 0, 0, 0,0);
+        SDL_RenderDrawRect(gRenderer,&outline);
+        SDL_SetRenderDrawColor( gRenderer, 255, 0, 0,0);
+        SDL_RenderFillRect(gRenderer,&rect);
+        Texture::GetInstance()->Render(142,gRenderer, &bedPos);
 }
+    }
+

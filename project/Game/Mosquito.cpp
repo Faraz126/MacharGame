@@ -3,7 +3,7 @@
 
 Mosquito::~Mosquito()
 {
-
+    delete[] sprites;
 }
 
 
@@ -27,6 +27,7 @@ Mosquito::Mosquito()
     sprites = new SDL_Rect[18];
     jitter = 3;
     sizeFactor = 0.07f;
+    movingRight = false;
 
 
 }
@@ -112,6 +113,7 @@ void Mosquito::Fly()
         int random = rand() % jitter;
         position.x += random;
         speed_x = 0;
+
     }
     else if(rand() % 4 == 1 && speed_x  >= MaxSpeedX) // to move the mosquito left
     {
@@ -150,12 +152,14 @@ void Mosquito::IsFollow()
         int random = rand() % jitter;
         position.x += random;
         speed_x = 0;
+        movingRight = true;
     }
     else if(humans.GiveItem(human) -> GetX() - 20 < position.x && rand() % 4 == 1 && speed_x  >= MaxSpeedX) // to move the mosquito left
     {
         int random = rand() % jitter;
         position.x -= random;
         speed_x = 0;
+
     }
     else if(humans.GiveItem(human) -> GetY() + 20 > position.y && rand() % 4 == 2 && speed_y  >= MaxSpeedY) // to move the mosquito up
     {
@@ -194,6 +198,7 @@ void Mosquito::IsFollow(Entrance* entrance)        // Going to entrance
         int random = rand() % jitter;
         position.x += random;
         speed_x = 0;
+        movingRight = true;
     }
     else if(entrance -> GetX(indoor) < position.x && rand() % 4 == 1 && speed_x  >= 10) // to move the mosquito left
     {
@@ -313,7 +318,8 @@ void Mosquito::ReachedEntrance()
 void Mosquito::Show(SDL_Renderer* gRenderer)
 {
     //Texture::GetInstance() -> Render(int(clip),gRenderer,&position);
-    Texture::GetInstance()->RenderBack(1,gRenderer, &sprites[int(clip)], &position);
+    Texture::GetInstance()->RenderBack(1,gRenderer, &sprites[int(clip)], &position, movingRight);
+    movingRight = false;
 }
 
 bool Mosquito::GetIsDead()

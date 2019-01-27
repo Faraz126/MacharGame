@@ -43,6 +43,7 @@ protected:
     SDL_Rect* sprites;
     int jitter;
     float sizeFactor;
+    bool movingRight;
 
 public:
     Mosquito();
