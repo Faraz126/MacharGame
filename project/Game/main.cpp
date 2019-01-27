@@ -167,8 +167,6 @@ int main( int argc, char* args[] )
         SplashScreen splash;
         splash.Show(gRenderer);
 
-
-
         //screen.cur_screen = new MainMenu; //starting with main menu
         Screens::Initiate();
         int frame = 0;
