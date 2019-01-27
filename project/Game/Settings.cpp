@@ -155,7 +155,7 @@ void Setting::HandleEvents(SDL_Event* e, Screens_Node& node)
             {
                 ofstream myfile;
                 myfile.open ("setting.txt");
-                float bright = (slider[1].GetSliderPosX() - settingSliderPos1->x)/495.0;
+                float bright = (slider[1].GetSliderPosX() - settingSliderPos1->x)/495.0f;
                 if (bright > 0)
                 {
                     myfile << bright;

@@ -18,6 +18,11 @@
 #include <fstream>
 #include <sstream>
 #include "SplashScreen.h"
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <stdio.h>
+#include <string>
 
 
 
@@ -42,9 +47,8 @@ SDL_Window* gWindow = NULL;
 //The window renderer
 SDL_Renderer* gRenderer = NULL;
 
-
-
-//The sound effects that will be used
+//The music that will be played
+Mix_Music *gMusic = NULL;
 
 
 bool init()
@@ -95,13 +99,13 @@ bool init()
                     success = false;
                 }
 
-/*
+
+                //Initialize SDL_mixer
                 if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
                 {
                     printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
                     success = false;
                 }
-                */
 
             }
         }
@@ -112,8 +116,16 @@ bool init()
 
 bool loadMedia()
 {
+
 	//Loading success mouseClicked
 	bool success = true;
+
+    gMusic = Mix_LoadMUS( "ChillingMusic.wav" );
+    if( gMusic == NULL )
+    {
+        printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
+        success = false;
+    }
 
 	//Nothing to load
 	return success;
@@ -121,7 +133,7 @@ bool loadMedia()
 
 void close()
 {
-	//Destroy window
+    //Destroy window
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
 	gWindow = NULL;
@@ -148,8 +160,6 @@ int main( int argc, char* args[] )
 
         Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
 
-
-
         SDL_Event e;
 
         Screens_Node screen;
@@ -166,6 +176,7 @@ int main( int argc, char* args[] )
 
         while (!GAME_QUIT)
         {
+
             //screen.cur_screen->Update(frame);
             ifstream myfile;
             myfile.open("setting.txt");
@@ -186,6 +197,28 @@ int main( int argc, char* args[] )
                 if( e.type == SDL_QUIT ) GAME_QUIT = true;
                 //screen.cur_screen->HandleEvents(&e,screen);
                 Screens::GetCurrent()->HandleEvents(&e, screen);
+            }
+            if( Mix_PlayingMusic() == 0 )
+            {
+            //Play the music
+                Mix_PlayMusic( gMusic, -1 );
+            }
+            //If music is being played
+            else
+            {
+
+                //If the music is paused
+                if( Mix_PausedMusic() == 1 )
+                {
+                //Resume the music
+                    //Mix_ResumeMusic();
+                }
+                //If the music is playing
+                else
+                {
+                //Pause the music
+                    //Mix_PauseMusic();
+                }
             }
 
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
