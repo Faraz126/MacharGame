@@ -45,6 +45,7 @@ private:
     int countTrashcan;
     int countManhole;
     int totalHumans;
+    int Roll(int, int);
     Money money;
     int CountHumans();
     void GetHouseEntrance();

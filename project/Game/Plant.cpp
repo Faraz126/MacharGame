@@ -6,7 +6,7 @@ Plant::Plant(int x, int y): Container(x,y, PLANT_WIDTH, PLANT_HEIGHT)
     if(spriteNum>=31)
     {
         lid = new Soil(pos.x, pos.y + 150);
-        lid->ReduceSize(0.5);
+        lid->ReduceSize(0.75);
     }
     else
     {

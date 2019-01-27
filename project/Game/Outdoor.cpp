@@ -44,10 +44,10 @@ Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
     PlaceContainers();
     //Load(file);
 
-    house[0].SetOutdoorPos(10,270,280,320);
-    house[1].SetOutdoorPos(360,249,239,340);
-    house[2].SetOutdoorPos(605,270,290,320);
-    house[3].SetOutdoorPos(1060,270,290,320);
+    house[0].SetOutdoorPos(10,268,280,320);
+    house[1].SetOutdoorPos(360,247,239,340);
+    house[2].SetOutdoorPos(605,268,290,320);
+    house[3].SetOutdoorPos(1060,269,290,320);
     hospital->SetOutdoorPos(1330,250,350,350);
 
     for(int i = 0; i<4; i++)
@@ -377,34 +377,36 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
         //alert.HandleEvents(e,node);
 }
 
+int Outdoor::Roll(int mn, int mx)
+{
+    return rand() % mx + mn;
+}
+
 void Outdoor:: PlaceContainers()
 {
     noOfEntrance = 0; //initializing count
     countPlants = 7;
-    countCleanWater = (rand()%2) + 2;
-    countTrashcan = (rand()%4) + 2;
-    countManhole = (rand()%2)+2;
+    countCleanWater = Roll(1,2);
+    countTrashcan = Roll(2,3);
+    countManhole = Roll(3,2);
     countContainer = countPlants + countTrashcan + (countManhole*2) + countCleanWater; //countDirtyWater = countManhole
     noOfBreedingPlaces = countContainer;
     breedingplaces = new BreedingGround*[countContainer];
 
     int plantPos[countPlants] = {170,260,515,780,870,970,1245}; //fixed x-coordinates of plants
-    //int plantPos[countPlants] = {170,260,515,780,870,970,1245,1820,1800,2025,2095}; //fixed x-coordinates of plants
-    int trashCanPos[4] = {650,1800,80,1060}; //fixed x-coordinates of trash Cans
-    int manholePos[3] = {1500, 2270, 450};//fixed x-coordinates of manhole
-    int DirtyWaterPos[3] = {1430, 2240, 400};
-    //int TrashCanLidPos[4] = {500, 700, 1000, 1200};
-    int CleanWaterPos[3] = {200, 2050, 1700};
+    int trashCanPos[3] = {650,80,1160}; //fixed x-coordinates of trash Cans
+    int manholePos[3] = {900, 1320, 450};//fixed x-coordinates of manhole
+    int DirtyWaterPos[3] = {830, 1250, 400};
+    int CleanWaterPos[2] = {200, 1070};
     int ManholePosY[3] = {rand()%(110)+620,rand()%(110)+620,rand()%(110)+620};
     int i = 0; //iterator for breedingplacess
+
     for (int place = 0; place<countPlants; place++) //to place plants
     {
-        //breedingplaces[i]->ReduceSize(0.9);
         breedingplaces[i] = new Plant(plantPos[place],320);
         myQ.Append(breedingplaces[i]);
         i++;
     }
-    //breedingplaces[0]->ReduceSize(0.8);
 
     for (int place = 0; place<countTrashcan; place++) //to place trash Cans
     {
@@ -442,8 +444,8 @@ void Outdoor:: PlaceContainers()
         {
             breedingplaces[i]->UpdatePos(++x,++y);
         }
+        breedingplaces[i]->ReduceSize(0.8);
         myQ.Append(breedingplaces[i]);
-
         i++;
     }
 }
@@ -473,5 +475,4 @@ Outdoor :: ~Outdoor()
     delete hospital;
     delete upperRect;
 }
-
 
