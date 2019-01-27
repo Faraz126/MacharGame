@@ -36,7 +36,6 @@ private:
     SDL_Rect* cartPos;
     SDL_Rect* upperRect;
     Texture* texture;
-    SDL_Rect* buildingRect; //rectangle for clickable region of houses & hospital
     House* house;
     ShoppingMenu* shop;
 

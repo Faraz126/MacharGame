@@ -17,6 +17,7 @@ class BreedingGround;
 class Scenario : public Screens
 {
 protected:
+    SDL_Rect outdoorPos;
     int startHeight;
     int endHeight;
     int startWidth;
@@ -52,7 +53,14 @@ public:
     int GetCode();
     DLL<Human*>& GetHumans(int & );
     virtual ~Scenario();
-
+    void SetOutdoorPos(int,int,int, int);
+    void ShowOutside(SDL_Renderer*, int);
+    void SetOutdoorX(int,int);
+    int GiveOutdoorPosX();
+    int GiveOutdoorPosY();
+    int GiveOutdoorPosW();
+    int GiveOutdoorPosH();
+    void ReduceSize(double);
 };
 
 
