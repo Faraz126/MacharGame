@@ -715,17 +715,17 @@ void Human::Show(SDL_Renderer* renderer)
         {
             SDL_Rect newR;
             newR = pos;
-            newR.x += 10;
-            Texture::GetInstance()->Render(135, renderer, &pos); ///HAVE TO CHANGE
-            Texture::GetInstance()->Render(134, renderer, &newR);
+            //newR.x += 10;
+            Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
+            //Texture::GetInstance()->Render(134, renderer, &newR);
         }
         else if(disease == CHICKENGUNYA)
         {
-            Texture::GetInstance()->Render(87, renderer, &pos); ///HAVE TO CHANGE
+            Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
         }
         else if(disease == DENGUE)
         {
-            Texture::GetInstance()->Render(90, renderer, &pos); ///HAVE TO CHANGE
+            Texture::GetInstance()->Render(134, renderer, &pos); ///HAVE TO CHANGE
         }
         else
         {

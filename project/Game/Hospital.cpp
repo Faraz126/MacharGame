@@ -7,7 +7,7 @@ using namespace std;
 
 Hospital::Hospital(Screens* prev): Scenario(prev, true, false, true, 1)
 {
-    int humanPos[8] = {310,400,495,580,675,760,860,945};// position of humans sitting on chairs
+    int humanPos[8] = {303,391,488,574,669,756,849,936};// position of humans sitting on chairs
     popped = NULL;
 
     for (int i = 0; i < 8; i++)
@@ -143,20 +143,16 @@ Hospital :: ~Hospital()
      if(humans.GetLength()<=8) //only 8 humans allowed in hospital
      {
          allowAppend = true;
-     }
-     if(allowAppend==true)
-     {
          humans.Append(human);
          for(int i = 0; i<20; i++)
         {
             (*Score::GetInstance())++;
         }
 
-         for(int i = 0; i<humans.GetLength(); i++)
-         {
-             humans.GiveItem(i)->UpdatePos(humanPos[i],465);
-         }
+        humans.GiveItem(humans.GetLength()-1)->UpdatePos(humanPos[humans.GetLength()-1],44);
      }
+
+     humans.GiveItem(humans.GetLength()-1)->ReduceSize(1.25);
      popped = humans.GiveItem(0);
      return allowAppend;
  }
@@ -174,7 +170,7 @@ void Hospital :: LeaveHuman(Human* human)
 void Hospital :: LeaveHuman()
 {
     manualShow = false;
-    Human* ptr = humans.Pop();
+    Human* ptr = humans.Pop(0);
     ptr->SetInfected(0);
     ptr->GoIndoor();
     for(int i = 0; i<humans.GetLength(); i++)

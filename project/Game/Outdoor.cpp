@@ -379,7 +379,7 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
 
 int Outdoor::Roll(int mn, int mx)
 {
-    return rand() % mx + mn;
+    return (rand()%mx) + mn;
 }
 
 void Outdoor:: PlaceContainers()
@@ -387,8 +387,8 @@ void Outdoor:: PlaceContainers()
     noOfEntrance = 0; //initializing count
     countPlants = 7;
     countCleanWater = Roll(1,2);
-    countTrashcan = Roll(2,3);
-    countManhole = Roll(3,2);
+    countTrashcan = Roll(2,2);
+    countManhole = Roll(2,2);
     countContainer = countPlants + countTrashcan + (countManhole*2) + countCleanWater; //countDirtyWater = countManhole
     noOfBreedingPlaces = countContainer;
     breedingplaces = new BreedingGround*[countContainer];
@@ -398,7 +398,7 @@ void Outdoor:: PlaceContainers()
     int manholePos[3] = {900, 1320, 450};//fixed x-coordinates of manhole
     int DirtyWaterPos[3] = {830, 1250, 400};
     int CleanWaterPos[2] = {200, 1070};
-    int ManholePosY[3] = {rand()%(110)+620,rand()%(110)+620,rand()%(110)+620};
+    int ManholePosY[3] = {(rand()%(110))+620,(rand()%(110))+620,(rand()%(110))+620};
     int i = 0; //iterator for breedingplacess
 
     for (int place = 0; place<countPlants; place++) //to place plants
@@ -438,7 +438,7 @@ void Outdoor:: PlaceContainers()
     for (int place = 0; place<countCleanWater; place++) //to placeCleanWater
     {
         int x = CleanWaterPos[place];
-        int y = rand()%(110)+620;
+        int y = (rand()%(110))+620;
         breedingplaces[i] = new CleanWater(CleanWaterPos[place],y); // y b/w 730 & 730 px
         while (Collides(breedingplaces[i]))
         {
