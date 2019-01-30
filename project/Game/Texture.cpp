@@ -10,6 +10,8 @@ Texture::Texture(SDL_Renderer* renderer)
     this->texture = 0;
     clipFromTexture = SDL_Rect();
     LoadMedia(renderer);
+    Mix_Music *gMusic = NULL;
+    Mix_Chunk *gScratch = NULL;
 }
 
 Texture* Texture::GetInstance(SDL_Renderer* renderer) //static method.
@@ -1010,6 +1012,81 @@ void Texture::RenderFlipped(int serial, SDL_Renderer* renderer, SDL_Rect* clip)
     SetRect(serial);
     SDL_RenderCopyEx(renderer, this->texture, &clipFromTexture, clip,0.0,0,SDL_FLIP_HORIZONTAL);
 
+}
+
+void Texture::SoundRender(int sound)
+{
+    SetSound(sound);
+
+    if( Mix_PlayingMusic() == 0 )
+    {
+    //Play the music
+        Mix_PlayMusic( gMusic, -1 );
+    }
+    //If music is being played
+    else
+    {
+
+        //If the music is paused
+        if( Mix_PausedMusic() == 1 )
+        {
+        //Resume the music
+            Mix_ResumeMusic();
+        }
+        //If the music is playing
+        else
+        {
+        //Pause the music
+            //Mix_PauseMusic();
+        }
+    }
+
+}
+
+void Texture::SetSound(int n)
+{
+
+    switch (n)
+    {
+    case 0:
+        gScratch = Mix_LoadWAV("21_sound_effects_and_music/click1.wav");
+        break;
+
+    case 1:
+        gMusic = Mix_LoadMUS("21_sound_effects_and_music/Credits.wav");
+        break;
+    case 2:
+        gScratch = Mix_LoadWAV("21_sound_effects_and_music/Hammering.wav");
+        break;
+
+    case 3:
+        gMusic = Mix_LoadMUS("21_sound_effects_and_music/Hospital.wav");
+        break;
+
+    case 4:
+        gMusic = Mix_LoadMUS("21_sound_effects_and_music/MainMenu.wav");
+        break;
+
+    case 5:
+        gMusic = Mix_LoadMUS("21_sound_effects_and_music/mosquito.wav");
+        break;
+
+     case 6:
+        gMusic = Mix_LoadMUS("21_sound_effects_and_music/OutdoorIndoor.wav");
+        break;
+    case 7:
+        gScratch = Mix_LoadWAV("21_sound_effects_and_music/EndGame.wav");
+        break;
+
+    case 8:
+        gScratch = Mix_LoadWAV("21_sound_effects_and_music/Spray.wav");
+        break;
+    }
+
+    if( gMusic == NULL )
+    {
+        printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
+    }
 }
 
 

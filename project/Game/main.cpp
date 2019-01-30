@@ -18,12 +18,7 @@
 #include <fstream>
 #include <sstream>
 #include "SplashScreen.h"
-#include <SDL.h>
-#include <SDL_image.h>
 #include <SDL_mixer.h>
-#include <stdio.h>
-#include <string>
-
 
 
 using namespace std;
@@ -40,16 +35,9 @@ const int SCREEN_HEIGHT = 786;
 void close();
 
 //Loads individual image as texture
-
+SDL_Renderer* gRenderer;
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
-
-//The window renderer
-SDL_Renderer* gRenderer = NULL;
-
-//The music that will be played
-Mix_Music *gMusic = NULL;
-
 
 bool init()
 {
@@ -120,13 +108,6 @@ bool loadMedia()
 	//Loading success mouseClicked
 	bool success = true;
 
-    gMusic = Mix_LoadMUS( "ChillingMusic.wav" );
-    if( gMusic == NULL )
-    {
-        printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
-        success = false;
-    }
-
 	//Nothing to load
 	return success;
 }
@@ -157,6 +138,7 @@ int main( int argc, char* args[] )
 	}
 	else
 	{
+	    cout << loadMedia();
 
         Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
 
@@ -196,47 +178,10 @@ int main( int argc, char* args[] )
                 //screen.cur_screen->HandleEvents(&e,screen);
                 Screens::GetCurrent()->HandleEvents(&e, screen);
             }
-            if( Mix_PlayingMusic() == 0 )
-            {
-            //Play the music
-                Mix_PlayMusic( gMusic, -1 );
-            }
-            //If music is being played
-            else
-            {
 
-                //If the music is paused
-                if( Mix_PausedMusic() == 1 )
-                {
-                //Resume the music
-                    //Mix_ResumeMusic();
-                }
-                //If the music is playing
-                else
-                {
-                //Pause the music
-                    //Mix_PauseMusic();
-                }
-            }
 
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
-
-            /*
-            if (screen.prev_screen != 0 && !screen.prev_backable)
-            {
-                delete screen.prev_screen;
-                screen.prev_screen = 0;
-            }
-            else if (screen.prev_backable != 0 && screen.prev_screen != 0)
-            {
-                screen.prev_screen->Show(gRenderer);
-                if (screen.prev_updatable)
-                {
-                    screen.prev_screen->Update(frame);
-                }
-            }
-            */
 
             Screens::GetCurrent()->Show(gRenderer);
 

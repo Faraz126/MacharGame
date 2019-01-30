@@ -112,7 +112,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
     SDL_RenderDrawRect(renderer,upperRect);
     SDL_RenderFillRect(renderer,upperRect);
     points->Show(renderer);
-
+    Texture::GetInstance()->SoundRender(6);
    // alert.Show(renderer);
 
 
