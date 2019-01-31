@@ -147,7 +147,7 @@ void Mosquito::IsFollow()
     speed_x += rand() % 5;
     speed_y += rand() % 5;
 
-    if(humans.GiveItem(human) -> GetX()+ 20 > position.x && rand() % 4 == 0 && speed_x  >= MaxSpeedX)    // to move the mosquito right
+    if(humans.GiveItem(human) -> GetX()+ 20 > position.x && speed_x  >= MaxSpeedX)    // to move the mosquito right
     {
         int random = rand() % jitter;
         position.x += random;
@@ -198,7 +198,7 @@ void Mosquito::IsFollow(Entrance* entrance)        // Going to entrance
         int random = rand() % jitter;
         position.x += random;
         speed_x = 0;
-        movingRight = true;
+
     }
     else if(entrance -> GetX(indoor) < position.x && rand() % 4 == 1 && speed_x  >= 10) // to move the mosquito left
     {

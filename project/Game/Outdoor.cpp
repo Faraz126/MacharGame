@@ -27,7 +27,7 @@ Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
     pos1.h = 786;
 
     entrance = new Entrance*[12];
-    house = new House[5]; //house count is 4 & 1 hospital
+    house = new House[4]; //house count is 4 & 1 hospital
 
     for (int i = 0; i < 4; i++)
     {
@@ -172,20 +172,6 @@ void Outdoor::Update(int frame) ///to update all objects
 
     }
 
-    for (int i = 0; i < myQ.GetLength(); i++)
-    {
-        myQ.GiveItem(i)->Update(frame);
-
-        if(myQ.GiveItem(i)->IsActive() && myQ.GiveItem(i)->DelayLidTime()>1000) //if container is covered and alloted time has passed
-        {
-            Clickable* myM = myQ.GiveItem(i);
-            myQ.RemoveItem(myM);
-            delete myM;
-            break;
-        }
-
-
-    }
 
 
     for (int i = 0; i < noOfEntrance; i++)
@@ -197,10 +183,27 @@ void Outdoor::Update(int frame) ///to update all objects
     {
         if (Alert::humans->GiveItem(i)->GetTimeToDie() < 0)
         {
-            curScreen = new EndMenu(this, true, true);
+            curScreen = new EndMenu(this, false);
         }
     }
+    for (int i = 0; i < myQ.GetLength(); i++)
+    {
 
+
+        if(myQ.GiveItem(i)->IsActive() && myQ.GiveItem(i)->DelayLidTime()>1000) //if container is covered and alloted time has passed
+        {
+            Clickable* myM = myQ.GiveItem(i);
+            myQ.RemoveItem(myM);
+            delete myM;
+            break;
+        }
+        else
+        {
+            myQ.GiveItem(i)->Update(frame);
+        }
+
+
+    }
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
         if (mosquitoes.GiveItem(i)->GetIsDead())
@@ -209,6 +212,7 @@ void Outdoor::Update(int frame) ///to update all objects
             cout << mosquitoes.GetLength();
             mosquitoes.RemoveItem(myM);
             delete myM;
+            break;
             cout << mosquitoes.GetLength();
         }
         else
@@ -467,23 +471,25 @@ void Outdoor::Delete()
 
 Outdoor :: ~Outdoor()
 {
+
     //delete[] buildingRect;
     for (int i = 0; i < myQ.GetLength(); i++)
     {
-        delete myQ.GiveItem(i);
+        delete myQ.GiveItem(i++);
     }
 
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
         if ((mosquitoes.GiveItem(i)) != 0)
         {
-            delete mosquitoes.GiveItem(i);
+            delete mosquitoes.GiveItem(i++);
         }
     }
 
-    delete[] house;
+    //delete house;
     delete hospital;
     delete upperRect;
+
 }
 
 

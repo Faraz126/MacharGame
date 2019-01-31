@@ -331,15 +331,17 @@ Door* House::GetDoor()
 
 House::~House()
 {
+    /*
     for (int i = 0; i < myQ.GetLength(); i++)
     {
-        delete myQ.GiveItem(i);
+        delete myQ.GiveItem(i++);
     }
 
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
-        delete mosquitoes.GiveItem(i);
+        delete mosquitoes.GiveItem(i++);
     }
+
 
 
 //    delete[] bed;
@@ -352,6 +354,7 @@ House::~House()
     delete[] showpieces;
     delete cartPos;
     delete houseShop;
+    */
 }
 
 
