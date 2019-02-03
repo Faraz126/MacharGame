@@ -10,6 +10,7 @@ Clickable::Clickable(int x, int y, int w, int h)
     pos.y = y;
     pos.w = w;
     pos.h = h;
+    currentScenario = 0;
 }
 
 Clickable::~Clickable()
@@ -129,10 +130,17 @@ void Clickable:: SetX(int delta, int direction)
     }
 }
 
+bool Clickable::SameScenario(const Clickable* obj)
+{
+
+    return currentScenario == obj->currentScenario;
+}
+
 
 void Clickable::SetScenario(Scenario* scenario)
 {
     ///to determine where the object is located, i.e. indoor or outdoor
+    if (currentScenario == 0)
     currentScenario = scenario;
 }
 

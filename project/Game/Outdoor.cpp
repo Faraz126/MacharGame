@@ -193,7 +193,7 @@ void Outdoor::Update(int frame) ///to update all objects
         if(myQ.GiveItem(i)->IsActive() && myQ.GiveItem(i)->DelayLidTime()>1000) //if container is covered and alloted time has passed
         {
             Clickable* myM = myQ.GiveItem(i);
-            myQ.RemoveItem(myM);
+            myQ.Pop(i);
             delete myM;
             break;
         }
@@ -209,11 +209,9 @@ void Outdoor::Update(int frame) ///to update all objects
         if (mosquitoes.GiveItem(i)->GetIsDead())
         {
             Mosquito* myM = mosquitoes.GiveItem(i);
-            cout << mosquitoes.GetLength();
-            mosquitoes.RemoveItem(myM);
-            delete myM;
+            mosquitoes.Pop(i);
+            //delete myM;
             break;
-            cout << mosquitoes.GetLength();
         }
         else
         {
@@ -422,19 +420,6 @@ void Outdoor:: PlaceContainers()
         i++;
     }
 
-    for (int place = 0; place<countTrashcan; place++) //to place trash Cans
-    {
-        int x = trashCanPos[place];
-        int y = 480;
-        breedingplaces[i] = new TrashCan(trashCanPos[place],480);
-        while (Collides(breedingplaces[i]))
-        {
-            breedingplaces[i]->UpdatePos(++x,++y);
-        }
-        myQ.Append(breedingplaces[i]);
-        i++;
-    }
-
     for (int place = 0; place<countManhole; place++) //to place DirtyWater, countDirtyWater = countManhole
     {
         breedingplaces[i] = new DirtyWater(DirtyWaterPos[place],ManholePosY[place]); // y b/w 730 & 730 px
@@ -448,6 +433,22 @@ void Outdoor:: PlaceContainers()
         myQ.Append(breedingplaces[i]);
         i++;
     }
+
+    for (int place = 0; place<countTrashcan; place++) //to place trash Cans
+    {
+        int x = trashCanPos[place];
+        int y = 480;
+        breedingplaces[i] = new TrashCan(trashCanPos[place],480);
+        while (Collides(breedingplaces[i]))
+        {
+            breedingplaces[i]->UpdatePos(++x,++y);
+        }
+        myQ.Append(breedingplaces[i]);
+        i++;
+    }
+
+
+
 
     for (int place = 0; place<countCleanWater; place++) //to placeCleanWater
     {

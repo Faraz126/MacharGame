@@ -3,7 +3,9 @@
 Manhole::Manhole(int x, int y) : Container(x, y, MANHOLE_WIDTH, MANHOLE_HEIGHT)
 {
     spriteNum = 62; //need to replace with updated spritesheet.
-    lid = new ManholeLid(pos.x+100,pos.y-100);
+    myLid = noOflids;
+    id = 3;
+    lids[noOflids++] = new ManholeLid(pos.x+100,pos.y-100);
     percentage = 5;
     breedCount = 0;
 }
@@ -20,7 +22,7 @@ void Manhole::SetCovered(bool status)
 void Manhole::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->Render(spriteNum,renderer, &pos);
-    lid->Show(renderer);
+    //lid->Show(renderer);
 
 }
 
@@ -28,11 +30,27 @@ void Manhole::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     if (!GetCovered())
     {
-        lid->HandleEvents(e,node);
+        for (int i =0; i < noOflids; i++)
+        {
+
+            lid = lids[i];
+            if (lid != 0 && this->SameScenario(lid))
+            {
+                lid->HandleEvents(e, node);
+            }
+
+        }
+
     }
-    if (lid->Collides(*this))
+
+    for (int i = 0; i < noOflids; i++)
     {
-        SetCovered(true);
+        lid = lids[i];
+        if (lid != 0 && this->SameScenario(lid) && lid->Collides(*this) && lid->CorrectID(this->id))
+        {
+            SetCovered(true);
+            break;
+        }
     }
 }
 

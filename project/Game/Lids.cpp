@@ -3,6 +3,7 @@
 Lids::Lids(int x, int y, int w, int h): Clickable(x,y,w,h)
 {
     mouseClick = false;
+
 }
 
 Lids::~Lids()

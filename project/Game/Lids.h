@@ -12,6 +12,7 @@ class Lids: public Clickable
         bool mouseClick;
     protected:
         int spriteNum;
+        int id;
 
     public:
         Lids(){}
@@ -24,5 +25,6 @@ class Lids: public Clickable
         void Uncover();
         void Write(std::fstream&);
         void Read(std::fstream&);
+        bool CorrectID(int id){return id == this->id;}
 };
 

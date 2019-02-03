@@ -54,6 +54,7 @@ private:
     DLL<int> myStack; //activities to do.
     void GoOutdoor();
 
+    double repellantTime;
     void ChangeScenario(Scenario*);
     int disease;
     bool isIndoor;

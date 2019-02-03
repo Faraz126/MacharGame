@@ -16,7 +16,7 @@ Human::Human(): Clickable(0,0,197, 575)
 
 Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
 {
-
+    repellantTime = 20000.0;
     shake = false;
     hasRepeppant = false;
     spriteNum = 74;
@@ -123,7 +123,7 @@ bool Human::Collides(const SDL_Rect& rect)
 
 void Human::Update(int frame)
 {
-    if (hasRepeppant && timeSinceRepellent < 200000)
+    if (hasRepeppant && timeSinceRepellent < 20000)
     {
         timeSinceRepellent++;
     }
@@ -217,10 +217,10 @@ void Human::Update(int frame)
                         else
                         {
                             ChangeState(LYING);
+                            Alert::Add(this);
                             bedToGoTo->HumanState(LYING);
                         }
                     }
-
                 }
                 else
                 {
@@ -292,7 +292,7 @@ void Human::Update(int frame)
             {
                 Move();
                 timeSince++;
-                if (timeSince>10)
+                if (timeSince>350)
                 {
                     ChangeState();
                 }
@@ -304,14 +304,17 @@ void Human::Update(int frame)
 }
 
 
+
 void Human::ChangeDirection()
 {
+    /*
     switch (faceDirection)
     {
         case (UP):
         {
 
-            if( rand()%2 == 0)
+
+            if( (rand()%2) == 0)
             {
                 faceDirection = RIGHT;
                 if (activity == AVOIDING_COLLISION)
@@ -326,11 +329,14 @@ void Human::ChangeDirection()
             {
                 faceDirection = LEFT;
             }
+
+
             break;
+
         }
         case (RIGHT):
         {
-            if (rand()%2 == 0)
+            if ((rand()%2) == 0)
             {
                 faceDirection = DOWN;
                 if (activity == AVOIDING_COLLISION)
@@ -349,7 +355,7 @@ void Human::ChangeDirection()
         }
         case (DOWN):
         {
-            if (rand()%2 == 0)
+            if ((rand()%2) == 0)
             {
                 faceDirection = DOWN;
                 if (activity == AVOIDING_COLLISION)
@@ -368,7 +374,7 @@ void Human::ChangeDirection()
         }
         case (LEFT):
         {
-            if (rand()%2 == 0)
+            if ((rand()%2) == 0)
             {
                 faceDirection = UP;
                 if (activity == AVOIDING_COLLISION)
@@ -386,6 +392,93 @@ void Human::ChangeDirection()
             break;
         }
     }
+    */
+
+    if (faceDirection == UP)
+    {
+        if (!MoveAllowed())
+        {
+            faceDirection = RIGHT;
+        }
+        else
+        {
+            return;
+        }
+
+        if (!MoveAllowed())
+        {
+            faceDirection = LEFT;
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    if (faceDirection == RIGHT)
+    {
+
+        if (!MoveAllowed())
+        {
+            faceDirection = DOWN;
+        }
+        else
+        {
+            return;
+        }
+
+        if (!MoveAllowed())
+        {
+            faceDirection = UP;
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    if (faceDirection == DOWN)
+    {
+        if (!MoveAllowed())
+        {
+            faceDirection = LEFT;
+        }
+        else
+        {
+            return;
+        }
+
+        if (!MoveAllowed())
+        {
+            faceDirection = RIGHT;
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    if (faceDirection == LEFT)
+    {
+        if (!MoveAllowed())
+        {
+            faceDirection = DOWN;
+        }
+        else
+        {
+            return;
+        }
+
+        if (!MoveAllowed())
+        {
+            faceDirection = UP;
+        }
+        else
+        {
+            return;
+        }
+    }
+
 }
 
 void Human::Move()
@@ -394,12 +487,12 @@ void Human::Move()
     {
         if (activity != AVOIDING_COLLISION)
         {
-
             myStack.Append(activity);
+            timeSince = 0;
+            activity = AVOIDING_COLLISION;
         }
         ChangeDirection();
-        timeSince = 0;
-        activity = AVOIDING_COLLISION;
+
     }
     else
     {
@@ -669,37 +762,44 @@ void Human::Show(SDL_Renderer* renderer)
 
         if (!flipped)
         {
-            if (hasRepeppant)
-            {
-                Texture::GetInstance()->Render(76,renderer, &this->face);
-                Texture::GetInstance()->RenderBack(76, renderer, &leg , &legs, true);
-                Texture::GetInstance()->Render(76,renderer, &this->body);
-            }
-            else
-            {
-                Texture::GetInstance()->Render(face,renderer, &this->face);
-                Texture::GetInstance()->RenderBack(2, renderer, &leg , &legs, true);
-                Texture::GetInstance()->Render(body,renderer, &this->body);
-            }
-
-
+            Texture::GetInstance()->Render(face,renderer, &this->face);
+            Texture::GetInstance()->RenderBack(2, renderer, &leg , &legs, true);
+            Texture::GetInstance()->Render(body,renderer, &this->body);
         }
         else
         {
+            Texture::GetInstance()->RenderFlipped(face,renderer, &this->face);
+            Texture::GetInstance()->RenderBack(2, renderer, &leg , &legs);
+            //Texture::GetInstance()->RenderFlipped((int)(leg+ walker), renderer, &legs);
+            Texture::GetInstance()->RenderFlipped(body,renderer, &this->body);
+        }
 
-            if (hasRepeppant)
-            {
-                Texture::GetInstance()->Render(76,renderer, &this->face);
-                Texture::GetInstance()->RenderBack(76, renderer, &leg , &legs, true);
-                Texture::GetInstance()->Render(76,renderer, &this->body);
-            }
-            else
-            {
-                Texture::GetInstance()->RenderFlipped(face,renderer, &this->face);
-                Texture::GetInstance()->RenderBack(2, renderer, &leg , &legs);
-                //Texture::GetInstance()->RenderFlipped((int)(leg+ walker), renderer, &legs);
-                Texture::GetInstance()->RenderFlipped(body,renderer, &this->body);
-            }
+        if (hasRepeppant)
+        {
+            SDL_Rect shield;
+            shield.x = this->face.x + 10;
+            shield.y = this->face.y - 25;
+            shield.w = 192*0.08;
+            shield.h = 242*0.08;
+            Texture::GetInstance()->Render(143,renderer, &shield);
+
+            SDL_Rect outline;
+            outline.x = shield.x + 20;
+            outline.y = shield.y + 5;
+            outline.w = 60;
+            outline.h = 10;
+
+            SDL_Rect rect;
+            rect.x = outline.x +2;
+            rect.y = outline.y + 2;
+            rect.w = ((repellantTime- timeSinceRepellent)/repellantTime)*55;
+            rect.h = outline.h - 4;
+
+
+            SDL_SetRenderDrawColor( renderer, 0, 0, 0,0);
+            SDL_RenderDrawRect(renderer,&outline);
+            SDL_SetRenderDrawColor( renderer, 163, 207, 98,0);
+            SDL_RenderFillRect(renderer,&rect);
 
         }
 
@@ -834,7 +934,7 @@ void Human::SetInfected(int code)
     }
     if (code > BITEN)
     {
-        Alert::Add(this);
+
         isInfected = true;
         if (code == MALARIA)
         {
