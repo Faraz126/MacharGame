@@ -17,9 +17,13 @@ private:
     bool LoadMedia(SDL_Renderer* gRenderer); //Loads the texture file, i.e the sprite sheet
     void SetRect(int); //to decide the position of serial no object on sprite sheet
     void SetRect(char); // to decide the position of character on sprite sheet
-    void SetSound(int);
+
+    enum music {CREDITS,HOSPITAL,MAINMENU,MOSQUITO,OUTDDOORINDOOR,ENDGAME,CLICK,HAMMERING,SPRAY};
+
 
 public :
+    void SetSound(int);
+    void SetChunk(int);
     Texture (SDL_Renderer*);
     static Texture* GetInstance(SDL_Renderer*); // Initializes variables
     static Texture* GetInstance();

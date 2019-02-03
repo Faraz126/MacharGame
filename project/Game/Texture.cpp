@@ -12,6 +12,7 @@ Texture::Texture(SDL_Renderer* renderer)
     LoadMedia(renderer);
     Mix_Music *gMusic = NULL;
     Mix_Chunk *gScratch = NULL;
+
 }
 
 Texture* Texture::GetInstance(SDL_Renderer* renderer) //static method.
@@ -921,25 +922,124 @@ void Texture::SetRect(int n)
         clipFromTexture.h = 350;
         break;
     case 135:
-        clipFromTexture.x = 2931;
+        clipFromTexture.x = 2978;
         clipFromTexture.y = 4773;
         clipFromTexture.w = 169;
         clipFromTexture.h = 350;
         break;
     case 136:
-        clipFromTexture.x = 3131;
+        clipFromTexture.x = 3192;
         clipFromTexture.y = 4773;
         clipFromTexture.w = 169;
         clipFromTexture.h = 350;
         break;
-
-
-
-
+    case 137:
+        clipFromTexture.x = 91;
+        clipFromTexture.y = 6514;
+        clipFromTexture.w = 340;
+        clipFromTexture.h = 340;
+        break;
+    case 138:
+        clipFromTexture.x = 464;
+        clipFromTexture.y = 6492;
+        clipFromTexture.w = 239;
+        clipFromTexture.h = 340;
+        break;
+    case 139:
+        clipFromTexture.x = 743;
+        clipFromTexture.y = 6512;
+        clipFromTexture.w = 364;
+        clipFromTexture.h = 340;
+        break;
+    case 140:
+        clipFromTexture.x = 1127;
+        clipFromTexture.y = 6504;
+        clipFromTexture.w = 334;
+        clipFromTexture.h = 350;
+        break;
+    case 141:
+        clipFromTexture.x = 93;
+        clipFromTexture.y = 6945;
+        clipFromTexture.w = 372;
+        clipFromTexture.h = 350;
+        break;
+    case 142:
+        clipFromTexture.x = 103;
+        clipFromTexture.y = 7282;
+        clipFromTexture.w = 47;
+        clipFromTexture.h = 46;
+        break;
+    case 143:
+        clipFromTexture.x = 2720;
+        clipFromTexture.y = 5233;
+        clipFromTexture.w = 192;
+        clipFromTexture.h = 242;
+        break;
+    case 144:
+        clipFromTexture.x = 2985;
+        clipFromTexture.y = 5233;
+        clipFromTexture.w = 157;
+        clipFromTexture.h = 32;
+        break;
+    case 145:
+        clipFromTexture.x = 2985;
+        clipFromTexture.y = 5361;
+        clipFromTexture.w = 156;
+        clipFromTexture.h = 157;
+        break;
+    case 146:
+        clipFromTexture.x = 2750;
+        clipFromTexture.y = 3876;
+        clipFromTexture.w = 212;
+        clipFromTexture.h = 72;
+        break;
+    case 147:
+        clipFromTexture.x = 2750;
+        clipFromTexture.y = 4009;
+        clipFromTexture.w = 212;
+        clipFromTexture.h = 72;
+        break;
+    case 148:
+        clipFromTexture.x = 2750;
+        clipFromTexture.y = 4142;
+        clipFromTexture.w = 212;
+        clipFromTexture.h = 72;
+        break;
+    case 149:
+        clipFromTexture.x = 2750;
+        clipFromTexture.y = 4274;
+        clipFromTexture.w = 212;
+        clipFromTexture.h = 72;
+        break;
+    case 150:
+        clipFromTexture.x = 3002;
+        clipFromTexture.y = 3876;
+        clipFromTexture.w = 212;
+        clipFromTexture.h = 72;
+        break;
+    case 151:
+        clipFromTexture.x = 3002;
+        clipFromTexture.y = 4009;
+        clipFromTexture.w = 212;
+        clipFromTexture.h = 72;
+        break;
+    case 152:
+        clipFromTexture.x = 3002;
+        clipFromTexture.y = 4142;
+        clipFromTexture.w = 212;
+        clipFromTexture.h = 72;
+        break;
+    case 153:
+        clipFromTexture.x = 3002;
+        clipFromTexture.y = 4274;
+        clipFromTexture.w = 212;
+        clipFromTexture.h = 72;
+        break;
 
     }
 
 }
+
 
 void Texture::SetRect(char c)
 {
@@ -1016,7 +1116,10 @@ void Texture::RenderFlipped(int serial, SDL_Renderer* renderer, SDL_Rect* clip)
 
 void Texture::SoundRender(int sound)
 {
-    SetSound(sound);
+    if (gMusic == NULL)
+    {
+        return;
+    }
 
     if( Mix_PlayingMusic() == 0 )
     {
@@ -1043,44 +1146,55 @@ void Texture::SoundRender(int sound)
 
 }
 
-void Texture::SetSound(int n)
-{
 
+void Texture::SetChunk(int n)
+{
     switch (n)
     {
-    case 0:
+    case CLICK:
         gScratch = Mix_LoadWAV("21_sound_effects_and_music/click1.wav");
         break;
-
-    case 1:
-        gMusic = Mix_LoadMUS("21_sound_effects_and_music/Credits.wav");
-        break;
-    case 2:
+    case HAMMERING:
         gScratch = Mix_LoadWAV("21_sound_effects_and_music/Hammering.wav");
         break;
+    case SPRAY:
+        gScratch = Mix_LoadWAV("21_sound_effects_and_music/Spray.wav");
+        break;
+    }
+    if( gScratch == NULL )
+    {
+        printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+    }
+}
 
-    case 3:
+void Texture::SetSound(int n)
+{
+    Mix_HaltMusic();
+    switch (n)
+    {
+    case CREDITS:
+        gMusic = Mix_LoadMUS("21_sound_effects_and_music/Credits.wav");
+        break;
+
+    case HOSPITAL:
         gMusic = Mix_LoadMUS("21_sound_effects_and_music/Hospital.wav");
         break;
 
-    case 4:
+    case MAINMENU:
         gMusic = Mix_LoadMUS("21_sound_effects_and_music/MainMenu.wav");
         break;
 
-    case 5:
+    case MOSQUITO:
         gMusic = Mix_LoadMUS("21_sound_effects_and_music/mosquito.wav");
         break;
 
-     case 6:
+     case OUTDDOORINDOOR:
         gMusic = Mix_LoadMUS("21_sound_effects_and_music/OutdoorIndoor.wav");
         break;
-    case 7:
-        gScratch = Mix_LoadWAV("21_sound_effects_and_music/EndGame.wav");
+    case ENDGAME:
+        gMusic = Mix_LoadMUS("21_sound_effects_and_music/EndGame.wav");
         break;
 
-    case 8:
-        gScratch = Mix_LoadWAV("21_sound_effects_and_music/Spray.wav");
-        break;
     }
 
     if( gMusic == NULL )

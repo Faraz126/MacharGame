@@ -112,7 +112,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
     SDL_RenderDrawRect(renderer,upperRect);
     SDL_RenderFillRect(renderer,upperRect);
     points->Show(renderer);
-    Texture::GetInstance()->SoundRender(6);
+
    // alert.Show(renderer);
 
 
@@ -235,6 +235,8 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
                 node.prev_updatable = true;
                 */
                 curScreen = hospital;
+                Texture::GetInstance()->SetSound(1);
+
             }
 
 

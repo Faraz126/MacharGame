@@ -63,7 +63,7 @@ void Hospital::Show(SDL_Renderer* renderer)
     SDL_RenderDrawRect(renderer,upperRect);
     SDL_RenderFillRect(renderer,upperRect);
     points->Show(renderer);
-    Texture::GetInstance()->SoundRender(3);
+
 }
 
 void Hospital::HandleEvents(SDL_Event* e,Screens_Node& node)
@@ -122,6 +122,7 @@ void Hospital::HandleEvents(SDL_Event* e,Screens_Node& node)
             node.prev_screen = this;
             */
             curScreen = prevScreen;
+            Texture::GetInstance()->SetSound(1);
         }
     }
 

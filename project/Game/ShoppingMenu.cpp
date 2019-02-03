@@ -25,13 +25,13 @@ ShoppingMenu::ShoppingMenu(Screens* prevScreen, bool back, bool show, bool updat
     tile[3].UpdatePos(700,700);
 
     tile[0].SetValues(0);
-    tile[0].SetTileText();
+    //tile[0].SetTileText();
     tile[1].SetValues(1);
-    tile[1].SetTileText();
+    //tile[1].SetTileText();
     tile[2].SetValues(2);
-    tile[2].SetTileText();
+    //tile[2].SetTileText();
     tile[3].SetValues(3);
-    tile[3].SetTileText();
+    //tile[3].SetTileText();
 
 }
 
@@ -88,10 +88,10 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
                 SetMouseClicked(true);
                 if(e->button.button == SDL_BUTTON_LEFT)
                 {
-                    tile[i].tileState =200;
                     if (tile[i].Buyable(house->GetMoney()))
                     {
                         tile[i].Buy(house);
+                        Texture::GetInstance()->SetChunk(8);
 
                     }
 
@@ -101,12 +101,12 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
             else
             {
                 SetMouseClicked(false);
-                tile[i].tileState=150;
+                tile[i].sprite += 4;
             }
         }
         else
         {
-            tile[i].tileState=100;
+            //tile[i].tileState=100;
         }
 
     }
