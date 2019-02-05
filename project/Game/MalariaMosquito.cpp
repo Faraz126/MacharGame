@@ -120,7 +120,6 @@ void MalariaMosquito::Bite()
         humans.GiveItem(human) -> SetInfected(diseaseCode);
         DetectHuman = false;
         IsFollowingHuman = false;
-
         Heal();
     }
 }

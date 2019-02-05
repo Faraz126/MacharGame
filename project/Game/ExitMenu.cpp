@@ -57,6 +57,7 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 */
 
                 curScreen = new Closing(this, false);
+                Texture::GetInstance()->SetSound(1);
             }
 
             else if (btn[1].WithinRegion(mouseX,mouseY)==true)

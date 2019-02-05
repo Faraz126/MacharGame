@@ -28,6 +28,11 @@ void SplashScreen::Show(SDL_Renderer* gRenderer)
             {
                 SDL_Quit();
             }
+            if(e.key.keysym.sym == SDLK_ESCAPE) //will open pause menu
+            {
+                iterFadeIn = 5001;
+            }
+
         }
 
         SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 0 );
@@ -44,6 +49,10 @@ void SplashScreen::Show(SDL_Renderer* gRenderer)
             if (e.type == SDL_QUIT)
             {
                 SDL_Quit();
+            }
+            if(e.key.keysym.sym == SDLK_ESCAPE) //will open pause menu
+            {
+                iterFadeIn = 5001;
             }
         }
 

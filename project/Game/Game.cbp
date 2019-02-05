@@ -42,14 +42,21 @@
 			<Add option="-Wall" />
 			<Add directory="../SDL2-devel-2.0.8-mingw/SDL2-2.0.8/i686-w64-mingw32/include/SDL2" />
 			<Add directory="../SDL2_image-devel-2.0.3-mingw/SDL2_image-2.0.3/i686-w64-mingw32/include/SDL2" />
+<<<<<<< HEAD
 			<Add directory="../SDL2_mixer-devel-2.0.4-mingw/SDL2_mixer-2.0.4/i686-w64-mingw32/include/SDL2" />
+=======
+			<Add directory="../SDL2_mixer-2.0.4/i686-w64-mingw32/include/SDL2" />
+>>>>>>> d0e90580d23197bc3bd4210da7b34ac087762436
 		</Compiler>
 		<Linker>
-			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_image" />
-			<Add option="-lSDL2_mixer" />
+			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer" />
 			<Add directory="../SDL2_image-devel-2.0.3-mingw/SDL2_image-2.0.3/i686-w64-mingw32/lib" />
 			<Add directory="../SDL2-devel-2.0.8-mingw/SDL2-2.0.8/i686-w64-mingw32/lib" />
+<<<<<<< HEAD
 			<Add directory="../SDL2_mixer-devel-2.0.4-mingw/SDL2_mixer-2.0.4/i686-w64-mingw32/lib" />
+=======
+			<Add directory="../SDL2_mixer-2.0.4/i686-w64-mingw32/lib" />
+>>>>>>> d0e90580d23197bc3bd4210da7b34ac087762436
 		</Linker>
 		<Unit filename=" ss.txt" />
 		<Unit filename=" ssgsg.txt" />

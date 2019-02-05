@@ -1,6 +1,7 @@
 #pragma once
 #include "Texture.h"
-//#include <iostream>
+#include <iostream>
+#include <fstream>
 #include <string>
 #include "string.h"
 #include "CancelButton.h"

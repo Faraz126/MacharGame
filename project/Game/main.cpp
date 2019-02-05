@@ -18,7 +18,10 @@
 #include <sstream>
 #include "SplashScreen.h"
 #include <SDL_mixer.h>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d0e90580d23197bc3bd4210da7b34ac087762436
 
 
 using namespace std;
@@ -35,10 +38,11 @@ const int SCREEN_HEIGHT = 786;
 void close();
 
 //Loads individual image as texture
-
+SDL_Renderer* gRenderer;
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
 
+<<<<<<< HEAD
 //The window renderer
 SDL_Renderer* gRenderer = NULL;
 Mix_Music *gMusic = NULL;
@@ -49,6 +53,8 @@ Mix_Music *gMusic = NULL;
 //The sound effects that will be used
 
 
+=======
+>>>>>>> d0e90580d23197bc3bd4210da7b34ac087762436
 bool init()
 {
 	//Initialization mouseClicked
@@ -98,12 +104,19 @@ bool init()
                 }
 
 
+<<<<<<< HEAD
+=======
+                //Initialize SDL_mixer
+>>>>>>> d0e90580d23197bc3bd4210da7b34ac087762436
                 if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
                 {
                     printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
                     success = false;
                 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> d0e90580d23197bc3bd4210da7b34ac087762436
 
             }
         }
@@ -114,6 +127,7 @@ bool init()
 
 bool loadMedia()
 {
+
 	//Loading success mouseClicked
 	bool success = true;
 
@@ -130,7 +144,7 @@ bool loadMedia()
 
 void close()
 {
-	//Destroy window
+    //Destroy window
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
 	gWindow = NULL;
@@ -154,10 +168,9 @@ int main( int argc, char* args[] )
 	}
 	else
 	{
+
         cout << loadMedia();
         Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
-
-
 
         SDL_Event e;
 
@@ -168,8 +181,6 @@ int main( int argc, char* args[] )
         splash.Show(gRenderer);
         */
 
-
-
         //screen.cur_screen = new MainMenu; //starting with main menu
         Screens::Initiate();
         int frame = 0;
@@ -177,7 +188,21 @@ int main( int argc, char* args[] )
 
         while (!GAME_QUIT)
         {
+
             //screen.cur_screen->Update(frame);
+            ifstream myfile;
+            myfile.open("setting.txt");
+            float output;
+            if (myfile.is_open())
+            {
+                while (!myfile.eof())
+                {
+                    myfile >> output;
+                    SDL_SetWindowBrightness(gWindow,output);
+                }
+            }
+            myfile.close();
+
             Screens::GetCurrent()->Update(frame);
             while (SDL_PollEvent(&e))
             {
@@ -210,30 +235,16 @@ int main( int argc, char* args[] )
             }
 
             */
+
             SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( gRenderer );
-
-            /*
-            if (screen.prev_screen != 0 && !screen.prev_backable)
-            {
-                delete screen.prev_screen;
-                screen.prev_screen = 0;
-            }
-            else if (screen.prev_backable != 0 && screen.prev_screen != 0)
-            {
-                screen.prev_screen->Show(gRenderer);
-                if (screen.prev_updatable)
-                {
-                    screen.prev_screen->Update(frame);
-                }
-            }
-            */
 
             Screens::GetCurrent()->Show(gRenderer);
 
             //screen.cur_screen->Update(&e,screen);
             ///screen.cur_screen->Show(gRenderer); //drawing the current screen on the SDL window
             SDL_RenderPresent( gRenderer );
+            Texture::GetInstance()->SoundRender(3);
             frame++;
         }
         delete Texture::GetInstance(gRenderer);

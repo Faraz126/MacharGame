@@ -70,6 +70,7 @@ void Button::Hover()
 void Button::Click()
 {
     intHover=2;   // if clicked sprite changed
+
 }
 
 void Button::SetButtonSprite(bool sprite)
