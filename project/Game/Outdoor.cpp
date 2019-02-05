@@ -404,6 +404,7 @@ void Outdoor:: PlaceContainers()
     for (int place = 0; place<countPlants; place++) //to place plants
     {
         breedingplaces[i] = new Plant(plantPos[place],320);
+
         myQ.Append(breedingplaces[i]);
         i++;
     }
