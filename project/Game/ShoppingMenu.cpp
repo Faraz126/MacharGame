@@ -4,13 +4,13 @@
 ShoppingMenu::ShoppingMenu(Screens* prevScreen, bool back, bool show, bool update, int frame):Menu(prevScreen, back, show, update, frame)
 {
     shoppingPos = new SDL_Rect();
-    shoppingPos->x = 20;
-    shoppingPos->y = 680;
-    shoppingPos->w = 925;
+    shoppingPos->x = 10;
+    shoppingPos->y = 686;
+    shoppingPos->w = 950;
     shoppingPos->h = 100;
 
     house = static_cast<House*>(prevScreen);
-    shoppingExitPos.x = 910;
+    shoppingExitPos.x = 932;
     shoppingExitPos.y = 690;
     shoppingExitPos.w = 25;
     shoppingExitPos.h = 25;
@@ -38,7 +38,7 @@ ShoppingMenu::ShoppingMenu(Screens* prevScreen, bool back, bool show, bool updat
 
 void ShoppingMenu::Show(SDL_Renderer* gRenderer)
 {
-   SDL_SetRenderDrawColor( gRenderer, 255, 255, 255, 0);
+   SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 0);
    SDL_RenderFillRect(gRenderer,shoppingPos);
    cancelBtn->Show(gRenderer);
    for(int i=0; i<4; i++)
@@ -88,10 +88,13 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
                 SetMouseClicked(true);
                 if(e->button.button == SDL_BUTTON_LEFT)
                 {
+                    if (i ==1)
+                    Texture::GetInstance()->SetChunk(SPRAY);
+                    if(i==2)
+                    Texture::GetInstance()->SetChunk(HAMMERING);
                     if (tile[i].Buyable(house->GetMoney()))
                     {
                         tile[i].Buy(house);
-                        Texture::GetInstance()->SetChunk(8);
 
                     }
 
@@ -101,12 +104,12 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
             else
             {
                 SetMouseClicked(false);
-                tile[i].sprite += 4;
+                tile[i].Hover();
             }
         }
         else
         {
-            //tile[i].tileState=100;
+           tile[i].UnHover();
         }
 
     }

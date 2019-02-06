@@ -122,7 +122,7 @@ void Hospital::HandleEvents(SDL_Event* e,Screens_Node& node)
             node.prev_screen = this;
             */
             curScreen = prevScreen;
-            Texture::GetInstance()->SetSound(1);
+            Texture::GetInstance()->SetSound(OUTDDOORINDOOR);
         }
     }
 
