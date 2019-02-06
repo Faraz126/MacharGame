@@ -10,7 +10,7 @@ Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
     Alert::SetUpRects();
     code = 0;
     startWidth = 0;
-    endWidth = 1024*2.5;
+    endWidth = 1024*1.5;
     startHeight = 460;
     endHeight = 786;
 
@@ -27,7 +27,8 @@ Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
     pos1.h = 786;
 
     entrance = new Entrance*[12];
-    house = new House[4]; //house count is 4 & 1 hospital
+    house = new House[4]; //house count is 4
+    hospital = new Hospital(this); //one hospital in outdoor
 
     for (int i = 0; i < 4; i++)
     {
@@ -35,43 +36,28 @@ Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
         house[i].SetOutdoor(this);
     }
 
-    for (int i = 0; i < 4; i ++)
-    {
-        house[i].SetOutdoor(this);
-    }
+//    for (int i = 0; i < 4; i ++)
+//    {
+//        house[i].SetOutdoor(this);
+//    }
 
     PlaceContainers();
     //Load(file);
 
+    house[0].SetOutdoorPos(10,268,280,320);
+    house[1].SetOutdoorPos(360,247,239,340);
+    house[2].SetOutdoorPos(605,268,290,320);
+    house[3].SetOutdoorPos(1060,269,290,320);
+    hospital->SetOutdoorPos(1330,250,350,350);
 
-    buildingRect= new SDL_Rect[4]; //clickable region for all 4 houses & hospital
-    buildingRect[0].x=45;
-    buildingRect[0].y=140;
-    buildingRect[0].w=280;
-    buildingRect[0].h=320;
-
-    buildingRect[1].x=515;
-    buildingRect[1].y=140;
-    buildingRect[1].w=280;
-    buildingRect[1].h=320;
-
-    buildingRect[2].x=1138;
-    buildingRect[2].y=140;
-    buildingRect[2].w=280;
-    buildingRect[2].h=320;
-
-    buildingRect[3].x=1710;
-    buildingRect[3].y=140;
-    buildingRect[3].w=290;
-    buildingRect[3].h=320;
-
-    buildingRect[4].x = 2190;
-    buildingRect[4].y = 130;
-    buildingRect[4].w = 350;
-    buildingRect[4].h = 350;
+    for(int i = 0; i<4; i++)
+    {
+        house[i].ReduceSize(0.6);
+    }
+    hospital->ReduceSize(0.6);
     //humans = GenerateHumans();
     //noOfEntrance = 0;
-    hospital = new Hospital(this);
+
     GetHouseEntrance();
     SetUpScenarios();
 
@@ -92,6 +78,13 @@ Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
 void Outdoor::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->RenderBack(35, renderer, &pos1, &pos);
+
+    for(int i = 0; i<4; i++)
+    {
+        house[i].ShowOutside(renderer,i);
+    }
+    hospital->ShowOutside(renderer, 4);
+
 
     for (int i = 0; i < 12; i++)
     {
@@ -239,7 +232,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
 
         for (int i = 0; i<4; i++)
         {
-            if (x >= buildingRect[i].x && y >= buildingRect[i].y && x < buildingRect[i].x + buildingRect[i].w && y < buildingRect[i].y + buildingRect[i].h)
+            if (x >= house[i].GiveOutdoorPosX() && y >= house[i].GiveOutdoorPosY() && x < house[i].GiveOutdoorPosX() + house[i].GiveOutdoorPosW() && y < house[i].GiveOutdoorPosY() + house[i].GiveOutdoorPosH())
             {
                 /*
                 node.cur_screen = &house[i];
@@ -253,7 +246,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
             }
         }
             //for hospital
-        if (x >= buildingRect[4].x && y >= buildingRect[4].y && x < buildingRect[4].x + buildingRect[4].w && y < buildingRect[4].y + buildingRect[4].h)
+        if (x >= hospital->GiveOutdoorPosX() && y >= hospital->GiveOutdoorPosY() && x < hospital->GiveOutdoorPosX() + hospital->GiveOutdoorPosW() && y < hospital->GiveOutdoorPosY() + hospital->GiveOutdoorPosH())
             {
                 /*
                 node.cur_screen = hospital;
@@ -294,16 +287,19 @@ void Outdoor::GetHouseEntrance()
         {
             entrance[noOfEntrance] = entry[x];
 
-            entry[0]->SetOutdoorPos(buildingRect[i].x+160,372,225*0.25,298*0.25); //for door
+            entry[0]->SetOutdoorPos(house[i].GiveOutdoorPosX()+85,400,225*0.17,298*0.17); //for door
+            //house[0].SetOutdoorPos(20,300,280,320);
 
             if(n==3) //if two windows
             {
-                entry[1]->SetOutdoorPos(buildingRect[i].x+60,270,200*0.35,110*0.35);
-                entry[2]->SetOutdoorPos(buildingRect[i].x+160,270,200*0.35,110*0.35);
+                int center = (house[i].GiveOutdoorPosW() - (40 + 10 + 40))/2;
+                entry[1]->SetOutdoorPos(house[i].GiveOutdoorPosX() + center,360,200*0.2,110*0.2);
+                entry[2]->SetOutdoorPos(house[i].GiveOutdoorPosX() + center + 40 + 10,360,200*0.2,110*0.20);
             }
             if(n==2) //if one window
             {
-                entry[1]->SetOutdoorPos(buildingRect[i].x+100,270,200*0.5,110*0.5);
+                int center = (house[i].GiveOutdoorPosW() - (40))/2;
+                entry[1]->SetOutdoorPos(house[i].GiveOutdoorPosX()+center,360,200*0.2,110*0.2);
             }
             noOfEntrance++;
         }
@@ -341,10 +337,13 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                         entrance[i]->SetOutdoorX(20,0);
                     }
 
-                    for(int i = 0; i<5; i++)
+
+                    for(int i = 0; i<4; i++)
                     {
-                        buildingRect[i].x+=20;
+                        house[i].SetOutdoorX(20,0);
                     }
+                    hospital->SetOutdoorX(20,0);
+
                     /*
                     for (int i = 0; i < humans.GetLength(); i++)
                     {
@@ -359,12 +358,12 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
 
             }
 
-            if(pos1.x + pos1.w >= 1024*2.5) //to not go beyond screen width
+            if(pos1.x + pos1.w >= 1024*1.5) //to not go beyond screen width
             {
-                pos1.x = (1024*2.5) - pos1.w;
+                pos1.x = (1024*1.5) - pos1.w;
             }
 
-            if (pos1.x + pos1.w < 1024*2.5) //allow right key press event only if in screen bound
+            if (pos1.x + pos1.w < 1024*1.5) //allow right key press event only if in screen bound
             {
                 if (e->key.keysym.sym == SDLK_RIGHT )
                 {
@@ -377,14 +376,16 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
                         entrance[i]->SetOutdoorX(20,1);
                     }
 
-                    for(int i = 0; i<5; i++)
-                    {
-                        buildingRect[i].x-=20;
-                    }
                     for (int i = 0; i < myQ.GetLength(); i++)
                     {
                         myQ.GiveItem(i)->SetX(20,1);
                     }
+                    for(int i = 0; i<4; i++)
+                    {
+                        house[i].SetOutdoorX(20,1);
+                    }
+                    hospital->SetOutdoorX(20,1);
+
                     for (int i = 0; i < mosquitoes.GetLength(); i++)
                     {
                         mosquitoes.GiveItem(i)->SetX(20,1);
@@ -396,25 +397,30 @@ void Outdoor:: HandleScrolling(SDL_Event* e)
         //alert.HandleEvents(e,node);
 }
 
+int Outdoor::Roll(int mn, int mx)
+{
+    return (rand()%mx) + mn;
+}
+
 void Outdoor:: PlaceContainers()
 {
     noOfEntrance = 0; //initializing count
-    countPlants = 11;
-    countCleanWater = (rand()%2) + 2;
-    countTrashcan = (rand()%4) + 2;
-    countManhole = (rand()%2)+2;
+    countPlants = 7;
+    countCleanWater = Roll(1,2);
+    countTrashcan = Roll(2,2);
+    countManhole = Roll(2,2);
     countContainer = countPlants + countTrashcan + (countManhole*2) + countCleanWater; //countDirtyWater = countManhole
     noOfBreedingPlaces = countContainer;
     breedingplaces = new BreedingGround*[countContainer];
 
-    int plantPos[countPlants] = {345,440,780,860,940,1030,1435,1520,1600,2025,2095}; //fixed x-coordinates of plants
-    int trashCanPos[4] = {650,1800,80,1060}; //fixed x-coordinates of trash Cans
-    int manholePos[3] = {1500, 2270, 450};//fixed x-coordinates of manhole
-    int DirtyWaterPos[3] = {1430, 2240, 400};
-    //int TrashCanLidPos[4] = {500, 700, 1000, 1200};
-    int CleanWaterPos[3] = {200, 2050, 1700};
-    int ManholePosY[3] = {rand()%(110)+620,rand()%(110)+620,rand()%(110)+620};
+    int plantPos[countPlants] = {170,260,515,780,870,970,1245}; //fixed x-coordinates of plants
+    int trashCanPos[3] = {650,80,1160}; //fixed x-coordinates of trash Cans
+    int manholePos[3] = {900, 1320, 450};//fixed x-coordinates of manhole
+    int DirtyWaterPos[3] = {830, 1250, 400};
+    int CleanWaterPos[2] = {200, 1070};
+    int ManholePosY[3] = {(rand()%(110))+620,(rand()%(110))+620,(rand()%(110))+620};
     int i = 0; //iterator for breedingplacess
+
     for (int place = 0; place<countPlants; place++) //to place plants
     {
         breedingplaces[i] = new Plant(plantPos[place],320);
@@ -455,14 +461,14 @@ void Outdoor:: PlaceContainers()
     for (int place = 0; place<countCleanWater; place++) //to placeCleanWater
     {
         int x = CleanWaterPos[place];
-        int y = rand()%(110)+620;
+        int y = (rand()%(110))+620;
         breedingplaces[i] = new CleanWater(CleanWaterPos[place],y); // y b/w 730 & 730 px
         while (Collides(breedingplaces[i]))
         {
             breedingplaces[i]->UpdatePos(++x,++y);
         }
+        breedingplaces[i]->ReduceSize(0.8);
         myQ.Append(breedingplaces[i]);
-
         i++;
     }
 }
@@ -494,5 +500,4 @@ Outdoor :: ~Outdoor()
     delete upperRect;
 
 }
-
 

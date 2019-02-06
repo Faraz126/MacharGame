@@ -23,11 +23,19 @@ Tile::Tile(int a): Clickable(0,0, 0, 0)
     if(a==3)
     {
         buy = new Repellant;
-        sprite=146;
+        sprite=147;
     }
 
 
 
+}
+
+Tile::Tile()
+{
+    pos.x = 0;
+    pos.y = 0;
+    pos.w = 212;
+    pos.h = 72;
 }
 
 
@@ -53,21 +61,41 @@ void Tile::Buy(House* house)
 
 void Tile::SetValues(int a)
 {
-    if(a==0)
+    if(a==0)  //tiles for medicine,ddt,nets, repellent
     {
         buy = new BadMedicine();
+        sprite=148;
     }
     if(a == 1)
     {
         buy = new DDT;
+        sprite=146;
     }
     if(a==2)
     {
         buy = new Nets;
+        sprite=149;
     }
     if(a==3)
     {
         buy = new Repellant;
+        sprite=147;
+    }
+}
+
+void Tile::Hover()
+{
+    if (sprite < 150)
+    {
+        sprite +=4;
+    }
+}
+
+void Tile::UnHover()
+{
+    if (sprite > 149)
+    {
+        sprite -= 4;
     }
 }
 
@@ -77,8 +105,8 @@ void Tile::Show(SDL_Renderer* renderer)
 //   word[0].Show(renderer);
 //   word[1].Show(renderer);
    texture = Texture::GetInstance(renderer);
-   texture->Render(sprite,renderer);
-   texture->Render(buy->GetSpriteNum(),renderer,&iconPos);
+   texture->Render(sprite,renderer, &pos);
+   //texture->Render(buy->GetSpriteNum(),renderer,&iconPos);
 }
 
 Tile::~Tile()

@@ -413,6 +413,8 @@ void House::SetUpScenarios()
     }
 }
 
+
+
 void House::ApplyRepellent()
 {
     for (int i = 0; i < humans.GetLength(); i++)
@@ -420,6 +422,5 @@ void House::ApplyRepellent()
         humans.GiveItem(i)->SetCoveredInRepellant();
     }
 }
-
 
 

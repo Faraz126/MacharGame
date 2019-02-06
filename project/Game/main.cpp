@@ -18,10 +18,7 @@
 #include <sstream>
 #include "SplashScreen.h"
 #include <SDL_mixer.h>
-<<<<<<< HEAD
 
-=======
->>>>>>> d0e90580d23197bc3bd4210da7b34ac087762436
 
 
 using namespace std;
@@ -41,20 +38,9 @@ void close();
 SDL_Renderer* gRenderer;
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
-
-<<<<<<< HEAD
-//The window renderer
-SDL_Renderer* gRenderer = NULL;
 Mix_Music *gMusic = NULL;
 
 
-
-
-//The sound effects that will be used
-
-
-=======
->>>>>>> d0e90580d23197bc3bd4210da7b34ac087762436
 bool init()
 {
 	//Initialization mouseClicked
@@ -103,20 +89,12 @@ bool init()
                     success = false;
                 }
 
-
-<<<<<<< HEAD
-=======
-                //Initialize SDL_mixer
->>>>>>> d0e90580d23197bc3bd4210da7b34ac087762436
                 if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
                 {
                     printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
                     success = false;
                 }
-<<<<<<< HEAD
 
-=======
->>>>>>> d0e90580d23197bc3bd4210da7b34ac087762436
 
             }
         }
