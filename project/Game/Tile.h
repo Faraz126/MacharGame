@@ -46,6 +46,8 @@ public:
     void SetValues(int);
     bool Buyable(Money& houseMoney);
     void Buy(House*);
+    void Hover();
+    void UnHover();
     ~Tile();
 };
 

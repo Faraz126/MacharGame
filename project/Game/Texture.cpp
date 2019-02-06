@@ -1161,9 +1161,14 @@ void Texture::SetChunk(int n)
         gScratch = Mix_LoadWAV("21_sound_effects_and_music/Spray.wav");
         break;
     }
+
     if( gScratch == NULL )
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+    }
+    else
+    {
+        Mix_PlayChannel( -1, gScratch, 0 );
     }
 }
 

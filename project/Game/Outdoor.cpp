@@ -235,7 +235,7 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
                 node.prev_updatable = true;
                 */
                 curScreen = hospital;
-                Texture::GetInstance()->SetSound(1);
+                Texture::GetInstance()->SetSound(HOSPITAL);
 
             }
 

@@ -4,6 +4,8 @@
 #include <SDL_mixer.h>
 #include <iostream>
 
+enum music {CREDITS,HOSPITAL,MAINMENU,MOSQUITO,OUTDDOORINDOOR,ENDGAME,CLICK,HAMMERING,SPRAY};
+
 class Texture //agar nahi hoti toh store karte k har object kahan par hai
 {
 
@@ -18,7 +20,7 @@ private:
     void SetRect(int); //to decide the position of serial no object on sprite sheet
     void SetRect(char); // to decide the position of character on sprite sheet
 
-    enum music {CREDITS,HOSPITAL,MAINMENU,MOSQUITO,OUTDDOORINDOOR,ENDGAME,CLICK,HAMMERING,SPRAY};
+
 
 
 public :
