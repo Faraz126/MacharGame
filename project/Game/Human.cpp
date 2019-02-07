@@ -572,7 +572,7 @@ void Human::ChooseDoor()
 
 void Human::Show(SDL_Renderer* renderer)
 {
-    SDL_Rect leg;
+    SDL_Rect leg{0,0,0,0};
     if (activity == WALKING || activity == GOING_TO_BED || activity == GOING_TO_DOOR || activity == AVOIDING_COLLISION)
     {
         int face = 0;
