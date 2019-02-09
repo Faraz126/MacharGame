@@ -22,7 +22,7 @@ class Alert
 public:
     Alert();
     double GetTimerSprite();
-    static void Show(SDL_Renderer*);
+    static void Show(SDL_Renderer*, Screens*);
     static void Add(Human*);
     static void Remove(Human*);
     static void SetUpRects();

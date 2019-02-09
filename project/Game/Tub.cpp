@@ -6,11 +6,15 @@ Tub::Tub(int x, int y) : Container(x, y, TUB_WIDTH, TUB_HEIGHT)
     spriteNum = 66 + (rand()%4); //need to replace with updated spritesheet.
     if(pos.x==15)
     {
-        lid = new TubLid(pos.x+200,pos.y);
+        id = 4;
+        myLid = noOflids;
+        lids[noOflids++] = new TubLid(pos.x+100,pos.y);
     }
     if(pos.x==900)
     {
-        lid = new TubLid(pos.x-200,pos.y);
+        id = 4;
+        myLid = noOflids;
+        lids[noOflids++] = new TubLid(pos.x-100,pos.y);
     }
     percentage = 5;
     breedCount = 0;
@@ -28,13 +32,13 @@ void Tub::SetCovered(bool status)
 void Tub::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->Render(spriteNum,renderer, &pos);
-    lid->Show(renderer);
+    //lid->Show(renderer);
 }
 
 Mosquito* Tub::Breed()
 {
     breedCount++;
-    return factory->GetMosquito(0);
+    return factory->GetMosquito(AEDES);
 }
 
 void Tub::Update(int n)
@@ -52,11 +56,27 @@ void Tub::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     if (!GetCovered())
     {
-        lid->HandleEvents(e,node);
+        for (int i =0; i < noOflids; i++)
+        {
+
+            lid = lids[i];
+            if (lid != 0 && this->SameScenario(lid))
+            {
+                lid->HandleEvents(e, node);
+            }
+
+        }
+
     }
-    if (lid->Collides(*this))
+
+    for (int i = 0; i < noOflids; i++)
     {
-        SetCovered(true);
+        lid = lids[i];
+        if (lid != 0 && this->SameScenario(lid) && lid->Collides(*this) && lid->CorrectID(this->id))
+        {
+            SetCovered(true);
+            break;
+        }
     }
 }
 

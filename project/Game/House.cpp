@@ -6,6 +6,7 @@
 
 House::House(): Scenario(0, true, false, true, 1)
 {
+    noOfBreedingPlaces = 0;
     code = 1;
     pos.x = wall.x = 0;
     pos.y = wall.y = 0;
@@ -22,12 +23,12 @@ House::House(): Scenario(0, true, false, true, 1)
 
     SetUpEntrancesAndShowPieces();
 
-    noOfBreedingPlaces = 1;
+
     int y = 600;
-    while (noOfBreedingPlaces < 3 && y < 740)
+    //while (noOfBreedingPlaces < 3 && y < 740)
     {
         ///putting breeding places at pseudo random positions
-
+        /*
         if (rand()%3 == 1)
         {
             if (rand()%2 == 1)
@@ -44,6 +45,7 @@ House::House(): Scenario(0, true, false, true, 1)
 
         }
         y += 70;
+        */
     }
 
 
@@ -109,17 +111,35 @@ void House::SetUpEntrancesAndShowPieces()
     {
         x = 265;
         entrance[0] = new Door(100, 300);
+        if (rand() % 2)
+        {
+            breedingplaces[1] = new Tub(15, 670);
+            myQ.Append(breedingplaces[1]);
+            breedingplaces[1]->ReduceSize(float(670)/1600);
+            noOfBreedingPlaces++;
+        }
+
         entrance[0]->SetScenario(this);
         breedingplaces[0] = new TrashCan(10,450);
         myQ.Append(breedingplaces[0]);
+        noOfBreedingPlaces++;
+
     }
     else
     {
         x = 10;
         entrance[0] = new Door(750, 300);
+        if (rand() % 2)
+        {
+            breedingplaces[1] = new Tub(900, 670);
+            myQ.Append(breedingplaces[1]);
+            breedingplaces[1]->ReduceSize(float(670)/1600);
+            noOfBreedingPlaces++;
+        }
         entrance[0]->SetScenario(this);
         breedingplaces[0] = new TrashCan(925,450);
         myQ.Append(breedingplaces[0]);
+        noOfBreedingPlaces++;
     }
 
     for (int i = 0; i<noOfHumans; i++) //setting up beds equal to number of humans
@@ -222,7 +242,7 @@ void House::Show(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer,upperRect0);
     points->Show(renderer);
     money.Show(renderer);
-    Alert::Show(renderer);
+    Alert::Show(renderer, curScreen);
 
 }
 
@@ -298,7 +318,26 @@ void House::Update(int frame)
 
     for (int i = 0; i < mosquitoes.GetLength();i++)
     {
-        mosquitoes.GiveItem(i)->Update(frame);
+        if (mosquitoes.GiveItem(i)->GetIsDead())
+        {
+            /*
+            Mosquito* myM = mosquitoes.GiveItem(i);
+            cout << mosquitoes.GetLength();
+            mosquitoes.RemoveItem(myM);
+            delete myM;
+            cout << mosquitoes.GetLength();
+            break;
+            */
+            Mosquito* myM = mosquitoes.GiveItem(i);
+            mosquitoes.Pop(i);
+            //delete myM;
+            break;
+
+        }
+        else
+        {
+            mosquitoes.GiveItem(i)->Update(frame);
+        }
     }
 
 
@@ -318,15 +357,17 @@ Door* House::GetDoor()
 
 House::~House()
 {
+    /*
     for (int i = 0; i < myQ.GetLength(); i++)
     {
-        delete myQ.GiveItem(i);
+        delete myQ.GiveItem(i++);
     }
 
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
-        delete mosquitoes.GiveItem(i);
+        delete mosquitoes.GiveItem(i++);
     }
+
 
 
 //    delete[] bed;
@@ -339,6 +380,7 @@ House::~House()
     delete[] showpieces;
     delete cartPos;
     delete houseShop;
+    */
 }
 
 

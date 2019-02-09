@@ -106,7 +106,7 @@ void Outdoor::Show(SDL_Renderer* renderer)
     SDL_RenderDrawRect(renderer,upperRect);
     SDL_RenderFillRect(renderer,upperRect);
     points->Show(renderer);
-    Alert::Show(renderer);
+
    // alert.Show(renderer);
 
 
@@ -165,21 +165,7 @@ void Outdoor::Update(int frame) ///to update all objects
 
     }
 
-    for (int i = 0; i < myQ.GetLength(); i++)
-    {
-        myQ.GiveItem(i)->Update(frame);
-        /*
-        if(myQ.GiveItem(i)->IsActive() && myQ.GiveItem(i)->DelayLidTime()>1000) //if container is covered and alloted time has passed
-        {
-            delete myQ.Pop(i);
-        }
-        */
 
-    }
-    for (int i = 0; i < mosquitoes.GetLength(); i++)
-    {
-        mosquitoes.GiveItem(i)->Update(frame);
-    }
 
     for (int i = 0; i < noOfEntrance; i++)
     {
@@ -190,7 +176,39 @@ void Outdoor::Update(int frame) ///to update all objects
     {
         if (Alert::humans->GiveItem(i)->GetTimeToDie() < 0)
         {
-           // curScreen = new EndMenu(this, true, false);
+            curScreen = new EndMenu(this, false);
+        }
+    }
+    for (int i = 0; i < myQ.GetLength(); i++)
+    {
+
+
+        if(myQ.GiveItem(i)->IsActive() && myQ.GiveItem(i)->DelayLidTime()>1000) //if container is covered and alloted time has passed
+        {
+            Clickable* myM = myQ.GiveItem(i);
+            myQ.Pop(i);
+            delete myM;
+            break;
+        }
+        else
+        {
+            myQ.GiveItem(i)->Update(frame);
+        }
+
+
+    }
+    for (int i = 0; i < mosquitoes.GetLength(); i++)
+    {
+        if (mosquitoes.GiveItem(i)->GetIsDead())
+        {
+            Mosquito* myM = mosquitoes.GiveItem(i);
+            mosquitoes.Pop(i);
+            //delete myM;
+            break;
+        }
+        else
+        {
+            mosquitoes.GiveItem(i)->Update(frame);
         }
     }
 
@@ -237,6 +255,8 @@ void Outdoor::HandleEvents(SDL_Event* e,Screens_Node& node)
                 node.prev_updatable = true;
                 */
                 curScreen = hospital;
+                Texture::GetInstance()->SetSound(HOSPITAL);
+
             }
 
 
@@ -409,19 +429,6 @@ void Outdoor:: PlaceContainers()
         i++;
     }
 
-    for (int place = 0; place<countTrashcan; place++) //to place trash Cans
-    {
-        int x = trashCanPos[place];
-        int y = 480;
-        breedingplaces[i] = new TrashCan(trashCanPos[place],480);
-        while (Collides(breedingplaces[i]))
-        {
-            breedingplaces[i]->UpdatePos(++x,++y);
-        }
-        myQ.Append(breedingplaces[i]);
-        i++;
-    }
-
     for (int place = 0; place<countManhole; place++) //to place DirtyWater, countDirtyWater = countManhole
     {
         breedingplaces[i] = new DirtyWater(DirtyWaterPos[place],ManholePosY[place]); // y b/w 730 & 730 px
@@ -435,6 +442,22 @@ void Outdoor:: PlaceContainers()
         myQ.Append(breedingplaces[i]);
         i++;
     }
+
+    for (int place = 0; place<countTrashcan; place++) //to place trash Cans
+    {
+        int x = trashCanPos[place];
+        int y = 480;
+        breedingplaces[i] = new TrashCan(trashCanPos[place],480);
+        while (Collides(breedingplaces[i]))
+        {
+            breedingplaces[i]->UpdatePos(++x,++y);
+        }
+        myQ.Append(breedingplaces[i]);
+        i++;
+    }
+
+
+
 
     for (int place = 0; place<countCleanWater; place++) //to placeCleanWater
     {
@@ -458,22 +481,24 @@ void Outdoor::Delete()
 
 Outdoor :: ~Outdoor()
 {
+
     //delete[] buildingRect;
     for (int i = 0; i < myQ.GetLength(); i++)
     {
-        delete myQ.GiveItem(i);
+        delete myQ.GiveItem(i++);
     }
 
     for (int i = 0; i < mosquitoes.GetLength(); i++)
     {
         if ((mosquitoes.GiveItem(i)) != 0)
         {
-            delete mosquitoes.GiveItem(i);
+            delete mosquitoes.GiveItem(i++);
         }
     }
 
-    delete[] house;
+    //delete house;
     delete hospital;
     delete upperRect;
+
 }
 

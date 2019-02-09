@@ -4,7 +4,9 @@ DirtyWater::DirtyWater(int x, int y): Container(x,y, WATER_WIDTH, WATER_HEIGHT)
 {
     spriteNum = 71;
     ReduceSize(0.25);
-    lid = new Soil(pos.x, pos.y - 100);
+    id = 2;
+    myLid = noOflids;
+    lids[noOflids++] = new Soil(pos.x, pos.y - 100);
     percentage = 5;
     delay = 0;
     breedCount = 0;
@@ -35,11 +37,27 @@ void DirtyWater::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     if (!GetCovered())
     {
-        lid->HandleEvents(e,node);
+        for (int i =0; i < noOflids; i++)
+        {
+
+            lid = lids[i];
+            if (lid != 0 && this->SameScenario(lid))
+            {
+                lid->HandleEvents(e, node);
+            }
+
+        }
+
     }
-    if (lid->Collides(*this))
+
+    for (int i = 0; i < noOflids; i++)
     {
-        SetCovered(true);
+        lid = lids[i];
+        if (lid != 0 && this->SameScenario(lid) && lid->Collides(*this) && lid->CorrectID(this->id))
+        {
+            SetCovered(true);
+            break;
+        }
     }
 }
 
@@ -49,7 +67,7 @@ void DirtyWater::Show(SDL_Renderer* renderer)
     {
         Texture::GetInstance()->Render(spriteNum,renderer, &pos);
     }
-    lid->Show(renderer);
+
 }
 
 Mosquito* DirtyWater::Breed()
@@ -83,5 +101,6 @@ int DirtyWater :: GetBreedCount()
 
 DirtyWater::~DirtyWater()
 {
-    //dtor
+
+
 }

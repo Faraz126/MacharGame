@@ -134,8 +134,14 @@ void Alert::Remove(Human* human)
     humans->RemoveItem(human);
 }
 
-void Alert::Show(SDL_Renderer* gRenderer)
+void Alert::Show(SDL_Renderer* gRenderer, Screens* house)
 {
+    for (int i = 0; i < humans->GetLength(); i++)
+    {
+        humans->GiveItem(i)->ShowAlert(gRenderer, alert, house);
+    }
+
+    /*
     int dyingHuman = -1;
     int time = 200000;
     int dyingTime = 200000;
@@ -156,6 +162,8 @@ void Alert::Show(SDL_Renderer* gRenderer)
     {
         Texture::GetInstance()->RenderBack(1,gRenderer, &alert[(int)(time/22225)], timerPos);
     }
+    */
+
 
 
     /*

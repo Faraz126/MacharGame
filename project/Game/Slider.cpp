@@ -53,3 +53,5 @@ int Slider::GetSliderPosX()
 {
     return sliderPos.x;
 }
+
+

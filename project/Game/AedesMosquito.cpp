@@ -9,6 +9,106 @@ AedesMosquito::AedesMosquito() : Mosquito()
     MaxSpeedX = 15;
     MaxSpeedY = 15;
     Range = 30;
+
+    //sprites = new SDL_Rect[18];
+
+    position.h = 231*sizeFactor;
+    position.w = 265*sizeFactor;
+
+    sprites[0].x = 1254 + (231*0);
+    sprites[0].y = 5582;
+    sprites[0].w = 231;
+    sprites[0].h = 265;
+
+    sprites[1].x = 1254 + (231*1);
+    sprites[1].y = 5582;
+    sprites[1].w = 231;
+    sprites[1].h = 265;
+
+    sprites[2].x = 1254 + (231*2);
+    sprites[2].y = 5582;
+    sprites[2].w = 231;
+    sprites[2].h = 265;
+
+    sprites[3].x = 1254 + (231*3);
+    sprites[3].y = 5582;
+    sprites[3].w = 231;
+    sprites[3].h = 265;
+
+    sprites[4].x = 1254 + (231*4);
+    sprites[4].y = 5582;
+    sprites[4].w = 231;
+    sprites[4].h = 265;
+
+    sprites[5].x = 1254 + (231*5);
+    sprites[5].y = 5582;
+    sprites[5].w = 231;
+    sprites[5].h = 265;
+
+    sprites[6].x = 1254 + (231*6);
+    sprites[6].y = 5582;
+    sprites[6].w = 231;
+    sprites[6].h = 265;
+
+    sprites[7].x = 1254 + (231*7);
+    sprites[7].y = 5582;
+    sprites[7].w = 231;
+    sprites[7].h = 265;
+
+    sprites[8].x = 1254 + (231*8);
+    sprites[8].y = 5582;
+    sprites[8].w = 231;
+    sprites[8].h = 265;
+
+    sprites[9].x = 1254 + (231*9);
+    sprites[9].y = 5582;
+    sprites[9].w = 231;
+    sprites[9].h = 265;
+
+    sprites[10].x = 1254 + (231*8);
+    sprites[10].y = 5582;
+    sprites[10].w = 231;
+    sprites[10].h = 265;
+
+    sprites[11].x = 1254 + (231*7);
+    sprites[11].y = 5582;
+    sprites[11].w = 231;
+    sprites[11].h = 265;
+
+    sprites[12].x = 1254 + (231*6);
+    sprites[12].y = 5582;
+    sprites[12].w = 231;
+    sprites[12].h = 265;
+
+    sprites[13].x = 1254 + (231*5);
+    sprites[13].y = 5582;
+    sprites[13].w = 231;
+    sprites[13].h = 265;
+
+    sprites[14].x = 1254 + (231*4);
+    sprites[14].y = 5582;
+    sprites[14].w = 231;
+    sprites[14].h = 265;
+
+    sprites[15].x = 1254 + (231*3);
+    sprites[15].y = 5582;
+    sprites[15].w = 231;
+    sprites[15].h = 265;
+
+    sprites[16].x = 1254 + (231*2);
+    sprites[16].y = 5582;
+    sprites[16].w = 231;
+    sprites[16].h = 265;
+
+    sprites[17].x = 1254 + (231*1);
+    sprites[17].y = 5582;
+    sprites[17].w = 231;
+    sprites[17].h = 265;
+
+
+
+
+
 }
 
 AedesMosquito::AedesMosquito(Scenario* screen): AedesMosquito()
@@ -27,13 +127,13 @@ void AedesMosquito::Bite()
 
         if(rand() % 2 == 0)         // if this is true then infect with Dengue
         {
-            humans.GiveItem(human) -> SetInfected(diseases[0]);
+            humans.GiveItem(human) -> SetInfected(DENGUE);
             Heal();
             //std::cout << "BITE!" << std::endl;
         }
         else    // if this is true then infect with Chikengunya
         {
-            humans.GiveItem(human) -> SetInfected(diseases[1]);
+            humans.GiveItem(human) -> SetInfected(CHICKENGUNYA);
             Heal();
             //std::cout << "BITE!" << std::endl;
         }

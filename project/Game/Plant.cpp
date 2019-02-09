@@ -5,12 +5,16 @@ Plant::Plant(int x, int y): Container(x,y, PLANT_WIDTH, PLANT_HEIGHT)
     spriteNum = (rand()%8) + 27; //to choose if plant is watered or not
     if(spriteNum>=31)
     {
-        lid = new Soil(pos.x, pos.y + 150);
-        lid->ReduceSize(0.75);
+        myLid = noOflids;
+        id = 2;
+        lids[noOflids++] = new Soil(pos.x, pos.y + 150);
+        lids[myLid]->ReduceSize(0.5);
     }
     else
     {
+        myLid = noOflids++;
         lid = 0;
+        lids[myLid] =0;
     }
     //SetCovered(false);
 }
@@ -48,15 +52,33 @@ void Plant::SetCovered(bool status)
 void Plant::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
 
-    if (lid != 0 && !GetCovered())
+    if (!GetCovered())
     {
-        if (!GetCovered())
+        for (int i =0; i < noOflids; i++)
         {
-            lid->HandleEvents(e,node);
+
+            lid = lids[i];
+            if (lid != 0 && this->SameScenario(lid))
+            {
+                lid->HandleEvents(e, node);
+            }
+
         }
-        if (lid->Collides(pos))
+
+    }
+
+    for (int i = 0; i < noOflids; i++)
+    {
+        lid = lids[i];
+        if (lid != 0 && this->SameScenario(lid) && lid->Collides(pos) && lid->CorrectID(this->id))
         {
+
             SetCovered(true);
+
+            lids[i] =0;
+            delete lid;
+            lid = 0;
+            break;
         }
     }
 }
@@ -65,6 +87,7 @@ void Plant::Show(SDL_Renderer* renderer)
 {
     Texture::GetInstance()->Render(spriteNum,renderer, &pos);
 
+    /*
     if (lid != 0)
     {
         if (!GetCovered())
@@ -72,6 +95,7 @@ void Plant::Show(SDL_Renderer* renderer)
             lid->Show(renderer);
         }
     }
+    */
 }
 
 Mosquito* Plant::Breed()
