@@ -6,7 +6,7 @@ using namespace std;
 
 MainMenu::MainMenu(Screens* prevScreen, bool back):Menu(3,354,506,false, prevScreen, back, false, false, 1)
 {
-    Texture::GetInstance()->SetSound(3);
+    Texture::GetInstance()->SetSound(MAINMENU);
     pos0.x= 0;
     pos0.y = 0;
     pos0.w = 1024;
@@ -37,7 +37,7 @@ MainMenu::MainMenu(Screens* prevScreen, bool back):Menu(3,354,506,false, prevScr
     highscorePos0->w = 30;
     highscorePos0->h = 30;
 
-    Texture::GetInstance()->SetSound(4);
+
 
 }
 
@@ -110,13 +110,13 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_backable = false;  //outdoor screen will open
                 */
                 curScreen = new Outdoor(this, false);
-                Texture::GetInstance()->SetSound(2);
+                Texture::GetInstance()->SetSound(OUTDDOORINDOOR);
             }
             else if (btn[1].WithinRegion(mouseX,mouseY)==true)
             {
 
                 //supposed to be file loading here.
-                //Texture::GetInstance()->SetSound(4);
+
 
             }
 
@@ -134,7 +134,7 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_updatable = false;
                 */
                 curScreen = new Setting(this, true, true, false, 1);
-                //Texture::GetInstance()->SetSound(4);
+
             }
 
             else if( cancelBtn->WithinRegion(mouseX, mouseY))

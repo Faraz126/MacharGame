@@ -151,7 +151,7 @@ Hospital :: ~Hospital()
             (*Score::GetInstance())++;
         }
 
-        humans.GiveItem(humans.GetLength()-1)->UpdatePos(humanPos[humans.GetLength()-1],44);
+        humans.GiveItem(humans.GetLength()-1)->UpdatePos(humanPos[humans.GetLength()-1],435);
      }
 
      humans.GiveItem(humans.GetLength()-1)->ReduceSize(1.25);

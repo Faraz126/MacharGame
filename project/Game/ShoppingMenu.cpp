@@ -88,10 +88,23 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
                 SetMouseClicked(true);
                 if(e->button.button == SDL_BUTTON_LEFT)
                 {
-                    if (i ==1)
-                    Texture::GetInstance()->SetChunk(SPRAY);
-                    if(i==2)
-                    Texture::GetInstance()->SetChunk(HAMMERING);
+                    int counter = 0;
+                    Texture::GetInstance()->SetChunk(MONEY);
+                    while(counter!=700)
+                    {
+                        counter++;
+                        cout<<counter<<" ";
+                    }
+                    cout<<counter<<"b ";
+                    if (i ==1 && counter == 700)
+                    {
+                        Texture::GetInstance()->SetChunk(SPRAY);
+                    }
+                    if(i==2 && counter ==700)
+                    {
+                        Texture::GetInstance()->SetChunk(HAMMERING);
+                    }
+
                     if (tile[i].Buyable(house->GetMoney()))
                     {
                         tile[i].Buy(house);

@@ -16,14 +16,11 @@ Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true, true, true)
     option1Pos = new SDL_Rect;
     option2Pos = new SDL_Rect;
     option3Pos = new SDL_Rect;
-    bullet1 = new SDL_Rect;
-    bullet2 = new SDL_Rect;
-    bullet3 = new SDL_Rect;
 
-    manualPos->x = x;
-    manualPos->y = y;
+    manualPos->x = x-20;
+    manualPos->y = y-20;
     manualPos->w = 771 * 1.1;
-    manualPos->h = 359 *1.1;
+    manualPos->h = 359 *0.95;
 
     word = new Word[7];
     checkbox = new CheckBox[3];  //checkboxes position
@@ -40,28 +37,29 @@ Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true, true, true)
 
     word[0].SetText(question1); //setting questions and options for initial screen
 
-    word[0].SetPosition(manualPos->x+330,manualPos->y+10);
-    word[0].ReduceSize(0.8);
+    word[0].SetPosition(manualPos->x+330,manualPos->y+15);
+    word[0].ReduceSize(0.7);
 
     word[1].SetText(question2);
-    word[1].SetPosition(manualPos->x+330,manualPos->y+50);
-    word[1].ReduceSize(0.8);
+    word[1].SetPosition(manualPos->x+330,manualPos->y+40);
+    word[1].ReduceSize(0.7);
 
     word[2].SetText(option1);
-    word[2].SetPosition(manualPos->x+400,manualPos->y+110);
+    word[2].SetPosition(manualPos->x+400,manualPos->y+100);
 
     word[3].SetText(option2);
-    word[3].SetPosition(manualPos->x+400,manualPos->y+190);
+    word[3].SetPosition(manualPos->x+400,manualPos->y+180);
 
     word[4].SetText(option3);
-    word[4].SetPosition(manualPos->x+400,manualPos->y+270);
+    word[4].SetPosition(manualPos->x+400,manualPos->y+260);
 
-    word[2].ReduceSize(0.6);
-    word[3].ReduceSize(0.6);
-    word[4].ReduceSize(0.6);
+    word[2].ReduceSize(0.5);
+    word[3].ReduceSize(0.5);
+    word[4].ReduceSize(0.5);
 
     word[5].SetText("Wrong Answer");
-    word[5].SetPosition(manualPos->x+400, manualPos->y+325);
+    word[5].SetPosition(manualPos->x+400, manualPos->y+310);
+    word[5].ReduceSize(0.5);
     wordAnswerShow = false;
 
     buttonShow = false;
@@ -83,20 +81,6 @@ Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true, true, true)
     option3Pos->w = manualPos->w -450;
     option3Pos->h = manualPos ->h -445;
 
-    bullet1->x = manualPos->x+360;
-    bullet1->y = manualPos->y+110;
-    bullet1->w = 15;
-    bullet1->h = 15;
-
-    bullet2->x = manualPos->x+360;
-    bullet2->y = manualPos->y+190;
-    bullet2->w = 15;
-    bullet2->h = 15;
-
-    bullet3->x = manualPos->x+360;
-    bullet3->y = manualPos->y+270;
-    bullet3->w = 15;
-    bullet3->h = 15;
 
     if(hsp->CheckHumanDisease()==2) //Malaria
     {
@@ -116,7 +100,7 @@ Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true, true, true)
 
 
     btn = new Button;  //give medication button in screen3
-    btn->setPosition(600,350);
+    btn->setPosition(570,300);
     btn->SetWidth(571*0.7,102*0.7);
     btn->setText("Give Medication");
 
@@ -124,6 +108,7 @@ Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true, true, true)
 void Manual::Show(SDL_Renderer* gRenderer)
 {
     Screens::Show(gRenderer);
+    texture = Texture::GetInstance(gRenderer);
     Texture::GetInstance()->Render(129, gRenderer, manualPos);
     word[0].Show(gRenderer);
     word[1].Show(gRenderer);
@@ -132,9 +117,6 @@ void Manual::Show(SDL_Renderer* gRenderer)
 
     if (optionsToShow[0])
     {
-        SDL_RenderDrawRect(gRenderer,option1Pos);
-        SDL_RenderDrawRect(gRenderer,bullet1);
-        SDL_RenderFillRect(gRenderer,bullet1);
         word[2].Show(gRenderer);
         checkbox[0].Show(gRenderer);
 
@@ -142,18 +124,12 @@ void Manual::Show(SDL_Renderer* gRenderer)
 
     if (optionsToShow[1])
     {
-        SDL_RenderDrawRect(gRenderer,option2Pos);
-        SDL_RenderDrawRect(gRenderer,bullet2);
-        SDL_RenderFillRect(gRenderer,bullet2);
         word[3].Show(gRenderer);
         checkbox[1].Show(gRenderer);
     }
 
     if (optionsToShow[2])
     {
-        SDL_RenderDrawRect(gRenderer,option3Pos);
-        SDL_RenderDrawRect(gRenderer,bullet3);
-        SDL_RenderFillRect(gRenderer,bullet3);
         word[4].Show(gRenderer);
         checkbox[2].Show(gRenderer);
     }
@@ -161,6 +137,7 @@ void Manual::Show(SDL_Renderer* gRenderer)
     if(wordAnswerShow)
     {
         word[5].Show(gRenderer);
+
     }
 
     if(screen3WordShow)
@@ -171,7 +148,7 @@ void Manual::Show(SDL_Renderer* gRenderer)
 
     if (hsp->GetPopped()!=NULL)
     {
-        hsp->GetPopped()->UpdatePos(310, 200);
+        hsp->GetPopped()->UpdatePos(350, 140);
         hsp->GetPopped()->Show(gRenderer);
     }
 }
@@ -189,25 +166,25 @@ void Manual::IntializeScreen2()
     option3 = "Joint Pain";
     option2 = "Severe abdominal pain";
     word[0].SetText(question1);
-    word[0].SetPosition(manualPos->x+330,manualPos->y+10);
-    word[0].ReduceSize(0.6);
+    word[0].SetPosition(manualPos->x+330,manualPos->y+15);
+    word[0].ReduceSize(0.5);
 
     word[1].SetText(question2);
-    word[1].SetPosition(manualPos->x+330,manualPos->y+50);
-    word[1].ReduceSize(0.6);
+    word[1].SetPosition(manualPos->x+330,manualPos->y+40);
+    word[1].ReduceSize(0.5);
 
     word[2].SetText(option1);
-    word[2].SetPosition(manualPos->x+400,manualPos->y+110);
+    word[2].SetPosition(manualPos->x+400,manualPos->y+100);
 
     word[3].SetText(option2);
-    word[3].SetPosition(manualPos->x+400,manualPos->y+190);
+    word[3].SetPosition(manualPos->x+400,manualPos->y+180);
 
     word[4].SetText(option3);
-    word[4].SetPosition(manualPos->x+400,manualPos->y+270);
+    word[4].SetPosition(manualPos->x+400,manualPos->y+260);
 
-    word[2].ReduceSize(0.6);
-    word[3].ReduceSize(0.6);
-    word[4].ReduceSize(0.6);
+    word[2].ReduceSize(0.5);
+    word[3].ReduceSize(0.5);
+    word[4].ReduceSize(0.5);
     for (int i=0; i<3; i++)
     {
         optionsToShow[i]=true;
@@ -251,12 +228,12 @@ void Manual::IntializeScreen3()
         str2 = " dengue PCR";
     }
     word[0].SetText(str1 + str2);
-    word[0].SetPosition(manualPos->x+330,manualPos->y+20);
-    word[0].ReduceSize(0.7);
+    word[0].SetPosition(manualPos->x+330,manualPos->y+30);
+    word[0].ReduceSize(0.6);
 
     word[1].SetText("It was confirmed that the ");
-    word[1].SetPosition(manualPos->x+330,manualPos->y+70);
-    word[1].ReduceSize(0.7);
+    word[1].SetPosition(manualPos->x+330,manualPos->y+80);
+    word[1].ReduceSize(0.6);
 
     std::string str3 = "person had";
     std::string str4;
@@ -275,7 +252,7 @@ void Manual::IntializeScreen3()
     screen3WordShow =true;
     word[6].SetText(str3+str4);
     word[6].SetPosition(manualPos->x+330,manualPos->y+120);
-    word[6].ReduceSize(0.8);
+    word[6].ReduceSize(0.7);
 
     buttonShow = true;
 
