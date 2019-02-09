@@ -325,13 +325,16 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                     if(btn->WithinRegion(mouseX,mouseY))
                     {
                         btn->Click();
+                        Texture::GetInstance()->SetChunk(MONEY);
                         hsp->LeaveHuman(); //if give medication button will be clicked human will hospital screen and human will leave hospital
                         /*
+
                         node.cur_screen = node.prev_screen;
                         node.prev_screen = this;
                         node.prev_updatable = false;
                         node.prev_backable = true;
                         */
+
                         Screens::SetCurrent(hsp);
                         screenNumber++;
                     }

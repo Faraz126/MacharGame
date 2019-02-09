@@ -1162,6 +1162,8 @@ void Texture::SetChunk(int n)
         break;
     case MONEY:
         gScratch = Mix_LoadWAV("21_sound_effects_and_music/money.wav");
+    case SCORE:
+        gScratch = Mix_LoadWAV("21_sound_effects_and_music/score.wav");
     }
 
     if( gScratch == NULL )
