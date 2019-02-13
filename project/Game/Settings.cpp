@@ -94,6 +94,7 @@ Setting::Setting(Screens* prevScreen, bool back, bool show, bool update, int fac
         myfile.close();
     }
 
+
 }
 
 
@@ -139,6 +140,7 @@ void Setting::HandleEvents(SDL_Event* e, Screens_Node& node)
     int mouseY = e->button.y;
     Menu::HoverClick(e);   //for button
     Click(e);       //for cancel and slider
+    int vol = 128;
 
 
     if(e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP )
@@ -151,11 +153,11 @@ void Setting::HandleEvents(SDL_Event* e, Screens_Node& node)
                 curScreen = prevScreen;
                 delete this;
             }
+
             else if (btn[0].WithinRegion(mouseX,mouseY)==true)  //save button
             {
-                int vol = (slider[0].GetSliderPosX()/780)+180;
+                vol = ((slider[0].GetSliderPosX()-settingSliderPos->x)/285.0)*128;
                 texture->DecreaseVol(vol);
-                cout<<vol<<" ";
                 ofstream myfile;
                 myfile.open ("setting.txt");
                 float bright = (slider[1].GetSliderPosX() - settingSliderPos1->x)/495.0f;
@@ -172,6 +174,8 @@ void Setting::HandleEvents(SDL_Event* e, Screens_Node& node)
 
             else if (btn[1].WithinRegion(mouseX,mouseY)==true)  //reset button
             {
+
+                slider[0].SetSliderPosX(((285*vol)/128)+settingSliderPos->x);
                 float bright;
                 ifstream myfile ("setting.txt");
                 if (myfile.is_open())

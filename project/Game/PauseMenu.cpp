@@ -1,6 +1,6 @@
 #include "PauseMenu.h"
 
-PauseMenu::PauseMenu(Outdoor* outPtr, Screens* scr, bool back):Menu(4,80,230,false, scr, back)
+PauseMenu::PauseMenu(Outdoor* outPtr, Screens* scr, bool back):Menu(2,80,230,false, scr, back)
 {
     pausePos = new SDL_Rect;
     pausePos->x= 0;
@@ -14,9 +14,9 @@ PauseMenu::PauseMenu(Outdoor* outPtr, Screens* scr, bool back):Menu(4,80,230,fal
     pauseCancelPos.h = 35;
 
     buttonText[0]= "RESUME";
-    buttonText[1] = "SAVE";
-    buttonText[2]= "LOAD";
-    buttonText[3] = "MAIN MENU";
+//    buttonText[1] = "SAVE";
+//    buttonText[2]= "LOAD";
+    buttonText[1] = "MAIN MENU";
 
     cancelBtn = new CancelButton(pauseCancelPos);  //making a cancel button
 
@@ -84,20 +84,20 @@ void PauseMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 delete this;
 
             }
+//            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
+//            {
+//                /*
+//                node.cur_screen = new SaveMenu(outdoor);
+//                node.prev_screen = this;
+//                node.prev_updatable = false;
+//                node.prev_backable = true;
+//                */
+//
+//                curScreen = new SaveMenu(outdoor, this, true);
+//
+//            }
+
             else if (btn[1].WithinRegion(mouseX,mouseY)==true)
-            {
-                /*
-                node.cur_screen = new SaveMenu(outdoor);
-                node.prev_screen = this;
-                node.prev_updatable = false;
-                node.prev_backable = true;
-                */
-
-                curScreen = new SaveMenu(outdoor, this, true);
-
-            }
-
-            else if (btn[3].WithinRegion(mouseX,mouseY)==true)
             {
                 /*
                 node.cur_screen = new MainMenu;

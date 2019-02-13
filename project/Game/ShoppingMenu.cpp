@@ -93,9 +93,8 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
                     while(counter!=700)
                     {
                         counter++;
-                        cout<<counter<<" ";
+
                     }
-                    cout<<counter<<"b ";
                     if (i ==1 && counter == 700)
                     {
                         Texture::GetInstance()->SetChunk(SPRAY);

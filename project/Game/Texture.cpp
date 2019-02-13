@@ -1215,6 +1215,7 @@ void Texture::SetSound(int n)
 void Texture::DecreaseVol(int vol)
 {
     Mix_Volume(-1, vol);
+    Mix_VolumeMusic(vol);
 }
 
 

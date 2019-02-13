@@ -4,7 +4,7 @@
 
 using namespace std;
 
-MainMenu::MainMenu(Screens* prevScreen, bool back):Menu(3,354,506,false, prevScreen, back, false, false, 1)
+MainMenu::MainMenu(Screens* prevScreen, bool back):Menu(2,354,506,false, prevScreen, back, false, false, 1)
 {
     Texture::GetInstance()->SetSound(MAINMENU);
     pos0.x= 0;
@@ -24,8 +24,7 @@ MainMenu::MainMenu(Screens* prevScreen, bool back):Menu(3,354,506,false, prevScr
 
     mosquitoIterator=43;
     buttonText[0]= "NEW GAME";
-    buttonText[1] = "LOAD GAME";
-    buttonText[2] = "SETTINGS";
+    buttonText[1] = "SETTINGS";
 
     cancelBtn = new CancelButton(pos2);
 
@@ -112,15 +111,15 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 curScreen = new Outdoor(this, false);
                 Texture::GetInstance()->SetSound(OUTDDOORINDOOR);
             }
+//            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
+//            {
+//
+//                //supposed to be file loading here.
+//
+//
+//            }
+
             else if (btn[1].WithinRegion(mouseX,mouseY)==true)
-            {
-
-                //supposed to be file loading here.
-
-
-            }
-
-            else if (btn[2].WithinRegion(mouseX,mouseY)==true)
             {
                 /*
                 node.cur_screen = new Setting;

@@ -147,7 +147,7 @@ int main( int argc, char* args[] )
 	else
 	{
 
-        cout << loadMedia();
+//        cout << loadMedia();
         Texture::GetInstance(gRenderer); //Loads the sprite sheet into texture.
 
         SDL_Event e;
