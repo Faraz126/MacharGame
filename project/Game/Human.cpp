@@ -490,6 +490,10 @@ void Human::Move()
             myStack.Append(activity);
             timeSince = 0;
             activity = AVOIDING_COLLISION;
+            if (isInfected)
+            {
+                isHorizontal = true;
+            }
         }
         ChangeDirection();
 
@@ -547,9 +551,14 @@ void Human::Move()
 void Human::ChangeState(int n)
 {
     timeSince = 0;
+
     if (!myStack.IsEmpty())
     {
         activity = myStack.Pop();
+        if (n != -1)
+        {
+            myStack.Append(n);
+        }
     }
     else if (n != -1)
     {
@@ -566,6 +575,7 @@ void Human::ChangeState(int n)
         {
             myStack.Append(GOING_TO_BED);
             activity = GOING_TO_DOOR;
+            ChooseDoor();
         }
         else
         {
@@ -682,8 +692,8 @@ void Human::ChooseDoor()
 
 void Human::Show(SDL_Renderer* renderer)
 {
-    SDL_Rect leg;
 
+    SDL_Rect leg{0,0,0,0};
 
     if (activity == WALKING || activity == GOING_TO_BED || activity == GOING_TO_DOOR || activity == AVOIDING_COLLISION)
     {
@@ -775,7 +785,7 @@ void Human::Show(SDL_Renderer* renderer)
             Texture::GetInstance()->RenderFlipped(body,renderer, &this->body);
         }
 
-        if (hasRepeppant)
+        if (activity == AVOIDING_COLLISION)
         {
             SDL_Rect shield;
             shield.x = this->face.x + 10;

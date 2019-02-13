@@ -58,7 +58,7 @@ public:
         Append(temp->data);
         */
 
-        for (int i = 0; i < list_given.myV.size(); i++)
+        for (size_t i = 0; i < list_given.myV.size(); i++)
         {
             myV.push_back(list_given.myV[i]);
         }
@@ -189,7 +189,7 @@ public:
         return val;
     }
 
-    Type Pop(int index)
+    Type Pop(size_t index)
     {
         /*
         Type val = 0;
@@ -245,7 +245,7 @@ public:
         return val;
         */
         Type val;
-        for (int i = 0; i < myV.size(); i++)
+        for (size_t i = 0; i < myV.size(); i++)
         {
             if (i == index)
             {
@@ -306,7 +306,7 @@ public:
         }
         */
 
-         for (int i = 0; i < myV.size(); i++)
+         for (size_t i = 0; i < myV.size(); i++)
          {
              if (myV[i] == val)
              {
@@ -316,7 +316,7 @@ public:
 
     }
 
-    Type GiveItem(int index)
+    Type GiveItem(size_t index)
     {
         /*
         Type val = 0;
