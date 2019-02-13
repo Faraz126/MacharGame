@@ -120,7 +120,7 @@ void EndMenu::Show(SDL_Renderer* gRenderer)
         Menu::Show(gRenderer);
     }
 
-    if (time++ > 200)
+    if (time++ > 500)
     {
         screenEnd = true;
     }

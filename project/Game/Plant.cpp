@@ -3,12 +3,14 @@
 Plant::Plant(int x, int y): Container(x,y, PLANT_WIDTH, PLANT_HEIGHT)
 {
     spriteNum = (rand()%8) + 27; //to choose if plant is watered or not
+    ReduceSize(0.80);
     if(spriteNum>=31)
     {
+
         myLid = noOflids;
         id = 2;
-        lids[noOflids++] = new Soil(pos.x, pos.y + 150);
-        lids[myLid]->ReduceSize(0.5);
+        lids[noOflids++] = new Soil(pos.x, pos.y + 125);
+        lids[myLid]->ReduceSize(0.4);
     }
     else
     {

@@ -252,7 +252,7 @@ void Human::Update(int frame)
                     if (true)
                     {
 
-                        if (!isIndoor && (Clickable::Collides(door->GetOutdoorRect(), legs) || Clickable::Collides(door->GetOutdoorRect(), collideRect)))
+                        if (!isIndoor && (Clickable::Collides(door->GetOutdoorRect(), legs) || Clickable::Collides(door->GetOutdoorRect(), collideRect) || Clickable::Collides(door->GetOutdoorRect(), body)))
                         {
 
                             GoIndoor();
@@ -659,7 +659,8 @@ bool Human::MoveAllowed()
         }
 
     }
-    if (Collide(tempRect))
+
+    if (!isInfected && Collide(tempRect))
     {
         return false;
     }
@@ -957,17 +958,20 @@ int Human::GetInfected()
 
 void Human::GoToHospital()
 {
-    Alert::Remove(this);
+    if (ownHouse->GetOutdoor()->hospital->AddHuman(this))
+    {
+        Alert::Remove(this);
+        timeToDie = 200000;
+        isInfected = false;
+        isIndoor = false;
+        ownHouse->LeaveHuman(this);
+        bedToGoTo->SetOccupied(false);
+        bedToGoTo = 0;
+        ChangeScenario(ownHouse->GetOutdoor()->hospital);
+        ownHouse->GetOutdoor()->hospital->AddHuman(this);
+        ChangeState(IN_HOSPITAL);
+    }
 
-    timeToDie = 200000;
-    isInfected = false;
-    isIndoor = false;
-    ownHouse->LeaveHuman(this);
-    bedToGoTo->SetOccupied(false);
-    bedToGoTo = 0;
-    ChangeScenario(ownHouse->GetOutdoor()->hospital);
-    ownHouse->GetOutdoor()->hospital->AddHuman(this);
-    ChangeState(IN_HOSPITAL);
 }
 
 

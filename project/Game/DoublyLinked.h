@@ -306,7 +306,7 @@ public:
         }
         */
 
-         for (int i; i < myV.size(); i++)
+         for (int i = 0; i < myV.size(); i++)
          {
              if (myV[i] == val)
              {

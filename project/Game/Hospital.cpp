@@ -151,12 +151,17 @@ Hospital :: ~Hospital()
             (*Score::GetInstance())++;
         }
 
-        humans.GiveItem(humans.GetLength()-1)->UpdatePos(humanPos[humans.GetLength()-1],44);
+        humans.GiveItem(humans.GetLength()-1)->UpdatePos(humanPos[humans.GetLength()-1],465);
+        humans.GiveItem(humans.GetLength()-1)->ReduceSize(1.25);
+        popped = humans.GiveItem(0);
+        return allowAppend;
+     }
+     else
+     {
+         return allowAppend;
      }
 
-     humans.GiveItem(humans.GetLength()-1)->ReduceSize(1.25);
-     popped = humans.GiveItem(0);
-     return allowAppend;
+
  }
 
 void Hospital :: LeaveHuman(Human* human)

@@ -5,7 +5,7 @@ Manhole::Manhole(int x, int y) : Container(x, y, MANHOLE_WIDTH, MANHOLE_HEIGHT)
     spriteNum = 62; //need to replace with updated spritesheet.
     myLid = noOflids;
     id = 3;
-    lids[noOflids++] = new ManholeLid(pos.x+100,pos.y-100);
+    lids[noOflids++] = new ManholeLid(pos.x+100,pos.y);
     percentage = 5;
     breedCount = 0;
 }
