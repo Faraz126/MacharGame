@@ -32,6 +32,7 @@ private:
     Slider* slider;
     Word* word;
     std::string buttonText[2];
+    int vol;
 
 protected:
 

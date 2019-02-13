@@ -1,7 +1,7 @@
 #include "EndMenu.h"
 
 
-EndMenu::EndMenu(Screens* prevScreen, bool back, bool show, bool update, int factor):Menu(3,80,250,false, prevScreen, back, show, update, factor)
+EndMenu::EndMenu(Screens* prevScreen, bool back, bool show, bool update, int factor):Menu(2,80,250,false, prevScreen, back, show, update, factor)
 {
     pos0 = new SDL_Rect;
     pos0->x= 0;
@@ -17,7 +17,7 @@ EndMenu::EndMenu(Screens* prevScreen, bool back, bool show, bool update, int fac
 
     buttonText[0]= "RESTART";
     buttonText[1] = "MAIN MENU";
-    buttonText[2] = "LOAD GAME";
+    //buttonText[2] = "LOAD GAME";
 
     cancelBtn = new CancelButton(pos2);
 

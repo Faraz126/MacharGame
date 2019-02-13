@@ -1160,6 +1160,10 @@ void Texture::SetChunk(int n)
     case SPRAY:
         gScratch = Mix_LoadWAV("21_sound_effects_and_music/Spray.wav");
         break;
+    case MONEY:
+        gScratch = Mix_LoadWAV("21_sound_effects_and_music/money.wav");
+    case SCORE:
+        gScratch = Mix_LoadWAV("21_sound_effects_and_music/score.wav");
     }
 
     if( gScratch == NULL )
@@ -1194,7 +1198,7 @@ void Texture::SetSound(int n)
         break;
 
      case OUTDDOORINDOOR:
-        gMusic = Mix_LoadMUS("21_sound_effects_and_music/OutdoorIndoor.wav");
+        gMusic = Mix_LoadMUS("21_sound_effects_and_music/MainMusic.wav");
         break;
     case ENDGAME:
         gMusic = Mix_LoadMUS("21_sound_effects_and_music/EndGame.wav");
@@ -1208,6 +1212,10 @@ void Texture::SetSound(int n)
     }
 }
 
-
+void Texture::DecreaseVol(int vol)
+{
+    Mix_Volume(-1, vol);
+    Mix_VolumeMusic(vol);
+}
 
 

@@ -555,10 +555,6 @@ void Human::ChangeState(int n)
     if (!myStack.IsEmpty())
     {
         activity = myStack.Pop();
-        if (n != -1)
-        {
-            myStack.Append(n);
-        }
     }
     else if (n != -1)
     {
@@ -785,7 +781,7 @@ void Human::Show(SDL_Renderer* renderer)
             Texture::GetInstance()->RenderFlipped(body,renderer, &this->body);
         }
 
-        if (activity == AVOIDING_COLLISION)
+        if (hasRepeppant)
         {
             SDL_Rect shield;
             shield.x = this->face.x + 10;
@@ -978,7 +974,6 @@ void Human::GoToHospital()
         bedToGoTo->SetOccupied(false);
         bedToGoTo = 0;
         ChangeScenario(ownHouse->GetOutdoor()->hospital);
-        ownHouse->GetOutdoor()->hospital->AddHuman(this);
         ChangeState(IN_HOSPITAL);
     }
 

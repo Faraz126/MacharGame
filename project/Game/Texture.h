@@ -4,7 +4,7 @@
 #include <SDL_mixer.h>
 #include <iostream>
 
-enum music {CREDITS,HOSPITAL,MAINMENU,MOSQUITO,OUTDDOORINDOOR,ENDGAME,CLICK,HAMMERING,SPRAY};
+enum music {CREDITS,HOSPITAL,MAINMENU,MOSQUITO,OUTDDOORINDOOR,ENDGAME,CLICK,HAMMERING,SPRAY,MONEY,SCORE};
 
 class Texture //agar nahi hoti toh store karte k har object kahan par hai
 {
@@ -38,6 +38,7 @@ public :
     void RenderFlipped(int , SDL_Renderer*, SDL_Rect*);
     void SoundRender (int);
     void SoundRenderChunk (int);
+    void DecreaseVol(int);
 
 
 

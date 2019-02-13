@@ -189,7 +189,7 @@ public:
         return val;
     }
 
-    Type Pop(size_t index)
+    Type Pop(int index)
     {
         /*
         Type val = 0;
@@ -245,13 +245,14 @@ public:
         return val;
         */
         Type val;
-        for (size_t i = 0; i < myV.size(); i++)
+        for (int i = 0; i < myV.size(); i++)
         {
             if (i == index)
             {
                 val = myV[i];
             }
         }
+
         myV.erase(myV.begin() + index);
         return val;
     }
@@ -306,7 +307,7 @@ public:
         }
         */
 
-         for (size_t i = 0; i < myV.size(); i++)
+         for (int i = 0; i < myV.size(); i++)
          {
              if (myV[i] == val)
              {
@@ -316,7 +317,7 @@ public:
 
     }
 
-    Type GiveItem(size_t index)
+    Type GiveItem(int index)
     {
         /*
         Type val = 0;
