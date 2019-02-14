@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, false)
+Outdoor:: Outdoor(Screens* screen, bool back): Scenario(screen, back)
 {
     //screen dimensions
     Alert::SetUpRects();
@@ -172,11 +172,36 @@ void Outdoor::Update(int frame) ///to update all objects
         entrance[i]->Update(frame);
     }
 
+    points->people = 0;
+    points->ChangeStatus(GREEN);
+
     for (int i = 0; i < Alert::humans->GetLength(); i++)
     {
         if (Alert::humans->GiveItem(i)->GetTimeToDie() < 0)
         {
-            curScreen = new EndMenu(this, false);
+            curScreen = new EndMenu(this, true);
+        }
+        else if (Alert::humans->GiveItem(i)->GetTimeToDie() < 200000/4)
+        {
+
+            if (points->status == RED)
+            {
+               points->people++;
+            }
+            else
+            {
+                points->people = 1;
+            }
+            points->ChangeStatus(RED);
+
+        }
+        else
+        {
+            if (points->status != RED)
+            {
+                points->ChangeStatus(ORANGE);
+                points->people++;
+            }
         }
     }
     for (int i = 0; i < myQ.GetLength(); i++)
@@ -414,7 +439,7 @@ void Outdoor:: PlaceContainers()
     breedingplaces = new BreedingGround*[countContainer];
 
     int plantPos[countPlants] = {170,260,515,780,870,970,1245}; //fixed x-coordinates of plants
-    int trashCanPos[3] = {650,80,1160}; //fixed x-coordinates of trash Cans
+    int trashCanPos[3] = {550,40,1300}; //fixed x-coordinates of trash Cans
     int manholePos[3] = {900, 1320, 450};//fixed x-coordinates of manhole
     int DirtyWaterPos[3] = {830, 1250, 400};
     int CleanWaterPos[2] = {200, 1070};
@@ -423,8 +448,8 @@ void Outdoor:: PlaceContainers()
 
     for (int place = 0; place<countPlants; place++) //to place plants
     {
-        breedingplaces[i] = new Plant(plantPos[place],320);
 
+        breedingplaces[i] = new Plant(plantPos[place],330);
         myQ.Append(breedingplaces[i]);
         i++;
     }
@@ -482,19 +507,26 @@ void Outdoor::Delete()
 Outdoor :: ~Outdoor()
 {
 
+
     //delete[] buildingRect;
-    for (int i = 0; i < myQ.GetLength(); i++)
+    int sizes = myQ.GetLength();
+    for (int i = 0; i < sizes; i++)
     {
-        delete myQ.GiveItem(i++);
+        delete myQ.Pop();
     }
 
-    for (int i = 0; i < mosquitoes.GetLength(); i++)
+    sizes = mosquitoes.GetLength();
+    for (int i = 0; i < sizes; i++)
     {
-        if ((mosquitoes.GiveItem(i)) != 0)
-        {
-            delete mosquitoes.GiveItem(i++);
-        }
+        delete mosquitoes.Pop();
     }
+
+    while(!Alert::humans->IsEmpty())
+    {
+
+        Alert::humans->Pop();
+    }
+
 
     //delete house;
     delete hospital;

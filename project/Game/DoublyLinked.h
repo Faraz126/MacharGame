@@ -58,7 +58,7 @@ public:
         Append(temp->data);
         */
 
-        for (int i = 0; i < list_given.myV.size(); i++)
+        for (size_t i = 0; i < list_given.myV.size(); i++)
         {
             myV.push_back(list_given.myV[i]);
         }
@@ -252,6 +252,7 @@ public:
                 val = myV[i];
             }
         }
+
         myV.erase(myV.begin() + index);
         return val;
     }
@@ -306,7 +307,7 @@ public:
         }
         */
 
-         for (int i; i < myV.size(); i++)
+         for (int i = 0; i < myV.size(); i++)
          {
              if (myV[i] == val)
              {

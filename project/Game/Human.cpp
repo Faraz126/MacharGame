@@ -252,7 +252,7 @@ void Human::Update(int frame)
                     if (true)
                     {
 
-                        if (!isIndoor && (Clickable::Collides(door->GetOutdoorRect(), legs) || Clickable::Collides(door->GetOutdoorRect(), collideRect)))
+                        if (!isIndoor && (Clickable::Collides(door->GetOutdoorRect(), legs) || Clickable::Collides(door->GetOutdoorRect(), collideRect) || Clickable::Collides(door->GetOutdoorRect(), body)))
                         {
 
                             GoIndoor();
@@ -490,6 +490,10 @@ void Human::Move()
             myStack.Append(activity);
             timeSince = 0;
             activity = AVOIDING_COLLISION;
+            if (isInfected)
+            {
+                isHorizontal = true;
+            }
         }
         ChangeDirection();
 
@@ -497,7 +501,7 @@ void Human::Move()
     else
     {
         walker += 0.02;
-        if (walker >= 9)
+        if (walker >= 7)
         {
             walker = 0;
         }
@@ -547,6 +551,7 @@ void Human::Move()
 void Human::ChangeState(int n)
 {
     timeSince = 0;
+
     if (!myStack.IsEmpty())
     {
         activity = myStack.Pop();
@@ -566,6 +571,7 @@ void Human::ChangeState(int n)
         {
             myStack.Append(GOING_TO_BED);
             activity = GOING_TO_DOOR;
+            ChooseDoor();
         }
         else
         {
@@ -659,7 +665,8 @@ bool Human::MoveAllowed()
         }
 
     }
-    if (Collide(tempRect))
+
+    if (!isInfected && Collide(tempRect))
     {
         return false;
     }
@@ -681,8 +688,8 @@ void Human::ChooseDoor()
 
 void Human::Show(SDL_Renderer* renderer)
 {
-    SDL_Rect leg;
 
+    SDL_Rect leg{0,0,0,0};
 
     if (activity == WALKING || activity == GOING_TO_BED || activity == GOING_TO_DOOR || activity == AVOIDING_COLLISION)
     {
@@ -957,17 +964,19 @@ int Human::GetInfected()
 
 void Human::GoToHospital()
 {
-    Alert::Remove(this);
+    if (ownHouse->GetOutdoor()->hospital->AddHuman(this))
+    {
+        Alert::Remove(this);
+        timeToDie = 200000;
+        isInfected = false;
+        isIndoor = false;
+        ownHouse->LeaveHuman(this);
+        bedToGoTo->SetOccupied(false);
+        bedToGoTo = 0;
+        ChangeScenario(ownHouse->GetOutdoor()->hospital);
+        ChangeState(IN_HOSPITAL);
+    }
 
-    timeToDie = 200000;
-    isInfected = false;
-    isIndoor = false;
-    ownHouse->LeaveHuman(this);
-    bedToGoTo->SetOccupied(false);
-    bedToGoTo = 0;
-    ChangeScenario(ownHouse->GetOutdoor()->hospital);
-    ownHouse->GetOutdoor()->hospital->AddHuman(this);
-    ChangeState(IN_HOSPITAL);
 }
 
 

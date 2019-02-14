@@ -150,21 +150,30 @@ Hospital :: ~Hospital()
         {
             (*Score::GetInstance())++;
         }
+        humans.GiveItem(humans.GetLength()-1)->UpdatePos(humanPos[humans.GetLength()-1],440);
+        humans.GiveItem(humans.GetLength()-1)->ReduceSize(1.25);
+        popped = humans.GiveItem(0);
 
-        humans.GiveItem(humans.GetLength()-1)->UpdatePos(humanPos[humans.GetLength()-1],44);
+     }
+     else
+     {
+         return allowAppend;
      }
 
-     humans.GiveItem(humans.GetLength()-1)->ReduceSize(1.25);
-     popped = humans.GiveItem(0);
-     return allowAppend;
+    return allowAppend;
+
  }
 
 void Hospital :: LeaveHuman(Human* human)
 {
-      humans.Pop();
+      humans.Pop(0);
+
+      Human* ptr = humans.Pop(0);
+    ptr->SetInfected(0);
+    ptr->GoIndoor();
       for(int i = 0; i<humans.GetLength(); i++)
      {
-         humans.GiveItem(i)->UpdatePos(humanPos[i],465);
+         humans.GiveItem(i)->UpdatePos(humanPos[i],440);
      }
      popped = humans.GiveItem(0);
 }
@@ -177,7 +186,7 @@ void Hospital :: LeaveHuman()
     ptr->GoIndoor();
     for(int i = 0; i<humans.GetLength(); i++)
     {
-        humans.GiveItem(i)->UpdatePos(humanPos[i],465);
+        humans.GiveItem(i)->UpdatePos(humanPos[i],440);
     }
     popped = humans.GiveItem(0);
 }
