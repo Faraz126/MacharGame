@@ -501,7 +501,7 @@ void Human::Move()
     else
     {
         walker += 0.02;
-        if (walker >= 9)
+        if (walker >= 7)
         {
             walker = 0;
         }

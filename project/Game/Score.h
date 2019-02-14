@@ -6,6 +6,7 @@
 #include <sstream>  // for string streams
 #include <string>
 
+enum STATUS {GREEN, ORANGE, RED};
 class Score
 {
     Score();
@@ -14,6 +15,7 @@ class Score
     int scr;
     SDL_Rect* scorePos;
     Texture* texture;
+
     //SDL_Renderer* gRenderer;
 public:
 
@@ -24,7 +26,9 @@ public:
     Score operator+(const Score&);
     Score operator-(const Score&);
     Score operator*(const Score&);
-
+    int status;
+    int people;
+    void ChangeStatus(int i){status = i;}
     void operator++(int);
     void operator--(int);
     bool operator<(const Score&);

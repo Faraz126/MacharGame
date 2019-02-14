@@ -1,5 +1,5 @@
 #include "MainMenu.h"
-
+#include "Instructions.h"
 #include "HighscoreMenu.h"
 
 using namespace std;
@@ -108,7 +108,7 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_screen = this;
                 node.prev_backable = false;  //outdoor screen will open
                 */
-                curScreen = new Outdoor(this, false);
+                curScreen = new Instructions(this, false);
                 Texture::GetInstance()->SetSound(OUTDDOORINDOOR);
             }
 //            else if (btn[1].WithinRegion(mouseX,mouseY)==true)

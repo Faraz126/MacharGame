@@ -13,6 +13,7 @@ class Clickable
         Clickable(){};
         Clickable(int,int,int,int);
         bool WithinRegion(int, int);
+        static bool WithinRegion(SDL_Rect&, int, int);
         virtual void UpdatePos(int,int);
         virtual bool Collides(const SDL_Rect&);
         bool Collides(const int, const int, const int, const int);
