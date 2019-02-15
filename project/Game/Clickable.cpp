@@ -74,8 +74,8 @@ bool Clickable::Collides(const int x, const int y, const int w, const int h)
 
 void Clickable::ReduceSize(double n)
 {
-    pos.w = pos.w * n;
-    pos.h = pos.h * n;
+    pos.w = static_cast<int>(pos.w * n);
+    pos.h = static_cast<int>(pos.h * n);
 }
 
 

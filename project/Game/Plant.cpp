@@ -18,6 +18,7 @@ Plant::Plant(int x, int y): Container(x,y, PLANT_WIDTH, PLANT_HEIGHT)
         lid = 0;
         lids[myLid] =0;
     }
+    percentage = 5;
     //SetCovered(false);
 }
 

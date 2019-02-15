@@ -69,9 +69,13 @@ void Instructions::HandleEvents(SDL_Event* e, Screens_Node&)
 
         }
     }
-    if(e->key.keysym.sym == SDLK_ESCAPE)  //will open pause menu
+    if(e->key.keysym.sym == SDLK_ESCAPE && e->type == SDL_KEYUP)  //will open pause menu
     {
         curScreen = new Outdoor(this,false);
+
+
+
+
     }
 
 }

@@ -8,13 +8,13 @@ Tub::Tub(int x, int y) : Container(x, y, TUB_WIDTH, TUB_HEIGHT)
     {
         id = 4;
         myLid = noOflids;
-        lids[noOflids++] = new TubLid(pos.x+100,pos.y);
+        lids[noOflids++] = new TubLid(pos.x+150,pos.y);
     }
     if(pos.x==900)
     {
         id = 4;
         myLid = noOflids;
-        lids[noOflids++] = new TubLid(pos.x-100,pos.y);
+        lids[noOflids++] = new TubLid(pos.x-150,pos.y);
     }
     percentage = 5;
     breedCount = 0;

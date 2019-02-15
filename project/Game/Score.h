@@ -22,6 +22,7 @@ public:
     ~Score();
     int GetScore();
     void Show(SDL_Renderer*);
+    void ShowStatus(SDL_Renderer*);
     Score operator+(const Score&);
     Score operator-(const Score&);
     Score operator*(const Score&);

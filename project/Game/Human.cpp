@@ -964,8 +964,24 @@ int Human::GetInfected()
 
 void Human::GoToHospital()
 {
-    if (ownHouse->GetOutdoor()->hospital->AddHuman(this))
+    int amount;
+    if (disease == DISEASE_MALARIA)
     {
+        amount = ownHouse->GetMoney().paisa - 2000;
+    }
+    else if (disease == CHICKENGUNYA)
+    {
+        amount = ownHouse->GetMoney().paisa - 4000;
+    }
+    else if (disease == DENGUE)
+    {
+        amount = ownHouse->GetMoney().paisa - 4000;
+    }
+
+    if (ownHouse->GetOutdoor()->hospital->AddHuman(this) && amount > 0)
+    {
+
+
         Alert::Remove(this);
         timeToDie = 200000;
         isInfected = false;
@@ -975,6 +991,7 @@ void Human::GoToHospital()
         bedToGoTo = 0;
         ChangeScenario(ownHouse->GetOutdoor()->hospital);
         ChangeState(IN_HOSPITAL);
+        ownHouse->GetMoney().paisa = amount;
     }
 
 }

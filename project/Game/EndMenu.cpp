@@ -172,6 +172,8 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_updatable = false;
                 */
                 curScreen = new MainMenu(this, true);
+                Score::GetInstance()->scr = 0;
+
             }
 
             else if( cancelBtn->WithinRegion(mouseX, mouseY))
@@ -186,6 +188,7 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 */
 
                 curScreen = new ExitMenu(this, false);
+                Score::GetInstance()->scr = 0;
 
             }
 

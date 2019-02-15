@@ -58,6 +58,7 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 */
 
                 curScreen = new Closing(this, false);
+                SDL_FlushEvent(SDL_MOUSEBUTTONDOWN);
                 Texture::GetInstance()->SetSound(1);
             }
 
@@ -72,6 +73,7 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 SDL_Delay(1);
                 */
                 curScreen = prevScreen;
+                SDL_FlushEvent(SDL_MOUSEBUTTONDOWN);
                 delete this;
             }
         }
