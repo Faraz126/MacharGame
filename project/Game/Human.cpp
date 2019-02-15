@@ -31,7 +31,7 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     activity = WALKING;
     timeSince = 0;
     step = 1;
-    slowDownFactor = 2;
+    slowDownFactor = 1;
     isInfected = false;
     door = ownHouse->GetDoor();
     faceSprite = 86;
