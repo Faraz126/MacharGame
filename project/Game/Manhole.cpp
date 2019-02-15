@@ -57,7 +57,7 @@ void Manhole::HandleEvents(SDL_Event* e, Screens_Node& node)
 Mosquito* Manhole::Breed()
 {
     breedCount++;
-    return factory->GetMosquito(NORMAL);
+    return factory->GetMosquito(AEDES);
 }
 
 

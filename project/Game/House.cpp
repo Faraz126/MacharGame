@@ -75,7 +75,7 @@ House::House(): Scenario(0, true, false, true, 1)
     upperRect0->x = 1240;
     upperRect0->h = 55;
 
-    money.SetPaisa(10000);
+    money.SetPaisa(40000);
 }
 
 void House::GenerateHumans()
@@ -116,7 +116,7 @@ void House::SetUpEntrancesAndShowPieces()
         {
             breedingplaces[1] = new Tub(15, 670);
             myQ.Append(breedingplaces[1]);
-            breedingplaces[1]->ReduceSize(static_cast<int>(float(670)/1600));
+            breedingplaces[1]->ReduceSize(0.4);
             noOfBreedingPlaces++;
         }
 
@@ -134,7 +134,7 @@ void House::SetUpEntrancesAndShowPieces()
         {
             breedingplaces[1] = new Tub(900, 670);
             myQ.Append(breedingplaces[1]);
-            breedingplaces[1]->ReduceSize(static_cast<int>(float(670)/1600));
+            breedingplaces[1]->ReduceSize(0.4);
             noOfBreedingPlaces++;
         }
         entrance[0]->SetScenario(this);

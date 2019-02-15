@@ -82,15 +82,15 @@ Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true, true, true)
     option3Pos->h = manualPos ->h -445;
 
 
-    if(hsp->CheckHumanDisease()==2) //Malaria
+    if(hsp->CheckHumanDisease()==DISEASE_MALARIA) //Malaria
     {
         correctOption = 0;
     }
-    if(hsp->CheckHumanDisease()==3) //Chikungunya
+    if(hsp->CheckHumanDisease()==CHICKENGUNYA) //Chikungunya
     {
         correctOption = 1;
     }
-    if(hsp->CheckHumanDisease()==4) //Dengue
+    if(hsp->CheckHumanDisease()==DENGUE) //Dengue
     {
         correctOption = 2;
     }
@@ -219,11 +219,11 @@ void Manual::IntializeScreen3()
     {
         str2 = " Malaria Parasite test";
     }
-    else if(correctOption==1)
+    else if(correctOption==2)
     {
         str2 = " Antibodies test";
     }
-    else if(correctOption==2)
+    else if(correctOption==1)
     {
         str2 = " dengue PCR";
     }
@@ -241,7 +241,7 @@ void Manual::IntializeScreen3()
     {
         str4 = " malaria";
     }
-    else if(correctOption==1)
+    else if(correctOption==2)
     {
         str4 = " chikungunya";
     }

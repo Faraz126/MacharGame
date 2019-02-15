@@ -73,7 +73,7 @@ void DirtyWater::Show(SDL_Renderer* renderer)
 Mosquito* DirtyWater::Breed()
 {
     breedCount++;
-    return factory->GetMosquito(MALARIA);
+    return factory->GetMosquito(NORMAL);
 }
 
 

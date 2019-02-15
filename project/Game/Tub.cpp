@@ -38,7 +38,7 @@ void Tub::Show(SDL_Renderer* renderer)
 Mosquito* Tub::Breed()
 {
     breedCount++;
-    return factory->GetMosquito(AEDES);
+    return factory->GetMosquito(MALARIA);
 }
 
 void Tub::Update(int n)

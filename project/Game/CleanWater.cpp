@@ -91,7 +91,7 @@ bool CleanWater::IsActive()
 Mosquito* CleanWater::Breed()
 {
     breedCount++;
-    return factory->GetMosquito(AEDES);
+    return factory->GetMosquito(MALARIA);
 }
 
 CleanWater::~CleanWater()

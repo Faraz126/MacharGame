@@ -103,7 +103,7 @@ void Plant::Show(SDL_Renderer* renderer)
 
 Mosquito* Plant::Breed()
 {
-    return factory->GetMosquito(0);
+    return factory->GetMosquito(AEDES);
 
 }
 void Plant::Write(std::fstream& file)

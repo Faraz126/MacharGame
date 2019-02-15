@@ -69,6 +69,8 @@ private:
     int timeToDie;
     int timeSinceRepellent;
     bool dead;
+    double malariaSprite;
+    bool add;
 
 
 public:

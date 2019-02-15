@@ -44,6 +44,8 @@ Human::Human(int x, int y, House* house): Clickable(x,y,197, 570)
     sentToBed = false;
     timeToDie = 200000;
     timeSinceRepellent = 0;
+    malariaSprite = 134;
+    add = true;
 
 }
 
@@ -820,11 +822,26 @@ void Human::Show(SDL_Renderer* renderer)
     {
         if(disease == DISEASE_MALARIA)
         {
-            SDL_Rect newR;
-            newR = pos;
-            newR.x += 10;
-            //Texture::GetInstance()->Render(135, renderer, &pos); ///HAVE TO CHANGE
-            Texture::GetInstance()->Render(134, renderer, &newR);
+
+            Texture::GetInstance()->Render(static_cast<int>(malariaSprite), renderer, &pos);
+            if (add)
+            {
+                malariaSprite += 0.3;
+            }
+            else
+            {
+                malariaSprite -= 0.3;
+            }
+            if (malariaSprite > 156)
+            {
+                add = false;
+                malariaSprite = 156;
+            }
+            else if (malariaSprite < 154)
+            {
+                add = true;
+                malariaSprite = 154;
+            }
         }
         else if(disease == CHICKENGUNYA)
         {
