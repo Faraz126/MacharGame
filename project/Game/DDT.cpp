@@ -19,6 +19,10 @@ void DDT::Apply(House* house)
     {
         mosquitoes.GiveItem(i)->SetIsDead(true);
     }
+    for(int i = 0; i<200; i++)
+        {
+            (*Score::GetInstance())++;
+        }
 }
 
 DDT::~DDT()

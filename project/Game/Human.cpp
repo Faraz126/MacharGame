@@ -954,11 +954,18 @@ void Human::SetInfected(int code)
 
     if (code == 0)
     {
+        for(int i = 0; i<2; i++)
+        {
+            (*Score::GetInstance())--;
+        }
         isInfected  = false;
     }
     if (code > BITEN)
     {
-
+        for(int i = 0; i<5; i++)
+        {
+            (*Score::GetInstance())--;
+        }
         isInfected = true;
         if (code == MALARIA)
         {
@@ -981,6 +988,10 @@ int Human::GetInfected()
 
 void Human::GoToHospital()
 {
+    for(int i = 0; i<80; i++)
+    {
+        (*Score::GetInstance())++;
+    }
     int amount;
     if (disease == DISEASE_MALARIA)
     {

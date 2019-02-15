@@ -423,6 +423,7 @@ void House::ApplyRepellent()
     {
         humans.GiveItem(i)->SetCoveredInRepellant();
     }
+
 }
 
 
