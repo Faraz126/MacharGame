@@ -978,6 +978,7 @@ void Human::GoToHospital()
         amount = ownHouse->GetMoney().paisa - 4000;
     }
 
+
     if (amount >= 0 && ownHouse->GetOutdoor()->hospital->AddHuman(this))
     {
 
