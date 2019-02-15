@@ -12,17 +12,18 @@ class Score
     Score();
     Word* word;
     static Score* instance;
-    int scr;
+
     SDL_Rect* scorePos;
     Texture* texture;
 
     //SDL_Renderer* gRenderer;
 public:
-
+    int scr;
     static Score* GetInstance();
     ~Score();
     int GetScore();
     void Show(SDL_Renderer*);
+    void ShowStatus(SDL_Renderer*);
     Score operator+(const Score&);
     Score operator-(const Score&);
     Score operator*(const Score&);

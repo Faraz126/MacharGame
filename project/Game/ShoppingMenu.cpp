@@ -14,6 +14,7 @@ ShoppingMenu::ShoppingMenu(Screens* prevScreen, bool back, bool show, bool updat
     shoppingExitPos.y = 690;
     shoppingExitPos.w = 25;
     shoppingExitPos.h = 25;
+    shopShow = false;
 
 
     cancelBtn = new CancelButton(shoppingExitPos);

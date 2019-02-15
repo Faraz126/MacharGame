@@ -19,8 +19,8 @@ Score::Score()
     scorePos = new SDL_Rect;
     scorePos->x = 10;
     scorePos->y = 4;
-    scorePos->w = 147*0.2;
-    scorePos->h = 222*0.2;
+    scorePos->w = static_cast<int>(147*0.2);
+    scorePos->h = static_cast<int>(222*0.2);
     word[0].SetText("SCORE");
     word[0].SetPosition(40,6);
     word[0].ReduceSize(0.8);
@@ -53,6 +53,11 @@ void Score::Show(SDL_Renderer* gRenderer)
     word[5].SetPosition(600,10);
     for(int i=0; i<2; i++)
         word[i].Show(gRenderer);
+
+}
+
+void Score::ShowStatus(SDL_Renderer* gRenderer)
+{
     SDL_Rect outline = {960,10,30,30};
     if (status == GREEN)
     {

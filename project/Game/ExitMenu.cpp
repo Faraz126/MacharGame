@@ -23,6 +23,7 @@ ExitMenu::ExitMenu(Screens* prevScreen, bool back, bool show, bool update, int f
 
 void ExitMenu::Show(SDL_Renderer* gRenderer)
 {
+    prevScreen->Show(gRenderer);
     texture = Texture::GetInstance(gRenderer);
     texture->Render(59,gRenderer,exitPos);
     Menu::Show(gRenderer);
@@ -57,6 +58,7 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 */
 
                 curScreen = new Closing(this, false);
+                SDL_FlushEvent(SDL_MOUSEBUTTONDOWN);
                 Texture::GetInstance()->SetSound(1);
             }
 
@@ -71,6 +73,7 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 SDL_Delay(1);
                 */
                 curScreen = prevScreen;
+                SDL_FlushEvent(SDL_MOUSEBUTTONDOWN);
                 delete this;
             }
         }

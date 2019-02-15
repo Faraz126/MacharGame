@@ -10,7 +10,7 @@
 class Money
 {
     Word* word;
-    int paisa;
+
     SDL_Rect* moneyPos;
     Texture* texture;
 public:
@@ -18,6 +18,7 @@ public:
     Money();
     ~Money();
     void SetPaisa(int);
+    int paisa;
     int GetPaisa();
     void Show(SDL_Renderer*);
     Money operator+(const Money&);
