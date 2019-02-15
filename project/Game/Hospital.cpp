@@ -139,7 +139,7 @@ Hospital :: ~Hospital()
  {
 
      bool allowAppend = false;
-     if(humans.GetLength()<=8) //only 8 humans allowed in hospital
+     if(humans.GetLength()<8) //only 8 humans allowed in hospital
      {
          allowAppend = true;
          humans.Append(human);
@@ -178,9 +178,7 @@ void Hospital :: LeaveHuman(Human* human)
 void Hospital :: LeaveHuman()
 {
     manualShow = false;
-    cout << humans.GetLength();
     Human* ptr = humans.Pop(0);
-    cout << humans.GetLength();
     ptr->SetInfected(0);
     ptr->GoIndoor();
     for(int i = 0; i<humans.GetLength(); i++)
