@@ -47,24 +47,24 @@ Closing::Closing(Screens* prevScreen, bool back, bool show, bool update, int fac
     word[7].SetText("GRAPHICS TAKEN FROM");
     word[7].SetPosition(closingPos->x +(closingPos->w-(25*19))/2 -75,closingWordPos->y+7*space);
 
-    word[8].SetText("freepik.com");
+    word[8].SetText("freepik");
     word[8].ReduceSize(0.8);
-    word[8].SetPosition(closingPos->x +(closingPos->w-(25*11))/2 -75,closingWordPos->y+8*space);
+    word[8].SetPosition(closingPos->x +(closingPos->w-(25*7))/2 -75,closingWordPos->y+8*space);
 
-    word[9].SetText("flatcoin.com");
+    word[9].SetText("flatcoin");
     word[9].ReduceSize(0.8);
-    word[9].SetPosition(closingPos->x +(closingPos->w-(25*12))/2 -75,closingWordPos->y+9*space);
+    word[9].SetPosition(closingPos->x +(closingPos->w-(25*8))/2 -75,closingWordPos->y+9*space);
 
-    word[10].SetText("vecteezy.com");
+    word[10].SetText("vecteezy");
     word[10].ReduceSize(0.8);
-    word[10].SetPosition(closingPos->x +(closingPos->w-(25*12))/2 -75,closingWordPos->y+10*space);
+    word[10].SetPosition(closingPos->x +(closingPos->w-(25*8))/2 -75,closingWordPos->y+10*space);
 
     word[11].SetText("SOUNDS TAKEN FROM");
     word[11].SetPosition(closingPos->x +(closingPos->w-(25*17))/2 -75,closingWordPos->y+11*space);
 
-    word[12].SetText("soundbible.com");
+    word[12].SetText("soundbible");
     word[12].ReduceSize(0.8);
-    word[12].SetPosition(closingPos->x +(closingPos->w-(25*14))/2 -75,closingWordPos->y+12*space);
+    word[12].SetPosition(closingPos->x +(closingPos->w-(25*10))/2 -75,closingWordPos->y+12*space);
 
     word[13].SetText("RESEARCH HELP FROM");
     word[13].SetPosition(closingPos->x +(closingPos->w-(25*18))/2 -75,closingWordPos->y+13*space);

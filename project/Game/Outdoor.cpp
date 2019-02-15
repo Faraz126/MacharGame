@@ -180,6 +180,7 @@ void Outdoor::Update(int frame) ///to update all objects
     {
         if (Alert::humans->GiveItem(i)->GetTimeToDie() < 0)
         {
+            Texture::GetInstance()->SetSound(ENDGAME);
             curScreen = new EndMenu(this, true);
 
         }
