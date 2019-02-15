@@ -116,7 +116,7 @@ void House::SetUpEntrancesAndShowPieces()
         {
             breedingplaces[1] = new Tub(15, 670);
             myQ.Append(breedingplaces[1]);
-            breedingplaces[1]->ReduceSize(float(670)/1600);
+            breedingplaces[1]->ReduceSize(static_cast<int>(float(670)/1600));
             noOfBreedingPlaces++;
         }
 
@@ -134,7 +134,7 @@ void House::SetUpEntrancesAndShowPieces()
         {
             breedingplaces[1] = new Tub(900, 670);
             myQ.Append(breedingplaces[1]);
-            breedingplaces[1]->ReduceSize(float(670)/1600);
+            breedingplaces[1]->ReduceSize(static_cast<int>(float(670)/1600));
             noOfBreedingPlaces++;
         }
         entrance[0]->SetScenario(this);
