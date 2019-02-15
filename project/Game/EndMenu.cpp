@@ -121,7 +121,7 @@ void EndMenu::Show(SDL_Renderer* gRenderer)
         Score::GetInstance()->Show(gRenderer);
     }
 
-    if (time++ > 500)
+    if (time++ > 1000)
     {
         screenEnd = true;
     }

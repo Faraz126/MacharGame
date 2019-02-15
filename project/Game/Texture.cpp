@@ -964,10 +964,10 @@ void Texture::SetRect(int n)
         clipFromTexture.h = 350;
         break;
     case 142:
-        clipFromTexture.x = 103;
-        clipFromTexture.y = 7282;
-        clipFromTexture.w = 47;
-        clipFromTexture.h = 46;
+        clipFromTexture.x = 101;
+        clipFromTexture.y = 7323;
+        clipFromTexture.w = 51;
+        clipFromTexture.h = 44;
         break;
     case 143:
         clipFromTexture.x = 2720;
