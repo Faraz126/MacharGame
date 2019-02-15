@@ -18,6 +18,8 @@
 #include <sstream>
 #include "SplashScreen.h"
 #include <SDL_mixer.h>
+#include <cstdlib>
+#include <iostream>
 
 
 
@@ -140,6 +142,12 @@ int main( int argc, char* args[] )
 
     srand(time(nullptr));
 
+    const int FPS = 60;
+    const int frameDelay = 1000 / 60;
+
+    Uint32 frameStart;
+    int frameTime;
+
 	if( !init() )
 	{
 		printf( "Failed to initialize!\n" );
@@ -166,7 +174,7 @@ int main( int argc, char* args[] )
 
         while (!GAME_QUIT)
         {
-
+            frameStart = SDL_GetTicks();
             //screen.cur_screen->Update(frame);
             ifstream myfile;
             myfile.open("setting.txt");
@@ -180,6 +188,9 @@ int main( int argc, char* args[] )
                 }
             }
             myfile.close();
+
+
+
 
             Screens::GetCurrent()->Update(frame);
             while (SDL_PollEvent(&e))
@@ -224,6 +235,12 @@ int main( int argc, char* args[] )
             SDL_RenderPresent( gRenderer );
             //Texture::GetInstance()->SoundRender(3);
             frame++;
+
+            frameTime = SDL_GetTicks() - frameStart;
+            if (frameDelay > frameTime)
+            {
+                SDL_Delay(frameDelay - frameTime);
+            }
         }
         delete Texture::GetInstance(gRenderer);
 	}
