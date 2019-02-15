@@ -29,6 +29,7 @@ class Hospital;
 
 
 
+
 class Outdoor: public Scenario
 {
 private:
@@ -51,6 +52,7 @@ private:
     void GetHouseEntrance();
     void HandleScrolling(SDL_Event*);
     void PlaceContainers();
+    int status;
 
 protected:
 

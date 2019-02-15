@@ -108,6 +108,8 @@
 		<Unit filename="Human.cpp" />
 		<Unit filename="Human.h" />
 		<Unit filename="HumanFactory.h" />
+		<Unit filename="Instructions.cpp" />
+		<Unit filename="Instructions.h" />
 		<Unit filename="Lids.cpp" />
 		<Unit filename="Lids.h" />
 		<Unit filename="LoadGame.h" />

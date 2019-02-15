@@ -1,5 +1,5 @@
 #include "MainMenu.h"
-
+#include "Instructions.h"
 #include "HighscoreMenu.h"
 
 using namespace std;
@@ -30,13 +30,6 @@ MainMenu::MainMenu(Screens* prevScreen, bool back):Menu(2,354,506,false, prevScr
 
     Menu::SetText(buttonText);
 
-    highscorePos0 = new SDL_Rect;
-    highscorePos0->x = 30;
-    highscorePos0->y = 20;
-    highscorePos0->w = 30;
-    highscorePos0->h = 30;
-
-
 
 }
 
@@ -66,9 +59,7 @@ void MainMenu::Show(SDL_Renderer* gRenderer)
     texture->Render(int(mosquitoIterator),gRenderer,&pos1);
     cancelBtn->Show(gRenderer);
     Menu::Show(gRenderer);
-    SDL_SetRenderDrawColor( gRenderer, 2,85,89,0 );
-    SDL_RenderDrawRect(gRenderer,highscorePos0);
-    SDL_RenderFillRect(gRenderer,highscorePos0);
+
 }
 
 
@@ -88,18 +79,6 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 
         if(e->button.button ==  SDL_BUTTON_LEFT)
         {
-            if( ( mouseX >highscorePos0->x ) && ( mouseX < (highscorePos0->x+highscorePos0->w) ) && ( mouseY > highscorePos0->y ) && (mouseY< (highscorePos0->y+highscorePos0->h) ) )
-            {
-                /*
-                node.cur_screen = new Highscore; //highscore menu
-                node.prev_screen = this;
-                node.prev_backable = true;
-                node.prev_updatable = false;
-                */
-            }
-
-
-
             SetMouseClicked(true);
             if (btn[0].WithinRegion(mouseX,mouseY)==true)
             {
@@ -108,7 +87,7 @@ void MainMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_screen = this;
                 node.prev_backable = false;  //outdoor screen will open
                 */
-                curScreen = new Outdoor(this, false);
+                curScreen = new Instructions(this, false);
                 Texture::GetInstance()->SetSound(OUTDDOORINDOOR);
             }
 //            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
@@ -165,6 +144,5 @@ MainMenu::~MainMenu()
     {
         delete prevScreen;
     }
-    delete highscorePos0;
 
 }

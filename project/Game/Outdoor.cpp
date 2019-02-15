@@ -172,11 +172,36 @@ void Outdoor::Update(int frame) ///to update all objects
         entrance[i]->Update(frame);
     }
 
+    points->people = 0;
+    points->ChangeStatus(GREEN);
+
     for (int i = 0; i < Alert::humans->GetLength(); i++)
     {
         if (Alert::humans->GiveItem(i)->GetTimeToDie() < 0)
         {
             curScreen = new EndMenu(this, true);
+        }
+        else if (Alert::humans->GiveItem(i)->GetTimeToDie() < 200000/4)
+        {
+
+            if (points->status == RED)
+            {
+               points->people++;
+            }
+            else
+            {
+                points->people = 1;
+            }
+            points->ChangeStatus(RED);
+
+        }
+        else
+        {
+            if (points->status != RED)
+            {
+                points->ChangeStatus(ORANGE);
+                points->people++;
+            }
         }
     }
     for (int i = 0; i < myQ.GetLength(); i++)
@@ -497,9 +522,12 @@ Outdoor :: ~Outdoor()
     }
 
     while (!Alert::humans->IsEmpty())
+
     {
+
         Alert::humans->Pop();
     }
+
 
     //delete house;
     delete hospital;
