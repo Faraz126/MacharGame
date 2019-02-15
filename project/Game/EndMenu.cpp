@@ -23,12 +23,6 @@ EndMenu::EndMenu(Screens* prevScreen, bool back, bool show, bool update, int fac
 
     Menu::SetText(buttonText);
 
-
-
-    word = new Word[1];
-    word[0].SetText("H U M A N   D I E D");
-    word[0].ReduceSize(3);
-    word[0].SetPosition(250,600);
     show = true;
     wordRect = new SDL_Rect;
     wordRect->x = 0;
@@ -69,13 +63,17 @@ EndMenu::EndMenu(Screens* prevScreen, bool back, bool show, bool update, int fac
         str3 = "Manhole";
     }
 
-    word = new Word[2];
+    word = new Word[3];
     word[0].SetText(str1);
     word[0].SetPosition(100,600);
     word[0].ReduceSize(0.8);
     word[1].SetText(str2+str3);
     word[1].SetPosition(100,650);
     word[1].ReduceSize(0.8);
+
+    word[2].SetText("G A M E  O V E R");
+    word[2].ReduceSize(2.5);
+    word[2].SetPosition(20,100);
 
     screenEnd = false;
     time = 0;
@@ -114,10 +112,13 @@ void EndMenu::Show(SDL_Renderer* gRenderer)
     }
     else
     {
+
         texture = Texture::GetInstance(gRenderer);
         texture->Render(78,gRenderer,pos0);
         cancelBtn->Show(gRenderer);
         Menu::Show(gRenderer);
+        word[2].Show(gRenderer);
+        Score::GetInstance()->Show(gRenderer);
     }
 
     if (time++ > 500)

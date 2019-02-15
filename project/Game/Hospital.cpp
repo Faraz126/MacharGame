@@ -80,11 +80,8 @@ void Hospital::HandleEvents(SDL_Event* e,Screens_Node& node)
 
         if(e->key.keysym.sym == SDLK_ESCAPE)    //will open pause menu
         {
-//            node.cur_screen = new PauseMenu(outdoor);  //EVENT TO BE DEALT
-//            node.prev_screen = this;
-//            node.prev_updatable = false;
-//            node.prev_backable = true;
-
+            Outdoor* outdoor = dynamic_cast<Outdoor*>(prevScreen);
+            curScreen = new PauseMenu(outdoor, this, true);
         }
     }
     if( btn[0].WithinRegion(hoverX,hoverY)==true)

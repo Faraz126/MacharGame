@@ -496,7 +496,7 @@ Outdoor :: ~Outdoor()
         delete mosquitoes.Pop();
     }
 
-    for (int i = 0; i < Alert::humans->GetLength(); i++)
+    while (!Alert::humans->IsEmpty())
     {
         Alert::humans->Pop();
     }

@@ -29,7 +29,7 @@ void Score::Show(SDL_Renderer* gRenderer)
     texture->Render(114, gRenderer, scorePos);
     std::string strSrc = std::to_string(scr);
     word[0].SetText("SCORE");
-    word[0].SetPosition(40,6);
+    word[0].SetPosition(45,7);
     word[0].ReduceSize(0.8);
     word[1].SetText(strSrc);  //score by converting int to string
     word[1].SetPosition(150,4);

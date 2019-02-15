@@ -100,7 +100,7 @@ Manual::Manual(int x, int y, Hospital* hsp): Menu(hsp, true, true, true)
 
 
     btn = new Button;  //give medication button in screen3
-    btn->setPosition(570,300);
+    btn->setPosition(570,350);
     btn->SetWidth(571*0.7,102*0.7);
     btn->setText("Give Medication");
 

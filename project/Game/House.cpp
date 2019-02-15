@@ -51,10 +51,11 @@ House::House(): Scenario(0, true, false, true, 1)
 
     btn = new Button;
     myQ.Append(btn);
-    btn->setPosition(800,40);
+    btn->setPosition(800,60);
     btn->SetWidth(200,55);
     btn->setText("OUTDOOR");
     btn->word->ReduceSize(0.8);
+    btn->word->SetPosition(800+10,60+10);
 
 
     //houseShop->shopShow = false;

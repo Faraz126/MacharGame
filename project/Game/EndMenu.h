@@ -8,6 +8,7 @@
 #include "Outdoor.h"
 #include "ExitMenu.h"
 #include "MainMenu.h"
+#include "Score.h"
 
 
 class EndMenu: public Menu
