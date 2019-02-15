@@ -59,7 +59,7 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
 
                 curScreen = new Closing(this, false);
                 SDL_FlushEvent(SDL_MOUSEBUTTONDOWN);
-                Texture::GetInstance()->SetSound(1);
+                Texture::GetInstance()->SetSound(CREDITS);
             }
 
             else if (btn[1].WithinRegion(mouseX,mouseY)==true)

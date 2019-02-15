@@ -142,7 +142,7 @@ int main( int argc, char* args[] )
 
     srand(time(nullptr));
 
-    const int FPS = 100;
+    const int FPS = 110;
     const int frameDelay = 1000 / FPS;
 
     Uint32 frameStart;

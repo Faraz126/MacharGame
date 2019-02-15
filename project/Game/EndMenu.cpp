@@ -158,6 +158,7 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_backable = false;  //outdoor screen will open
                 */
                 curScreen = new Outdoor(this, false);
+                Texture::GetInstance()->SetSound(OUTDDOORINDOOR);
                 Score::GetInstance()->scr = 0;
             }
 
