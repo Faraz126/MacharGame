@@ -992,6 +992,12 @@ void Human::GoToHospital()
         ChangeScenario(ownHouse->GetOutdoor()->hospital);
         ChangeState(IN_HOSPITAL);
         ownHouse->GetMoney().paisa = amount;
+        Score::GetInstance()->SetMessage(0);
+
+    }
+    else
+    {
+        Score::GetInstance()->SetMessage(1);
     }
 
 }
