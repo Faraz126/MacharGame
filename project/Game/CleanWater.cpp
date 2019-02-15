@@ -6,7 +6,7 @@ CleanWater::CleanWater(int x, int y): Container(x,y, C_WATER_WIDTH, C_WATER_HEIG
     ReduceSize(0.25);
     id = 2;
     myLid = noOflids;
-    lids[noOflids++] = new Soil(pos.x, pos.y + 50);
+    lids[noOflids++] = new Soil(pos.x, pos.y - 100);
 
     percentage = 5;
     delay = 0;

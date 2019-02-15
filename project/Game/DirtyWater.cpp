@@ -6,7 +6,7 @@ DirtyWater::DirtyWater(int x, int y): Container(x,y, WATER_WIDTH, WATER_HEIGHT)
     ReduceSize(0.25);
     id = 2;
     myLid = noOflids;
-    lids[noOflids++] = new Soil(pos.x, pos.y + 40);
+    lids[noOflids++] = new Soil(pos.x, pos.y - 90);
     percentage = 5;
     delay = 0;
     breedCount = 0;
