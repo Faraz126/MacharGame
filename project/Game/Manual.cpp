@@ -326,8 +326,6 @@ void Manual::HandleEvents(SDL_Event* e, Screens_Node& node)
                     {
                         btn->Click();
                         Texture::GetInstance()->SetChunk(MONEY);
-
-
                         hsp->LeaveHuman(); //if give medication button will be clicked human will hospital screen and human will leave hospital
                         /*
 
