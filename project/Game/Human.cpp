@@ -978,7 +978,7 @@ void Human::GoToHospital()
         amount = ownHouse->GetMoney().paisa - 4000;
     }
 
-    if (ownHouse->GetOutdoor()->hospital->AddHuman(this) && amount > 0)
+    if (ownHouse->GetOutdoor()->hospital->AddHuman(this) && amount >= 0)
     {
 
 
@@ -992,6 +992,12 @@ void Human::GoToHospital()
         ChangeScenario(ownHouse->GetOutdoor()->hospital);
         ChangeState(IN_HOSPITAL);
         ownHouse->GetMoney().paisa = amount;
+        Score::GetInstance()->SetMessage(0);
+
+    }
+    else
+    {
+        Score::GetInstance()->SetMessage(1);
     }
 
 }

@@ -181,6 +181,7 @@ void Outdoor::Update(int frame) ///to update all objects
         if (Alert::humans->GiveItem(i)->GetTimeToDie() < 0)
         {
             curScreen = new EndMenu(this, true);
+
         }
         else if (Alert::humans->GiveItem(i)->GetTimeToDie() < 200000/4)
         {

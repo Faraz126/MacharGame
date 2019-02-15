@@ -158,6 +158,7 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_backable = false;  //outdoor screen will open
                 */
                 curScreen = new Outdoor(this, false);
+                Score::GetInstance()->scr = 0;
             }
 
             else if (btn[1].WithinRegion(mouseX,mouseY)==true)

@@ -17,6 +17,9 @@ class Score
 
     //SDL_Renderer* gRenderer;
 public:
+    int timeStart;
+    int timeEnd;
+    void SetMessage(int);
     int scr;
     static Score* GetInstance();
     ~Score();

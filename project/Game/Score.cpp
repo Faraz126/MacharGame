@@ -11,11 +11,27 @@ Score* Score::GetInstance()
     return instance;
 }
 
+void Score::SetMessage(int i)
+{
+    if (i == 0)
+    {
+        word[6].SetText("HUMAN SENT TO HOSPITAL");
+        word[6].SetPosition(500,10);
+        word[6].ReduceSize(0.7);
+    }
+    else if (i == 1)
+    {
+        word[6].SetText("HUMAN NOT SENT TO HOSPITAL");
+        word[6].SetPosition(500,10);
+        word[6].ReduceSize(0.7);
+    }
+    timeStart = 0;
 
+}
 Score::Score()
 {
     scr = 0;
-    word = new Word[6];
+    word = new Word[7];
     scorePos = new SDL_Rect;
     scorePos->x = 10;
     scorePos->y = 4;
@@ -33,10 +49,7 @@ Score::Score()
     word[4].SetText("PEOPLE ARE DYING");
     word[4].SetPosition(630,10);
     word[4].ReduceSize(0.8);
-
-
-
-
+    timeStart = 100000;
     status = GREEN;
 }
 
@@ -55,25 +68,50 @@ void Score::Show(SDL_Renderer* gRenderer)
 
 }
 
+
+
 void Score::ShowStatus(SDL_Renderer* gRenderer)
 {
+
     SDL_Rect outline = {960,10,30,30};
     if (status == GREEN)
     {
        SDL_SetRenderDrawColor( gRenderer, 0, 255, 0,0);
-       word[2].Show(gRenderer);
+       if (timeStart++ < 250)
+       {
+           word[6].Show(gRenderer);
+       }
+       else
+       {
+           word[2].Show(gRenderer);
+       }
+
     }
     else if (status == RED)
     {
         SDL_SetRenderDrawColor( gRenderer, 255, 0, 0,0);
-        word[4].Show(gRenderer);
-        word[5].Show(gRenderer);
+        if (timeStart++ < 250)
+        {
+           word[6].Show(gRenderer);
+        }
+        else
+        {
+            word[4].Show(gRenderer);
+            word[5].Show(gRenderer);
+        }
     }
     else if (status == ORANGE)
     {
         SDL_SetRenderDrawColor( gRenderer, 255, 169, 0,0);
-        word[3].Show(gRenderer);
-        word[5].Show(gRenderer);
+        if (timeStart++ < 250)
+        {
+            word[6].Show(gRenderer);
+        }
+        else
+        {
+            word[3].Show(gRenderer);
+            word[5].Show(gRenderer);
+        }
     }
 
     SDL_RenderFillRect(gRenderer,&outline);

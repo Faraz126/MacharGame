@@ -242,6 +242,7 @@ void House::Show(SDL_Renderer* renderer)
     SDL_RenderDrawRect(renderer,upperRect0);
     SDL_RenderFillRect(renderer,upperRect0);
     points->Show(renderer);
+    points->ShowStatus(renderer);
     money.Show(renderer);
     Alert::Show(renderer, curScreen);
 
