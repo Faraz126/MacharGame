@@ -790,7 +790,7 @@ void Human::Show(SDL_Renderer* renderer)
             shield.y = this->face.y - 25;
             shield.w = 192*0.08;
             shield.h = 242*0.08;
-            //Texture::GetInstance()->Render(143,renderer, &shield);
+            Texture::GetInstance()->Render(75,renderer, &shield);
 
             SDL_Rect outline;
             outline.x = shield.x + 20;
