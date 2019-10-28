@@ -29,6 +29,7 @@ class Hospital;
 
 
 
+
 class Outdoor: public Scenario
 {
 private:
@@ -36,7 +37,6 @@ private:
     SDL_Rect* cartPos;
     SDL_Rect* upperRect;
     Texture* texture;
-    SDL_Rect* buildingRect; //rectangle for clickable region of houses & hospital
     House* house;
     ShoppingMenu* shop;
 
@@ -46,11 +46,13 @@ private:
     int countTrashcan;
     int countManhole;
     int totalHumans;
+    int Roll(int, int);
     Money money;
     int CountHumans();
     void GetHouseEntrance();
     void HandleScrolling(SDL_Event*);
     void PlaceContainers();
+    int status;
 
 protected:
 

@@ -30,7 +30,6 @@ class MainMenu: public Menu
     double mosquitoIterator;
     bool iteratorr;
     std::string buttonText[3];
-    SDL_Rect* highscorePos0;
 
 
 public:

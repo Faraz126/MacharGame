@@ -1,7 +1,7 @@
 #include "EndMenu.h"
 
 
-EndMenu::EndMenu(Screens* prevScreen, bool back, bool show, bool update, int factor):Menu(3,80,250,false, prevScreen, back, show, update, factor)
+EndMenu::EndMenu(Screens* prevScreen, bool back, bool show, bool update, int factor):Menu(2,80,250,false, prevScreen, back, show, update, factor)
 {
     pos0 = new SDL_Rect;
     pos0->x= 0;
@@ -17,11 +17,66 @@ EndMenu::EndMenu(Screens* prevScreen, bool back, bool show, bool update, int fac
 
     buttonText[0]= "RESTART";
     buttonText[1] = "MAIN MENU";
-    buttonText[2] = "LOAD GAME";
+    //buttonText[2] = "LOAD GAME";
 
     cancelBtn = new CancelButton(pos2);
 
     Menu::SetText(buttonText);
+
+    show = true;
+    wordRect = new SDL_Rect;
+    wordRect->x = 0;
+    wordRect->y = 570;
+    wordRect->w = 1024;
+    wordRect->h  = 200;
+
+
+    int randStr3 = rand()% 7;
+    str1 = "The Human Died As You Were Not Able To ";
+    str2 = "Stop The Mosquito Breeding From ";
+    if (randStr3==0)
+    {
+        str3 = "Tub";
+    }
+    else if (randStr3==1)
+    {
+        str3 = "Bucket";
+    }
+    else if (randStr3==2)
+    {
+        str3 = "Dirty Water";
+    }
+    else if (randStr3==3)
+    {
+        str3 = "Clean Water ";
+    }
+    else if (randStr3==4)
+    {
+        str3 = "Trash";
+    }
+    else if (randStr3==5)
+    {
+        str3 = "Trash Can";
+    }
+    else if (randStr3==6)
+    {
+        str3 = "Manhole";
+    }
+
+    word = new Word[3];
+    word[0].SetText(str1);
+    word[0].SetPosition(100,600);
+    word[0].ReduceSize(0.8);
+    word[1].SetText(str2+str3);
+    word[1].SetPosition(100,650);
+    word[1].ReduceSize(0.8);
+
+    word[2].SetText("G A M E  O V E R");
+    word[2].ReduceSize(2.5);
+    word[2].SetPosition(20,100);
+
+    screenEnd = false;
+    time = 0;
 
 }
 
@@ -43,10 +98,38 @@ void EndMenu::HoverClick(SDL_Event* e)
 
 void EndMenu::Show(SDL_Renderer* gRenderer)
 {
-    texture = Texture::GetInstance(gRenderer);
-    texture->Render(78,gRenderer,pos0);
-    cancelBtn->Show(gRenderer);
-    Menu::Show(gRenderer);
+
+    Screens::Show(gRenderer);
+    if (!screenEnd)
+    {
+        SDL_SetRenderDrawColor( gRenderer, 2,85,89,0 );
+        SDL_RenderDrawRect(gRenderer,wordRect);
+        SDL_RenderFillRect(gRenderer,wordRect);
+        for(int i =0; i<2 ; i++)
+        {
+            word[i].Show(gRenderer);
+        }
+    }
+    else
+    {
+
+        texture = Texture::GetInstance(gRenderer);
+        texture->Render(78,gRenderer,pos0);
+        cancelBtn->Show(gRenderer);
+        Menu::Show(gRenderer);
+        word[2].Show(gRenderer);
+        Score::GetInstance()->Show(gRenderer);
+    }
+
+    if (time++ > 1000)
+    {
+        screenEnd = true;
+    }
+
+
+
+
+
 }
 
 
@@ -75,6 +158,8 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_backable = false;  //outdoor screen will open
                 */
                 curScreen = new Outdoor(this, false);
+                Texture::GetInstance()->SetSound(OUTDDOORINDOOR);
+                Score::GetInstance()->scr = 0;
             }
 
             else if (btn[1].WithinRegion(mouseX,mouseY)==true)
@@ -88,7 +173,9 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 node.prev_backable = false;
                 node.prev_updatable = false;
                 */
-                curScreen = new MainMenu(this, false);
+                curScreen = new MainMenu(this, true);
+                Score::GetInstance()->scr = 0;
+
             }
 
             else if( cancelBtn->WithinRegion(mouseX, mouseY))
@@ -103,6 +190,7 @@ void EndMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 */
 
                 curScreen = new ExitMenu(this, false);
+                Score::GetInstance()->scr = 0;
 
             }
 

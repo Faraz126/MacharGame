@@ -8,6 +8,7 @@
 #include "Outdoor.h"
 #include "ExitMenu.h"
 #include "MainMenu.h"
+#include "Score.h"
 
 
 class EndMenu: public Menu
@@ -18,9 +19,20 @@ class EndMenu: public Menu
     CancelButton* cancelBtn;
     std::string buttonText[3];
 
+    SDL_Rect* wordRect;
+    Word* word;
+
+    bool screenEnd;
+    std::string str1;
+    std::string str2;
+    std::string str3;
+    int randStr3;
+    bool show;
+    int time;
+
 public:
 
-    EndMenu(Screens*, bool, bool = false, bool = false, int = 1);
+    EndMenu(Screens*, bool, bool = true, bool = false, int = 1);
     void HoverClick(SDL_Event*);
     void Show(SDL_Renderer*);
     void Update(int);

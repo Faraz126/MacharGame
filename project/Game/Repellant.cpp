@@ -11,5 +11,5 @@ Repellant::Repellant()
 
 void Repellant::Apply(House* house)
 {
-
+    house->ApplyRepellent();
 }

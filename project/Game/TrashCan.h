@@ -19,6 +19,7 @@ class TrashCan : public Container
 {
     SDL_Rect ownRect;
     int breedCount;
+
     public:
         TrashCan(int,int);
         void Show(SDL_Renderer*);
@@ -30,6 +31,7 @@ class TrashCan : public Container
         int GetBreedCount();
         ~TrashCan();
         void SetX(int delta, int direction);
+
 };
 
 #endif // TRASHCAN_H

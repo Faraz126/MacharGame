@@ -62,10 +62,6 @@ Setting::Setting(Screens* prevScreen, bool back, bool show, bool update, int fac
     fullBrightnessPos->w = 67 * 0.8;
     fullBrightnessPos->h = 67 * 0.8;
 
-
-
-
-
     buttonText[0]= "SAVE";
     buttonText[1] = "RESET";
     cancelBtn = new CancelButton(settingscancelPos);  //making a cancel button
@@ -83,9 +79,24 @@ Setting::Setting(Screens* prevScreen, bool back, bool show, bool update, int fac
     word[2].SetText("BRIGHTNESS");
     word[2].SetPosition(settingPos->x+10,settingPos->y+160);
 
-    slider[0].setPosition(500,settingPos->y+85);
-    slider[1].setPosition(500,settingPos->y+160);
+    float bright;
+    ifstream myfile ("setting.txt");
+    if (myfile.is_open())
+    {
+        while (!myfile.eof())
+        {
+            myfile>>bright;
+            int sliderResetPos = (bright *495) + settingSliderPos1->x;
+            slider[0].setPosition(sliderResetPos,settingPos->y+85);
+            slider[1].setPosition(sliderResetPos,settingPos->y+160);
+
+        }
+        myfile.close();
+    }
+
+
 }
+
 
 void Setting::Show(SDL_Renderer* gRenderer)
 {
@@ -129,6 +140,7 @@ void Setting::HandleEvents(SDL_Event* e, Screens_Node& node)
     int mouseY = e->button.y;
     Menu::HoverClick(e);   //for button
     Click(e);       //for cancel and slider
+    int vol = 128;
 
 
     if(e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP )
@@ -138,19 +150,50 @@ void Setting::HandleEvents(SDL_Event* e, Screens_Node& node)
             SetMouseClicked(true);
             if (cancelBtn->WithinRegion(mouseX,mouseY)==true)
             {
-                /*
-                node.cur_screen = node.prev_screen;
-                node.prev_screen = this;
-                node.prev_backable = false;  //cancel screen will close and main menu  screen will open
-                */
                 curScreen = prevScreen;
                 delete this;
             }
 
-            else if (btn[1].WithinRegion(mouseX,mouseY)==true)
+            else if (btn[0].WithinRegion(mouseX,mouseY)==true)  //save button
             {
-                slider[0].SetSliderPosX(500);
+                vol = ((slider[0].GetSliderPosX()-settingSliderPos->x)/285.0)*128;
+                texture->DecreaseVol(vol);
+                ofstream myfile;
+                myfile.open ("setting.txt");
+                float bright = (slider[1].GetSliderPosX() - settingSliderPos1->x)/495.0f;
+                if (bright > 0)
+                {
+                    myfile << bright;
+                    myfile << "\n";
+                }
+                myfile.close();
+
+
+
             }
+
+            else if (btn[1].WithinRegion(mouseX,mouseY)==true)  //reset button
+            {
+
+                slider[0].SetSliderPosX(((285*vol)/128)+settingSliderPos->x);
+                float bright;
+                ifstream myfile ("setting.txt");
+                if (myfile.is_open())
+                {
+                    while (!myfile.eof())
+                    {
+                        myfile>>bright;
+                        int sliderResetPos = (bright *495) + settingSliderPos1->x;
+                        slider[1].SetSliderPosX(sliderResetPos);
+
+                    }
+                    myfile.close();
+                }
+
+                  else cout << "Unable to open file";
+
+            }
+
         }
     }
 
@@ -229,7 +272,13 @@ void Setting::Click(SDL_Event* e)
 
            }
        }
+
+
+
     }
+
+
+
 
 }
 Setting::~Setting()

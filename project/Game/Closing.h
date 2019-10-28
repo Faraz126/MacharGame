@@ -15,6 +15,7 @@ class Closing:public Menu
     SDL_Rect* closingWordPos;
     Word* word;
     double counter;
+    int space;
 
 protected:
 

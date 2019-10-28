@@ -10,6 +10,7 @@ Clickable::Clickable(int x, int y, int w, int h)
     pos.y = y;
     pos.w = w;
     pos.h = h;
+    currentScenario = 0;
 }
 
 Clickable::~Clickable()
@@ -32,6 +33,11 @@ int Clickable::GetY()
 bool Clickable::WithinRegion(int x, int y) //to know if mouse will be in region
 {
     return (x >= pos.x && y >= pos.y && x <= pos.x + pos.w && y <= pos.y + pos.h); //if the given co-ordinates fall within the object
+}
+
+bool Clickable::WithinRegion(SDL_Rect& pos, int x, int y)
+{
+    return (x >= pos.x && y >= pos.y && x <= pos.x + pos.w && y <= pos.y + pos.h);
 }
 
 bool Clickable::Collides(const SDL_Rect& rect)  //collision detection
@@ -68,8 +74,8 @@ bool Clickable::Collides(const int x, const int y, const int w, const int h)
 
 void Clickable::ReduceSize(double n)
 {
-    pos.w = pos.w * n;
-    pos.h = pos.h * n;
+    pos.w = static_cast<int>(pos.w * n);
+    pos.h = static_cast<int>(pos.h * n);
 }
 
 
@@ -129,10 +135,17 @@ void Clickable:: SetX(int delta, int direction)
     }
 }
 
+bool Clickable::SameScenario(const Clickable* obj)
+{
+
+    return currentScenario == obj->currentScenario;
+}
+
 
 void Clickable::SetScenario(Scenario* scenario)
 {
     ///to determine where the object is located, i.e. indoor or outdoor
+    if (currentScenario == 0)
     currentScenario = scenario;
 }
 

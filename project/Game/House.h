@@ -80,6 +80,7 @@ public:
     Money& GetMoney();
     Door* GetDoor();
     Bed* GetBeds(int&);
+    void ApplyRepellent();
 
 
 };

@@ -54,6 +54,7 @@ private:
     DLL<int> myStack; //activities to do.
     void GoOutdoor();
 
+    double repellantTime;
     void ChangeScenario(Scenario*);
     int disease;
     bool isIndoor;
@@ -66,7 +67,10 @@ private:
     bool MoveAllowed();
     void ChangeDirection();
     int timeToDie;
+    int timeSinceRepellent;
     bool dead;
+    double malariaSprite;
+    bool add;
 
 
 public:
@@ -90,6 +94,9 @@ public:
     void Damage();
     int GetDisease();
     bool GetCoveredInRepellant(){return hasRepeppant;}
+    void SetCoveredInRepellant();
+    House* GetOwnHouse(){return ownHouse;}
+    void ShowAlert(SDL_Renderer*, SDL_Rect*, Screens*);
 };
 
 

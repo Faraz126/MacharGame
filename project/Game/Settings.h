@@ -1,6 +1,7 @@
 #pragma once
 #include "Texture.h"
-//#include <iostream>
+#include <iostream>
+#include <fstream>
 #include <string>
 #include "string.h"
 #include "CancelButton.h"
@@ -31,6 +32,7 @@ private:
     Slider* slider;
     Word* word;
     std::string buttonText[2];
+    int vol;
 
 protected:
 

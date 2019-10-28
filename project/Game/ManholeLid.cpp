@@ -4,6 +4,7 @@ ManholeLid:: ManholeLid(int x, int y): Lids(x,y, MANHOLELID_WIDTH, MANHOLELID_HE
 {
     ReduceSize(0.5);
     spriteNum = 117;
+    id = 3;
 }
 
 ManholeLid:: ~ManholeLid()

@@ -2,12 +2,13 @@
 #include "EndMenu.h"
 #include <random>
 
-Alert::Alert()
+DLL<Human*>* Alert::humans = new DLL<Human*>;
+SDL_Rect* Alert::alert = new SDL_Rect[9];
+SDL_Rect* Alert::timerPos = new SDL_Rect;
+
+
+void Alert::SetUpRects()
 {
-
-    timerSprite = 0;
-    alert = new SDL_Rect[9];
-
     alert[0].x = 2651;
     alert[0].y = 6375;
     alert[0].w = 83;
@@ -55,75 +56,121 @@ Alert::Alert()
 
     //humanPtr = ptr;
 
-    timerPos = new SDL_Rect;
+
     timerPos->x = 640;
     timerPos->y = 0;
     timerPos->w = 60;
     timerPos->h = 60;
+}
 
+Alert::Alert()
+{
 
-    word = new Word[1];
-    word[0].SetText("H U M A N   D I E D");
-    word[0].ReduceSize(3);
-    word[0].SetPosition(250,600);
-    show = true;
-    wordRect = new SDL_Rect;
-    wordRect->x = 80;
-    wordRect->y = 570;
-    wordRect->w = 800;
-    wordRect->h  = 200;
-
-
-    int randStr3 = rand()% 7;
-    str1 = "The Human Died As You Were Not Able To ";
-    str2 = "Stop The Mosquito Breeding From ";
-    if (randStr3==0)
-    {
-        str3 = "Tub";
-    }
-    else if (randStr3==1)
-    {
-        str3 = "Bucket";
-    }
-    else if (randStr3==2)
-    {
-        str3 = "Dirty Water";
-    }
-    else if (randStr3==3)
-    {
-        str3 = "Clean Water ";
-    }
-    else if (randStr3==4)
-    {
-        str3 = "Trash";
-    }
-    else if (randStr3==5)
-    {
-        str3 = "Trash Can";
-    }
-    else if (randStr3==6)
-    {
-        str3 = "Manhole";
-    }
-
-    word = new Word[2];
-    word[0].SetText(str1);
-    word[0].SetPosition(100,600);
-    word[0].ReduceSize(0.8);
-    word[1].SetText(str2+str3);
-    word[1].SetPosition(100,650);
-    word[1].ReduceSize(0.8);
-
-    screenEnd = false;
+//    timerSprite = 0;
+//    word = new Word[1];
+//    word[0].SetText("H U M A N   D I E D");
+//    word[0].ReduceSize(3);
+//    word[0].SetPosition(250,600);
+//    show = true;
+//    wordRect = new SDL_Rect;
+//    wordRect->x = 80;
+//    wordRect->y = 570;
+//    wordRect->w = 800;
+//    wordRect->h  = 200;
+//
+//
+//    int randStr3 = rand()% 7;
+//    str1 = "The Human Died As You Were Not Able To ";
+//    str2 = "Stop The Mosquito Breeding From ";
+//    if (randStr3==0)
+//    {
+//        str3 = "Tub";
+//    }
+//    else if (randStr3==1)
+//    {
+//        str3 = "Bucket";
+//    }
+//    else if (randStr3==2)
+//    {
+//        str3 = "Dirty Water";
+//    }
+//    else if (randStr3==3)
+//    {
+//        str3 = "Clean Water ";
+//    }
+//    else if (randStr3==4)
+//    {
+//        str3 = "Trash";
+//    }
+//    else if (randStr3==5)
+//    {
+//        str3 = "Trash Can";
+//    }
+//    else if (randStr3==6)
+//    {
+//        str3 = "Manhole";
+//    }
+//
+//    word = new Word[2];
+//    word[0].SetText(str1);
+//    word[0].SetPosition(100,600);
+//    word[0].ReduceSize(0.8);
+//    word[1].SetText(str2+str3);
+//    word[1].SetPosition(100,650);
+//    word[1].ReduceSize(0.8);
+//
+//    screenEnd = false;
 
 }
 
-void Alert::Show(SDL_Renderer* gRenderer, int timerSprite)
+void Alert::Add(Human* human)
 {
-    texture = Texture::GetInstance(gRenderer);
+    humans->Append(human);
+}
+
+
+void Alert::Remove(Human* human)
+{
+    humans->RemoveItem(human);
+}
+
+void Alert::Show(SDL_Renderer* gRenderer, Screens* house)
+{
+    for (int i = 0; i < humans->GetLength(); i++)
+    {
+        humans->GiveItem(i)->ShowAlert(gRenderer, alert, house);
+    }
+
+    /*
+    int dyingHuman = -1;
+    int time = 200000;
+    int dyingTime = 200000;
+    if (humans->GetLength() > 0)
+    {
+        for (int i =0; i < humans->GetLength(); i++)
+        {
+            dyingTime = humans->GiveItem(i)->GetTimeToDie();
+            if (dyingTime < time)
+            {
+                time = dyingTime;
+                dyingHuman = i;
+            }
+        }
+    }
+
+    if (dyingHuman != -1)
+    {
+        Texture::GetInstance()->RenderBack(1,gRenderer, &alert[(int)(time/22225)], timerPos);
+    }
+    */
+
+
+
+    /*
+
     if (show)
     {
-        texture->RenderBack(38, gRenderer, &alert[timerSprite], timerPos);
+
     }
 
     if(int(timerSprite)==34)
@@ -137,6 +184,7 @@ void Alert::Show(SDL_Renderer* gRenderer, int timerSprite)
         }
         screenEnd = true;
     }
+    */
 
 
 
@@ -144,7 +192,7 @@ void Alert::Show(SDL_Renderer* gRenderer, int timerSprite)
 
 double Alert::GetTimerSprite()
 {
-    return timerSprite;
+    //return timerSprite;
 }
 void Alert::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
@@ -155,5 +203,5 @@ Alert::~Alert()
 {
 
     delete timerPos;
-    delete[] word;
+    //delete[] word;
 }

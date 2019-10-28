@@ -1,6 +1,6 @@
 #include "Window.h"
 #include <random>
-
+#include"Score.h"
 
 Window::Window(int x, int y): Entrance(x,y, 200,110)
 {
@@ -52,6 +52,20 @@ void Window::Show(SDL_Renderer* renderer)
 
 void Window::ChangeState()
 {
+    if (state == CLOSED)
+    {
+        for(int i = 0; i<400; i++)
+        {
+            (*Score::GetInstance())++;
+        }
+    }
+    else if (state == HALF_OPEN)
+    {
+        for(int i = 0; i<250; i++)
+        {
+            (*Score::GetInstance())++;
+        }
+    }
     state = CLOSED;
     timeCovered = 0;
     endTime = timeCovered + 10000;

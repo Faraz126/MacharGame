@@ -1,12 +1,12 @@
 #include "ExitMenu.h"
 
-ExitMenu::ExitMenu(Screens* prevScreen, bool back, bool show, bool update, int factor):Menu(2,175,520,true, prevScreen, back, show, update, factor)  //calling menus constructor that is constructing 2 buttons horizontally
+ExitMenu::ExitMenu(Screens* prevScreen, bool back, bool show, bool update, int factor):Menu(2,175,570,true, prevScreen, back, show, update, factor)  //calling menus constructor that is constructing 2 buttons horizontally
 {
     exitPos = new SDL_Rect;
     exitPos->x= 135;
     exitPos->y= 380;
     exitPos->w= 760;
-    exitPos->h= 250;  //settings
+    exitPos->h= 300;  //settings
 
     buttonText[0]= "YES";
     buttonText[1] = "NO";
@@ -16,13 +16,14 @@ ExitMenu::ExitMenu(Screens* prevScreen, bool back, bool show, bool update, int f
     word = new Word[1];
 
     word[0].SetText("DO YOU REALLY WANT TO QUIT ?");
-    word[0].SetPosition(exitPos->x+40,exitPos->y+15);
+    word[0].SetPosition(exitPos->x+40,exitPos->y+40);
 
 
 }
 
 void ExitMenu::Show(SDL_Renderer* gRenderer)
 {
+    prevScreen->Show(gRenderer);
     texture = Texture::GetInstance(gRenderer);
     texture->Render(59,gRenderer,exitPos);
     Menu::Show(gRenderer);
@@ -57,6 +58,8 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 */
 
                 curScreen = new Closing(this, false);
+                SDL_FlushEvent(SDL_MOUSEBUTTONDOWN);
+                Texture::GetInstance()->SetSound(CREDITS);
             }
 
             else if (btn[1].WithinRegion(mouseX,mouseY)==true)
@@ -70,6 +73,7 @@ void ExitMenu::HandleEvents(SDL_Event* e, Screens_Node& node)
                 SDL_Delay(1);
                 */
                 curScreen = prevScreen;
+                SDL_FlushEvent(SDL_MOUSEBUTTONDOWN);
                 delete this;
             }
         }

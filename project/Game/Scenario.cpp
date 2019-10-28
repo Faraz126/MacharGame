@@ -89,6 +89,7 @@ bool Scenario::AddHuman(Human* human)
 
 void Scenario::LeaveHuman(Human* human)
 {
+
     int to_remove = -1;
     for (int i = 0; i < humans.GetLength(); i++)
     {
@@ -117,6 +118,7 @@ void Scenario::LeaveHuman(Human* human)
         myQ.Pop(to_remove);
         to_remove = -1;
     }
+
 }
 
 bool Scenario::Collides(Clickable* obj)
@@ -157,3 +159,54 @@ Scenario::~Scenario()
 
 }
 
+void Scenario:: SetOutdoorX(int delta, int direction)
+{
+    if ( direction == 0)
+    {
+        outdoorPos.x+=delta;
+
+    }
+    if ( direction == 1)
+    {
+        outdoorPos.x-=delta;
+    }
+}
+
+void Scenario::ShowOutside(SDL_Renderer* renderer, int sprt)
+{
+    Texture::GetInstance()->Render(137 + sprt, renderer, &outdoorPos);
+}
+
+void Scenario::SetOutdoorPos(int x, int y,int w, int h)
+{
+    outdoorPos.x = x;
+    outdoorPos.y = y;
+    outdoorPos.w = w;
+    outdoorPos.h = h;
+}
+
+int Scenario::GiveOutdoorPosX()
+{
+    return outdoorPos.x;
+}
+
+int Scenario::GiveOutdoorPosY()
+{
+    return outdoorPos.y;
+}
+
+int Scenario::GiveOutdoorPosW()
+{
+    return outdoorPos.w;
+}
+
+int Scenario::GiveOutdoorPosH()
+{
+    return outdoorPos.h;
+}
+
+void Scenario::ReduceSize(double n)
+{
+    outdoorPos.w = outdoorPos.w * n;
+    outdoorPos.h = outdoorPos.h * n;
+}

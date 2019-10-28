@@ -4,6 +4,7 @@ TrashCanLid:: TrashCanLid(int x, int y): Lids(x,y, TRASHCANLID_WIDTH, TRASHCANLI
 {
     ReduceSize(0.35);
     spriteNum = 63;
+    id = 1;
 }
 
 TrashCanLid:: ~TrashCanLid()

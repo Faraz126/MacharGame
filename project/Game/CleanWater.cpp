@@ -4,7 +4,9 @@ CleanWater::CleanWater(int x, int y): Container(x,y, C_WATER_WIDTH, C_WATER_HEIG
 {
     spriteNum = 72; //position on sprite sheet
     ReduceSize(0.25);
-    lid = new Soil(pos.x, pos.y - 100);
+    id = 2;
+    myLid = noOflids;
+    lids[noOflids++] = new Soil(pos.x, pos.y - 100);
 
     percentage = 5;
     delay = 0;
@@ -25,11 +27,27 @@ void CleanWater::HandleEvents(SDL_Event* e, Screens_Node& node)
 {
     if (!GetCovered())
     {
-        lid->HandleEvents(e,node);
+        for (int i =0; i < noOflids; i++)
+        {
+
+            lid = lids[i];
+            if (lid != 0 && this->SameScenario(lid))
+            {
+                lid->HandleEvents(e, node);
+            }
+
+        }
+
     }
-    if (lid->Collides(*this))
+
+    for (int i = 0; i < noOflids; i++)
     {
-        SetCovered(true);
+        lid = lids[i];
+        if (lid != 0 && this->SameScenario(lid) && lid->Collides(*this) && lid->CorrectID(this->id))
+        {
+            SetCovered(true);
+            break;
+        }
     }
 }
 
@@ -43,7 +61,7 @@ void CleanWater::Show(SDL_Renderer* renderer)
     {
         Texture::GetInstance()->Render(spriteNum,renderer, &pos);
     }
-    lid->Show(renderer);
+    //lid->Show(renderer);
 }
 
 void CleanWater::Update(int)
@@ -73,11 +91,12 @@ bool CleanWater::IsActive()
 Mosquito* CleanWater::Breed()
 {
     breedCount++;
-    return factory->GetMosquito(AEDES);
+    return factory->GetMosquito(MALARIA);
 }
 
 CleanWater::~CleanWater()
 {
+
 
 }
 

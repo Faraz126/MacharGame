@@ -18,7 +18,7 @@ void SplashScreen::Show(SDL_Renderer* gRenderer)
 {
     texture = Texture::GetInstance(gRenderer);
     SDL_Event e;
-    double iterFadeIn = 0;
+    float iterFadeIn = 0;
 
     while(iterFadeIn<255)  //fading in and out of the splash screen
     {
@@ -28,13 +28,18 @@ void SplashScreen::Show(SDL_Renderer* gRenderer)
             {
                 SDL_Quit();
             }
+            if(e.key.keysym.sym == SDLK_ESCAPE) //will open pause menu
+            {
+                iterFadeIn = 5001;
+            }
+
         }
 
         SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 0 );
         SDL_RenderClear( gRenderer );
         texture->ChangeOpactiy((int)iterFadeIn);
         texture->RenderBack(1, gRenderer,&pos2, &pos);
-        iterFadeIn += 0.1;
+        iterFadeIn += 0.5f;
         SDL_RenderPresent( gRenderer );
     }
      while(iterFadeIn<5000 && iterFadeIn>0)
@@ -44,6 +49,10 @@ void SplashScreen::Show(SDL_Renderer* gRenderer)
             if (e.type == SDL_QUIT)
             {
                 SDL_Quit();
+            }
+            if(e.key.keysym.sym == SDLK_ESCAPE) //will open pause menu
+            {
+                iterFadeIn = 5001;
             }
         }
 

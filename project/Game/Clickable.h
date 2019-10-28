@@ -13,6 +13,7 @@ class Clickable
         Clickable(){};
         Clickable(int,int,int,int);
         bool WithinRegion(int, int);
+        static bool WithinRegion(SDL_Rect&, int, int);
         virtual void UpdatePos(int,int);
         virtual bool Collides(const SDL_Rect&);
         bool Collides(const int, const int, const int, const int);
@@ -31,8 +32,9 @@ class Clickable
         virtual void Collision(){};
         virtual bool IsActive();
         virtual int DelayLidTime();
-        void SetScenario(Scenario*);
+        virtual void SetScenario(Scenario*);
         Scenario* GetScenario();
+        bool SameScenario(const Clickable* obj);
     protected:
         SDL_Rect pos;
         Scenario* currentScenario; //whether the breeding place is in in house or outdoor.

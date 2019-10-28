@@ -4,16 +4,17 @@
 ShoppingMenu::ShoppingMenu(Screens* prevScreen, bool back, bool show, bool update, int frame):Menu(prevScreen, back, show, update, frame)
 {
     shoppingPos = new SDL_Rect();
-    shoppingPos->x = 20;
-    shoppingPos->y = 680;
-    shoppingPos->w = 925;
+    shoppingPos->x = 10;
+    shoppingPos->y = 686;
+    shoppingPos->w = 950;
     shoppingPos->h = 100;
 
     house = static_cast<House*>(prevScreen);
-    shoppingExitPos.x = 910;
+    shoppingExitPos.x = 932;
     shoppingExitPos.y = 690;
     shoppingExitPos.w = 25;
     shoppingExitPos.h = 25;
+    shopShow = false;
 
 
     cancelBtn = new CancelButton(shoppingExitPos);
@@ -25,20 +26,20 @@ ShoppingMenu::ShoppingMenu(Screens* prevScreen, bool back, bool show, bool updat
     tile[3].UpdatePos(700,700);
 
     tile[0].SetValues(0);
-    tile[0].SetTileText();
+    //tile[0].SetTileText();
     tile[1].SetValues(1);
-    tile[1].SetTileText();
+    //tile[1].SetTileText();
     tile[2].SetValues(2);
-    tile[2].SetTileText();
+    //tile[2].SetTileText();
     tile[3].SetValues(3);
-    tile[3].SetTileText();
+    //tile[3].SetTileText();
 
 }
 
 
 void ShoppingMenu::Show(SDL_Renderer* gRenderer)
 {
-   SDL_SetRenderDrawColor( gRenderer, 255, 255, 255, 0);
+   SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 0);
    SDL_RenderFillRect(gRenderer,shoppingPos);
    cancelBtn->Show(gRenderer);
    for(int i=0; i<4; i++)
@@ -88,7 +89,22 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
                 SetMouseClicked(true);
                 if(e->button.button == SDL_BUTTON_LEFT)
                 {
-                    tile[i].tileState =200;
+                    int counter = 0;
+                    Texture::GetInstance()->SetChunk(MONEY);
+                    while(counter!=700)
+                    {
+                        counter++;
+
+                    }
+                    if (i ==1 && counter == 700)
+                    {
+                        Texture::GetInstance()->SetChunk(SPRAY);
+                    }
+                    if(i==2 && counter ==700)
+                    {
+                        Texture::GetInstance()->SetChunk(HAMMERING);
+                    }
+
                     if (tile[i].Buyable(house->GetMoney()))
                     {
                         tile[i].Buy(house);
@@ -101,12 +117,12 @@ void ShoppingMenu::HandleEvents(SDL_Event* e, Screens_Node&node)
             else
             {
                 SetMouseClicked(false);
-                tile[i].tileState=150;
+                tile[i].Hover();
             }
         }
         else
         {
-            tile[i].tileState=100;
+           tile[i].UnHover();
         }
 
     }
