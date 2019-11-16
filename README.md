@@ -7,11 +7,9 @@ Our OOP Game is based on creating public awareness for mosquito borne diseases a
 breeding in the first place.
 
 
-
 There are many breeding places such as trash,dirty and clean water,buckets,manholes for mosquito and that are placed randomly in the game.
 There will be a lid to cover each breeding place so that mosquitoes can not breed. 
 This works by basically dragging the specific lid of a breeding place and placing them on top of their breeding place.
-
 
 
 Each human will move about at their own pace but if they're infected they will go to their own house and lie down. 
@@ -21,16 +19,12 @@ Humans can also collide with the breeding places if there is a lid on the breedi
 cause the mosquitoes to start breeding again. 
 
 
-
-Our game will deal with both indoor and outdoor scenarios. Mosquitoes can enter inside house and can leave house through windows and door
-but they can't enter Hospital.
-
+Our game will deal with both indoor and outdoor scenarios. Mosquitoes can enter inside house and can leave house through windows and door but they can't enter Hospital.
 
 
 There will be a shopping cart in each house and there will be an allocated amount of money in each house. 
 Through the shopping cart you can buy DDT to kill the mosquitoes in your house, repellant to prevent mosquitoes to come to you, nets to cover the windows
 and badmedicine to damage the human as a person who is infected with a mosquito borne disease should not eat medicine as it will deteriorate their health.
-
 
 
 The governing factors of this game is the budget of each house and 
@@ -40,7 +34,6 @@ how quickly each infected human is brought back to health in hospital.
 
 
 Game ends when one human dies.
-
 
 
 Instructions to play this game:
